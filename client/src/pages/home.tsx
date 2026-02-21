@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -6,99 +6,9 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
-import { Mail, Phone, ArrowRight, ChevronRight, ChevronDown } from "lucide-react";
+import { Mail, Phone, ArrowRight, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-
-function HeroSection() {
-  const bgRef = useRef<HTMLDivElement>(null);
-  const watermarkRef = useRef<HTMLParagraphElement>(null);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      if (bgRef.current) {
-        bgRef.current.style.transform = `translateY(${y * 0.35}px)`;
-      }
-      if (watermarkRef.current) {
-        watermarkRef.current.style.transform = `translateY(${y * 0.15}px)`;
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <section className="relative h-screen min-h-[600px] flex items-center pt-16 overflow-hidden bg-gray-900">
-      <div ref={bgRef} className="absolute inset-0 will-change-transform">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px)" }} />
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#6B9E9E]/5 blur-3xl" />
-        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-[#1a4b99]/5 blur-3xl" />
-      </div>
-
-      <p
-        ref={watermarkRef}
-        className="hero-animate-watermark absolute bottom-8 left-4 right-4 pointer-events-none select-none text-6xl md:text-8xl lg:text-9xl font-black italic text-white/[0.07] whitespace-nowrap overflow-hidden tracking-tight will-change-transform"
-      >
-        Driven by Trust.
-      </p>
-
-      <div className="hero-animate-watermark absolute bottom-10 right-8 hidden md:block">
-        <div className="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center relative spin-slow">
-          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-            <path id="circle" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
-            <text fill="rgba(255,255,255,0.5)" fontSize="7">
-              <textPath href="#circle" letterSpacing="3">DRIVEN BY TRUST · DRIVEN BY TRUST · </textPath>
-            </text>
-          </svg>
-        </div>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full flex justify-end">
-        <div className="max-w-xl text-right">
-          <div className="hero-animate-1 overflow-hidden">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              運ぶのは、信頼。<br />
-              支えるのは、現場力。
-            </h1>
-          </div>
-          <div className="hero-animate-2">
-            <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed">
-              輸送と構内作業のプロとして、<br />
-              半世紀以上にわたり信頼に応えてきました。
-            </p>
-          </div>
-          <div className="hero-animate-3 flex gap-3 justify-end flex-wrap">
-            <Link href="/contact?type=shipper">
-              <button
-                className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
-                onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
-                data-testid="button-hero-quote"
-              >
-                <Mail className="w-4 h-4" />
-                お問い合わせはこちら
-              </button>
-            </Link>
-            <a
-              href="/#services"
-              className="flex items-center gap-2 border border-white/40 text-white hover:bg-white/10 font-medium px-6 py-3 rounded-full transition-colors text-sm"
-              data-testid="button-hero-services"
-            >
-              サービス詳細
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div className="scroll-indicator absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 hero-animate-scroll">
-        <span className="text-white/30 text-xs tracking-widest uppercase">Scroll</span>
-        <ChevronDown className="w-4 h-4 text-white/30" />
-      </div>
-    </section>
-  );
-}
 
 const faqs = [
   { q: "急な輸送依頼にも対応できますか？", a: "はい、24時間365日体制で対応しております。当日のご依頼でも、空き車両がある場合は即対応いたします。まずはお電話またはフォームでご相談ください。" },
@@ -122,7 +32,62 @@ export default function Home() {
       <Header />
 
       {/* HERO */}
-      <HeroSection />
+      <section className="relative h-screen min-h-[600px] flex items-center pt-16 overflow-hidden bg-gray-900">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
+          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px)" }} />
+        </div>
+        <div className="absolute bottom-8 left-4 right-4 pointer-events-none select-none">
+          <p className="text-6xl md:text-8xl lg:text-9xl font-black italic text-white/[0.07] whitespace-nowrap overflow-hidden tracking-tight">
+            Driven by Trust.
+          </p>
+        </div>
+        <div className="absolute bottom-10 right-8 hidden md:block">
+          <div className="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center relative">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+              <path id="circle" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+              <text fill="rgba(255,255,255,0.5)" fontSize="7">
+                <textPath href="#circle" letterSpacing="3">DRIVEN BY TRUST · DRIVEN BY TRUST · </textPath>
+              </text>
+            </svg>
+          </div>
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full flex justify-end">
+          <div className="max-w-xl text-right">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              運ぶのは、信頼。<br />
+              支えるのは、現場力。
+            </h1>
+            <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed">
+              輸送と構内作業のプロとして、<br />
+              半世紀以上にわたり信頼に応えてきました。
+            </p>
+            <div className="flex gap-3 justify-end flex-wrap">
+              <Link href="/contact?type=shipper">
+                <button
+                  className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
+                  onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
+                  data-testid="button-hero-quote"
+                >
+                  <Mail className="w-4 h-4" />
+                  お問い合わせはこちら
+                </button>
+              </Link>
+              <a
+                href="/#services"
+                className="flex items-center gap-2 border border-white/40 text-white hover:bg-white/10 font-medium px-6 py-3 rounded-full transition-colors text-sm"
+                data-testid="button-hero-services"
+              >
+                サービス詳細
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-gray-500">
+          <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
+        </div>
+      </section>
 
       {/* About section */}
       <section className="py-20 bg-white px-4">

@@ -5,7 +5,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CookieBanner } from "@/components/cookie-banner";
-import { CustomCursor } from "@/components/cursor";
 import { hasConsent, loadAnalytics, trackPageView } from "@/lib/analytics";
 import NotFound from "@/pages/not-found";
 
@@ -69,7 +68,6 @@ function AppInner() {
 
   return (
     <>
-      <CustomCursor />
       <Router />
       <CookieBanner />
     </>
