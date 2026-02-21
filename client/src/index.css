@@ -286,3 +286,34 @@
     inset: -1px;
   }
 }
+
+/* ============================================================
+   Scroll Animations
+   ============================================================ */
+
+.scroll-animate {
+  opacity: 0;
+  transition: opacity 0.65s ease, transform 0.65s ease;
+  will-change: opacity, transform;
+}
+
+.scroll-animate-up {
+  transform: translateY(32px);
+}
+
+.scroll-animate-left {
+  transform: translateX(-32px);
+}
+
+.scroll-animate-right {
+  transform: translateX(32px);
+}
+
+.scroll-animate-fade {
+  transform: none;
+}
+
+.scroll-animate.scroll-visible {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
