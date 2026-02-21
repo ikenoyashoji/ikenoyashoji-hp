@@ -4,295 +4,220 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { trackPageView, trackEvent } from "@/lib/analytics";
+import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { CheckCircle, Package, Users, Truck } from "lucide-react";
+import { Phone, Mail, CheckCircle } from "lucide-react";
 
-const contactTypes = [
-  { value: "shipper", label: "荷主・輸送依頼", icon: Package, desc: "輸送の見積もり・依頼をご希望の方" },
-  { value: "recruit", label: "採用・入社希望", icon: Users, desc: "ドライバー・スタッフとして働きたい方" },
-  { value: "partner", label: "協力会社登録", icon: Truck, desc: "協力会社・パートナーとして登録したい方" },
-];
-
-const baseSchema = z.object({
-  type: z.string(),
+const contactSchema = z.object({
+  type: z.enum(["shipper", "recruit", "partner"]),
   name: z.string().min(1, "お名前を入力してください"),
-  email: z.string().email("正しいメールアドレスを入力してください"),
-  phone: z.string().optional(),
   company: z.string().optional(),
-  message: z.string().min(1, "メッセージを入力してください"),
+  email: z.string().email("メールアドレスの形式が正しくありません"),
+  phone: z.string().optional(),
+  prefecture: z.string().optional(),
   cargoType: z.string().optional(),
-  route: z.string().optional(),
-  frequency: z.string().optional(),
-  position: z.string().optional(),
-  experience: z.string().optional(),
-  vehicleType: z.string().optional(),
-  vehicleCount: z.string().optional(),
+  message: z.string().min(10, "10文字以上入力してください"),
+  privacyAgreed: z.boolean().refine((v) => v, "プライバシーポリシーへの同意が必要です"),
 });
+
+type ContactFormValues = z.infer<typeof contactSchema>;
+
+const typeConfig = {
+  shipper: { label: "荷主・輸送のご相談", color: "text-[#1a4b99]", bg: "bg-blue-50 border-blue-200" },
+  recruit: { label: "採用のお問い合わせ", color: "text-[#c0392b]", bg: "bg-red-50 border-red-200" },
+  partner: { label: "協力会社のご登録", color: "text-[#6B9E9E]", bg: "bg-teal-50 border-teal-200" },
+};
 
 export default function Contact() {
   const search = useSearch();
-  const params = new URLSearchParams(search);
-  const defaultType = params.get("type") || "shipper";
-  const [contactType, setContactType] = useState(defaultType);
   const [submitted, setSubmitted] = useState(false);
+  const { toast } = useToast();
+
+  const params = new URLSearchParams(search);
+  const defaultType = (params.get("type") || "shipper") as "shipper" | "recruit" | "partner";
 
   useEffect(() => {
     trackPageView("/contact");
     document.title = "お問い合わせ｜アクロス物流株式会社";
   }, []);
 
-  const form = useForm({
-    resolver: zodResolver(baseSchema),
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
     defaultValues: {
-      type: contactType,
+      type: defaultType,
       name: "",
+      company: "",
       email: "",
       phone: "",
-      company: "",
-      message: "",
+      prefecture: "",
       cargoType: "",
-      route: "",
-      frequency: "",
-      position: "",
-      experience: "",
-      vehicleType: "",
-      vehicleCount: "",
+      message: "",
+      privacyAgreed: false,
     },
   });
+
+  const watchType = form.watch("type");
+  const config = typeConfig[watchType];
 
   const mutation = useMutation({
-    mutationFn: (data: any) => apiRequest("POST", "/api/contacts", data),
+    mutationFn: async (data: ContactFormValues) => {
+      return apiRequest("/api/contacts", { method: "POST", body: JSON.stringify(data) });
+    },
     onSuccess: () => {
-      const eventName = contactType === "shipper" ? "form_submit_shipper" : contactType === "recruit" ? "form_submit_recruit" : "form_submit_partner";
-      trackEvent(eventName, { type: contactType });
+      trackEvent("contact_form_submit", { type: watchType });
       setSubmitted(true);
     },
+    onError: () => {
+      toast({ title: "送信に失敗しました", description: "しばらく経ってから再度お試しください。", variant: "destructive" });
+    },
   });
-
-  const onSubmit = (data: any) => {
-    mutation.mutate({ ...data, type: contactType });
-  };
-
-  const changeType = (type: string) => {
-    setContactType(type);
-    form.setValue("type", type);
-  };
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
-        <main className="flex-1 pt-16 flex items-center justify-center px-4">
+        <div className="flex-1 flex items-center justify-center px-4 pt-16">
           <div className="text-center max-w-md">
-            <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="w-10 h-10 text-green-600" />
+            <div className="w-20 h-20 rounded-full bg-[#6B9E9E]/20 flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="w-10 h-10 text-[#6B9E9E]" />
             </div>
-            <h1 className="text-2xl font-black text-[#0f2044] mb-3">お問い合わせを受け付けました</h1>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              ご連絡いただきありがとうございます。<br />
-              担当者より1〜2営業日以内にご連絡いたします。<br />
-              緊急の場合はお電話（03-1234-5678）にてお問い合わせください。
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">送信完了しました</h2>
+            <p className="text-gray-500 text-sm leading-relaxed mb-6">
+              お問い合わせありがとうございます。担当者より2営業日以内にご連絡いたします。
             </p>
-            <a href="/" className="text-blue-600 hover:underline text-sm">トップページへ戻る</a>
+            <a href="/" className="text-[#c0392b] hover:underline text-sm">ホームに戻る</a>
           </div>
-        </main>
+        </div>
         <Footer />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <section className="pt-16 bg-[#0f2044]">
-        <div className="max-w-3xl mx-auto px-4 py-12 text-center">
-          <span className="text-amber-400 font-semibold text-sm tracking-widest">CONTACT</span>
-          <h1 className="text-3xl md:text-4xl font-black text-white mt-2">お問い合わせ</h1>
-          <p className="text-blue-200 mt-3 text-sm">お気軽にご連絡ください。通常30分〜1営業日以内にご返答いたします。</p>
-        </div>
-      </section>
+      <section className="pt-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4 py-12">
+          <span className="text-[#c0392b] font-black text-4xl italic font-serif">Contact</span>
+          <p className="text-gray-400 text-sm mt-1 mb-8">お問い合わせ</p>
 
-      <section className="py-12 bg-slate-50 px-4 flex-1">
-        <div className="max-w-3xl mx-auto">
-          <div className="mb-8">
-            <p className="text-sm font-semibold text-[#0f2044] mb-3">お問い合わせの種類を選択してください</p>
-            <div className="grid sm:grid-cols-3 gap-3">
-              {contactTypes.map((ct) => (
-                <button
-                  key={ct.value}
-                  onClick={() => changeType(ct.value)}
-                  className={`p-4 rounded-lg border-2 text-left transition-all ${contactType === ct.value ? "border-[#0f2044] bg-[#0f2044] text-white" : "border-card-border bg-white hover:border-blue-300"}`}
-                  data-testid={`button-contact-type-${ct.value}`}
-                >
-                  <ct.icon className={`w-5 h-5 mb-2 ${contactType === ct.value ? "text-amber-400" : "text-[#0f2044]"}`} />
-                  <div className={`font-bold text-sm mb-0.5 ${contactType === ct.value ? "text-white" : "text-[#0f2044]"}`}>{ct.label}</div>
-                  <div className={`text-xs ${contactType === ct.value ? "text-blue-200" : "text-muted-foreground"}`}>{ct.desc}</div>
-                </button>
-              ))}
+          <div className="grid md:grid-cols-3 gap-4 mb-10">
+            <a href="tel:0312345678" className="border border-gray-200 rounded-lg p-5 hover:border-[#c0392b] transition-colors hover-elevate flex items-center gap-3" data-testid="link-contact-tel">
+              <Phone className="w-5 h-5 text-[#c0392b] flex-shrink-0" />
+              <div>
+                <div className="text-xs text-gray-400">お電話</div>
+                <div className="text-gray-800 font-bold">03-1234-5678</div>
+                <div className="text-xs text-gray-400">平日 9:00〜18:00</div>
+              </div>
+            </a>
+            <a href="mailto:info@across-logistics.co.jp" className="border border-gray-200 rounded-lg p-5 hover:border-[#c0392b] transition-colors hover-elevate flex items-center gap-3" data-testid="link-contact-email">
+              <Mail className="w-5 h-5 text-[#c0392b] flex-shrink-0" />
+              <div>
+                <div className="text-xs text-gray-400">メール</div>
+                <div className="text-gray-700 text-sm">info@across-logistics.co.jp</div>
+                <div className="text-xs text-gray-400">24時間受付</div>
+              </div>
+            </a>
+            <div className="border border-gray-200 rounded-lg p-5 flex items-start gap-3">
+              <span className="text-lg">📍</span>
+              <div>
+                <div className="text-xs text-gray-400">本社所在地</div>
+                <div className="text-gray-700 text-xs leading-relaxed mt-1">〒135-0001<br />東京都江東区東陽1-1-1</div>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl border border-card-border p-6 md:p-8">
+          <div className="bg-white border border-gray-200 rounded-xl p-6 md:p-8">
+            <h2 className="font-bold text-gray-800 text-lg mb-6">お問い合わせフォーム</h2>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                <div className="grid sm:grid-cols-2 gap-4">
+              <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-5">
+                <FormField
+                  control={form.control}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm text-gray-600">お問い合わせ種別</FormLabel>
+                      <div className="grid grid-cols-3 gap-2">
+                        {(Object.entries(typeConfig) as [string, (typeof typeConfig)[keyof typeof typeConfig]][]).map(([key, cfg]) => (
+                          <button
+                            key={key}
+                            type="button"
+                            onClick={() => field.onChange(key)}
+                            className={`px-3 py-2 rounded-lg border text-xs font-medium transition-colors ${field.value === key ? `${cfg.bg} ${cfg.color} border-current` : "border-gray-200 text-gray-500"}`}
+                            data-testid={`button-type-${key}`}
+                          >
+                            {cfg.label}
+                          </button>
+                        ))}
+                      </div>
+                    </FormItem>
+                  )}
+                />
+
+                <div className="grid md:grid-cols-2 gap-5">
                   <FormField control={form.control} name="name" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-semibold text-[#0f2044]">お名前 <span className="text-red-500">*</span></FormLabel>
-                      <FormControl><Input placeholder="山田 太郎" {...field} data-testid="input-name" /></FormControl>
-                      <FormMessage />
+                      <FormLabel className="text-sm text-gray-600">お名前 <span className="text-red-500">*</span></FormLabel>
+                      <FormControl><Input {...field} placeholder="山田 太郎" className="border-gray-200 text-sm" data-testid="input-name" /></FormControl>
+                      <FormMessage className="text-xs" />
                     </FormItem>
                   )} />
                   <FormField control={form.control} name="company" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-semibold text-[#0f2044]">会社名・屋号</FormLabel>
-                      <FormControl><Input placeholder="株式会社〇〇" {...field} data-testid="input-company" /></FormControl>
-                      <FormMessage />
+                      <FormLabel className="text-sm text-gray-600">会社名・屋号</FormLabel>
+                      <FormControl><Input {...field} placeholder="株式会社〇〇" className="border-gray-200 text-sm" data-testid="input-company" /></FormControl>
                     </FormItem>
                   )} />
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4">
                   <FormField control={form.control} name="email" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-semibold text-[#0f2044]">メールアドレス <span className="text-red-500">*</span></FormLabel>
-                      <FormControl><Input type="email" placeholder="info@example.com" {...field} data-testid="input-email" /></FormControl>
-                      <FormMessage />
+                      <FormLabel className="text-sm text-gray-600">メールアドレス <span className="text-red-500">*</span></FormLabel>
+                      <FormControl><Input {...field} type="email" placeholder="info@example.com" className="border-gray-200 text-sm" data-testid="input-email" /></FormControl>
+                      <FormMessage className="text-xs" />
                     </FormItem>
                   )} />
                   <FormField control={form.control} name="phone" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-semibold text-[#0f2044]">電話番号</FormLabel>
-                      <FormControl><Input type="tel" placeholder="03-1234-5678" {...field} data-testid="input-phone" /></FormControl>
-                      <FormMessage />
+                      <FormLabel className="text-sm text-gray-600">電話番号</FormLabel>
+                      <FormControl><Input {...field} type="tel" placeholder="03-XXXX-XXXX" className="border-gray-200 text-sm" data-testid="input-phone" /></FormControl>
                     </FormItem>
                   )} />
                 </div>
 
-                {contactType === "shipper" && (
-                  <>
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <FormField control={form.control} name="cargoType" render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-sm font-semibold text-[#0f2044]">荷物の種類</FormLabel>
-                          <FormControl>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <SelectTrigger data-testid="select-cargo-type"><SelectValue placeholder="選択してください" /></SelectTrigger>
-                              <SelectContent>
-                                {["一般貨物", "食品・飲料", "精密機器", "建設資材", "危険物", "冷凍冷蔵品", "その他"].map((v) => (
-                                  <SelectItem key={v} value={v}>{v}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )} />
-                      <FormField control={form.control} name="frequency" render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-sm font-semibold text-[#0f2044]">輸送頻度</FormLabel>
-                          <FormControl>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <SelectTrigger data-testid="select-frequency"><SelectValue placeholder="選択してください" /></SelectTrigger>
-                              <SelectContent>
-                                {["スポット（単発）", "週1〜2回", "週3〜4回", "毎日", "月数回", "未定"].map((v) => (
-                                  <SelectItem key={v} value={v}>{v}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )} />
-                    </div>
-                    <FormField control={form.control} name="route" render={({ field }) => (
+                {watchType === "shipper" && (
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <FormField control={form.control} name="prefecture" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm font-semibold text-[#0f2044]">輸送ルート（例：東京〜大阪）</FormLabel>
-                        <FormControl><Input placeholder="例：東京都江東区→埼玉県さいたま市" {...field} data-testid="input-route" /></FormControl>
-                        <FormMessage />
+                        <FormLabel className="text-sm text-gray-600">発送元都道府県</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl><SelectTrigger className="border-gray-200 text-sm" data-testid="select-prefecture"><SelectValue placeholder="都道府県を選択" /></SelectTrigger></FormControl>
+                          <SelectContent>
+                            {["東京都", "神奈川県", "千葉県", "埼玉県", "茨城県", "栃木県", "群馬県", "その他"].map((p) => (
+                              <SelectItem key={p} value={p}>{p}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </FormItem>
                     )} />
-                  </>
-                )}
-
-                {contactType === "recruit" && (
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <FormField control={form.control} name="position" render={({ field }) => (
+                    <FormField control={form.control} name="cargoType" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm font-semibold text-[#0f2044]">希望職種</FormLabel>
-                        <FormControl>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <SelectTrigger data-testid="select-position"><SelectValue placeholder="選択してください" /></SelectTrigger>
-                            <SelectContent>
-                              {["トラックドライバー（正社員）", "トラックドライバー（アルバイト）", "配車担当スタッフ", "営業担当スタッフ", "その他・相談したい"].map((v) => (
-                                <SelectItem key={v} value={v}>{v}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )} />
-                    <FormField control={form.control} name="experience" render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-sm font-semibold text-[#0f2044]">運転経験</FormLabel>
-                        <FormControl>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <SelectTrigger data-testid="select-experience"><SelectValue placeholder="選択してください" /></SelectTrigger>
-                            <SelectContent>
-                              {["未経験", "1年未満", "1〜3年", "3〜5年", "5〜10年", "10年以上"].map((v) => (
-                                <SelectItem key={v} value={v}>{v}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )} />
-                  </div>
-                )}
-
-                {contactType === "partner" && (
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <FormField control={form.control} name="vehicleType" render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-sm font-semibold text-[#0f2044]">保有車両の種類</FormLabel>
-                        <FormControl>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <SelectTrigger data-testid="select-vehicle-type"><SelectValue placeholder="選択してください" /></SelectTrigger>
-                            <SelectContent>
-                              {["軽バン・軽トラック", "2tトラック", "4tトラック", "10tトラック（大型）", "冷凍・冷蔵車", "その他"].map((v) => (
-                                <SelectItem key={v} value={v}>{v}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )} />
-                    <FormField control={form.control} name="vehicleCount" render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-sm font-semibold text-[#0f2044]">保有台数</FormLabel>
-                        <FormControl>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <SelectTrigger data-testid="select-vehicle-count"><SelectValue placeholder="選択してください" /></SelectTrigger>
-                            <SelectContent>
-                              {["1台（個人）", "2〜5台", "6〜10台", "11〜20台", "21台以上"].map((v) => (
-                                <SelectItem key={v} value={v}>{v}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
+                        <FormLabel className="text-sm text-gray-600">主な貨物種類</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl><SelectTrigger className="border-gray-200 text-sm" data-testid="select-cargo-type"><SelectValue placeholder="貨物種類を選択" /></SelectTrigger></FormControl>
+                          <SelectContent>
+                            {["一般貨物", "精密機器・電子部品", "食品・冷凍食品", "建設資材・重量物", "危険物（要確認）", "その他"].map((c) => (
+                              <SelectItem key={c} value={c}>{c}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </FormItem>
                     )} />
                   </div>
@@ -300,44 +225,34 @@ export default function Contact() {
 
                 <FormField control={form.control} name="message" render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-semibold text-[#0f2044]">
-                      {contactType === "shipper" ? "ご要望・ご質問" : contactType === "recruit" ? "自己PR・ご質問" : "ご質問・メッセージ"}
-                      <span className="text-red-500 ml-1">*</span>
-                    </FormLabel>
+                    <FormLabel className="text-sm text-gray-600">お問い合わせ内容 <span className="text-red-500">*</span></FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder={
-                          contactType === "shipper"
-                            ? "輸送の詳細、スケジュール、特記事項などをお知らせください"
-                            : contactType === "recruit"
-                            ? "志望動機や保有資格などをご記入ください"
-                            : "保有車両の詳細、稼働エリア、希望条件などをお知らせください"
-                        }
-                        rows={5}
-                        {...field}
-                        data-testid="textarea-message"
-                      />
+                      <Textarea {...field} rows={5} placeholder="ご依頼内容・ご質問などをご記入ください" className="border-gray-200 text-sm resize-none" data-testid="textarea-message" />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-xs" />
                   </FormItem>
                 )} />
 
-                <div className="text-xs text-muted-foreground">
-                  送信することで<a href="/privacy" className="text-blue-600 hover:underline">プライバシーポリシー</a>に同意したものとみなされます。
-                </div>
+                <FormField control={form.control} name="privacyAgreed" render={({ field }) => (
+                  <FormItem className="flex items-start gap-2">
+                    <FormControl>
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5" data-testid="checkbox-privacy" />
+                    </FormControl>
+                    <div className="text-sm text-gray-600">
+                      <a href="/privacy" target="_blank" className="text-[#1a4b99] hover:underline">プライバシーポリシー</a>に同意する <span className="text-red-500">*</span>
+                    </div>
+                    <FormMessage className="text-xs" />
+                  </FormItem>
+                )} />
 
-                <Button
+                <button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full bg-amber-500 text-white font-black border-amber-400 text-base py-3"
-                  data-testid="button-contact-submit"
+                  className="w-full bg-[#c0392b] hover:bg-[#a93226] disabled:opacity-50 text-white font-medium py-3 rounded-full transition-colors text-sm"
+                  data-testid="button-submit"
                 >
                   {mutation.isPending ? "送信中..." : "送信する"}
-                </Button>
-
-                {mutation.isError && (
-                  <p className="text-red-500 text-sm text-center">送信に失敗しました。お電話でお問い合わせください。</p>
-                )}
+                </button>
               </form>
             </Form>
           </div>

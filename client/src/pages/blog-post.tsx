@@ -61,7 +61,7 @@ export default function BlogPost() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
         <main className="flex-1 pt-16 py-12 px-4">
           <div className="max-w-3xl mx-auto">
@@ -78,13 +78,13 @@ export default function BlogPost() {
 
   if (error || !article) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
         <main className="flex-1 pt-16 flex items-center justify-center">
           <div className="text-center">
-            <div className="text-6xl font-black text-slate-200 mb-4">404</div>
-            <p className="text-muted-foreground mb-4">記事が見つかりませんでした</p>
-            <Link href="/blog" className="text-blue-600 hover:underline flex items-center justify-center gap-1">
+            <div className="text-6xl font-black text-gray-200 mb-4">404</div>
+            <p className="text-gray-400 mb-4">記事が見つかりませんでした</p>
+            <Link href="/blog" className="text-[#1a4b99] hover:underline flex items-center justify-center gap-1 text-sm">
               <ArrowLeft className="w-4 h-4" /> ブログ一覧へ
             </Link>
           </div>
@@ -95,25 +95,26 @@ export default function BlogPost() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       <main className="flex-1 pt-16">
-        <div className="bg-[#0f2044] py-10 px-4">
+        {/* Article header */}
+        <div className="bg-white border-b border-gray-100 py-10 px-4">
           <div className="max-w-3xl mx-auto">
-            <Link href="/blog" className="text-blue-300 text-sm flex items-center gap-1 mb-4 hover:text-white transition-colors">
-              <ArrowLeft className="w-3.5 h-3.5" /> ブログ一覧
+            <Link href="/blog" className="text-gray-400 text-sm flex items-center gap-1 mb-5 hover:text-[#1a4b99] transition-colors">
+              <ArrowLeft className="w-3.5 h-3.5" /> お知らせ一覧
             </Link>
             <div className="flex flex-wrap gap-2 mb-4">
-              <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/30">{article.category}</Badge>
+              <Badge className="bg-[#1a4b99]/10 text-[#1a4b99] border-[#1a4b99]/20 text-xs">{article.category}</Badge>
               {article.tags?.map((t: string) => (
-                <span key={t} className="flex items-center gap-1 text-blue-300 text-xs">
+                <span key={t} className="flex items-center gap-1 text-gray-400 text-xs">
                   <Tag className="w-3 h-3" />{t}
                 </span>
               ))}
             </div>
-            <h1 className="text-2xl md:text-3xl font-black text-white leading-tight mb-4">{article.title}</h1>
-            <div className="flex items-center gap-4 text-blue-300 text-xs">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight mb-4">{article.title}</h1>
+            <div className="flex items-center gap-4 text-gray-400 text-xs">
               {article.publishedAt && (
                 <span className="flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5" />
@@ -127,27 +128,27 @@ export default function BlogPost() {
 
         <div className="max-w-3xl mx-auto px-4 py-10">
           {article.metaDescription && (
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-              <p className="text-blue-800 text-sm leading-relaxed">{article.metaDescription}</p>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-8">
+              <p className="text-gray-600 text-sm leading-relaxed">{article.metaDescription}</p>
             </div>
           )}
 
           {headings.length > 0 && (
-            <div className="bg-slate-50 border border-card-border rounded-lg p-4 mb-8">
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-8">
               <button
-                className="flex items-center gap-2 text-[#0f2044] font-bold text-sm w-full"
+                className="flex items-center gap-2 text-gray-800 font-bold text-sm w-full"
                 onClick={() => setTocOpen(!tocOpen)}
                 data-testid="button-toc-toggle"
               >
-                <List className="w-4 h-4" />
+                <List className="w-4 h-4 text-[#6B9E9E]" />
                 目次
-                <ChevronRight className={`w-4 h-4 ml-auto transition-transform ${tocOpen ? "rotate-90" : ""}`} />
+                <ChevronRight className={`w-4 h-4 ml-auto transition-transform text-gray-400 ${tocOpen ? "rotate-90" : ""}`} />
               </button>
               {tocOpen && (
                 <ol className="mt-3 space-y-1">
                   {headings.map((h, i) => (
                     <li key={i} className={`text-sm ${h.level === 3 ? "pl-4" : ""}`}>
-                      <span className="text-blue-600 hover:text-blue-800 cursor-pointer">{h.text}</span>
+                      <span className="text-[#1a4b99] hover:text-[#c0392b] cursor-pointer transition-colors">{h.text}</span>
                     </li>
                   ))}
                 </ol>
@@ -156,47 +157,47 @@ export default function BlogPost() {
           )}
 
           <div
-            className="prose prose-slate max-w-none prose-headings:text-[#0f2044] prose-headings:font-black prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-base prose-h3:mt-6 prose-h3:mb-3 prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground prose-strong:text-[#0f2044]"
+            className="prose prose-slate max-w-none prose-headings:text-gray-800 prose-headings:font-bold prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-base prose-h3:mt-6 prose-h3:mb-3 prose-p:text-gray-500 prose-p:leading-relaxed prose-li:text-gray-500 prose-strong:text-gray-800"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
 
           {faqData.length > 0 && (
             <div className="mt-12">
               <Separator className="mb-8" />
-              <h2 className="text-xl font-black text-[#0f2044] mb-6">よくある質問</h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-6">よくある質問</h2>
               <Accordion type="single" collapsible className="space-y-2">
                 {faqData.map((faq: any, i: number) => (
-                  <AccordionItem key={i} value={`faq-${i}`} className="bg-slate-50 border border-card-border rounded-lg px-5" data-testid={`faq-article-${i}`}>
-                    <AccordionTrigger className="text-[#0f2044] font-semibold text-sm text-left py-4">{faq.q}</AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-4">{faq.a}</AccordionContent>
+                  <AccordionItem key={i} value={`faq-${i}`} className="bg-gray-50 border border-gray-200 rounded-lg px-5" data-testid={`faq-article-${i}`}>
+                    <AccordionTrigger className="text-gray-800 font-semibold text-sm text-left py-4">{faq.q}</AccordionTrigger>
+                    <AccordionContent className="text-gray-500 text-sm leading-relaxed pb-4">{faq.a}</AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
             </div>
           )}
 
-          <div className="mt-10 pt-8 border-t border-border">
+          <div className="mt-10 pt-8 border-t border-gray-100">
             <div className="flex items-center gap-3 flex-wrap">
-              <span className="text-sm font-semibold text-[#0f2044] flex items-center gap-1">
+              <span className="text-sm font-semibold text-gray-600 flex items-center gap-1">
                 <Share2 className="w-4 h-4" /> この記事をシェア
               </span>
               <button
                 onClick={() => share("twitter")}
-                className="bg-black text-white text-xs px-3 py-1.5 rounded hover:bg-slate-800 transition-colors"
+                className="bg-gray-900 text-white text-xs px-3 py-1.5 rounded-full hover:bg-gray-700 transition-colors"
                 data-testid="button-share-twitter"
               >
                 X (Twitter)
               </button>
               <button
                 onClick={() => share("line")}
-                className="bg-green-500 text-white text-xs px-3 py-1.5 rounded hover:bg-green-600 transition-colors"
+                className="bg-green-500 text-white text-xs px-3 py-1.5 rounded-full hover:bg-green-600 transition-colors"
                 data-testid="button-share-line"
               >
                 LINE
               </button>
               <button
                 onClick={() => share("copy")}
-                className="bg-slate-100 text-slate-700 text-xs px-3 py-1.5 rounded hover:bg-slate-200 transition-colors border border-slate-200"
+                className="bg-gray-100 text-gray-600 text-xs px-3 py-1.5 rounded-full hover:bg-gray-200 transition-colors border border-gray-200"
                 data-testid="button-share-copy"
               >
                 URLをコピー
@@ -207,13 +208,13 @@ export default function BlogPost() {
           {related.length > 0 && (
             <div className="mt-12">
               <Separator className="mb-8" />
-              <h2 className="text-xl font-black text-[#0f2044] mb-6">関連記事</h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-6">関連記事</h2>
               <div className="grid sm:grid-cols-3 gap-4">
                 {related.map((a: any) => (
                   <Link key={a.id} href={`/blog/${a.slug}`}>
-                    <div className="bg-slate-50 border border-card-border rounded-lg p-4 hover-elevate cursor-pointer h-full">
-                      <Badge variant="outline" className="text-xs mb-2">{a.category}</Badge>
-                      <p className="text-sm font-semibold text-[#0f2044] line-clamp-3 leading-snug">{a.title}</p>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 hover-elevate cursor-pointer h-full">
+                      <span className="inline-block text-xs text-[#1a4b99] bg-[#1a4b99]/10 px-2 py-0.5 rounded mb-2">{a.category}</span>
+                      <p className="text-sm font-semibold text-gray-800 line-clamp-3 leading-snug">{a.title}</p>
                     </div>
                   </Link>
                 ))}

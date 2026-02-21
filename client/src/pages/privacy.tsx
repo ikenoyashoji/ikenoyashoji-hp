@@ -10,90 +10,71 @@ export default function Privacy() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
+      <main className="flex-1 pt-16">
+        <div className="max-w-3xl mx-auto px-4 py-12">
+          <span className="text-[#c0392b] font-black text-3xl italic font-serif">Privacy Policy</span>
+          <p className="text-gray-400 text-sm mt-1 mb-10">プライバシーポリシー</p>
 
-      <section className="pt-16 bg-[#0f2044]">
-        <div className="max-w-4xl mx-auto px-4 py-12">
-          <h1 className="text-2xl md:text-3xl font-black text-white">プライバシーポリシー</h1>
-          <p className="text-blue-200 mt-2 text-sm">最終更新日：2024年4月1日</p>
-        </div>
-      </section>
-
-      <main className="flex-1 py-12 px-4 bg-white">
-        <div className="max-w-4xl mx-auto prose prose-slate max-w-none prose-headings:text-[#0f2044] prose-headings:font-bold prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-3 prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground text-sm">
-
-          <p>アクロス物流株式会社（以下「当社」）は、お客様の個人情報の保護を重要な責務と認識し、以下のプライバシーポリシーを定めます。</p>
-
-          <h2 id="personal-info">第1条（個人情報の定義）</h2>
-          <p>「個人情報」とは、個人情報保護法に定める個人情報を指し、生存する個人に関する情報であって、氏名、住所、電話番号、メールアドレスその他の記述等により特定の個人を識別できるもの（他の情報と容易に照合することができ、それにより特定の個人を識別することができることとなるものを含む）をいいます。</p>
-
-          <h2>第2条（個人情報の収集）</h2>
-          <p>当社は、以下の方法で個人情報を収集することがあります：</p>
-          <ul>
-            <li>お問い合わせフォームへの入力</li>
-            <li>電話・メールでのお問い合わせ</li>
-            <li>採用応募フォームへの入力</li>
-            <li>協力会社登録フォームへの入力</li>
-            <li>Webサイトのアクセスログ（Cookie等）</li>
-          </ul>
-
-          <h2>第3条（個人情報の利用目的）</h2>
-          <p>当社が収集した個人情報は、以下の目的で利用します：</p>
-          <ul>
-            <li>お問い合わせへの回答・対応</li>
-            <li>輸送サービスの提供・見積もりの送付</li>
-            <li>採用選考・採用連絡</li>
-            <li>協力会社登録・案件案内</li>
-            <li>サービス改善のための分析</li>
-            <li>法令に基づく対応</li>
-          </ul>
-
-          <h2>第4条（個人情報の第三者提供）</h2>
-          <p>当社は、以下の場合を除き、お客様の個人情報を第三者に提供することはありません：</p>
-          <ul>
-            <li>お客様の同意がある場合</li>
-            <li>法令に基づく場合</li>
-            <li>人の生命、身体または財産の保護のために必要がある場合</li>
-            <li>公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合</li>
-          </ul>
-
-          <h2>第5条（アクセス解析ツールについて）</h2>
-          <p>当社は、Webサイトの利用状況を分析するため、以下のツールを使用しています：</p>
-          <ul>
-            <li><strong>Google Analytics 4（GA4）</strong>：Googleが提供するアクセス解析サービスです。Cookieを使用してアクセス情報を収集します。収集されたデータはGoogleのプライバシーポリシーに従って管理されます。</li>
-            <li><strong>Microsoft Clarity</strong>：Microsoftが提供するヒートマップ・セッション録画サービスです。ユーザーの操作をCookieで追跡します。</li>
-          </ul>
-          <p>これらのツールはお客様の明示的な同意（Cookieバナーでの「同意」クリック）後にのみ有効化されます。</p>
-          <p>なお、当社は都道府県別のアクセス統計も収集しています。これはIPアドレスから推定した<strong>「推定」</strong>値であり、精度は参考レベルです。</p>
-
-          <h2>第6条（Cookieについて）</h2>
-          <p>当社は、Cookieを使用することがあります。お客様はブラウザの設定でCookieを無効にすることができますが、その場合一部のサービスが正常に機能しない場合があります。</p>
-
-          <h2 id="disclaimer">第7条（免責事項）</h2>
-          <p>当社Webサイトのコンテンツや情報については正確性に努めていますが、その内容の完全性・正確性・最新性について保証するものではありません。当社Webサイトの利用に起因するいかなる損害についても、当社は責任を負いません。</p>
-          <p>また、当社Webサイトからリンクされた外部Webサイトの内容については、当社は関知しておりません。</p>
-
-          <h2>第8条（個人情報の安全管理）</h2>
-          <p>当社は、収集した個人情報の漏洩、紛失、改ざんを防止するため、適切な安全管理措置を講じます。個人情報を取り扱う従業員に対して、適切な教育・監督を実施します。</p>
-
-          <h2>第9条（個人情報の開示・訂正・削除）</h2>
-          <p>お客様は、当社が保有する自己の個人情報について、開示・訂正・削除を請求することができます。下記お問い合わせ窓口までご連絡ください。</p>
-
-          <h2>第10条（プライバシーポリシーの変更）</h2>
-          <p>当社は、法令の改正等に応じて本プライバシーポリシーを適宜見直し、改定することがあります。変更後のプライバシーポリシーは当サイトに掲載した時点から有効とします。</p>
-
-          <h2>第11条（お問い合わせ窓口）</h2>
-          <p>個人情報の取扱いに関するお問い合わせは、以下の窓口までご連絡ください：</p>
-          <p>
-            アクロス物流株式会社 個人情報取扱窓口<br />
-            住所：〒135-0001 東京都江東区東陽1-1-1<br />
-            電話：03-1234-5678（平日9:00〜18:00）<br />
-            Email：privacy@across-logistics.co.jp
-          </p>
+          <div className="prose prose-sm max-w-none text-gray-600 space-y-8">
+            <section>
+              <h2 className="text-lg font-bold text-gray-800 mb-3">1. 個人情報の取り扱いについて</h2>
+              <p className="leading-relaxed">アクロス物流株式会社（以下「当社」）は、お客様の個人情報の取り扱いについて、個人情報の保護に関する法律（個人情報保護法）その他関係法令を遵守し、適切に管理いたします。</p>
+            </section>
+            <section>
+              <h2 className="text-lg font-bold text-gray-800 mb-3">2. 収集する個人情報の種類</h2>
+              <ul className="list-disc pl-5 space-y-1 leading-relaxed">
+                <li>氏名、会社名、部署名、役職</li>
+                <li>住所、電話番号、メールアドレス</li>
+                <li>お問い合わせ内容、ご利用サービスに関する情報</li>
+                <li>ウェブサイトのアクセスログ（IPアドレス、Cookie情報等）</li>
+              </ul>
+            </section>
+            <section>
+              <h2 className="text-lg font-bold text-gray-800 mb-3">3. 個人情報の利用目的</h2>
+              <ul className="list-disc pl-5 space-y-1 leading-relaxed">
+                <li>お問い合わせへの対応・回答</li>
+                <li>サービスのご提供・ご案内</li>
+                <li>採用活動における選考および連絡</li>
+                <li>協力会社登録審査および業務委託</li>
+                <li>法令に基づく対応</li>
+              </ul>
+            </section>
+            <section>
+              <h2 className="text-lg font-bold text-gray-800 mb-3">4. 個人情報の第三者提供</h2>
+              <p className="leading-relaxed">当社は、以下の場合を除き、ご本人の同意なく個人情報を第三者に提供することはありません。</p>
+              <ul className="list-disc pl-5 space-y-1 mt-2 leading-relaxed">
+                <li>法令に基づく場合</li>
+                <li>人の生命・身体・財産の保護のために必要な場合</li>
+                <li>公衆衛生の向上・児童の健全な育成のために必要な場合</li>
+              </ul>
+            </section>
+            <section>
+              <h2 className="text-lg font-bold text-gray-800 mb-3">5. Cookieについて</h2>
+              <p className="leading-relaxed">当社のウェブサイトでは、Google Analytics（GA4）およびMicrosoft Clarityを利用して、ウェブサイトのアクセス状況を分析しています。これらのサービスはCookieを使用します。Cookieの使用はお客様の同意に基づきます。</p>
+            </section>
+            <section>
+              <h2 className="text-lg font-bold text-gray-800 mb-3">6. 個人情報の安全管理</h2>
+              <p className="leading-relaxed">当社は、個人情報への不正アクセス、紛失、破壊、改ざん、漏えい等を防止するため、適切な安全管理措置を講じます。</p>
+            </section>
+            <section>
+              <h2 className="text-lg font-bold text-gray-800 mb-3">7. 個人情報の開示・訂正・削除</h2>
+              <p className="leading-relaxed">ご本人から個人情報の開示・訂正・削除をご希望の場合は、以下の問い合わせ窓口までご連絡ください。</p>
+            </section>
+            <section>
+              <h2 className="text-lg font-bold text-gray-800 mb-3">8. お問い合わせ</h2>
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                <p className="font-semibold text-gray-800 mb-1">アクロス物流株式会社 個人情報管理担当</p>
+                <p>〒135-0001 東京都江東区東陽1-1-1</p>
+                <p>TEL: 03-1234-5678</p>
+                <p>Email: privacy@across-logistics.co.jp</p>
+              </div>
+            </section>
+            <p className="text-gray-400 text-xs">制定日：2024年4月1日 / 最終改定日：2025年1月1日</p>
+          </div>
         </div>
       </main>
-
       <Footer />
     </div>
   );
