@@ -1,15 +1,15 @@
 export function JapanMapHero() {
   const kanagawa = { x: 158, y: 148 };
 
-  const arcs = [
-    { id: "sapporo",   from: { x: 162, y: 35  }, cp: { x: 210, y: 85  }, delay: "0s"   },
-    { id: "sendai",    from: { x: 174, y: 95  }, cp: { x: 210, y: 118 }, delay: "0.6s" },
-    { id: "niigata",   from: { x: 140, y: 115 }, cp: { x: 185, y: 100 }, delay: "1.1s" },
-    { id: "nagoya",    from: { x: 132, y: 170 }, cp: { x: 90,  y: 128 }, delay: "1.6s" },
-    { id: "osaka",     from: { x: 118, y: 182 }, cp: { x: 65,  y: 145 }, delay: "2.1s" },
-    { id: "hiroshima", from: { x: 97,  y: 202 }, cp: { x: 38,  y: 165 }, delay: "2.6s" },
-    { id: "fukuoka",   from: { x: 76,  y: 220 }, cp: { x: 18,  y: 182 }, delay: "3.1s" },
-    { id: "nagasaki",  from: { x: 65,  y: 235 }, cp: { x: 8,   y: 196 }, delay: "3.6s" },
+  const destinations = [
+    { id: "sapporo",   to: { x: 162, y: 35  }, cp: { x: 210, y: 85  }, delay: "0s"   },
+    { id: "sendai",    to: { x: 174, y: 95  }, cp: { x: 210, y: 118 }, delay: "0.6s" },
+    { id: "niigata",   to: { x: 140, y: 115 }, cp: { x: 185, y: 100 }, delay: "1.1s" },
+    { id: "nagoya",    to: { x: 132, y: 170 }, cp: { x: 90,  y: 128 }, delay: "1.6s" },
+    { id: "osaka",     to: { x: 118, y: 182 }, cp: { x: 65,  y: 145 }, delay: "2.1s" },
+    { id: "hiroshima", to: { x: 97,  y: 202 }, cp: { x: 38,  y: 165 }, delay: "2.6s" },
+    { id: "fukuoka",   to: { x: 76,  y: 220 }, cp: { x: 18,  y: 182 }, delay: "3.1s" },
+    { id: "nagasaki",  to: { x: 65,  y: 235 }, cp: { x: 8,   y: 196 }, delay: "3.6s" },
   ];
 
   const japanPaths = [
@@ -50,19 +50,19 @@ export function JapanMapHero() {
             100% { stroke-dashoffset: 0; opacity: 0; }
           }
           @keyframes pulseOuter {
-            0%, 100% { r: 10; opacity: 0.15; }
-            50%       { r: 16; opacity: 0.05; }
+            0%, 100% { r: 10; opacity: 0.2; }
+            50%       { r: 18; opacity: 0.06; }
           }
           @keyframes pulseMid {
-            0%, 100% { r: 5; opacity: 0.4; }
-            50%       { r: 8; opacity: 0.2; }
+            0%, 100% { r: 5; opacity: 0.5; }
+            50%       { r: 9; opacity: 0.2; }
           }
           @keyframes blinkDot {
             0%, 100% { opacity: 1; }
             50%       { opacity: 0.6; }
           }
-          @keyframes originPulse {
-            0%, 100% { opacity: 0.6; r: 2.5; }
+          @keyframes destPulse {
+            0%, 100% { opacity: 0.5; r: 2.5; }
             50%       { opacity: 1; r: 3.5; }
           }
         `}</style>
@@ -75,11 +75,11 @@ export function JapanMapHero() {
         clipPath="url(#japanClip)"
       />
 
-      {/* Animated arcs from cities to Kanagawa */}
-      {arcs.map((arc) => (
+      {/* Animated arcs FROM Kanagawa TO each city */}
+      {destinations.map((dest) => (
         <path
-          key={arc.id}
-          d={`M ${arc.from.x} ${arc.from.y} Q ${arc.cp.x} ${arc.cp.y} ${kanagawa.x} ${kanagawa.y}`}
+          key={dest.id}
+          d={`M ${kanagawa.x} ${kanagawa.y} Q ${dest.cp.x} ${dest.cp.y} ${dest.to.x} ${dest.to.y}`}
           fill="none"
           stroke="#e8c96b"
           strokeWidth="1.3"
@@ -88,27 +88,27 @@ export function JapanMapHero() {
           strokeLinecap="round"
           style={{
             strokeDashoffset: 1,
-            animation: `arcTrace 4.5s ease-in-out ${arc.delay} infinite`,
+            animation: `arcTrace 4.5s ease-in-out ${dest.delay} infinite`,
           }}
           filter="url(#glow)"
         />
       ))}
 
-      {/* Origin city dots */}
-      {arcs.map((arc) => (
+      {/* Destination city dots */}
+      {destinations.map((dest) => (
         <circle
-          key={`dot-${arc.id}`}
-          cx={arc.from.x}
-          cy={arc.from.y}
+          key={`dot-${dest.id}`}
+          cx={dest.to.x}
+          cy={dest.to.y}
           r="2.5"
           fill="#e8c96b"
           style={{
-            animation: `originPulse 3s ease-in-out ${arc.delay} infinite`,
+            animation: `destPulse 3s ease-in-out ${dest.delay} infinite`,
           }}
         />
       ))}
 
-      {/* Kanagawa destination pulse rings */}
+      {/* Kanagawa origin — large pulse rings */}
       <circle
         cx={kanagawa.x} cy={kanagawa.y} r="10"
         fill="#e8c96b"
@@ -132,10 +132,9 @@ export function JapanMapHero() {
         y={kanagawa.y + 4}
         fontSize="8.5"
         fill="white"
-        opacity="0.9"
+        opacity="0.95"
         fontFamily="sans-serif"
         fontWeight="600"
-        style={{ textShadow: "0 0 8px rgba(0,0,0,0.8)" }}
       >
         神奈川
       </text>

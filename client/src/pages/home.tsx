@@ -10,6 +10,7 @@ import { trackPageView, trackEvent } from "@/lib/analytics";
 import { Mail, Phone, ArrowRight, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
+import heroBg from "@assets/スクリーンショット_2026-02-23_12.23.58_1771817055661.png";
 
 const faqs = [
   { q: "急な輸送依頼にも対応できますか？", a: "はい、24時間365日体制で対応しております。当日のご依頼でも、空き車両がある場合は即対応いたします。まずはお電話またはフォームでご相談ください。" },
@@ -36,36 +37,15 @@ export default function Home() {
       <section className="relative h-screen min-h-[620px] flex items-center pt-16 overflow-hidden">
         {/* Road/sky photographic background using CSS layers */}
         <div className="absolute inset-0">
-          {/* Sky gradient */}
-          <div className="absolute inset-0" style={{
-            background: "linear-gradient(180deg, #4a6d8c 0%, #6b8fa8 25%, #8aa5b8 40%, #7a9090 55%, #5e7070 70%, #4a5a5a 85%, #3a4848 100%)"
-          }} />
-          {/* Road perspective lines */}
-          <div className="absolute bottom-0 left-1/3 right-0 h-1/2" style={{
-            background: "linear-gradient(180deg, transparent 0%, rgba(90,90,80,0.4) 40%, rgba(70,70,60,0.7) 100%)"
-          }} />
-          {/* Road center line */}
-          <div className="absolute bottom-0 right-1/3 w-px h-1/3 opacity-20" style={{
-            background: "repeating-linear-gradient(to bottom, white 0px, white 20px, transparent 20px, transparent 40px)"
-          }} />
-          {/* Green embankment left */}
-          <div className="absolute left-0 top-1/3 bottom-0 w-1/4" style={{
-            background: "linear-gradient(135deg, #3d5c3d 0%, #4a6e4a 30%, #3a5a3a 60%, #2d452d 100%)"
-          }} />
-          {/* Truck silhouette - white box on right */}
-          <div className="absolute right-8 md:right-16 bottom-1/4" style={{ width: "28%", maxWidth: 320 }}>
-            <div className="relative" style={{ height: 160 }}>
-              <div className="absolute inset-0 rounded-sm" style={{
-                background: "linear-gradient(160deg, rgba(255,255,255,0.92) 0%, rgba(230,235,240,0.88) 40%, rgba(200,210,220,0.85) 100%)",
-                boxShadow: "inset -8px 0 20px rgba(0,0,0,0.15), 4px 4px 20px rgba(0,0,0,0.3)"
-              }} />
-              <div className="absolute top-3 left-3 right-8" style={{ height: 30, background: "rgba(180,200,215,0.6)", borderRadius: 2 }} />
-              <div className="absolute bottom-0 left-4 w-10 h-10 rounded-full" style={{ background: "radial-gradient(circle, #555 30%, #222 70%)" }} />
-              <div className="absolute bottom-0 right-8 w-10 h-10 rounded-full" style={{ background: "radial-gradient(circle, #555 30%, #222 70%)" }} />
-            </div>
-          </div>
-          {/* Overall dark overlay for text readability */}
-          <div className="absolute inset-0" style={{ background: "rgba(20,35,45,0.52)" }} />
+          {/* Real photo background */}
+          <img
+            src={heroBg}
+            alt=""
+            className="w-full h-full object-cover object-center"
+            aria-hidden="true"
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0" style={{ background: "rgba(10,20,30,0.55)" }} />
         </div>
 
         {/* Japan Map - left side */}
