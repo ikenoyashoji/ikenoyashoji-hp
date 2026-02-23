@@ -5,6 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
+import { JapanMapHero } from "@/components/japan-map";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { Mail, Phone, ArrowRight, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
@@ -32,40 +33,63 @@ export default function Home() {
       <Header />
 
       {/* HERO */}
-      <section className="relative h-screen min-h-[600px] flex items-center pt-16 overflow-hidden bg-gray-900">
+      <section className="relative h-screen min-h-[620px] flex items-center pt-16 overflow-hidden">
+        {/* Road/sky photographic background using CSS layers */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
-          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px)" }} />
+          {/* Sky gradient */}
+          <div className="absolute inset-0" style={{
+            background: "linear-gradient(180deg, #4a6d8c 0%, #6b8fa8 25%, #8aa5b8 40%, #7a9090 55%, #5e7070 70%, #4a5a5a 85%, #3a4848 100%)"
+          }} />
+          {/* Road perspective lines */}
+          <div className="absolute bottom-0 left-1/3 right-0 h-1/2" style={{
+            background: "linear-gradient(180deg, transparent 0%, rgba(90,90,80,0.4) 40%, rgba(70,70,60,0.7) 100%)"
+          }} />
+          {/* Road center line */}
+          <div className="absolute bottom-0 right-1/3 w-px h-1/3 opacity-20" style={{
+            background: "repeating-linear-gradient(to bottom, white 0px, white 20px, transparent 20px, transparent 40px)"
+          }} />
+          {/* Green embankment left */}
+          <div className="absolute left-0 top-1/3 bottom-0 w-1/4" style={{
+            background: "linear-gradient(135deg, #3d5c3d 0%, #4a6e4a 30%, #3a5a3a 60%, #2d452d 100%)"
+          }} />
+          {/* Truck silhouette - white box on right */}
+          <div className="absolute right-8 md:right-16 bottom-1/4" style={{ width: "28%", maxWidth: 320 }}>
+            <div className="relative" style={{ height: 160 }}>
+              <div className="absolute inset-0 rounded-sm" style={{
+                background: "linear-gradient(160deg, rgba(255,255,255,0.92) 0%, rgba(230,235,240,0.88) 40%, rgba(200,210,220,0.85) 100%)",
+                boxShadow: "inset -8px 0 20px rgba(0,0,0,0.15), 4px 4px 20px rgba(0,0,0,0.3)"
+              }} />
+              <div className="absolute top-3 left-3 right-8" style={{ height: 30, background: "rgba(180,200,215,0.6)", borderRadius: 2 }} />
+              <div className="absolute bottom-0 left-4 w-10 h-10 rounded-full" style={{ background: "radial-gradient(circle, #555 30%, #222 70%)" }} />
+              <div className="absolute bottom-0 right-8 w-10 h-10 rounded-full" style={{ background: "radial-gradient(circle, #555 30%, #222 70%)" }} />
+            </div>
+          </div>
+          {/* Overall dark overlay for text readability */}
+          <div className="absolute inset-0" style={{ background: "rgba(20,35,45,0.52)" }} />
         </div>
-        <div className="absolute bottom-8 left-4 right-4 pointer-events-none select-none">
-          <p className="text-6xl md:text-8xl lg:text-9xl font-black italic text-white/[0.07] whitespace-nowrap overflow-hidden tracking-tight">
-            Driven by Trust.
-          </p>
-        </div>
-        <div className="absolute bottom-10 right-8 hidden md:block">
-          <div className="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center relative">
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-              <path id="circle" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
-              <text fill="rgba(255,255,255,0.5)" fontSize="7">
-                <textPath href="#circle" letterSpacing="3">DRIVEN BY TRUST · DRIVEN BY TRUST · </textPath>
-              </text>
-            </svg>
+
+        {/* Japan Map - left side */}
+        <div className="absolute left-0 top-0 bottom-0 w-1/2 md:w-2/5 flex items-center justify-center pl-4 md:pl-8 z-10">
+          <div className="w-full max-w-xs md:max-w-sm" style={{ height: "70vh", maxHeight: 460 }}>
+            <JapanMapHero />
           </div>
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full flex justify-end">
-          <div className="max-w-xl text-right">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+
+        {/* Hero text - right side */}
+        <div className="relative z-10 w-full px-6">
+          <div className="ml-auto max-w-md md:max-w-lg text-right md:pr-8">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5 drop-shadow-lg">
               運ぶのは、信頼。<br />
               支えるのは、現場力。
             </h1>
-            <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed">
+            <p className="text-gray-200 text-sm md:text-base mb-8 leading-relaxed drop-shadow">
               輸送と構内作業のプロとして、<br />
-              半世紀以上にわたり信頼に応えてきました。
+              関東を拠点に信頼に応えてきました。
             </p>
             <div className="flex gap-3 justify-end flex-wrap">
               <Link href="/contact?type=shipper">
                 <button
-                  className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
+                  className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm shadow-lg"
                   onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
                   data-testid="button-hero-quote"
                 >
@@ -75,7 +99,7 @@ export default function Home() {
               </Link>
               <a
                 href="/#services"
-                className="flex items-center gap-2 border border-white/40 text-white hover:bg-white/10 font-medium px-6 py-3 rounded-full transition-colors text-sm"
+                className="flex items-center gap-2 border border-white/50 text-white hover:bg-white/10 font-medium px-6 py-3 rounded-full transition-colors text-sm"
                 data-testid="button-hero-services"
               >
                 サービス詳細
@@ -84,7 +108,16 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-gray-500">
+
+        {/* Bottom watermark */}
+        <div className="absolute bottom-6 left-4 right-4 pointer-events-none select-none overflow-hidden">
+          <p className="text-5xl md:text-7xl font-black italic text-white/[0.06] whitespace-nowrap tracking-tight">
+            Driven by Trust. Driven by Trust.
+          </p>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
           <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
         </div>
       </section>
