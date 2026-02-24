@@ -1,15 +1,26 @@
+const logoImg = "/logo-mark.png";
+
+function MapPin({ x, y }: { x: number; y: number }) {
+  return (
+    <g>
+      <circle cx={x} cy={y - 6} r="5" fill="#1a4b99" stroke="white" strokeWidth="1.2" />
+      <circle cx={x} cy={y - 6} r="2" fill="white" />
+      <path d={`M ${x} ${y - 1} L ${x} ${y + 6}`} stroke="#1a4b99" strokeWidth="1.5" strokeLinecap="round" />
+    </g>
+  );
+}
+
 export function JapanMapHero() {
   const kanagawa = { x: 158, y: 148 };
 
   const destinations = [
-    { id: "sapporo",   to: { x: 162, y: 35  }, cp: { x: 210, y: 85  }, delay: "0s"   },
-    { id: "sendai",    to: { x: 174, y: 95  }, cp: { x: 210, y: 118 }, delay: "0.6s" },
-    { id: "niigata",   to: { x: 140, y: 115 }, cp: { x: 185, y: 100 }, delay: "1.1s" },
-    { id: "nagoya",    to: { x: 132, y: 170 }, cp: { x: 90,  y: 128 }, delay: "1.6s" },
-    { id: "osaka",     to: { x: 118, y: 182 }, cp: { x: 65,  y: 145 }, delay: "2.1s" },
-    { id: "hiroshima", to: { x: 97,  y: 202 }, cp: { x: 38,  y: 165 }, delay: "2.6s" },
-    { id: "fukuoka",   to: { x: 76,  y: 220 }, cp: { x: 18,  y: 182 }, delay: "3.1s" },
-    { id: "nagasaki",  to: { x: 65,  y: 235 }, cp: { x: 8,   y: 196 }, delay: "3.6s" },
+    { id: "sapporo",   to: { x: 162, y: 35  }, cp: { x: 215, y: 80  }, delay: "0s"   },
+    { id: "sendai",    to: { x: 174, y: 95  }, cp: { x: 215, y: 115 }, delay: "0.7s" },
+    { id: "niigata",   to: { x: 135, y: 112 }, cp: { x: 190, y: 95  }, delay: "1.3s" },
+    { id: "nagoya",    to: { x: 130, y: 172 }, cp: { x: 85,  y: 125 }, delay: "1.9s" },
+    { id: "osaka",     to: { x: 116, y: 184 }, cp: { x: 60,  y: 140 }, delay: "2.5s" },
+    { id: "hiroshima", to: { x: 95,  y: 202 }, cp: { x: 30,  y: 162 }, delay: "3.1s" },
+    { id: "fukuoka",   to: { x: 74,  y: 220 }, cp: { x: 10,  y: 180 }, delay: "3.7s" },
   ];
 
   const japanPaths = [
@@ -20,59 +31,82 @@ export function JapanMapHero() {
   ];
 
   const combinedPath = japanPaths.join(" ");
+  const logoSize = 32;
 
   return (
     <svg
-      viewBox="-20 0 260 270"
+      viewBox="-30 0 270 270"
       className="w-full h-full"
       style={{ overflow: "visible" }}
       aria-hidden="true"
     >
       <defs>
-        <pattern id="dotGrid" width="7" height="7" patternUnits="userSpaceOnUse">
-          <circle cx="3.5" cy="3.5" r="1.5" fill="white" opacity="0.75" />
+        <pattern id="dotGridBlue" width="7" height="7" patternUnits="userSpaceOnUse">
+          <circle cx="3.5" cy="3.5" r="1.5" fill="rgba(160,200,240,0.65)" />
         </pattern>
-        <clipPath id="japanClip">
+        <clipPath id="japanClipBlue">
           <path d={combinedPath} />
         </clipPath>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="2" result="blur" />
+        <filter id="lineglow">
+          <feGaussianBlur stdDeviation="1.5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <filter id="circleglow">
+          <feGaussianBlur stdDeviation="4" result="blur" />
           <feMerge>
             <feMergeNode in="blur" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
         <style>{`
-          @keyframes arcTrace {
+          @keyframes arcTraceBlue {
             0%   { stroke-dashoffset: 1; opacity: 0; }
-            12%  { opacity: 1; }
-            75%  { opacity: 0.9; }
+            10%  { opacity: 0.95; }
+            70%  { opacity: 0.9; }
             100% { stroke-dashoffset: 0; opacity: 0; }
           }
-          @keyframes pulseOuter {
-            0%, 100% { r: 10; opacity: 0.2; }
-            50%       { r: 18; opacity: 0.06; }
+          @keyframes hubPulse {
+            0%, 100% { r: 32; opacity: 0.08; }
+            50%       { r: 42; opacity: 0.03; }
           }
-          @keyframes pulseMid {
-            0%, 100% { r: 5; opacity: 0.5; }
-            50%       { r: 9; opacity: 0.2; }
+          @keyframes hubRing {
+            0%, 100% { r: 25; opacity: 0.25; }
+            50%       { r: 30; opacity: 0.1; }
           }
-          @keyframes blinkDot {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0.6; }
-          }
-          @keyframes destPulse {
-            0%, 100% { opacity: 0.5; r: 2.5; }
-            50%       { opacity: 1; r: 3.5; }
+          @keyframes pinAppear {
+            0%   { opacity: 0; transform: translateY(-6px); }
+            15%  { opacity: 0; transform: translateY(-6px); }
+            30%  { opacity: 1; transform: translateY(0); }
+            80%  { opacity: 1; }
+            100% { opacity: 0; }
           }
         `}</style>
       </defs>
 
-      {/* Japan dotted silhouette */}
+      {/* Japan dotted silhouette — light blue */}
       <rect
-        x="-20" y="0" width="260" height="270"
-        fill="url(#dotGrid)"
-        clipPath="url(#japanClip)"
+        x="-30" y="0" width="270" height="270"
+        fill="url(#dotGridBlue)"
+        clipPath="url(#japanClipBlue)"
+      />
+
+      {/* Outer hub pulse rings */}
+      <circle
+        cx={kanagawa.x} cy={kanagawa.y} r="32"
+        fill="rgba(100,160,230,0.12)"
+        stroke="rgba(100,160,230,0.2)"
+        strokeWidth="0.5"
+        style={{ animation: "hubPulse 3s ease-in-out infinite" }}
+      />
+      <circle
+        cx={kanagawa.x} cy={kanagawa.y} r="25"
+        fill="none"
+        stroke="rgba(100,160,230,0.35)"
+        strokeWidth="0.8"
+        style={{ animation: "hubRing 3s ease-in-out 0.5s infinite" }}
       />
 
       {/* Animated arcs FROM Kanagawa TO each city */}
@@ -81,62 +115,62 @@ export function JapanMapHero() {
           key={dest.id}
           d={`M ${kanagawa.x} ${kanagawa.y} Q ${dest.cp.x} ${dest.cp.y} ${dest.to.x} ${dest.to.y}`}
           fill="none"
-          stroke="#e8c96b"
-          strokeWidth="1.3"
+          stroke="rgba(180,215,255,0.9)"
+          strokeWidth="1.2"
           pathLength="1"
           strokeDasharray="1"
           strokeLinecap="round"
           style={{
             strokeDashoffset: 1,
-            animation: `arcTrace 4.5s ease-in-out ${dest.delay} infinite`,
+            animation: `arcTraceBlue 5s ease-in-out ${dest.delay} infinite`,
           }}
-          filter="url(#glow)"
+          filter="url(#lineglow)"
         />
       ))}
 
-      {/* Destination city dots */}
+      {/* Map pins at destinations — appear when arc arrives */}
       {destinations.map((dest) => (
-        <circle
-          key={`dot-${dest.id}`}
-          cx={dest.to.x}
-          cy={dest.to.y}
-          r="2.5"
-          fill="#e8c96b"
+        <g
+          key={`pin-${dest.id}`}
           style={{
-            animation: `destPulse 3s ease-in-out ${dest.delay} infinite`,
+            animation: `pinAppear 5s ease-in-out ${dest.delay} infinite`,
+            transformOrigin: `${dest.to.x}px ${dest.to.y}px`,
           }}
-        />
+        >
+          <MapPin x={dest.to.x} y={dest.to.y} />
+        </g>
       ))}
 
-      {/* Kanagawa origin — large pulse rings */}
+      {/* Kanagawa hub: white circle + logo */}
       <circle
-        cx={kanagawa.x} cy={kanagawa.y} r="10"
-        fill="#e8c96b"
-        style={{ animation: "pulseOuter 2.5s ease-in-out infinite" }}
-      />
-      <circle
-        cx={kanagawa.x} cy={kanagawa.y} r="5"
-        fill="#e8c96b"
-        style={{ animation: "pulseMid 2.5s ease-in-out 0.4s infinite" }}
-      />
-      <circle
-        cx={kanagawa.x} cy={kanagawa.y} r="2.5"
+        cx={kanagawa.x} cy={kanagawa.y} r="22"
         fill="white"
-        style={{ animation: "blinkDot 2s ease-in-out infinite" }}
-        filter="url(#glow)"
+        stroke="rgba(26,75,153,0.5)"
+        strokeWidth="1.5"
+        filter="url(#circleglow)"
+      />
+      <image
+        href={logoImg}
+        x={kanagawa.x - logoSize / 2}
+        y={kanagawa.y - logoSize / 2}
+        width={logoSize}
+        height={logoSize}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ borderRadius: "50%" }}
       />
 
       {/* Kanagawa label */}
       <text
-        x={kanagawa.x + 12}
-        y={kanagawa.y + 4}
-        fontSize="8.5"
+        x={kanagawa.x}
+        y={kanagawa.y + 32}
+        fontSize="8"
         fill="white"
-        opacity="0.95"
+        opacity="0.9"
         fontFamily="sans-serif"
-        fontWeight="600"
+        fontWeight="700"
+        textAnchor="middle"
       >
-        神奈川
+        神奈川（本社）
       </text>
     </svg>
   );

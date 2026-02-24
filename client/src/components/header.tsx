@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Mail, Truck } from "lucide-react";
+import { Menu, Mail } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+const logoImg = "/logo-mark.png";
 
 const navLinks = [
   { href: "/", label: "ホーム" },
@@ -11,6 +12,30 @@ const navLinks = [
   { href: "/recruit", label: "採用情報" },
   { href: "/blog", label: "お知らせ" },
 ];
+
+function LogoMark({ size = 36 }: { size?: number }) {
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: "50%",
+        background: "#0a1628",
+        overflow: "hidden",
+        flexShrink: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <img
+        src={logoImg}
+        alt="アクロス物流ロゴ"
+        style={{ width: "90%", height: "90%", objectFit: "contain" }}
+      />
+    </div>
+  );
+}
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -21,13 +46,14 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+            <LogoMark size={38} />
             <div className="flex flex-col leading-none">
               <div className="flex items-center gap-1">
-                <span className="text-[#1a4b99] font-black text-xl tracking-tight italic">アクロス</span>
-                <span className="text-[#c0392b] font-black text-xl tracking-tight italic">物流</span>
+                <span className="text-[#1a4b99] font-black text-lg tracking-tight">アクロス</span>
+                <span className="text-[#c0392b] font-black text-lg tracking-tight">物流</span>
               </div>
-              <span className="text-gray-500 text-[10px] tracking-widest">アクロス物流株式会社</span>
+              <span className="text-gray-400 text-[9px] tracking-widest">アクロス物流株式会社</span>
             </div>
           </Link>
 
@@ -69,12 +95,15 @@ export function Header() {
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="bg-white border-gray-200 w-72">
-              <div className="flex flex-col leading-none mb-8 mt-2">
-                <div className="flex items-center gap-1">
-                  <span className="text-[#1a4b99] font-black text-xl italic">アクロス</span>
-                  <span className="text-[#c0392b] font-black text-xl italic">物流</span>
+              <div className="flex items-center gap-2.5 mb-8 mt-2">
+                <LogoMark size={36} />
+                <div className="flex flex-col leading-none">
+                  <div className="flex items-center gap-1">
+                    <span className="text-[#1a4b99] font-black text-lg">アクロス</span>
+                    <span className="text-[#c0392b] font-black text-lg">物流</span>
+                  </div>
+                  <span className="text-gray-400 text-[9px] tracking-widest">アクロス物流株式会社</span>
                 </div>
-                <span className="text-gray-400 text-[10px] tracking-widest">アクロス物流株式会社</span>
               </div>
               <nav className="flex flex-col gap-1">
                 {[...navLinks, { href: "/partner", label: "協力会社" }].map((link) => (
