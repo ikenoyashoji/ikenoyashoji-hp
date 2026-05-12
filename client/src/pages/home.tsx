@@ -10,6 +10,7 @@ import { Mail, Phone, ArrowRight, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import heroBg from "@assets/imageああああ_1778609849549.png";
+import japanMapImg from "@assets/image_ｑｑｑ_1778610370095.png";
 import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
 import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
 import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
@@ -163,45 +164,14 @@ export default function Home() {
           </AnimateIn>
 
           <div className="grid md:grid-cols-2 gap-0 items-center">
-            {/* Left: Japan map illustration */}
+            {/* Left: Japan map image */}
             <AnimateIn direction="left">
-              <div className="relative h-96 flex items-center justify-center">
-                {/* Dotted Japan silhouette */}
-                <svg viewBox="0 0 320 480" className="w-72 h-auto opacity-20 absolute" fill="none">
-                  <g fill="#1a4b99">
-                    {Array.from({ length: 60 }).map((_, row) =>
-                      Array.from({ length: 40 }).map((_, col) => {
-                        const x = col * 8 + 4;
-                        const y = row * 8 + 4;
-                        const inShape =
-                          (row > 5 && row < 15 && col > 18 && col < 28) ||
-                          (row >= 15 && row < 28 && col > 14 && col < 30) ||
-                          (row >= 28 && row < 42 && col > 10 && col < 28) ||
-                          (row >= 42 && row < 55 && col > 8 && col < 22);
-                        return inShape ? <circle key={`${row}-${col}`} cx={x} cy={y} r="2.5" /> : null;
-                      })
-                    )}
-                  </g>
-                </svg>
-                {/* Center circle with logo */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-20 h-20 rounded-full border-4 border-[#1a4b99] bg-white flex items-center justify-center shadow-lg mb-4">
-                    <span className="text-[#1a4b99] font-black text-xs text-center leading-tight">池ノ谷<br />商事</span>
-                  </div>
-                  {/* Lines to locations */}
-                  <svg className="absolute" width="220" height="220" style={{ top: "-80px", left: "-80px" }}>
-                    {[
-                      { x2: 50, y2: 30 }, { x2: 170, y2: 20 }, { x2: 190, y2: 60 },
-                      { x2: 30, y2: 100 }, { x2: 40, y2: 160 }, { x2: 60, y2: 200 },
-                    ].map((pt, i) => (
-                      <g key={i}>
-                        <line x1="110" y1="110" x2={pt.x2} y2={pt.y2} stroke="#1a4b99" strokeWidth="1" strokeDasharray="4,3" opacity="0.5" />
-                        <circle cx={pt.x2} cy={pt.y2} r="4" fill="none" stroke="#1a4b99" strokeWidth="1.5" opacity="0.7" />
-                        <circle cx={pt.x2} cy={pt.y2} r="2" fill="#1a4b99" opacity="0.7" />
-                      </g>
-                    ))}
-                  </svg>
-                </div>
+              <div className="flex items-center justify-center py-4">
+                <img
+                  src={japanMapImg}
+                  alt="全国配送ネットワーク地図"
+                  className="w-full max-w-md h-auto object-contain"
+                />
               </div>
             </AnimateIn>
 
