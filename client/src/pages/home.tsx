@@ -11,6 +11,9 @@ import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import heroBg from "@assets/imageああああ_1778609849549.png";
 import japanMapImg from "@assets/imageううう_1778610881804.png";
+import businessImg1 from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
+import businessImg2 from "@assets/スクリーンショット_2026-05-13_3.51.42_1778611939679.png";
+import businessImg3 from "@assets/スクリーンショット_2026-05-13_3.51.51_1778611943375.png";
 import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
 import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
 import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
@@ -217,14 +220,13 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { num: "01", title: "一般貨物自動車運送業", sub: "General Cargo Transport" },
-              { num: "02", title: "倉庫管理・荷役作業",   sub: "Warehouse Management" },
-              { num: "03", title: "３PL", sub: "Third Party Logistics" },
+              { num: "01", title: "一般貨物自動車運送業", sub: "General Cargo Transport", img: businessImg1 },
+              { num: "02", title: "倉庫管理・荷役作業",   sub: "Warehouse Management",   img: businessImg2 },
+              { num: "03", title: "３PL",                  sub: "Third Party Logistics",  img: businessImg3 },
             ].map((s, i) => (
               <div key={i} className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden">
-                {/* Image placeholder */}
-                <div className="w-full aspect-[16/9] bg-gray-100 flex items-center justify-center">
-                  <span className="text-gray-300 text-xs tracking-widest">IMAGE</span>
+                <div className="w-full aspect-[16/9] overflow-hidden">
+                  <img src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 {/* Text content */}
                 <div className="p-8 flex flex-col gap-3">
