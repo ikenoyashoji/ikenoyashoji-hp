@@ -33,7 +33,7 @@ const faqs = [
 export default function Recruit() {
   useEffect(() => {
     trackPageView("/recruit");
-    document.title = "採用情報｜アクロス物流株式会社";
+    document.title = "採用情報｜株式会社池ノ谷商事";
   }, []);
 
   return (
@@ -42,30 +42,30 @@ export default function Recruit() {
 
       {/* Hero */}
       <section className="relative pt-16 min-h-[60vh] flex items-stretch">
-        <div className="w-full md:w-1/2 bg-gradient-to-br from-gray-700 to-gray-900 relative min-h-72">
+        <div className="w-full md:w-1/2 bg-gradient-to-br from-[#1a4b99] to-[#1d4ed8] relative min-h-72">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255,255,255,0.05) 15px, rgba(255,255,255,0.05) 16px)" }} />
           <div className="absolute bottom-4 left-4 grid grid-cols-2 gap-2">
-            <div className="w-32 h-20 bg-gray-600/40 rounded" />
-            <div className="w-32 h-20 bg-gray-500/40 rounded" />
+            <div className="w-32 h-20 bg-white/10 rounded" />
+            <div className="w-32 h-20 bg-white/10 rounded" />
           </div>
         </div>
         <div className="w-full md:w-1/2 bg-white flex items-center p-8 md:p-16">
           <div>
             <div className="mb-4">
-              <span className="text-[#c0392b] font-black text-4xl italic font-serif">Recruit</span>
+              <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">Recruit</span>
               <p className="text-gray-400 text-sm mt-1">採用情報</p>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-[#6B9E9E] mb-6 leading-snug">
+            <h1 className="text-2xl md:text-3xl font-bold text-[#1a4b99] mb-6 leading-snug">
               支える仕事には、<br />
               静かな誇りと、<br />
               世界を動かす力がある。
             </h1>
             <p className="text-gray-600 text-sm leading-relaxed mb-6">
-              アクロス物流が担うのは、製品輸送や構内作業といった、一見すると目立たないけれど、現場に欠かせない仕事です。誠実に、まっすぐに。現場を支える一員として、一緒に働いてみませんか。
+              池ノ谷商事が担うのは、製品輸送や構内作業といった、一見すると目立たないけれど、現場に欠かせない仕事です。誠実に、まっすぐに。現場を支える一員として、一緒に働いてみませんか。
             </p>
             <Link href="/contact?type=recruit">
               <button
-                className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
+                className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
                 onClick={() => trackEvent("cta_contact_click", { location: "recruit_hero" })}
                 data-testid="button-recruit-hero-apply"
               >
@@ -78,7 +78,7 @@ export default function Recruit() {
       </section>
 
       {/* Marquee band */}
-      <div className="bg-[#6B9E9E] py-4 overflow-hidden">
+      <div className="bg-gradient-to-r from-[#1a4b99] to-[#1d4ed8] py-4 overflow-hidden">
         <div className="flex whitespace-nowrap animate-marquee">
           {Array.from({ length: 4 }).map((_, i) => (
             <span key={i} className="text-3xl font-black italic text-white/20 mr-16 tracking-tight flex-shrink-0">
@@ -92,25 +92,25 @@ export default function Recruit() {
       <section className="py-20 bg-white px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-10">
-            <span className="text-[#c0392b] font-black text-3xl italic font-serif">Positions</span>
+            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Positions</span>
             <p className="text-gray-400 text-sm mt-1">募集職種</p>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {positions.map((p) => (
-              <div key={p.title} className="border border-gray-200 rounded-lg p-6 hover:border-[#6B9E9E] transition-colors hover-elevate bg-white">
+              <div key={p.title} className="border border-gray-200 rounded-lg p-6 hover:border-[#1d4ed8] transition-colors hover-elevate bg-white">
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="font-bold text-gray-800 text-sm leading-tight flex-1">{p.title}</h3>
                   <span className="ml-2 text-xs bg-[#1a4b99] text-white px-2 py-0.5 rounded flex-shrink-0">{p.badge}</span>
                 </div>
-                <div className="text-[#c0392b] font-bold text-sm mb-3">{p.salary}</div>
+                <div className="text-[#1d4ed8] font-bold text-sm mb-3">{p.salary}</div>
                 <p className="text-gray-500 text-xs mb-4 leading-relaxed">{p.desc}</p>
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {p.features.map((f) => (
-                    <span key={f} className="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">{f}</span>
+                    <span key={f} className="bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded-full">{f}</span>
                   ))}
                 </div>
                 <Link href="/contact?type=recruit">
-                  <button className="flex items-center gap-1 bg-[#c0392b] hover:bg-[#a93226] text-white text-xs px-4 py-2 rounded-full" data-testid={`button-apply-${p.title}`}>
+                  <button className="flex items-center gap-1 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white text-xs px-4 py-2 rounded-full" data-testid={`button-apply-${p.title}`}>
                     <Mail className="w-3 h-3" /> 応募する
                   </button>
                 </Link>
@@ -124,7 +124,7 @@ export default function Recruit() {
       <section className="py-20 bg-gray-50 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-10">
-            <span className="text-[#c0392b] font-black text-3xl italic font-serif">Benefits</span>
+            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Benefits</span>
             <p className="text-gray-400 text-sm mt-1">待遇・福利厚生</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -143,7 +143,7 @@ export default function Recruit() {
               "社員旅行・懇親会あり",
             ].map((b) => (
               <div key={b} className="flex items-start gap-2 text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-100">
-                <CheckCircle className="w-4 h-4 text-[#6B9E9E] flex-shrink-0 mt-0.5" />
+                <CheckCircle className="w-4 h-4 text-[#1d4ed8] flex-shrink-0 mt-0.5" />
                 {b}
               </div>
             ))}
@@ -155,14 +155,14 @@ export default function Recruit() {
       <section className="py-20 bg-white px-4">
         <div className="max-w-3xl mx-auto">
           <div className="mb-10">
-            <span className="text-[#c0392b] font-black text-3xl italic font-serif">A Day in the Life</span>
+            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">A Day in the Life</span>
             <p className="text-gray-400 text-sm mt-1">1日の仕事の流れ</p>
           </div>
           <div className="space-y-4">
             {timeline.map((t, i) => (
               <div key={i} className="flex items-center gap-4">
-                <div className="text-[#c0392b] font-bold text-sm w-14 flex-shrink-0">{t.time}</div>
-                <div className="w-2 h-2 rounded-full bg-[#6B9E9E] flex-shrink-0" />
+                <div className="text-[#1d4ed8] font-bold text-sm w-14 flex-shrink-0">{t.time}</div>
+                <div className="w-2 h-2 rounded-full bg-[#1d4ed8] flex-shrink-0" />
                 <div className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-3 flex-1">
                   <span className="text-gray-800 text-sm font-medium">{t.title}</span>
                 </div>
@@ -176,7 +176,7 @@ export default function Recruit() {
       <section className="py-16 bg-gray-50 px-4">
         <div className="max-w-3xl mx-auto">
           <div className="mb-8">
-            <span className="text-[#c0392b] font-black text-3xl italic font-serif">FAQ</span>
+            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">FAQ</span>
             <p className="text-gray-400 text-sm mt-1">採用に関するよくある質問</p>
           </div>
           <Accordion type="single" collapsible className="space-y-2">

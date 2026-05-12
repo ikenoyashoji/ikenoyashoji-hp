@@ -393,7 +393,7 @@ export default function ArticleEditor() {
                       <FormLabel className="text-blue-300 text-xs">著者メモ</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="アクロス物流 ○○部"
+                          placeholder="池ノ谷商事 ○○部"
                           className="bg-[#0a1628] border-blue-800 text-white placeholder:text-blue-600 text-xs h-8"
                           {...field}
                           data-testid="input-author"

@@ -18,7 +18,7 @@ export default function Blog() {
 
   useEffect(() => {
     trackPageView("/blog");
-    document.title = "お知らせ｜アクロス物流株式会社";
+    document.title = "お知らせ｜株式会社池ノ谷商事";
   }, []);
 
   const { data: articles, isLoading } = useQuery<any[]>({ queryKey: ["/api/articles"] });
@@ -36,7 +36,7 @@ export default function Blog() {
       {/* Page header */}
       <section className="pt-16 bg-white">
         <div className="max-w-5xl mx-auto px-4 py-12">
-          <span className="text-[#c0392b] font-black text-4xl italic font-serif">News</span>
+          <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">News</span>
           <p className="text-gray-400 text-sm mt-1">お知らせ</p>
         </div>
       </section>
@@ -100,7 +100,7 @@ export default function Blog() {
                         </div>
                       )}
                     </div>
-                    <h2 className="font-semibold text-[#1a4b99] text-sm md:text-base mb-2 group-hover:text-[#c0392b] transition-colors line-clamp-2 leading-snug">{article.title}</h2>
+                    <h2 className="font-semibold text-[#1a4b99] text-sm md:text-base mb-2 group-hover:text-[#1d4ed8] transition-colors line-clamp-2 leading-snug">{article.title}</h2>
                     <p className="text-gray-400 text-xs leading-relaxed line-clamp-3 mb-3">{article.excerpt}</p>
                     <p className="text-gray-400 text-xs">
                       {article.publishedAt

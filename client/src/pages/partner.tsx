@@ -32,7 +32,7 @@ const steps = [
 export default function Partner() {
   useEffect(() => {
     trackPageView("/partner");
-    document.title = "協力会社募集｜アクロス物流株式会社";
+    document.title = "協力会社募集｜株式会社池ノ谷商事";
   }, []);
 
   return (
@@ -43,17 +43,17 @@ export default function Partner() {
       <section className="pt-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 py-16">
           <div className="max-w-2xl">
-            <span className="text-[#c0392b] font-black text-4xl italic font-serif">Partner</span>
+            <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">Partner</span>
             <p className="text-gray-400 text-sm mt-1 mb-6">協力会社募集</p>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 leading-snug">
               一緒に成長する<br />物流パートナーを募集
             </h1>
             <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-8">
-              アクロス物流では、共に発展していける協力会社様を募集しています。安定した案件と透明な条件で、長期的なパートナーシップを築きましょう。
+              池ノ谷商事では、共に発展していける協力会社様を募集しています。安定した案件と透明な条件で、長期的なパートナーシップを築きましょう。
             </p>
             <Link href="/contact?type=partner">
               <button
-                className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
+                className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
                 onClick={() => trackEvent("cta_contact_click", { location: "partner_hero" })}
                 data-testid="button-partner-hero-register"
               >
@@ -66,15 +66,15 @@ export default function Partner() {
       </section>
 
       {/* Wide image */}
-      <div className="relative bg-gradient-to-br from-gray-700 to-gray-900" style={{ minHeight: 260 }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 21px)" }} />
+      <div className="relative bg-gradient-to-br from-[#1a4b99] to-[#0f2044]" style={{ minHeight: 260 }}>
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 21px)" }} />
         <div className="relative z-10 max-w-7xl mx-auto px-4 flex items-end h-full py-8">
-          <p className="text-white/50 text-3xl font-black italic">Everyday work. Global impact.</p>
+          <p className="text-white/30 text-3xl font-black italic">Everyday work. Global impact.</p>
         </div>
       </div>
 
       {/* Marquee */}
-      <div className="bg-[#6B9E9E] py-4 overflow-hidden">
+      <div className="bg-gradient-to-r from-[#1a4b99] to-[#1d4ed8] py-4 overflow-hidden">
         <div className="flex whitespace-nowrap animate-marquee">
           {Array.from({ length: 4 }).map((_, i) => (
             <span key={i} className="text-3xl font-black italic text-white/20 mr-16 tracking-tight flex-shrink-0">
@@ -88,13 +88,13 @@ export default function Partner() {
       <section className="py-20 bg-white px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-10">
-            <span className="text-[#c0392b] font-black text-3xl italic font-serif">Benefits</span>
-            <p className="text-gray-400 text-sm mt-1">アクロス物流と組む4つのメリット</p>
+            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Benefits</span>
+            <p className="text-gray-400 text-sm mt-1">池ノ谷商事と組む4つのメリット</p>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {benefits.map((b, i) => (
-              <div key={b.title} className="border border-gray-200 rounded-lg p-6 hover:border-[#6B9E9E] transition-colors hover-elevate">
-                <div className="text-[#6B9E9E] font-black text-2xl mb-3">{String(i + 1).padStart(2, "0")}.</div>
+              <div key={b.title} className="border border-gray-200 rounded-lg p-6 hover:border-[#1d4ed8] transition-colors hover-elevate">
+                <div className="text-[#1d4ed8] font-black text-2xl mb-3">{String(i + 1).padStart(2, "0")}.</div>
                 <h3 className="font-bold text-gray-800 mb-2">{b.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{b.desc}</p>
               </div>
@@ -109,13 +109,13 @@ export default function Partner() {
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <div className="mb-8">
-                <span className="text-[#c0392b] font-black text-3xl italic font-serif">Requirements</span>
+                <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Requirements</span>
                 <p className="text-gray-400 text-sm mt-1">登録条件</p>
               </div>
               <div className="space-y-3">
                 {requirements.map((r, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#6B9E9E] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-4 h-4 text-[#1d4ed8] flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-gray-700">{r}</span>
                   </div>
                 ))}
@@ -126,7 +126,7 @@ export default function Partner() {
             </div>
             <div>
               <div className="mb-8">
-                <span className="text-[#c0392b] font-black text-3xl italic font-serif">Payment</span>
+                <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Payment</span>
                 <p className="text-gray-400 text-sm mt-1">支払い条件</p>
               </div>
               <div className="space-y-4">
@@ -150,7 +150,7 @@ export default function Partner() {
       <section className="py-20 bg-white px-4">
         <div className="max-w-4xl mx-auto">
           <div className="mb-10 text-center">
-            <span className="text-[#c0392b] font-black text-3xl italic font-serif">How to Join</span>
+            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">How to Join</span>
             <p className="text-gray-400 text-sm mt-1">登録の流れ</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -30,7 +30,7 @@ function AdminSidebar() {
               <Truck className="w-4 h-4 text-white" />
             </div>
             <div>
-              <div className="text-white text-sm font-bold">アクロス物流</div>
+              <div className="text-white text-sm font-bold">池ノ谷商事</div>
               <div className="text-blue-400 text-[10px]">管理画面</div>
             </div>
           </div>
@@ -112,7 +112,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         <div className="flex flex-col flex-1 overflow-hidden">
           <header className="flex items-center justify-between px-4 h-12 border-b border-blue-900 bg-[#0f2044]">
             <SidebarTrigger className="text-white" data-testid="button-sidebar-toggle" />
-            <span className="text-blue-300 text-xs">アクロス物流 管理画面</span>
+            <span className="text-blue-300 text-xs">池ノ谷商事 管理画面</span>
           </header>
           <main className="flex-1 overflow-auto p-4 md:p-6">
             {children}

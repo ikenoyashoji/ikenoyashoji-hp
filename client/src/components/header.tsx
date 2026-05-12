@@ -30,7 +30,7 @@ function LogoMark({ size = 36 }: { size?: number }) {
     >
       <img
         src={logoImg}
-        alt="アクロス物流ロゴ"
+        alt="池ノ谷商事ロゴ"
         style={{ width: "90%", height: "90%", objectFit: "contain" }}
       />
     </div>
@@ -49,11 +49,11 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
             <LogoMark size={38} />
             <div className="flex flex-col leading-none">
-              <div className="flex items-center gap-1">
-                <span className="text-[#1a4b99] font-black text-lg tracking-tight">アクロス</span>
-                <span className="text-[#c0392b] font-black text-lg tracking-tight">物流</span>
+              <div className="flex items-center gap-0.5">
+                <span className="text-[#1a4b99] font-black text-lg tracking-tight">池ノ谷</span>
+                <span className="text-[#1d4ed8] font-black text-lg tracking-tight">商事</span>
               </div>
-              <span className="text-gray-400 text-[9px] tracking-widest">アクロス物流株式会社</span>
+              <span className="text-gray-400 text-[9px] tracking-widest">株式会社池ノ谷商事</span>
             </div>
           </Link>
 
@@ -79,7 +79,7 @@ export function Header() {
             <Link
               href="/contact"
               onClick={() => trackEvent("cta_contact_click", { location: "header" })}
-              className="ml-3 flex items-center gap-1.5 bg-[#c0392b] hover:bg-[#a93226] text-white text-sm font-medium px-4 py-2 rounded-full transition-colors"
+              className="ml-3 flex items-center gap-1.5 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white text-sm font-medium px-4 py-2 rounded-full transition-colors"
               data-testid="button-contact-header"
             >
               <Mail className="w-3.5 h-3.5" />
@@ -98,11 +98,11 @@ export function Header() {
               <div className="flex items-center gap-2.5 mb-8 mt-2">
                 <LogoMark size={36} />
                 <div className="flex flex-col leading-none">
-                  <div className="flex items-center gap-1">
-                    <span className="text-[#1a4b99] font-black text-lg">アクロス</span>
-                    <span className="text-[#c0392b] font-black text-lg">物流</span>
+                  <div className="flex items-center gap-0.5">
+                    <span className="text-[#1a4b99] font-black text-lg">池ノ谷</span>
+                    <span className="text-[#1d4ed8] font-black text-lg">商事</span>
                   </div>
-                  <span className="text-gray-400 text-[9px] tracking-widest">アクロス物流株式会社</span>
+                  <span className="text-gray-400 text-[9px] tracking-widest">株式会社池ノ谷商事</span>
                 </div>
               </div>
               <nav className="flex flex-col gap-1">
@@ -122,7 +122,7 @@ export function Header() {
                 <Link
                   href="/contact"
                   onClick={() => { setOpen(false); trackEvent("cta_contact_click", { location: "header_mobile" }); }}
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-[#c0392b] text-white rounded-full text-sm font-medium"
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-[#1d4ed8] text-white rounded-full text-sm font-medium"
                   data-testid="button-contact-mobile"
                 >
                   <Mail className="w-4 h-4" />

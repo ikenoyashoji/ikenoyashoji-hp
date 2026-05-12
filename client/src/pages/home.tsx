@@ -23,7 +23,7 @@ const faqs = [
 export default function Home() {
   useEffect(() => {
     trackPageView("/");
-    document.title = "アクロス物流株式会社｜関東圏の物流・輸送サービス";
+    document.title = "株式会社池ノ谷商事｜関東圏の物流・輸送サービス";
   }, []);
 
   const { data: articles } = useQuery<any[]>({ queryKey: ["/api/articles"] });
@@ -35,16 +35,13 @@ export default function Home() {
 
       {/* HERO */}
       <section className="relative h-screen min-h-[620px] flex items-center pt-16 overflow-hidden">
-        {/* Road/sky photographic background using CSS layers */}
         <div className="absolute inset-0">
-          {/* Real photo background */}
           <img
             src={heroBg}
             alt=""
             className="w-full h-full object-cover object-center"
             aria-hidden="true"
           />
-          {/* Dark overlay for text readability */}
           <div className="absolute inset-0" style={{ background: "rgba(10,20,30,0.55)" }} />
         </div>
 
@@ -69,7 +66,7 @@ export default function Home() {
             <div className="flex gap-3 justify-end flex-wrap">
               <Link href="/contact?type=shipper">
                 <button
-                  className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm shadow-lg"
+                  className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm shadow-lg"
                   onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
                   data-testid="button-hero-quote"
                 >
@@ -121,20 +118,20 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <AnimateIn direction="left">
               <div className="mb-4">
-                <span className="text-[#c0392b] font-black text-4xl italic font-serif">About Us</span>
+                <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">About Us</span>
                 <p className="text-gray-400 text-sm mt-1">私たちについて</p>
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 leading-snug">
                 現場に根ざし、信頼に応える。
               </h2>
               <p className="text-gray-600 leading-relaxed mb-4 text-sm md:text-base">
-                アクロス物流は、関東に根ざした運輸・構内作業のプロフェッショナル集団。安全・確実・丁寧な業務を一つひとつ積み重ねてきました。
+                池ノ谷商事は、関東に根ざした運輸・構内作業のプロフェッショナル集団。安全・確実・丁寧な業務を一つひとつ積み重ねてきました。
               </p>
               <p className="text-gray-600 leading-relaxed mb-6 text-sm md:text-base">
                 創業以来15年、地域社会とともに歩みながら、お客様との信頼関係を丁寧に築いてきた歴史があります。これからも、誠実な姿勢で現場に向き合い、確かな仕事を積み重ねてまいります。
               </p>
               <Link href="/company">
-                <button className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm" data-testid="button-about-more">
+                <button className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm" data-testid="button-about-more">
                   View More.
                   <ChevronRight className="w-4 h-4" />
                 </button>
@@ -158,8 +155,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marquee / teal band */}
-      <div className="bg-[#6B9E9E] py-6 overflow-hidden relative">
+      {/* Marquee / blue band */}
+      <div className="bg-gradient-to-r from-[#1a4b99] to-[#1d4ed8] py-6 overflow-hidden relative">
         <div className="flex whitespace-nowrap animate-marquee">
           {Array.from({ length: 4 }).map((_, i) => (
             <span key={i} className="text-4xl md:text-5xl font-black italic text-white/20 mr-16 tracking-tight flex-shrink-0">
@@ -174,7 +171,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
             <div className="mb-12">
-              <span className="text-[#c0392b] font-black text-4xl italic font-serif">Service</span>
+              <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">Service</span>
               <p className="text-gray-400 text-sm mt-1">サービスのご案内</p>
             </div>
             <div className="mb-8">
@@ -216,7 +213,7 @@ export default function Home() {
               <div className="relative z-10 p-8 flex flex-col justify-end h-full" style={{ minHeight: 300 }}>
                 <p className="text-white text-2xl font-bold mb-2">安全・確実・丁寧な業務を一つひとつ積み重ねてきました。</p>
                 <Link href="/contact">
-                  <button className="mt-4 flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm w-fit" data-testid="button-service-more">
+                  <button className="mt-4 flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm w-fit" data-testid="button-service-more">
                     View More.
                     <ChevronRight className="w-4 h-4" />
                   </button>
@@ -228,7 +225,7 @@ export default function Home() {
       </section>
 
       {/* Recruit section */}
-      <section className="py-20 bg-[#6B9E9E]/10 px-4">
+      <section className="py-20 bg-blue-50/40 px-4">
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
             <div className="grid md:grid-cols-2 gap-0 rounded-lg overflow-hidden">
@@ -241,19 +238,19 @@ export default function Home() {
               </div>
               <div className="bg-white p-8 md:p-12 flex flex-col justify-center">
                 <div className="mb-4">
-                  <span className="text-[#c0392b] font-black text-3xl italic font-serif">Recruit</span>
+                  <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Recruit</span>
                   <p className="text-gray-400 text-sm mt-1">採用情報</p>
                 </div>
-                <h2 className="text-xl md:text-2xl font-bold text-[#6B9E9E] mb-4 leading-snug">
+                <h2 className="text-xl md:text-2xl font-bold text-[#1a4b99] mb-4 leading-snug">
                   支える仕事には、<br />
                   静かな誇りと、<br />
                   世界を動かす力がある。
                 </h2>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                  アクロス物流が担うのは、製品輸送や構内作業といった、一見すると目立たないけれど、現場に欠かせない仕事です。誠実に、まっすぐに。現場を支える一員として、一緒に働いてみませんか。
+                  池ノ谷商事が担うのは、製品輸送や構内作業といった、一見すると目立たないけれど、現場に欠かせない仕事です。誠実に、まっすぐに。現場を支える一員として、一緒に働いてみませんか。
                 </p>
                 <Link href="/recruit">
-                  <button className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm w-fit" data-testid="button-recruit-more">
+                  <button className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm w-fit" data-testid="button-recruit-more">
                     View More.
                     <ChevronRight className="w-4 h-4" />
                   </button>
@@ -269,8 +266,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
             <div className="grid md:grid-cols-2 gap-0 rounded-lg overflow-hidden">
-              <div className="relative bg-gradient-to-br from-gray-200 to-gray-400 min-h-72 flex items-center justify-center">
-                <div className="absolute inset-0 bg-gradient-to-br from-teal-900/30 to-gray-800/50" />
+              <div className="relative bg-gradient-to-br from-[#1a4b99] to-[#1d4ed8] min-h-72 flex items-center justify-center">
+                <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255,255,255,0.05) 15px, rgba(255,255,255,0.05) 16px)" }} />
                 <div className="relative text-center">
                   <div className="w-20 h-20 rounded-full bg-white/20 border border-white/30 flex items-center justify-center mx-auto">
                     <Phone className="w-8 h-8 text-white" />
@@ -287,7 +284,7 @@ export default function Home() {
                 </p>
                 <a
                   href="tel:0312345678"
-                  className="text-[#c0392b] font-bold text-2xl flex items-center gap-2 mb-4 hover:text-red-700 transition-colors"
+                  className="text-[#1d4ed8] font-bold text-2xl flex items-center gap-2 mb-4 hover:text-[#1e3a8a] transition-colors"
                   onClick={() => trackEvent("tel_click", { location: "home_contact" })}
                   data-testid="link-tel-home"
                 >
@@ -296,7 +293,7 @@ export default function Home() {
                 </a>
                 <Link href="/contact">
                   <button
-                    className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm w-fit"
+                    className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm w-fit"
                     onClick={() => trackEvent("cta_contact_click", { location: "home_contact" })}
                     data-testid="button-contact-home"
                   >
@@ -317,7 +314,7 @@ export default function Home() {
             <AnimateIn direction="up">
               <div className="flex items-end justify-between mb-10">
                 <div>
-                  <span className="text-[#c0392b] font-black text-4xl italic font-serif">News</span>
+                  <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">News</span>
                   <p className="text-gray-400 text-sm mt-1">お知らせ</p>
                 </div>
                 <div className="flex gap-2 text-xs">
@@ -342,7 +339,7 @@ export default function Home() {
                           </div>
                         )}
                       </div>
-                      <h3 className="font-semibold text-[#1a4b99] text-sm md:text-base mb-2 group-hover:text-[#c0392b] transition-colors line-clamp-2">{a.title}</h3>
+                      <h3 className="font-semibold text-[#1a4b99] text-sm md:text-base mb-2 group-hover:text-[#1d4ed8] transition-colors line-clamp-2">{a.title}</h3>
                       <p className="text-gray-500 text-xs leading-relaxed line-clamp-3 mb-3">{a.excerpt}</p>
                       <p className="text-gray-400 text-xs">
                         {a.publishedAt ? format(new Date(a.publishedAt), "yyyy.MM.dd", { locale: ja }) : format(new Date(a.createdAt), "yyyy.MM.dd", { locale: ja })}
@@ -361,7 +358,7 @@ export default function Home() {
         <div className="max-w-3xl mx-auto">
           <AnimateIn direction="up">
             <div className="text-center mb-12">
-              <span className="text-[#c0392b] font-black text-3xl italic font-serif">FAQ</span>
+              <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">FAQ</span>
               <p className="text-gray-400 text-sm mt-2">よくあるご質問</p>
             </div>
           </AnimateIn>

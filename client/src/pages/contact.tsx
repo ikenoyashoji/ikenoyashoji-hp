@@ -32,8 +32,8 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 const typeConfig = {
   shipper: { label: "荷主・輸送のご相談", color: "text-[#1a4b99]", bg: "bg-blue-50 border-blue-200" },
-  recruit: { label: "採用のお問い合わせ", color: "text-[#c0392b]", bg: "bg-red-50 border-red-200" },
-  partner: { label: "協力会社のご登録", color: "text-[#6B9E9E]", bg: "bg-teal-50 border-teal-200" },
+  recruit: { label: "採用のお問い合わせ", color: "text-[#1d4ed8]", bg: "bg-blue-50 border-blue-300" },
+  partner: { label: "協力会社のご登録", color: "text-[#1e3a8a]", bg: "bg-blue-100 border-blue-300" },
 };
 
 export default function Contact() {
@@ -46,7 +46,7 @@ export default function Contact() {
 
   useEffect(() => {
     trackPageView("/contact");
-    document.title = "お問い合わせ｜アクロス物流株式会社";
+    document.title = "お問い合わせ｜株式会社池ノ谷商事";
   }, []);
 
   const form = useForm<ContactFormValues>({
@@ -86,14 +86,14 @@ export default function Contact() {
         <Header />
         <div className="flex-1 flex items-center justify-center px-4 pt-16">
           <div className="text-center max-w-md">
-            <div className="w-20 h-20 rounded-full bg-[#6B9E9E]/20 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="w-10 h-10 text-[#6B9E9E]" />
+            <div className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="w-10 h-10 text-[#1d4ed8]" />
             </div>
             <h2 className="text-2xl font-bold text-gray-800 mb-4">送信完了しました</h2>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
               お問い合わせありがとうございます。担当者より2営業日以内にご連絡いたします。
             </p>
-            <a href="/" className="text-[#c0392b] hover:underline text-sm">ホームに戻る</a>
+            <a href="/" className="text-[#1d4ed8] hover:underline text-sm">ホームに戻る</a>
           </div>
         </div>
         <Footer />
@@ -107,23 +107,23 @@ export default function Contact() {
 
       <section className="pt-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 py-12">
-          <span className="text-[#c0392b] font-black text-4xl italic font-serif">Contact</span>
+          <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">Contact</span>
           <p className="text-gray-400 text-sm mt-1 mb-8">お問い合わせ</p>
 
           <div className="grid md:grid-cols-3 gap-4 mb-10">
-            <a href="tel:0312345678" className="border border-gray-200 rounded-lg p-5 hover:border-[#c0392b] transition-colors hover-elevate flex items-center gap-3" data-testid="link-contact-tel">
-              <Phone className="w-5 h-5 text-[#c0392b] flex-shrink-0" />
+            <a href="tel:0312345678" className="border border-gray-200 rounded-lg p-5 hover:border-[#1d4ed8] transition-colors hover-elevate flex items-center gap-3" data-testid="link-contact-tel">
+              <Phone className="w-5 h-5 text-[#1d4ed8] flex-shrink-0" />
               <div>
                 <div className="text-xs text-gray-400">お電話</div>
                 <div className="text-gray-800 font-bold">03-1234-5678</div>
                 <div className="text-xs text-gray-400">平日 9:00〜18:00</div>
               </div>
             </a>
-            <a href="mailto:info@across-logistics.co.jp" className="border border-gray-200 rounded-lg p-5 hover:border-[#c0392b] transition-colors hover-elevate flex items-center gap-3" data-testid="link-contact-email">
-              <Mail className="w-5 h-5 text-[#c0392b] flex-shrink-0" />
+            <a href="mailto:info@ikenoya-shoji.co.jp" className="border border-gray-200 rounded-lg p-5 hover:border-[#1d4ed8] transition-colors hover-elevate flex items-center gap-3" data-testid="link-contact-email">
+              <Mail className="w-5 h-5 text-[#1d4ed8] flex-shrink-0" />
               <div>
                 <div className="text-xs text-gray-400">メール</div>
-                <div className="text-gray-700 text-sm">info@across-logistics.co.jp</div>
+                <div className="text-gray-700 text-sm">info@ikenoya-shoji.co.jp</div>
                 <div className="text-xs text-gray-400">24時間受付</div>
               </div>
             </a>
@@ -248,7 +248,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full bg-[#c0392b] hover:bg-[#a93226] disabled:opacity-50 text-white font-medium py-3 rounded-full transition-colors text-sm"
+                  className="w-full bg-[#1d4ed8] hover:bg-[#1e3a8a] disabled:opacity-50 text-white font-medium py-3 rounded-full transition-colors text-sm"
                   data-testid="button-submit"
                 >
                   {mutation.isPending ? "送信中..." : "送信する"}

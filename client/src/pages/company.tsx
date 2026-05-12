@@ -7,15 +7,15 @@ import { trackPageView } from "@/lib/analytics";
 import { CheckCircle, ChevronRight, MapPin, Phone } from "lucide-react";
 
 const companyInfo = [
-  { label: "会社名", value: "アクロス物流株式会社" },
-  { label: "英語表記", value: "ACROSS LOGISTICS CO., LTD." },
+  { label: "会社名", value: "株式会社池ノ谷商事" },
+  { label: "英語表記", value: "IKENOYA SHOJI CO., LTD." },
   { label: "設立", value: "2009年（平成21年）4月" },
   { label: "資本金", value: "3,000万円" },
-  { label: "代表取締役", value: "山田 太郎" },
+  { label: "代表取締役", value: "池ノ谷 太郎" },
   { label: "本社所在地", value: "〒135-0001 東京都江東区東陽1-1-1 東陽ビル3F" },
   { label: "TEL", value: "03-1234-5678" },
   { label: "FAX", value: "03-1234-5679" },
-  { label: "Email", value: "info@across-logistics.co.jp" },
+  { label: "Email", value: "info@ikenoya-shoji.co.jp" },
   { label: "営業時間", value: "24時間・365日対応（事務：平日9:00〜18:00）" },
   { label: "事業内容", value: "一般貨物自動車運送事業、貨物利用運送事業、貨物軽自動車運送事業" },
   { label: "車両台数", value: "自社50台 + 提携100台以上" },
@@ -26,7 +26,7 @@ const companyInfo = [
 export default function Company() {
   useEffect(() => {
     trackPageView("/company");
-    document.title = "企業情報｜アクロス物流株式会社";
+    document.title = "企業情報｜株式会社池ノ谷商事";
   }, []);
 
   return (
@@ -35,14 +35,14 @@ export default function Company() {
 
       {/* Hero - representative message style */}
       <section className="pt-16 relative min-h-[60vh] flex items-stretch">
-        <div className="w-full md:w-1/2 bg-gradient-to-br from-gray-200 to-gray-400 relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-800/20 to-gray-900/40" />
+        <div className="w-full md:w-1/2 bg-gradient-to-br from-[#1a4b99] to-[#1d4ed8] relative">
+          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255,255,255,0.05) 15px, rgba(255,255,255,0.05) 16px)" }} />
           <div className="absolute inset-0 flex items-center justify-center p-8">
             <div className="relative text-center">
               <div className="w-32 h-32 rounded-full bg-white/20 border-2 border-white/30 flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-4xl font-black">山</span>
+                <span className="text-white text-4xl font-black">池</span>
               </div>
-              <div className="text-white font-bold">山田 太郎</div>
+              <div className="text-white font-bold">池ノ谷 太郎</div>
               <div className="text-white/60 text-sm">代表取締役</div>
             </div>
           </div>
@@ -50,7 +50,7 @@ export default function Company() {
         <div className="w-full md:w-1/2 bg-white flex items-center p-8 md:p-16">
           <div>
             <div className="mb-4">
-              <span className="text-[#c0392b] font-black text-4xl italic font-serif">Company</span>
+              <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">Company</span>
               <p className="text-gray-400 text-sm mt-1">企業情報</p>
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 leading-snug">
@@ -58,13 +58,13 @@ export default function Company() {
               地域に根ざし、信頼を育んできました。
             </h1>
             <p className="text-gray-500 text-sm leading-relaxed mb-4">
-              アクロス物流は、2009年の創業以来、安全・確実・丁寧をモットーに、輸送業務と構内作業に取り組んできました。長年の経験と現場力を活かし、地域社会とともに歩みながら、お客様との信頼関係を一つひとつ丁寧に築いてきた歴史があります。
+              池ノ谷商事は、2009年の創業以来、安全・確実・丁寧をモットーに、輸送業務と構内作業に取り組んできました。長年の経験と現場力を活かし、地域社会とともに歩みながら、お客様との信頼関係を一つひとつ丁寧に築いてきた歴史があります。
             </p>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
               これからも、誠実な姿勢で現場に向き合い、確かな仕事を積み重ねてまいります。
             </p>
             <Link href="/contact">
-              <button className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm">
+              <button className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm">
                 View More.
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -85,10 +85,10 @@ export default function Company() {
       <section className="py-20 bg-white px-4">
         <div className="max-w-4xl mx-auto">
           <div className="mb-10">
-            <span className="text-[#c0392b] font-black text-3xl italic font-serif">Philosophy</span>
+            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Philosophy</span>
             <p className="text-gray-400 text-sm mt-1">企業理念</p>
           </div>
-          <div className="bg-[#6B9E9E] rounded-xl p-8 mb-8 text-center">
+          <div className="bg-gradient-to-r from-[#1a4b99] to-[#1d4ed8] rounded-xl p-8 mb-8 text-center">
             <p className="text-2xl md:text-3xl font-black text-white mb-2">"物流で、社会をつなぐ。"</p>
             <p className="text-white/60 text-sm">CONNECTING SOCIETY THROUGH LOGISTICS</p>
           </div>
@@ -99,7 +99,7 @@ export default function Company() {
               { title: "革新", desc: "テクノロジーと現場力を融合させ、物流の常識を変え続けます。" },
             ].map((p) => (
               <div key={p.title} className="border border-gray-200 rounded-lg p-6 hover-elevate">
-                <div className="text-[#c0392b] font-black text-2xl mb-2">{p.title}</div>
+                <div className="text-[#1d4ed8] font-black text-2xl mb-2">{p.title}</div>
                 <p className="text-gray-500 text-sm leading-relaxed">{p.desc}</p>
               </div>
             ))}
@@ -111,7 +111,7 @@ export default function Company() {
       <section className="py-16 bg-gray-50 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
-            <span className="text-[#c0392b] font-black text-3xl italic font-serif">Overview</span>
+            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Overview</span>
             <p className="text-gray-400 text-sm mt-1">会社概要</p>
           </div>
           <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
@@ -131,7 +131,7 @@ export default function Company() {
       <section className="py-16 bg-white px-4">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
-            <span className="text-[#c0392b] font-black text-3xl italic font-serif">Certifications</span>
+            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Certifications</span>
             <p className="text-gray-400 text-sm mt-1">認証・取組み</p>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -142,7 +142,7 @@ export default function Company() {
               { title: "働きやすい職場認証", desc: "ドライバーが働きやすい環境づくりに取り組み、認証を取得しています。" },
             ].map((c) => (
               <div key={c.title} className="flex gap-3 p-4 border border-gray-200 rounded-lg">
-                <CheckCircle className="w-5 h-5 text-[#6B9E9E] flex-shrink-0 mt-0.5" />
+                <CheckCircle className="w-5 h-5 text-[#1d4ed8] flex-shrink-0 mt-0.5" />
                 <div>
                   <div className="font-bold text-gray-800 text-sm mb-1">{c.title}</div>
                   <p className="text-gray-500 text-xs leading-relaxed">{c.desc}</p>

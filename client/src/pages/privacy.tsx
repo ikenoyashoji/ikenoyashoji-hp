@@ -6,7 +6,7 @@ import { trackPageView } from "@/lib/analytics";
 export default function Privacy() {
   useEffect(() => {
     trackPageView("/privacy");
-    document.title = "プライバシーポリシー｜アクロス物流株式会社";
+    document.title = "プライバシーポリシー｜株式会社池ノ谷商事";
   }, []);
 
   return (
@@ -14,13 +14,13 @@ export default function Privacy() {
       <Header />
       <main className="flex-1 pt-16">
         <div className="max-w-3xl mx-auto px-4 py-12">
-          <span className="text-[#c0392b] font-black text-3xl italic font-serif">Privacy Policy</span>
+          <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Privacy Policy</span>
           <p className="text-gray-400 text-sm mt-1 mb-10">プライバシーポリシー</p>
 
           <div className="prose prose-sm max-w-none text-gray-600 space-y-8">
             <section>
               <h2 className="text-lg font-bold text-gray-800 mb-3">1. 個人情報の取り扱いについて</h2>
-              <p className="leading-relaxed">アクロス物流株式会社（以下「当社」）は、お客様の個人情報の取り扱いについて、個人情報の保護に関する法律（個人情報保護法）その他関係法令を遵守し、適切に管理いたします。</p>
+              <p className="leading-relaxed">株式会社池ノ谷商事（以下「当社」）は、お客様の個人情報の取り扱いについて、個人情報の保護に関する法律（個人情報保護法）その他関係法令を遵守し、適切に管理いたします。</p>
             </section>
             <section>
               <h2 className="text-lg font-bold text-gray-800 mb-3">2. 収集する個人情報の種類</h2>
@@ -65,10 +65,10 @@ export default function Privacy() {
             <section>
               <h2 className="text-lg font-bold text-gray-800 mb-3">8. お問い合わせ</h2>
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                <p className="font-semibold text-gray-800 mb-1">アクロス物流株式会社 個人情報管理担当</p>
+                <p className="font-semibold text-gray-800 mb-1">株式会社池ノ谷商事 個人情報管理担当</p>
                 <p>〒135-0001 東京都江東区東陽1-1-1</p>
                 <p>TEL: 03-1234-5678</p>
-                <p>Email: privacy@across-logistics.co.jp</p>
+                <p>Email: privacy@ikenoya-shoji.co.jp</p>
               </div>
             </section>
             <p className="text-gray-400 text-xs">制定日：2024年4月1日 / 最終改定日：2025年1月1日</p>

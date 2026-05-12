@@ -29,7 +29,7 @@ export default function BlogPost() {
   useEffect(() => {
     if (article) {
       trackPageView(`/blog/${slug}`);
-      document.title = `${article.title}｜アクロス物流株式会社`;
+      document.title = `${article.title}｜株式会社池ノ谷商事`;
     }
   }, [article, slug]);
 
@@ -140,7 +140,7 @@ export default function BlogPost() {
                 onClick={() => setTocOpen(!tocOpen)}
                 data-testid="button-toc-toggle"
               >
-                <List className="w-4 h-4 text-[#6B9E9E]" />
+                <List className="w-4 h-4 text-[#1d4ed8]" />
                 目次
                 <ChevronRight className={`w-4 h-4 ml-auto transition-transform text-gray-400 ${tocOpen ? "rotate-90" : ""}`} />
               </button>
@@ -148,7 +148,7 @@ export default function BlogPost() {
                 <ol className="mt-3 space-y-1">
                   {headings.map((h, i) => (
                     <li key={i} className={`text-sm ${h.level === 3 ? "pl-4" : ""}`}>
-                      <span className="text-[#1a4b99] hover:text-[#c0392b] cursor-pointer transition-colors">{h.text}</span>
+                      <span className="text-[#1a4b99] hover:text-[#1d4ed8] cursor-pointer transition-colors">{h.text}</span>
                     </li>
                   ))}
                 </ol>

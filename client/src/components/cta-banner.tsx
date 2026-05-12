@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Phone, Mail, ArrowRight } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 interface CtaBannerProps {
@@ -25,7 +25,7 @@ export function CtaBanner({
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="tel:0312345678"
-            className="flex items-center gap-2 text-[#c0392b] font-bold text-xl hover:text-red-700 transition-colors"
+            className="flex items-center gap-2 text-[#1d4ed8] font-bold text-xl hover:text-[#1e3a8a] transition-colors"
             onClick={() => trackEvent("tel_click", { location: "cta_banner" })}
             data-testid="link-cta-tel"
           >
@@ -34,7 +34,7 @@ export function CtaBanner({
           </a>
           <Link href={`/contact?type=${quoteType}`}>
             <button
-              className="flex items-center gap-2 bg-[#c0392b] hover:bg-[#a93226] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
+              className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
               onClick={() => trackEvent("cta_quote_click", { location: "cta_banner" })}
               data-testid="button-cta-quote"
             >
