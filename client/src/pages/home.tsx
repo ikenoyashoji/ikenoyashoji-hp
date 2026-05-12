@@ -45,7 +45,7 @@ export default function Home() {
           {/* White gradient from left to transparent — makes left text readable */}
           <div
             className="absolute inset-0"
-            style={{ background: "linear-gradient(to right, #ffffff 28%, rgba(255,255,255,0.82) 44%, rgba(255,255,255,0.3) 62%, transparent 80%)" }}
+            style={{ background: "linear-gradient(to right, #ffffff 42%, rgba(255,255,255,0.85) 58%, rgba(255,255,255,0.3) 72%, transparent 88%)" }}
           />
         </div>
 
