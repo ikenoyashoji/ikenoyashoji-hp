@@ -219,35 +219,45 @@ export default function Home() {
             {[
               {
                 num: "01",
-                title: "定期輸送・スポット輸送",
-                sub: "Local Freight",
-                desc: "専任ドライバーによる安全・確実な輸送で、大切なお荷物を目的地まで丁寧にお届けします。",
+                title: "一般貨物",
+                sub: "General Cargo",
+                desc: "定期便・スポット便を問わず、小口から大口まで幅広い貨物輸送に対応。経験豊富なドライバーが安全・確実に目的地までお届けします。関東を中心に全国各地へのネットワークで、スピーディーかつ丁寧な輸送を実現します。",
+                href: "/contact",
               },
               {
                 num: "02",
-                title: "チャーター・幹線輸送",
-                sub: "Charter & Trunk",
-                desc: "重量物や取扱注意製品にも対応した輸送体制で、長年培った技術とノウハウを発揮しています。",
+                title: "倉庫管理",
+                sub: "Warehouse Management",
+                desc: "入出庫管理から在庫管理まで、お客様の物流拠点として柔軟に対応。商品の保管状況をリアルタイムに把握し、正確な在庫情報をご提供します。適切な温度・湿度管理のもと、大切な商品を安全に保管します。",
+                href: "/contact",
               },
               {
                 num: "03",
-                title: "構内作業・特殊輸送",
-                sub: "On-site Work",
-                desc: "工場内で製造補助から環境整備まで、さまざまな業務を柔軟かつ丁寧に対応します。",
+                title: "３PL",
+                sub: "Third Party Logistics",
+                desc: "輸送・保管・流通加工を一括してお引き受けするサードパーティロジスティクスサービス。お客様の物流業務を丸ごと担い、コスト削減と業務効率化を同時に実現。最適な物流戦略をご提案し、ビジネスの成長をサポートします。",
+                href: "/contact",
               },
             ].map((s, i) => (
-              <div key={i} className="border border-gray-100 hover:border-[#1a4b99] transition-colors p-8 flex flex-col gap-3 group">
-                <div className="text-[#1d4ed8] text-xs font-medium tracking-widest">{s.num}</div>
-                <div className="w-6 h-0.5 bg-[#1d4ed8]" />
-                <h3 className="text-gray-900 font-bold text-lg leading-snug">{s.title}</h3>
-                <p className="text-gray-400 text-xs italic tracking-wide">{s.sub}</p>
-                <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
-                <div className="mt-auto pt-4">
-                  <Link href="/#services">
-                    <span className="text-[#1a4b99] text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                      詳しく見る <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </Link>
+              <div key={i} className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden">
+                {/* Image placeholder */}
+                <div className="w-full aspect-[16/9] bg-gray-100 flex items-center justify-center">
+                  <span className="text-gray-300 text-xs tracking-widest">IMAGE</span>
+                </div>
+                {/* Text content */}
+                <div className="p-8 flex flex-col gap-3 flex-1">
+                  <div className="text-[#1d4ed8] text-xs font-medium tracking-widest">{s.num}</div>
+                  <div className="w-6 h-0.5 bg-[#1d4ed8]" />
+                  <h3 className="text-gray-900 font-bold text-xl leading-snug">{s.title}</h3>
+                  <p className="text-gray-400 text-xs italic tracking-wide">{s.sub}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
+                  <div className="mt-auto pt-4">
+                    <Link href={s.href}>
+                      <span className="text-[#1a4b99] text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                        詳しく見る <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
