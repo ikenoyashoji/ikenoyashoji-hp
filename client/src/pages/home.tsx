@@ -59,8 +59,7 @@ export default function Home() {
               運ぶ信頼<br />届ける真心
             </h1>
             <p className="text-gray-600 text-sm md:text-base mb-10 leading-relaxed">
-              輸送と構内作業のプロとして、<br />
-              関東を拠点に荷主様の信頼にお応えしてまいります。
+              関東一円から全国へ
             </p>
             <div className="flex gap-4 flex-wrap">
               <Link href="/contact?type=shipper">
