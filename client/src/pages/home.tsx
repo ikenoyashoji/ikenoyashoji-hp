@@ -87,7 +87,8 @@ export default function Home() {
           <img
             src={heroBg}
             alt=""
-            className="w-full h-full object-contain object-right"
+            className="w-full h-full object-contain"
+            style={{ objectPosition: "right top" }}
             aria-hidden="true"
           />
           {/* White fade on left edge to blend with text area */}
@@ -124,7 +125,7 @@ export default function Home() {
       </section>
 
       {/* Marquee ticker */}
-      <div className="overflow-hidden py-5 bg-white -mt-14 relative z-10">
+      <div className="overflow-hidden py-5 bg-white relative z-10">
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
