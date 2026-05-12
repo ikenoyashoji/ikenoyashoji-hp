@@ -72,10 +72,7 @@ export function Header() {
               <LogoMark size={40} />
               <div className="flex flex-col leading-none">
                 <span className="text-[9px] text-gray-400 tracking-widest mb-0.5">総合物流企業</span>
-                <div className="flex items-baseline">
-                  <span className="text-black font-black text-xl tracking-tight">池ノ谷</span>
-                  <span className="text-black font-black text-xl tracking-tight">商事</span>
-                </div>
+                <span className="text-black font-black text-xl tracking-tight">株式会社池ノ谷商事</span>
               </div>
             </Link>
 
