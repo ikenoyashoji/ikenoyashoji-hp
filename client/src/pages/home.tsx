@@ -39,7 +39,7 @@ export default function Home() {
           <img
             src={heroBg}
             alt=""
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-right"
             aria-hidden="true"
           />
           {/* White gradient from left to transparent — makes left text readable */}
