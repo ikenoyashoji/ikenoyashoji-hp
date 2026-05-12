@@ -47,9 +47,8 @@ export default function Home() {
         {/* Hero text - right side */}
         <div className="relative z-10 w-full px-6">
           <div className="ml-auto max-w-md md:max-w-lg text-right md:pr-8">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5 drop-shadow-lg">
-              運ぶのは、信頼。<br />
-              支えるのは、現場力。
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5 drop-shadow-lg whitespace-nowrap">
+              運ぶ信頼、届ける真心。
             </h1>
             <p className="text-gray-200 text-sm md:text-base mb-8 leading-relaxed drop-shadow">
               輸送と構内作業のプロとして、<br />
