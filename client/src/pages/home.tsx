@@ -276,7 +276,7 @@ export default function Home() {
       </section>
 
       {/* Marquee ticker — below RECRUIT */}
-      <div className="overflow-hidden py-5 bg-white border-t border-b border-gray-100">
+      <div className="overflow-hidden py-5 bg-white border-b border-gray-100">
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
