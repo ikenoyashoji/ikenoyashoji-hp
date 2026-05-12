@@ -88,6 +88,60 @@ export default function Home() {
         </div>
       </div>
 
+      {/* TOPICS section */}
+      <section className="py-16 bg-white px-4">
+        <div className="max-w-7xl mx-auto">
+          <AnimateIn direction="up">
+            <div className="text-center mb-10">
+              <p className="text-[#1a4b99] font-black text-3xl tracking-[0.3em] mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>TOPICS</p>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
+              <p className="text-gray-400 text-xs tracking-widest">最新トピックス</p>
+            </div>
+          </AnimateIn>
+          <div className="grid grid-cols-4 gap-5">
+            {Array.from({ length: 4 }).map((_, i) => {
+              const a = articles?.[i] ?? null;
+              return (
+                <AnimateIn key={a?.id ?? i} direction="up" delay={i * 80}>
+                  <Link href={a ? `/blog/${a.slug}` : "/blog"}>
+                    <div className="group cursor-pointer" data-testid={`card-topic-${a?.id ?? i}`}>
+                      <div className="aspect-[4/3] bg-gradient-to-br from-gray-700 to-gray-900 mb-3 overflow-hidden relative rounded-sm">
+                        {a?.imageUrl ? (
+                          <img src={a.imageUrl} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        ) : (
+                          <>
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#1a4b99] to-gray-900" />
+                            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(255,255,255,0.07) 12px, rgba(255,255,255,0.07) 13px)" }} />
+                            <div className="absolute bottom-0 left-0 right-0 p-3">
+                              <span className="text-white/40 text-3xl font-black italic leading-tight line-clamp-2">
+                                {a?.title || "記事タイトル"}
+                              </span>
+                            </div>
+                          </>
+                        )}
+                        <span className="absolute top-2 left-2 bg-[#1d4ed8] text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
+                          {a?.category || "BLOG"}
+                        </span>
+                      </div>
+                      <p className="text-gray-400 text-xs mb-1">
+                        {a?.publishedAt
+                          ? format(new Date(a.publishedAt), "yyyy.MM.dd", { locale: ja })
+                          : a?.createdAt
+                          ? format(new Date(a.createdAt), "yyyy.MM.dd", { locale: ja })
+                          : "2026.05.12"}
+                      </p>
+                      <h3 className="text-gray-700 text-xs leading-relaxed line-clamp-2 group-hover:text-[#1d4ed8] transition-colors">
+                        {a?.title || "記事タイトルが入ります"}
+                      </h3>
+                    </div>
+                  </Link>
+                </AnimateIn>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* About section */}
       <section className="py-20 bg-white px-4">
         <div className="max-w-7xl mx-auto">
