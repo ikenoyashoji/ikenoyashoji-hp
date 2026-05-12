@@ -5,11 +5,11 @@ import { trackEvent } from "@/lib/analytics";
 const logoImg = "/logo-mark.png";
 
 const navLinks = [
-  { href: "/#services", label: "サービスのご案内" },
+  { href: "/company", label: "池ノ谷商事について" },
+  { href: "/#services", label: "事業紹介" },
   { href: "/company", label: "企業情報" },
   { href: "/recruit", label: "採用情報" },
   { href: "/blog", label: "お知らせ" },
-  { href: "/partner", label: "協力会社" },
 ];
 
 function LogoMark({ size = 36 }: { size?: number }) {
@@ -82,7 +82,7 @@ export function Header() {
             {/* Desktop Nav — always shown, slash separated */}
             <nav className="hidden md:flex items-center">
               {navLinks.map((link, i) => (
-                <span key={link.href} className="flex items-center">
+                <span key={link.label} className="flex items-center">
                   {i > 0 && (
                     <span className="text-gray-300 mx-3 text-sm select-none">/</span>
                   )}
