@@ -10,7 +10,7 @@ import { Mail, Phone, ArrowRight, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import heroBg from "@assets/imageああああ_1778609849549.png";
-import japanMapImg from "@assets/image_ｑｑｑ_1778610370095.png";
+import japanMapImg from "@assets/imageううう_1778610881804.png";
 import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
 import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
 import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
