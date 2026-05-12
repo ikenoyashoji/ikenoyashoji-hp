@@ -68,7 +68,7 @@ export default function Home() {
       <Header />
 
       {/* Marquee ticker — above hero */}
-      <div className="overflow-hidden py-5 bg-white border-b border-gray-100 mt-16">
+      <div className="overflow-hidden py-5 bg-white border-b border-gray-100 mt-[100px]">
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
