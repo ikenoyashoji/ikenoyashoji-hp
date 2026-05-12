@@ -138,11 +138,11 @@ export default function Home() {
               <AnimateIn key={i} direction="up" delay={i * 80}>
                 <Link href={t.href}>
                   <div className="group cursor-pointer" data-testid={`card-topic-${i}`}>
-                    <div className="aspect-[4/3] overflow-hidden relative rounded-sm mb-3">
+                    <div className="aspect-[4/3] overflow-hidden relative rounded-sm mb-3 bg-gray-100">
                       <img
                         src={t.img}
                         alt={t.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       />
                       <span className="absolute top-2 left-2 bg-[#1d4ed8] text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
                         {t.category}
@@ -453,51 +453,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Blog/News */}
-      {latestArticles.length > 0 && (
-        <section className="py-20 bg-white px-4">
-          <div className="max-w-7xl mx-auto">
-            <AnimateIn direction="up">
-              <div className="flex items-end justify-between mb-10">
-                <div>
-                  <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">News</span>
-                  <p className="text-gray-400 text-sm mt-1">お知らせ</p>
-                </div>
-                <div className="flex gap-2 text-xs">
-                  <button className="px-3 py-1.5 bg-gray-800 text-white rounded-full">すべて</button>
-                  <button className="px-3 py-1.5 border border-gray-300 text-gray-600 rounded-full hover:bg-gray-50">お知らせ</button>
-                  <button className="px-3 py-1.5 border border-gray-300 text-gray-600 rounded-full hover:bg-gray-50">ブログ</button>
-                </div>
-              </div>
-            </AnimateIn>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {latestArticles.map((a: any, i: number) => (
-                <AnimateIn key={a.id} direction="up" delay={i * 100}>
-                  <Link href={`/blog/${a.slug}`}>
-                    <div className="group cursor-pointer" data-testid={`card-article-${a.id}`}>
-                      <div className="aspect-[4/3] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg mb-4 overflow-hidden relative">
-                        {a.imageUrl ? (
-                          <img src={a.imageUrl} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        ) : (
-                          <div className="absolute inset-0 flex items-end p-4">
-                            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255,255,255,0.05) 15px, rgba(255,255,255,0.05) 16px)" }} />
-                            <span className="text-white/30 text-5xl font-black italic relative z-10">{a.category}</span>
-                          </div>
-                        )}
-                      </div>
-                      <h3 className="font-semibold text-[#1a4b99] text-sm md:text-base mb-2 group-hover:text-[#1d4ed8] transition-colors line-clamp-2">{a.title}</h3>
-                      <p className="text-gray-500 text-xs leading-relaxed line-clamp-3 mb-3">{a.excerpt}</p>
-                      <p className="text-gray-400 text-xs">
-                        {a.publishedAt ? format(new Date(a.publishedAt), "yyyy.MM.dd", { locale: ja }) : format(new Date(a.createdAt), "yyyy.MM.dd", { locale: ja })}
-                      </p>
-                    </div>
-                  </Link>
-                </AnimateIn>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* FAQ */}
       <section className="py-20 bg-gray-50 px-4">
