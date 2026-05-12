@@ -53,7 +53,7 @@ export default function Home() {
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <div className="max-w-lg">
             <h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-snug mb-12"
               style={{ fontFamily: "'Noto Serif JP', serif" }}
             >
               運ぶ信頼<br />届ける真心
