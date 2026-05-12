@@ -11,6 +11,12 @@ import japanMapImg from "@assets/imageううう_1778610881804.png";
 import businessImg1 from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
 import businessImg2 from "@assets/スクリーンショット_2026-05-13_3.51.42_1778611939679.png";
 import businessImg3 from "@assets/スクリーンショット_2026-05-13_3.51.51_1778611943375.png";
+import recruitImg1 from "@assets/スクリーンショット_2026-05-13_4.02.02_1778612566803.png";
+import recruitImg2 from "@assets/スクリーンショット_2026-05-13_4.02.12_1778612566804.png";
+import recruitImg3 from "@assets/スクリーンショット_2026-05-13_4.02.22_1778612566811.png";
+import recruitImg4 from "@assets/スクリーンショット_2026-05-13_4.04.03_1778612674400.png";
+import recruitImg5 from "@assets/スクリーンショット_2026-05-13_4.04.12_1778612674403.png";
+import recruitImg6 from "@assets/スクリーンショット_2026-05-13_4.04.20_1778612674407.png";
 import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
 import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
 import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
@@ -250,13 +256,10 @@ export default function Home() {
         {/* Image slider strip */}
         <div className="overflow-hidden w-full mb-8">
           <div className="flex animate-recruit-slide" style={{ width: "max-content" }}>
-            {[...Array(10)].map((_, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 h-64 w-56 bg-gray-200 border-r border-white flex items-center justify-center"
-                style={{ filter: "brightness(0.9)" }}
-              >
-                <span className="text-gray-400 text-xs tracking-widest">IMAGE</span>
+            {[recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5, recruitImg6,
+              recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5, recruitImg6].map((img, i) => (
+              <div key={i} className="flex-shrink-0 h-72 w-52 overflow-hidden border-r-2 border-white">
+                <img src={img} alt={`recruit-${i}`} className="w-full h-full object-cover object-top" />
               </div>
             ))}
           </div>
