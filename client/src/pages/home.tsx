@@ -5,7 +5,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
-import { JapanMapHero } from "@/components/japan-map";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { Mail, Phone, ArrowRight, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
@@ -43,13 +42,6 @@ export default function Home() {
             aria-hidden="true"
           />
           <div className="absolute inset-0" style={{ background: "rgba(10,20,30,0.55)" }} />
-        </div>
-
-        {/* Japan Map - left side */}
-        <div className="absolute left-0 top-0 bottom-0 w-1/2 md:w-2/5 flex items-center justify-center pl-4 md:pl-8 z-10">
-          <div className="w-full max-w-xs md:max-w-sm" style={{ height: "70vh", maxHeight: 460 }}>
-            <JapanMapHero />
-          </div>
         </div>
 
         {/* Hero text - right side */}
