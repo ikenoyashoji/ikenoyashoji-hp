@@ -54,7 +54,8 @@ export function Header() {
             <Link
               href="/contact"
               onClick={() => trackEvent("cta_contact_click", { location: "header_top" })}
-              className="flex items-center bg-[#0f2044] hover:bg-[#1a4b99] text-white text-xs font-medium px-5 py-1.5 transition-colors"
+              className="flex items-center text-white text-xs font-medium px-5 py-1.5 transition-opacity hover:opacity-90"
+              style={{ background: "linear-gradient(135deg, #1a4b99 0%, #1d4ed8 100%)" }}
               data-testid="button-contact-header-top"
             >
               お問い合わせ
