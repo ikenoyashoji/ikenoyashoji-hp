@@ -67,8 +67,21 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
+      {/* Marquee ticker — above hero */}
+      <div className="overflow-hidden py-5 bg-white border-b border-gray-100 mt-16">
+        <div className="animate-marquee">
+          {[...Array(2)].map((_, i) => (
+            <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
+              {[...Array(8)].map((_, j) => (
+                <span key={j} className="text-4xl font-bold italic text-gray-200 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* HERO */}
-      <section className="relative flex items-center pt-16 overflow-hidden bg-white" style={{ minHeight: 560 }}>
+      <section className="relative flex items-center overflow-hidden bg-white" style={{ minHeight: 560 }}>
         {/* Truck image — right side, full image visible */}
         <div className="absolute right-0 top-0 bottom-0" style={{ width: "68%" }}>
           <img
@@ -112,19 +125,6 @@ export default function Home() {
 
       {/* Marquee ticker */}
       <div className="overflow-hidden py-5 bg-white -mt-14 relative z-10">
-        <div className="animate-marquee">
-          {[...Array(2)].map((_, i) => (
-            <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
-              {[...Array(8)].map((_, j) => (
-                <span key={j} className="text-4xl font-bold italic text-gray-200 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
-              ))}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Marquee ticker 2 — above TOPICS */}
-      <div className="overflow-hidden py-5 bg-white border-t border-gray-100">
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
