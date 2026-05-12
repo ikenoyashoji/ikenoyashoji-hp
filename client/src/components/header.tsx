@@ -19,7 +19,7 @@ function LogoMark({ size = 36 }: { size?: number }) {
         width: size,
         height: size,
         borderRadius: "50%",
-        background: "#0a1628",
+        background: "#ffffff",
         overflow: "hidden",
         flexShrink: 0,
         display: "flex",
