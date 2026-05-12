@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -247,37 +247,40 @@ export default function Home() {
       </section>
 
       {/* RECRUIT section */}
-      <section className="pt-2 pb-16 bg-white px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">RECRUIT</p>
-            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
-            <p className="text-gray-400 text-xs tracking-widest">採用情報</p>
-          </div>
+      <section className="pt-16 pb-0 bg-white">
+        {/* Heading */}
+        <div className="text-center mb-6 px-4">
+          <p className="text-gray-900 font-bold text-4xl tracking-[0.2em] mb-1">RECRUIT</p>
+          <div className="w-12 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
+          <p className="text-gray-500 text-sm tracking-widest">採用情報</p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { num: "01", title: "ドライバー", sub: "Driver" },
-              { num: "02", title: "倉庫スタッフ", sub: "Warehouse Staff" },
-              { num: "03", title: "管理・事務スタッフ", sub: "Office Staff" },
-            ].map((s, i) => (
-              <div key={i} className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden">
-                <div className="w-full aspect-[16/9] bg-gray-100 flex items-center justify-center">
-                  <span className="text-gray-300 text-xs tracking-widest">IMAGE</span>
-                </div>
-                <div className="p-8 flex flex-col gap-3">
-                  <div className="text-[#1d4ed8] text-xs font-medium tracking-widest">{s.num}</div>
-                  <div className="w-6 h-0.5 bg-[#1d4ed8]" />
-                  <h3 className="text-gray-900 font-bold text-lg leading-snug">{s.title}</h3>
-                  <p className="text-gray-400 text-xs italic tracking-wide">{s.sub}</p>
-                  <div className="pt-2">
-                    <Link href="/recruit">
-                      <span className="text-[#1a4b99] text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                        詳しく見る <ArrowRight className="w-3 h-3" />
-                      </span>
-                    </Link>
-                  </div>
-                </div>
+        {/* Divider */}
+        <div className="border-t border-gray-200 mx-4 mb-8" />
+
+        {/* Catchphrase row */}
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between mb-10">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 leading-relaxed">
+            池ノ谷商事と共に、<br />
+            物流の未来をつくりませんか？
+          </h2>
+          <Link href="/recruit">
+            <span className="flex items-center gap-3 border border-gray-900 text-gray-900 text-sm font-medium px-6 py-3 hover:bg-gray-900 hover:text-white transition-colors whitespace-nowrap" data-testid="link-recruit-detail">
+              詳しく見る <ArrowRight className="w-4 h-4" />
+            </span>
+          </Link>
+        </div>
+
+        {/* Image slider strip */}
+        <div className="overflow-hidden w-full">
+          <div className="flex animate-recruit-slide" style={{ width: "max-content" }}>
+            {[...Array(10)].map((_, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 h-64 w-56 bg-gray-200 border-r border-white flex items-center justify-center"
+                style={{ filter: "brightness(0.9)" }}
+              >
+                <span className="text-gray-400 text-xs tracking-widest">IMAGE</span>
               </div>
             ))}
           </div>
