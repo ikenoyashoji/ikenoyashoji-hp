@@ -81,18 +81,16 @@ export default function Home() {
       </div>
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-white">
-        {/* Full-width hero image */}
+      <section className="relative bg-white overflow-hidden" style={{ maxHeight: "calc(100vh - 150px)" }}>
         <img
           src={heroBg}
           alt="運ぶ信頼、届ける真心 — 株式会社池ノ谷商事"
-          className="w-full h-auto block"
+          className="w-full h-full object-cover object-top block"
         />
-        {/* Button overlay — bottom-left */}
-        <div className="absolute bottom-8 left-0 w-full max-w-7xl mx-auto px-6 lg:px-16" style={{ left: "50%", transform: "translateX(-50%)" }}>
+        <div className="absolute inset-0 flex items-end pb-10 px-6 lg:px-16">
           <Link href="/company">
             <button
-              className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-8 py-3 transition-colors text-sm tracking-wide bg-white/80 backdrop-blur-sm"
+              className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-8 py-3 transition-colors text-sm tracking-wide bg-white"
               onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
               data-testid="button-hero-quote"
             >
@@ -104,7 +102,7 @@ export default function Home() {
       </section>
 
       {/* Marquee ticker */}
-      <div className="overflow-hidden py-5 bg-white -mt-20 relative z-10">
+      <div className="overflow-hidden py-5 bg-white relative z-10">
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
