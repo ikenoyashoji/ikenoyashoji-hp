@@ -73,8 +73,8 @@ export function Header() {
               <div className="flex flex-col leading-none">
                 <span className="text-[9px] text-gray-400 tracking-widest mb-0.5">総合物流企業</span>
                 <div className="flex items-baseline">
-                  <span className="text-[#1a4b99] font-black text-xl tracking-tight">池ノ谷</span>
-                  <span className="text-[#1d4ed8] font-black text-xl tracking-tight">商事</span>
+                  <span className="text-black font-black text-xl tracking-tight">池ノ谷</span>
+                  <span className="text-black font-black text-xl tracking-tight">商事</span>
                 </div>
               </div>
             </Link>
