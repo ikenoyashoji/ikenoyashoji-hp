@@ -10,6 +10,41 @@ import { Mail, Phone, ArrowRight, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import heroBg from "@assets/image_1778585218479.png";
+import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
+import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
+import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
+import topicImg4 from "@assets/スクリーンショット_2026-05-13_2.45.03_1778607970643.png";
+
+const staticTopics = [
+  {
+    img: topicImg1,
+    category: "採用情報",
+    date: "2026.05.12",
+    title: "WORK STYLE｜ドライバーのリアルな働き方と想いをお届けします。",
+    href: "/recruit",
+  },
+  {
+    img: topicImg2,
+    category: "物流コラム",
+    date: "2026.05.10",
+    title: "物流の裏側｜現場の工夫や課題解決の取り組みを発信します。",
+    href: "/blog",
+  },
+  {
+    img: topicImg3,
+    category: "採用情報",
+    date: "2026.05.08",
+    title: "人を大切にする会社 池ノ谷商事の魅力｜女性スタッフも多数活躍中！",
+    href: "/recruit",
+  },
+  {
+    img: topicImg4,
+    category: "BLOG",
+    date: "2026.05.06",
+    title: "MOVE THE CITY｜街をつなぎ、未来を支える。現場から見える物流の今とこれから。",
+    href: "/blog",
+  },
+];
 
 const faqs = [
   { q: "急な輸送依頼にも対応できますか？", a: "はい、24時間365日体制で対応しております。当日のご依頼でも、空き車両がある場合は即対応いたします。まずはお電話またはフォームでご相談ください。" },
@@ -93,51 +128,34 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
             <div className="text-center mb-10">
-              <p className="text-gray-900 font-black text-4xl tracking-wider mb-1">TOPICS</p>
+              <p className="text-gray-900 font-light text-4xl tracking-[0.4em] mb-1">TOPICS</p>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
               <p className="text-gray-400 text-xs tracking-widest">最新トピックス</p>
             </div>
           </AnimateIn>
           <div className="grid grid-cols-4 gap-5">
-            {Array.from({ length: 4 }).map((_, i) => {
-              const a = articles?.[i] ?? null;
-              return (
-                <AnimateIn key={a?.id ?? i} direction="up" delay={i * 80}>
-                  <Link href={a ? `/blog/${a.slug}` : "/blog"}>
-                    <div className="group cursor-pointer" data-testid={`card-topic-${a?.id ?? i}`}>
-                      <div className="aspect-[4/3] bg-gradient-to-br from-gray-700 to-gray-900 mb-3 overflow-hidden relative rounded-sm">
-                        {a?.imageUrl ? (
-                          <img src={a.imageUrl} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        ) : (
-                          <>
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#1a4b99] to-gray-900" />
-                            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(255,255,255,0.07) 12px, rgba(255,255,255,0.07) 13px)" }} />
-                            <div className="absolute bottom-0 left-0 right-0 p-3">
-                              <span className="text-white/40 text-3xl font-black italic leading-tight line-clamp-2">
-                                {a?.title || "記事タイトル"}
-                              </span>
-                            </div>
-                          </>
-                        )}
-                        <span className="absolute top-2 left-2 bg-[#1d4ed8] text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
-                          {a?.category || "BLOG"}
-                        </span>
-                      </div>
-                      <p className="text-gray-400 text-xs mb-1">
-                        {a?.publishedAt
-                          ? format(new Date(a.publishedAt), "yyyy.MM.dd", { locale: ja })
-                          : a?.createdAt
-                          ? format(new Date(a.createdAt), "yyyy.MM.dd", { locale: ja })
-                          : "2026.05.12"}
-                      </p>
-                      <h3 className="text-gray-700 text-xs leading-relaxed line-clamp-2 group-hover:text-[#1d4ed8] transition-colors">
-                        {a?.title || "記事タイトルが入ります"}
-                      </h3>
+            {staticTopics.map((t, i) => (
+              <AnimateIn key={i} direction="up" delay={i * 80}>
+                <Link href={t.href}>
+                  <div className="group cursor-pointer" data-testid={`card-topic-${i}`}>
+                    <div className="aspect-[4/3] overflow-hidden relative rounded-sm mb-3">
+                      <img
+                        src={t.img}
+                        alt={t.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <span className="absolute top-2 left-2 bg-[#1d4ed8] text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
+                        {t.category}
+                      </span>
                     </div>
-                  </Link>
-                </AnimateIn>
-              );
-            })}
+                    <p className="text-gray-400 text-xs mb-1">{t.date}</p>
+                    <h3 className="text-gray-700 text-xs leading-relaxed line-clamp-2 group-hover:text-[#1d4ed8] transition-colors">
+                      {t.title}
+                    </h3>
+                  </div>
+                </Link>
+              </AnimateIn>
+            ))}
           </div>
         </div>
       </section>
