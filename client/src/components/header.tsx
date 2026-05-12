@@ -30,7 +30,7 @@ function LogoMark({ size = 36 }: { size?: number }) {
       <img
         src={logoImg}
         alt="池ノ谷商事ロゴ"
-        style={{ width: "90%", height: "90%", objectFit: "contain" }}
+        style={{ width: "100%", height: "100%", objectFit: "contain" }}
       />
     </div>
   );
@@ -43,8 +43,8 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-white">
       {/* Top utility bar */}
       <div className="border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-end h-9 gap-6">
+        <div className="max-w-7xl mx-auto px-3 lg:px-6">
+          <div className="flex items-center justify-end h-9 gap-4">
             <a
               href="/company#access"
               className="text-xs text-gray-500 hover:text-[#1a4b99] transition-colors"
@@ -66,7 +66,7 @@ export function Header() {
 
       {/* Main header row — PC: always visible horizontal nav */}
       <div className="border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="max-w-7xl mx-auto px-3 lg:px-6">
           <div className="flex items-center h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-1.5 flex-shrink-0 mr-auto">
