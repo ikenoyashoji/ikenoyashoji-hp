@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Mail, MapPin } from "lucide-react";
+import { Menu } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 const logoImg = "/logo-mark.png";
 
@@ -48,18 +48,16 @@ export function Header() {
           <div className="flex items-center justify-end h-9 gap-4">
             <a
               href="/company#access"
-              className="hidden sm:flex items-center gap-1 text-xs text-gray-500 hover:text-[#1a4b99] transition-colors"
+              className="hidden sm:flex items-center text-xs text-gray-500 hover:text-[#1a4b99] transition-colors"
             >
-              <MapPin className="w-3 h-3" />
               本社アクセス
             </a>
             <Link
               href="/contact"
               onClick={() => trackEvent("cta_contact_click", { location: "header_top" })}
-              className="flex items-center gap-1.5 bg-[#0f2044] hover:bg-[#1a4b99] text-white text-xs font-medium px-4 py-1.5 transition-colors"
+              className="flex items-center bg-[#0f2044] hover:bg-[#1a4b99] text-white text-xs font-medium px-4 py-1.5 transition-colors"
               data-testid="button-contact-header-top"
             >
-              <Mail className="w-3 h-3" />
               お問い合わせ
             </Link>
           </div>
@@ -135,10 +133,9 @@ export function Header() {
                   <Link
                     href="/contact"
                     onClick={() => { setOpen(false); trackEvent("cta_contact_click", { location: "header_mobile" }); }}
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-[#0f2044] text-white text-sm font-medium"
+                    className="flex items-center justify-center w-full py-3 bg-[#0f2044] text-white text-sm font-medium"
                     data-testid="button-contact-mobile"
                   >
-                    <Mail className="w-4 h-4" />
                     お問い合わせ
                   </Link>
                 </div>
