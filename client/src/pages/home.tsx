@@ -249,7 +249,7 @@ export default function Home() {
       </section>
 
       {/* RECRUIT section */}
-      <section className="pt-16 pb-0 bg-white">
+      <section className="pt-6 pb-0 bg-white">
         {/* Heading */}
         <div className="text-center mb-8 px-4">
           <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">RECRUIT</p>
@@ -260,11 +260,10 @@ export default function Home() {
         {/* Catchphrase row */}
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between mb-10">
           <h2 className="text-xl md:text-2xl font-bold text-gray-900 leading-relaxed">
-            池ノ谷商事と共に、<br />
-            物流の未来をつくりませんか？
+            池ノ谷商事と共に物流の未来をつくりませんか？
           </h2>
           <Link href="/recruit">
-            <span className="flex items-center gap-3 border border-gray-900 text-gray-900 text-sm font-medium px-6 py-3 hover:bg-gray-900 hover:text-white transition-colors whitespace-nowrap" data-testid="link-recruit-detail">
+            <span className="flex items-center gap-3 border border-gray-900 text-gray-900 text-sm font-medium px-6 py-3 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white transition-colors whitespace-nowrap" data-testid="link-recruit-detail">
               詳しく見る <ArrowRight className="w-4 h-4" />
             </span>
           </Link>
