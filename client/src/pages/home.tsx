@@ -34,18 +34,18 @@ export default function Home() {
 
       {/* HERO */}
       <section className="relative flex items-center pt-16 overflow-hidden bg-white" style={{ minHeight: 560 }}>
-        {/* Truck image — right half, no dark overlay */}
-        <div className="absolute inset-0">
+        {/* Truck image — right side, full image visible */}
+        <div className="absolute right-0 top-0 bottom-0" style={{ width: "68%" }}>
           <img
             src={heroBg}
             alt=""
-            className="w-full h-full object-cover object-right"
+            className="w-full h-full object-contain object-right"
             aria-hidden="true"
           />
-          {/* White gradient from left to transparent — makes left text readable */}
+          {/* White fade on left edge to blend with text area */}
           <div
             className="absolute inset-0"
-            style={{ background: "linear-gradient(to right, #ffffff 42%, rgba(255,255,255,0.85) 58%, rgba(255,255,255,0.3) 72%, transparent 88%)" }}
+            style={{ background: "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.6) 18%, transparent 40%)" }}
           />
         </div>
 
