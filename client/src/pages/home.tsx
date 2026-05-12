@@ -33,7 +33,8 @@ export default function Home() {
       <Header />
 
       {/* HERO */}
-      <section className="relative h-screen min-h-[620px] flex items-center pt-16 overflow-hidden">
+      <section className="relative flex items-center pt-16 overflow-hidden bg-white" style={{ minHeight: 560 }}>
+        {/* Truck image — right half, no dark overlay */}
         <div className="absolute inset-0">
           <img
             src={heroBg}
@@ -41,33 +42,37 @@ export default function Home() {
             className="w-full h-full object-cover object-center"
             aria-hidden="true"
           />
-          <div className="absolute inset-0" style={{ background: "rgba(10,20,30,0.55)" }} />
+          {/* White gradient from left to transparent — makes left text readable */}
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to right, #ffffff 28%, rgba(255,255,255,0.82) 44%, rgba(255,255,255,0.3) 62%, transparent 80%)" }}
+          />
         </div>
 
-        {/* Hero text - right side */}
-        <div className="relative z-10 w-full px-6">
-          <div className="ml-auto max-w-md md:max-w-lg text-right md:pr-8">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5 drop-shadow-lg whitespace-nowrap">
-              運ぶ信頼、届ける真心。
+        {/* Text — left side */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
+          <div className="max-w-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+              運ぶ信頼、<br />届ける真心。
             </h1>
-            <p className="text-gray-200 text-sm md:text-base mb-8 leading-relaxed drop-shadow">
-              輸送と構内作業のプロとして、<br />
-              関東を拠点に信頼に応えてきました。
+            <p className="text-gray-600 text-sm md:text-base mb-10 leading-relaxed">
+              物を運ぶことで人々の生活を支えるだけでなく、<br />
+              荷主様の想いをともに届けてまいります。
             </p>
-            <div className="flex gap-3 justify-end flex-wrap">
+            <div className="flex gap-4 flex-wrap">
               <Link href="/contact?type=shipper">
                 <button
-                  className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm shadow-lg"
+                  className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-medium px-8 py-3 transition-colors text-sm tracking-wide"
                   onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
                   data-testid="button-hero-quote"
                 >
-                  <Mail className="w-4 h-4" />
                   お問い合わせはこちら
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
               <a
                 href="/#services"
-                className="flex items-center gap-2 border border-white/50 text-white hover:bg-white/10 font-medium px-6 py-3 rounded-full transition-colors text-sm"
+                className="flex items-center gap-3 text-gray-500 hover:text-gray-900 font-medium px-2 py-3 transition-colors text-sm tracking-wide"
                 data-testid="button-hero-services"
               >
                 サービス詳細
@@ -75,18 +80,6 @@ export default function Home() {
               </a>
             </div>
           </div>
-        </div>
-
-        {/* Bottom watermark */}
-        <div className="absolute bottom-6 left-4 right-4 pointer-events-none select-none overflow-hidden">
-          <p className="text-5xl md:text-7xl font-black italic text-white/[0.06] whitespace-nowrap tracking-tight">
-            Driven by Trust. Driven by Trust.
-          </p>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
-          <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
         </div>
       </section>
 
