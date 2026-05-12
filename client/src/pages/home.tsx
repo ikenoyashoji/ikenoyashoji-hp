@@ -244,19 +244,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marquee ticker — between BUSINESS and RECRUIT */}
-      <div className="overflow-hidden py-5 bg-white border-t border-b border-gray-100">
-        <div className="animate-marquee">
-          {[...Array(2)].map((_, i) => (
-            <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
-              {[...Array(8)].map((_, j) => (
-                <span key={j} className="text-4xl font-bold italic text-gray-200 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
-              ))}
-            </span>
-          ))}
-        </div>
-      </div>
-
       {/* RECRUIT section */}
       <section className="pt-6 pb-0 bg-white">
         {/* Heading */}
@@ -287,6 +274,19 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      {/* Marquee ticker — below RECRUIT */}
+      <div className="overflow-hidden py-5 bg-white border-t border-b border-gray-100">
+        <div className="animate-marquee">
+          {[...Array(2)].map((_, i) => (
+            <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
+              {[...Array(8)].map((_, j) => (
+                <span key={j} className="text-4xl font-bold italic text-gray-200 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
 
       <Footer />
     </div>
