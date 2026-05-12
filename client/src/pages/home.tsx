@@ -170,7 +170,7 @@ export default function Home() {
                 <img
                   src={japanMapImg}
                   alt="全国配送ネットワーク地図"
-                  className="w-full max-w-md h-auto object-contain"
+                  className="w-full h-auto object-contain"
                 />
               </div>
             </AnimateIn>
