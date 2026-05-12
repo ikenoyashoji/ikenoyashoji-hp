@@ -69,10 +69,10 @@ export function Header() {
           <div className="flex items-center h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 mr-auto">
-              <LogoMark size={40} />
+              <LogoMark size={50} />
               <div className="flex flex-col leading-none">
-                <span className="text-[9px] text-gray-400 tracking-widest mb-0.5">総合物流企業</span>
-                <span className="text-black font-black text-xl tracking-tight">株式会社池ノ谷商事</span>
+                <span className="text-[11px] text-gray-400 tracking-widest mb-0.5">総合物流企業</span>
+                <span className="text-black font-black text-2xl tracking-tight">株式会社池ノ谷商事</span>
               </div>
             </Link>
 
