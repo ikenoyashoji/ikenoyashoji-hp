@@ -68,7 +68,7 @@ export default function Home() {
       <Header />
 
       {/* HERO */}
-      <section className="relative bg-white overflow-hidden" style={{ maxHeight: "calc(100vh - 150px)" }}>
+      <section className="relative bg-white overflow-hidden mt-[100px]" style={{ maxHeight: "calc(100vh - 100px)" }}>
         <img
           src={heroBg}
           alt="運ぶ信頼、届ける真心 — 株式会社池ノ谷商事"
