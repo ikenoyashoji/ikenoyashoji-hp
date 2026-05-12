@@ -153,7 +153,7 @@ export default function Home() {
       </section>
 
       {/* COMPANY section */}
-      <section className="pt-10 pb-20 bg-white px-4 overflow-hidden">
+      <section className="pt-10 pb-6 bg-white px-4 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
             <div className="text-center mb-10">
@@ -207,7 +207,7 @@ export default function Home() {
       </section>
 
       {/* BUSINESS section */}
-      <section className="py-16 bg-white px-4">
+      <section className="pt-2 pb-16 bg-white px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">BUSINESS</p>
