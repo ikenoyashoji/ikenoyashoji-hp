@@ -246,6 +246,51 @@ export default function Home() {
         </div>
       </section>
 
+      {/* RECRUIT section */}
+      <section className="py-16 bg-[#0f2044] px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-0 items-stretch">
+            {/* Left: image placeholder */}
+            <div className="w-full aspect-[4/3] md:aspect-auto bg-gray-700 flex items-center justify-center">
+              <span className="text-gray-500 text-xs tracking-widest">IMAGE</span>
+            </div>
+            {/* Right: text */}
+            <div className="bg-white flex flex-col justify-center px-12 py-14">
+              <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">RECRUIT</p>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mb-1" />
+              <p className="text-gray-400 text-xs tracking-widest mb-8">採用情報</p>
+              <h2 className="text-xl font-bold text-gray-800 leading-snug mb-4">
+                共に、物流の未来をつくる仲間を求めています。
+              </h2>
+              <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                池ノ谷商事では、ドライバー・倉庫スタッフ・管理スタッフなど
+                各種職種で積極採用中です。未経験者も歓迎。
+                安心して長く働ける環境を整えています。
+              </p>
+              <div className="flex flex-col gap-3">
+                {[
+                  { label: "ドライバー（正社員）", tag: "正社員" },
+                  { label: "倉庫スタッフ（パート・アルバイト）", tag: "パート" },
+                  { label: "管理・事務スタッフ（正社員）", tag: "正社員" },
+                ].map((job, i) => (
+                  <div key={i} className="flex items-center justify-between border border-gray-100 px-4 py-3 hover:border-[#1a4b99] transition-colors group">
+                    <span className="text-gray-700 text-sm">{job.label}</span>
+                    <span className="text-[#1d4ed8] text-xs font-medium tracking-wider border border-[#1d4ed8] px-2 py-0.5">{job.tag}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8">
+                <Link href="/recruit">
+                  <button className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 transition-colors text-sm" data-testid="button-recruit-more">
+                    採用情報を見る <ArrowRight className="w-4 h-4" />
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* About section */}
       <section className="py-20 bg-white px-4">
         <div className="max-w-7xl mx-auto">
