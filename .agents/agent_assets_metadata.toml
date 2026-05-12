@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "5H4Y7cE8-ifTZ9jANtuZx"
+uri = "file://artifacts/mockup-sandbox/public/images/hero-cinematic.png"
+type = "image"
+title = "truck on highway at night"
+
+[[generated]]
+id = "CB7zpZj15wmNw2LhGEkio"
+uri = "file://artifacts/mockup-sandbox/public/images/truck-hero.png"
+type = "image"
+title = "Corporate truck logistics photo"
