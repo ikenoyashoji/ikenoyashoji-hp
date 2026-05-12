@@ -178,10 +178,10 @@ export default function Home() {
       <section className="py-20 bg-white px-4 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
-            <div className="mb-6">
-              <p className="text-gray-900 font-black text-4xl tracking-wider mb-1">COMPANY</p>
-              <p className="text-gray-500 text-xs tracking-widest mb-2">企業・拠点情報</p>
-              <div className="w-12 h-0.5 bg-[#1a4b99]" />
+            <div className="text-center mb-10">
+              <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">COMPANY</p>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
+              <p className="text-gray-400 text-xs tracking-widest">企業・拠点情報</p>
             </div>
           </AnimateIn>
 
