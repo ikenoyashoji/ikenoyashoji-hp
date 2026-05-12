@@ -142,7 +142,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
             <div className="text-center mb-10">
-              <p className="text-gray-900 font-light text-4xl tracking-[0.4em] mb-1">TOPICS</p>
+              <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">TOPICS</p>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
               <p className="text-gray-400 text-xs tracking-widest">最新トピックス</p>
             </div>
