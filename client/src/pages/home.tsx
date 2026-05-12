@@ -58,9 +58,6 @@ export default function Home() {
             >
               運ぶ信頼<br />届ける真心
             </h1>
-            <p className="text-gray-600 text-sm md:text-base mb-10 leading-relaxed">
-              関東一円から全国へ
-            </p>
             <div className="flex gap-4 flex-wrap">
               <Link href="/contact?type=shipper">
                 <button
@@ -72,14 +69,6 @@ export default function Home() {
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
-              <a
-                href="/#services"
-                className="flex items-center gap-3 text-gray-500 hover:text-gray-900 font-medium px-2 py-3 transition-colors text-sm tracking-wide"
-                data-testid="button-hero-services"
-              >
-                サービス詳細
-                <ArrowRight className="w-4 h-4" />
-              </a>
             </div>
           </div>
         </div>
