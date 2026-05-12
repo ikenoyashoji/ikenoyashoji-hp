@@ -67,19 +67,6 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      {/* Marquee ticker — above hero */}
-      <div className="overflow-hidden py-5 bg-white border-b border-gray-100 mt-[100px]">
-        <div className="animate-marquee">
-          {[...Array(2)].map((_, i) => (
-            <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
-              {[...Array(8)].map((_, j) => (
-                <span key={j} className="text-4xl font-bold italic text-gray-200 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
-              ))}
-            </span>
-          ))}
-        </div>
-      </div>
-
       {/* HERO */}
       <section className="relative bg-white overflow-hidden" style={{ maxHeight: "calc(100vh - 150px)" }}>
         <img
