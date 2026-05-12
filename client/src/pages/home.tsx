@@ -163,33 +163,15 @@ export default function Home() {
             </div>
           </AnimateIn>
 
-          <div className="grid md:grid-cols-[3fr_2fr] gap-0 items-center">
-            {/* Left: Japan map image with ripple overlay */}
+          <div className="grid md:grid-cols-2 gap-0 items-center">
+            {/* Left: Japan map image */}
             <AnimateIn direction="left">
-              <div className="relative flex items-center justify-center py-4">
+              <div className="flex items-center justify-center py-4">
                 <img
                   src={japanMapImg}
                   alt="全国配送ネットワーク地図"
                   className="w-full h-auto object-contain"
                 />
-                {/* Ripple animation overlay — positions match pins in the image (% of image) */}
-                <svg
-                  className="absolute inset-0 w-full h-full pointer-events-none"
-                  viewBox="0 0 100 100"
-                  preserveAspectRatio="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Main hub — Tokyo/Saitama area */}
-                  <circle className="map-ripple"   cx="68" cy="53" r="8" fill="none" stroke="#1a4b99" strokeWidth="0.5" />
-                  <circle className="map-ripple-2" cx="68" cy="53" r="8" fill="none" stroke="#1a4b99" strokeWidth="0.4" />
-                  <circle className="map-ripple-3" cx="68" cy="53" r="8" fill="none" stroke="#1a4b99" strokeWidth="0.3" />
-                  {/* Sub hubs */}
-                  <circle className="map-ripple"   cx="56" cy="57" r="6" fill="none" stroke="#1a4b99" strokeWidth="0.4" style={{ animationDelay: "0.3s" }} />
-                  <circle className="map-ripple-2" cx="48" cy="62" r="6" fill="none" stroke="#1a4b99" strokeWidth="0.4" style={{ animationDelay: "0.6s" }} />
-                  <circle className="map-ripple"   cx="38" cy="68" r="6" fill="none" stroke="#1a4b99" strokeWidth="0.4" style={{ animationDelay: "0.9s" }} />
-                  <circle className="map-ripple-2" cx="62" cy="46" r="6" fill="none" stroke="#1a4b99" strokeWidth="0.4" style={{ animationDelay: "1.2s" }} />
-                  <circle className="map-ripple"   cx="66" cy="40" r="6" fill="none" stroke="#1a4b99" strokeWidth="0.4" style={{ animationDelay: "1.5s" }} />
-                </svg>
               </div>
             </AnimateIn>
 
