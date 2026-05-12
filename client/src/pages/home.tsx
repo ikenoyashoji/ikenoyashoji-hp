@@ -219,7 +219,7 @@ export default function Home() {
             {[
               { num: "01", title: "一般貨物自動車運送業", sub: "General Cargo Transport" },
               { num: "02", title: "倉庫管理・荷役作業",   sub: "Warehouse Management" },
-              { num: "03", title: "３PL（サードパーティロジスティクス）", sub: "Third Party Logistics" },
+              { num: "03", title: "３PL", sub: "Third Party Logistics" },
             ].map((s, i) => (
               <div key={i} className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden">
                 {/* Image placeholder */}
