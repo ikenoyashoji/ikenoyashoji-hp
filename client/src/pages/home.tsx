@@ -81,7 +81,7 @@ export default function Home() {
       </div>
 
       {/* HERO */}
-      <section className="relative flex items-center overflow-hidden bg-white" style={{ minHeight: 560 }}>
+      <section className="relative flex items-center overflow-hidden bg-white" style={{ minHeight: 480 }}>
         {/* Truck image — right side, full image visible */}
         <div className="absolute right-0 top-0 bottom-0" style={{ width: "68%" }}>
           <img
@@ -99,7 +99,7 @@ export default function Home() {
         </div>
 
         {/* Text — left side */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-10">
           <div className="max-w-lg">
             <h1
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-12"
@@ -125,7 +125,7 @@ export default function Home() {
       </section>
 
       {/* Marquee ticker */}
-      <div className="overflow-hidden py-5 bg-white -mt-10 relative z-10">
+      <div className="overflow-hidden py-5 bg-white -mt-20 relative z-10">
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
