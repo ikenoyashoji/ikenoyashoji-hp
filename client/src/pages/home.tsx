@@ -257,20 +257,8 @@ export default function Home() {
           <p className="text-gray-400 text-xs tracking-widest">採用情報</p>
         </div>
 
-        {/* Catchphrase row */}
-        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between mb-10">
-          <h2 className="text-xl md:text-2xl font-bold text-gray-900 leading-relaxed">
-            池ノ谷商事と共に物流の未来をつくりませんか？
-          </h2>
-          <Link href="/recruit">
-            <span className="flex items-center gap-3 border border-gray-900 text-gray-900 text-sm font-medium px-6 py-3 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white transition-colors whitespace-nowrap" data-testid="link-recruit-detail">
-              詳しく見る <ArrowRight className="w-4 h-4" />
-            </span>
-          </Link>
-        </div>
-
         {/* Image slider strip */}
-        <div className="overflow-hidden w-full">
+        <div className="overflow-hidden w-full mb-8">
           <div className="flex animate-recruit-slide" style={{ width: "max-content" }}>
             {[...Array(10)].map((_, i) => (
               <div
@@ -282,6 +270,15 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* CTA button */}
+        <div className="flex justify-center pb-16">
+          <Link href="/recruit">
+            <span className="flex items-center gap-3 border border-gray-900 text-gray-900 text-sm font-medium px-8 py-3 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white transition-colors" data-testid="link-recruit-detail">
+              詳しく見る <ArrowRight className="w-4 h-4" />
+            </span>
+          </Link>
         </div>
       </section>
 
