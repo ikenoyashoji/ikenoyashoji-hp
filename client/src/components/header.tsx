@@ -6,8 +6,8 @@ const logoImg = "/logo-mark.png";
 
 const navLinks = [
   { href: "/company", label: "池ノ谷商事について" },
-  { href: "/#services", label: "事業紹介" },
   { href: "/company", label: "企業情報" },
+  { href: "/#services", label: "事業紹介" },
   { href: "/recruit", label: "採用情報" },
   { href: "/blog", label: "お知らせ" },
 ];
