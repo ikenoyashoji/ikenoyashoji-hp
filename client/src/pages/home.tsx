@@ -79,9 +79,9 @@ export default function Home() {
       <div className="overflow-hidden py-5" style={{ background: "linear-gradient(135deg, #1a4b99 0%, #1d4ed8 100%)" }}>
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
-            <span key={i} className="flex items-center gap-16 pr-16 whitespace-nowrap">
-              {["Ikenoya Shoji Co,Ltd.", "関東一円から全国へ", "Ikenoya Shoji Co,Ltd.", "安全・確実・迅速", "Ikenoya Shoji Co,Ltd.", "総合物流企業", "Ikenoya Shoji Co,Ltd.", "関東一円から全国へ"].map((text, j) => (
-                <span key={j} className="text-2xl font-bold italic text-white/30 tracking-widest">{text}</span>
+            <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
+              {[...Array(8)].map((_, j) => (
+                <span key={j} className="text-4xl font-bold italic text-white/30 tracking-widest">Ikenoya Shoji Co,Ltd.</span>
               ))}
             </span>
           ))}
