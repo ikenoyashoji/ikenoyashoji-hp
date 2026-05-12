@@ -142,6 +142,91 @@ export default function Home() {
         </div>
       </section>
 
+      {/* COMPANY section */}
+      <section className="py-20 bg-white px-4 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <AnimateIn direction="up">
+            <div className="mb-6">
+              <p className="text-gray-900 font-black text-4xl tracking-wider mb-1">COMPANY</p>
+              <p className="text-gray-500 text-xs tracking-widest mb-2">企業・拠点情報</p>
+              <div className="w-12 h-0.5 bg-[#1a4b99]" />
+            </div>
+          </AnimateIn>
+
+          <div className="grid md:grid-cols-2 gap-0 items-center">
+            {/* Left: Japan map illustration */}
+            <AnimateIn direction="left">
+              <div className="relative h-96 flex items-center justify-center">
+                {/* Dotted Japan silhouette */}
+                <svg viewBox="0 0 320 480" className="w-72 h-auto opacity-20 absolute" fill="none">
+                  <g fill="#1a4b99">
+                    {Array.from({ length: 60 }).map((_, row) =>
+                      Array.from({ length: 40 }).map((_, col) => {
+                        const x = col * 8 + 4;
+                        const y = row * 8 + 4;
+                        const inShape =
+                          (row > 5 && row < 15 && col > 18 && col < 28) ||
+                          (row >= 15 && row < 28 && col > 14 && col < 30) ||
+                          (row >= 28 && row < 42 && col > 10 && col < 28) ||
+                          (row >= 42 && row < 55 && col > 8 && col < 22);
+                        return inShape ? <circle key={`${row}-${col}`} cx={x} cy={y} r="2.5" /> : null;
+                      })
+                    )}
+                  </g>
+                </svg>
+                {/* Center circle with logo */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="w-20 h-20 rounded-full border-4 border-[#1a4b99] bg-white flex items-center justify-center shadow-lg mb-4">
+                    <span className="text-[#1a4b99] font-black text-xs text-center leading-tight">池ノ谷<br />商事</span>
+                  </div>
+                  {/* Lines to locations */}
+                  <svg className="absolute" width="220" height="220" style={{ top: "-80px", left: "-80px" }}>
+                    {[
+                      { x2: 50, y2: 30 }, { x2: 170, y2: 20 }, { x2: 190, y2: 60 },
+                      { x2: 30, y2: 100 }, { x2: 40, y2: 160 }, { x2: 60, y2: 200 },
+                    ].map((pt, i) => (
+                      <g key={i}>
+                        <line x1="110" y1="110" x2={pt.x2} y2={pt.y2} stroke="#1a4b99" strokeWidth="1" strokeDasharray="4,3" opacity="0.5" />
+                        <circle cx={pt.x2} cy={pt.y2} r="4" fill="none" stroke="#1a4b99" strokeWidth="1.5" opacity="0.7" />
+                        <circle cx={pt.x2} cy={pt.y2} r="2" fill="#1a4b99" opacity="0.7" />
+                      </g>
+                    ))}
+                  </svg>
+                </div>
+              </div>
+            </AnimateIn>
+
+            {/* Right: text + buttons */}
+            <AnimateIn direction="right">
+              <div className="pl-8">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-snug">
+                  関東を拠点に、<br />全国へ広がる輸送ネットワーク
+                </h2>
+                <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                  池ノ谷商事は関東一都六県を中心に、<br />
+                  全国の幹線輸送ネットワークと連携しながら<br />
+                  確かな物流サービスを提供する総合物流企業です。
+                </p>
+                <div className="flex gap-4 flex-wrap">
+                  <Link href="/company">
+                    <button className="flex items-center gap-4 border border-gray-300 text-gray-700 hover:border-[#1a4b99] hover:text-[#1a4b99] px-6 py-3 text-sm transition-colors" data-testid="button-company-info">
+                      企業情報
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </Link>
+                  <Link href="/company">
+                    <button className="flex items-center gap-4 border border-gray-300 text-gray-700 hover:border-[#1a4b99] hover:text-[#1a4b99] px-6 py-3 text-sm transition-colors" data-testid="button-company-base">
+                      拠点情報
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </AnimateIn>
+          </div>
+        </div>
+      </section>
+
       {/* About section */}
       <section className="py-20 bg-white px-4">
         <div className="max-w-7xl mx-auto">
