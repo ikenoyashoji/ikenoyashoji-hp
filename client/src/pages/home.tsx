@@ -9,7 +9,7 @@ import { trackPageView, trackEvent } from "@/lib/analytics";
 import { Mail, Phone, ArrowRight, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-import heroBg from "@assets/image_1778585218479.png";
+import heroBg from "@assets/imageああああ_1778609849549.png";
 import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
 import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
 import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
@@ -81,46 +81,25 @@ export default function Home() {
       </div>
 
       {/* HERO */}
-      <section className="relative flex items-center overflow-hidden bg-white" style={{ minHeight: 480 }}>
-        {/* Truck image — right side, full image visible */}
-        <div className="absolute right-0 top-0 bottom-0" style={{ width: "68%" }}>
-          <img
-            src={heroBg}
-            alt=""
-            className="w-full h-full object-contain"
-            style={{ objectPosition: "right top" }}
-            aria-hidden="true"
-          />
-          {/* White fade on left edge to blend with text area */}
-          <div
-            className="absolute inset-0"
-            style={{ background: "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.6) 18%, transparent 40%)" }}
-          />
-        </div>
-
-        {/* Text — left side */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-10">
-          <div className="max-w-lg">
-            <h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-12"
-              style={{ fontFamily: "'Noto Serif JP', serif" }}
+      <section className="relative overflow-hidden bg-white">
+        {/* Full-width hero image */}
+        <img
+          src={heroBg}
+          alt="運ぶ信頼、届ける真心 — 株式会社池ノ谷商事"
+          className="w-full h-auto block"
+        />
+        {/* Button overlay — bottom-left */}
+        <div className="absolute bottom-8 left-0 w-full max-w-7xl mx-auto px-6 lg:px-16" style={{ left: "50%", transform: "translateX(-50%)" }}>
+          <Link href="/company">
+            <button
+              className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-8 py-3 transition-colors text-sm tracking-wide bg-white/80 backdrop-blur-sm"
+              onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
+              data-testid="button-hero-quote"
             >
-              <span className="block mb-4">運ぶ信頼</span>
-              <span className="block">届ける真心</span>
-            </h1>
-            <div className="flex gap-4 flex-wrap">
-              <Link href="/company">
-                <button
-                  className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-8 py-3 transition-colors text-sm tracking-wide"
-                  onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
-                  data-testid="button-hero-quote"
-                >
-                  池ノ谷商事について
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </Link>
-            </div>
-          </div>
+              池ノ谷商事について
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </Link>
         </div>
       </section>
 
