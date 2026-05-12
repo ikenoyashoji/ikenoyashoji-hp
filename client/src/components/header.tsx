@@ -70,7 +70,7 @@ export function Header() {
           <div className="flex items-center h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 mr-auto">
-              <LogoMark size={58} />
+              <LogoMark size={66} />
               <div className="flex flex-col leading-none">
                 <span className="text-[11px] text-gray-400 tracking-widest mb-0.5">総合物流企業</span>
                 <span className="text-black tracking-tight" style={{ fontFamily: "'Noto Serif JP', serif", fontWeight: 900 }}>
