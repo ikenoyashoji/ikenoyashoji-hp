@@ -37,24 +37,24 @@ function LogoMark({ size = 36 }: { size?: number }) {
 }
 
 export function Header() {
-  const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white">
       {/* Top utility bar */}
       <div className="border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-end h-9 gap-4">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="flex items-center justify-end h-9 gap-6">
             <a
               href="/company#access"
-              className="hidden sm:flex items-center text-xs text-gray-500 hover:text-[#1a4b99] transition-colors"
+              className="text-xs text-gray-500 hover:text-[#1a4b99] transition-colors"
             >
               本社アクセス
             </a>
             <Link
               href="/contact"
               onClick={() => trackEvent("cta_contact_click", { location: "header_top" })}
-              className="flex items-center bg-[#0f2044] hover:bg-[#1a4b99] text-white text-xs font-medium px-4 py-1.5 transition-colors"
+              className="flex items-center bg-[#0f2044] hover:bg-[#1a4b99] text-white text-xs font-medium px-5 py-1.5 transition-colors"
               data-testid="button-contact-header-top"
             >
               お問い合わせ
@@ -63,32 +63,32 @@ export function Header() {
         </div>
       </div>
 
-      {/* Main header row */}
+      {/* Main header row — PC: always visible horizontal nav */}
       <div className="border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="flex items-center h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+            <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 mr-auto">
               <LogoMark size={40} />
               <div className="flex flex-col leading-none">
                 <span className="text-[9px] text-gray-400 tracking-widest mb-0.5">総合物流企業</span>
-                <div className="flex items-baseline gap-0">
+                <div className="flex items-baseline">
                   <span className="text-[#1a4b99] font-black text-xl tracking-tight">池ノ谷</span>
                   <span className="text-[#1d4ed8] font-black text-xl tracking-tight">商事</span>
                 </div>
               </div>
             </Link>
 
-            {/* Desktop Nav — slash separated */}
-            <nav className="hidden lg:flex items-center">
+            {/* Desktop Nav — always shown, slash separated */}
+            <nav className="hidden md:flex items-center">
               {navLinks.map((link, i) => (
                 <span key={link.href} className="flex items-center">
                   {i > 0 && (
-                    <span className="text-gray-300 mx-2 text-sm select-none">/</span>
+                    <span className="text-gray-300 mx-3 text-sm select-none">/</span>
                   )}
                   <a
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-[#1a4b99] transition-colors whitespace-nowrap py-1 px-1"
+                    className="text-sm text-gray-600 hover:text-[#1a4b99] transition-colors whitespace-nowrap"
                     data-testid={`link-nav-${link.label}`}
                   >
                     {link.label}
@@ -97,29 +97,29 @@ export function Header() {
               ))}
             </nav>
 
-            {/* Mobile hamburger */}
+            {/* Hamburger — mobile only */}
             <button
-              className="lg:hidden p-2 text-gray-600 hover:text-gray-900"
-              onClick={() => setOpen((v) => !v)}
+              className="md:hidden p-2 text-gray-600 hover:text-gray-900 ml-auto"
+              onClick={() => setMobileOpen((v) => !v)}
               aria-label="メニューを開く"
               data-testid="button-mobile-menu"
             >
-              {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile dropdown — full width, expands below header */}
-      {open && (
-        <div className="lg:hidden bg-white border-b border-gray-200 shadow-md">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      {/* Mobile dropdown */}
+      {mobileOpen && (
+        <div className="md:hidden bg-white border-b border-gray-200 shadow-md">
+          <div className="max-w-7xl mx-auto px-6">
             <nav className="flex flex-col py-2">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setOpen(false)}
+                  onClick={() => setMobileOpen(false)}
                   className="py-3.5 text-sm text-gray-700 hover:text-[#1a4b99] border-b border-gray-100 last:border-0 transition-colors"
                   data-testid={`link-nav-mobile-${link.label}`}
                 >
@@ -128,7 +128,7 @@ export function Header() {
               ))}
               <Link
                 href="/contact"
-                onClick={() => { setOpen(false); trackEvent("cta_contact_click", { location: "header_mobile" }); }}
+                onClick={() => { setMobileOpen(false); trackEvent("cta_contact_click", { location: "header_mobile" }); }}
                 className="mt-3 mb-2 flex items-center justify-center w-full py-3 bg-[#0f2044] text-white text-sm font-medium"
                 data-testid="button-contact-mobile"
               >
