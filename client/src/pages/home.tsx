@@ -62,7 +62,7 @@ export default function Home() {
             <div className="flex gap-4 flex-wrap">
               <Link href="/company">
                 <button
-                  className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-medium px-8 py-3 transition-colors text-sm tracking-wide"
+                  className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-8 py-3 transition-colors text-sm tracking-wide"
                   onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
                   data-testid="button-hero-quote"
                 >
