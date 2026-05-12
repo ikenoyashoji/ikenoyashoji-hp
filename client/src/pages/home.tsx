@@ -251,14 +251,11 @@ export default function Home() {
       {/* RECRUIT section */}
       <section className="pt-16 pb-0 bg-white">
         {/* Heading */}
-        <div className="text-center mb-6 px-4">
-          <p className="text-gray-900 font-bold text-4xl tracking-[0.2em] mb-1">RECRUIT</p>
-          <div className="w-12 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
-          <p className="text-gray-500 text-sm tracking-widest">採用情報</p>
+        <div className="text-center mb-8 px-4">
+          <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">RECRUIT</p>
+          <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
+          <p className="text-gray-400 text-xs tracking-widest">採用情報</p>
         </div>
-
-        {/* Divider */}
-        <div className="border-t border-gray-200 mx-4 mb-8" />
 
         {/* Catchphrase row */}
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between mb-10">
