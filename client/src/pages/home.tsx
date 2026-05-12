@@ -76,12 +76,12 @@ export default function Home() {
       </section>
 
       {/* Marquee ticker */}
-      <div className="overflow-hidden py-5" style={{ background: "linear-gradient(135deg, #1a4b99 0%, #1d4ed8 100%)" }}>
+      <div className="overflow-hidden py-5 bg-white border-y border-gray-100">
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
               {[...Array(8)].map((_, j) => (
-                <span key={j} className="text-4xl font-bold italic text-white/30 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
+                <span key={j} className="text-4xl font-bold italic text-gray-200 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
               ))}
             </span>
           ))}
