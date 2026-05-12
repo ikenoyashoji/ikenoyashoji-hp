@@ -165,12 +165,12 @@ export default function Home() {
             <AnimateIn direction="right">
               <div className="pl-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-snug">
-                  関東を拠点に、<br />全国へ広がる輸送ネットワーク
+                  全国へ広がる輸送ネットワーク
                 </h2>
                 <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                  池ノ谷商事は関東一都六県を中心に、<br />
+                  池ノ谷商事は関東一都六県を中心に<br />
                   全国の幹線輸送ネットワークと連携しながら<br />
-                  確かな物流サービスを提供する総合物流企業です。
+                  物流サービスを提供する総合物流企業です。
                 </p>
                 <div className="flex gap-4 flex-wrap">
                   <Link href="/company">
