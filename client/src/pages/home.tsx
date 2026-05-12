@@ -52,8 +52,11 @@ export default function Home() {
         {/* Text — left side */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <div className="max-w-lg">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-              運ぶ信頼、<br />届ける真心。
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6"
+              style={{ fontFamily: "'Noto Serif JP', serif" }}
+            >
+              運ぶ信頼<br />届ける真心
             </h1>
             <p className="text-gray-600 text-sm md:text-base mb-10 leading-relaxed">
               物を運ぶことで人々の生活を支えるだけでなく、<br />
