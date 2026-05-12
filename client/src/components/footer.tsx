@@ -4,17 +4,17 @@ import footerBg from "@assets/スクリーンショット_2026-05-13_4.37.54_177
 export function Footer() {
   return (
     <footer className="relative text-white overflow-hidden">
-      {/* Full-width background image */}
+      {/* Full-width background image — natural height */}
       <img
         src={footerBg}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="w-full h-auto block"
       />
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-[#0f2044]/75" />
+      <div className="absolute inset-0 bg-[#0f2044]/70" />
 
-      {/* Content */}
-      <div className="relative z-10 w-full px-12 py-7 flex items-center justify-between gap-8">
+      {/* Content — absolutely centered */}
+      <div className="absolute inset-0 z-10 w-full px-12 flex items-center justify-between gap-8">
 
         {/* Left: company info */}
         <div className="flex flex-col gap-1 min-w-fit">
