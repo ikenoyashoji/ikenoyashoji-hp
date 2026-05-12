@@ -10,7 +10,7 @@ import { trackPageView, trackEvent } from "@/lib/analytics";
 import { Mail, Phone, ArrowRight, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-import heroBg from "@assets/スクリーンショット_2026-02-23_12.23.58_1771817055661.png";
+import heroBg from "@assets/image_1778585218479.png";
 
 const faqs = [
   { q: "急な輸送依頼にも対応できますか？", a: "はい、24時間365日体制で対応しております。当日のご依頼でも、空き車両がある場合は即対応いたします。まずはお電話またはフォームでご相談ください。" },
