@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { Link } from "wouter";
+import { Menu, X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 const logoImg = "/logo-mark.png";
 
@@ -99,51 +98,46 @@ export function Header() {
             </nav>
 
             {/* Mobile hamburger */}
-            <Sheet open={open} onOpenChange={setOpen}>
-              <SheetTrigger asChild className="lg:hidden">
-                <button className="p-2 text-gray-600 hover:text-gray-900" data-testid="button-mobile-menu">
-                  <Menu className="w-5 h-5" />
-                </button>
-              </SheetTrigger>
-              <SheetContent side="right" className="bg-white border-gray-200 w-72">
-                <div className="flex items-center gap-2.5 mb-8 mt-2">
-                  <LogoMark size={36} />
-                  <div className="flex flex-col leading-none">
-                    <span className="text-[9px] text-gray-400 tracking-widest mb-0.5">総合物流企業</span>
-                    <div className="flex items-baseline">
-                      <span className="text-[#1a4b99] font-black text-lg">池ノ谷</span>
-                      <span className="text-[#1d4ed8] font-black text-lg">商事</span>
-                    </div>
-                  </div>
-                </div>
-                <nav className="flex flex-col gap-1">
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className="px-4 py-3 text-gray-700 hover:text-[#1a4b99] hover:bg-gray-50 rounded-md transition-colors text-sm border-b border-gray-100"
-                      data-testid={`link-nav-mobile-${link.label}`}
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </nav>
-                <div className="mt-6">
-                  <Link
-                    href="/contact"
-                    onClick={() => { setOpen(false); trackEvent("cta_contact_click", { location: "header_mobile" }); }}
-                    className="flex items-center justify-center w-full py-3 bg-[#0f2044] text-white text-sm font-medium"
-                    data-testid="button-contact-mobile"
-                  >
-                    お問い合わせ
-                  </Link>
-                </div>
-              </SheetContent>
-            </Sheet>
+            <button
+              className="lg:hidden p-2 text-gray-600 hover:text-gray-900"
+              onClick={() => setOpen((v) => !v)}
+              aria-label="メニューを開く"
+              data-testid="button-mobile-menu"
+            >
+              {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Mobile dropdown — full width, expands below header */}
+      {open && (
+        <div className="lg:hidden bg-white border-b border-gray-200 shadow-md">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <nav className="flex flex-col py-2">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="py-3.5 text-sm text-gray-700 hover:text-[#1a4b99] border-b border-gray-100 last:border-0 transition-colors"
+                  data-testid={`link-nav-mobile-${link.label}`}
+                >
+                  {link.label}
+                </a>
+              ))}
+              <Link
+                href="/contact"
+                onClick={() => { setOpen(false); trackEvent("cta_contact_click", { location: "header_mobile" }); }}
+                className="mt-3 mb-2 flex items-center justify-center w-full py-3 bg-[#0f2044] text-white text-sm font-medium"
+                data-testid="button-contact-mobile"
+              >
+                お問い合わせ
+              </Link>
+            </nav>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
