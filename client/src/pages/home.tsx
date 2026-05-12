@@ -175,7 +175,7 @@ export default function Home() {
       </section>
 
       {/* COMPANY section */}
-      <section className="py-20 bg-white px-4 overflow-hidden">
+      <section className="pt-10 pb-20 bg-white px-4 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
             <div className="text-center mb-10">
