@@ -60,13 +60,13 @@ export default function Home() {
               <span className="block">届ける真心</span>
             </h1>
             <div className="flex gap-4 flex-wrap">
-              <Link href="/contact?type=shipper">
+              <Link href="/company">
                 <button
                   className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-medium px-8 py-3 transition-colors text-sm tracking-wide"
                   onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
                   data-testid="button-hero-quote"
                 >
-                  お問い合わせはこちら
+                  池ノ谷商事について
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
