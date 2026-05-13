@@ -1,5 +1,5 @@
 import { Switch, Route, useLocation } from "wouter";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,29 +8,53 @@ import { CookieBanner } from "@/components/cookie-banner";
 import { hasConsent, loadAnalytics, trackPageView } from "@/lib/analytics";
 import NotFound from "@/pages/not-found";
 
+// LP（ホーム）は静的インポート — 即座に表示
 import Home from "@/pages/home";
-import Recruit from "@/pages/recruit";
-import Partner from "@/pages/partner";
-import Blog from "@/pages/blog";
-import BlogPost from "@/pages/blog-post";
-import Company from "@/pages/company";
-import About from "@/pages/about";
-import Services from "@/pages/services";
-import Contact from "@/pages/contact";
-import Privacy from "@/pages/privacy";
-import SitemapPage from "@/pages/sitemap";
 
-import AdminLogin from "@/pages/admin/login";
-import AdminDashboard from "@/pages/admin/dashboard";
-import AdminArticles from "@/pages/admin/articles";
-import ArticleEditor from "@/pages/admin/article-editor";
-import AdminKeywords from "@/pages/admin/keywords";
-import AdminSearchConsole from "@/pages/admin/search-console";
-import AdminContacts from "@/pages/admin/contacts";
-import AdminManagers from "@/pages/admin/managers";
-import AdminEmailSales from "@/pages/admin/email-sales";
-import AdminLogs from "@/pages/admin/logs";
-import AdminSettings from "@/pages/admin/settings";
+// 公開ページ — 遅延読み込み
+const Recruit       = lazy(() => import("@/pages/recruit"));
+const Partner       = lazy(() => import("@/pages/partner"));
+const Blog          = lazy(() => import("@/pages/blog"));
+const BlogPost      = lazy(() => import("@/pages/blog-post"));
+const Company       = lazy(() => import("@/pages/company"));
+const About         = lazy(() => import("@/pages/about"));
+const Services      = lazy(() => import("@/pages/services"));
+const Contact       = lazy(() => import("@/pages/contact"));
+const Privacy       = lazy(() => import("@/pages/privacy"));
+const SitemapPage   = lazy(() => import("@/pages/sitemap"));
+
+// 管理画面 — 遅延読み込み
+const AdminLogin         = lazy(() => import("@/pages/admin/login"));
+const AdminDashboard     = lazy(() => import("@/pages/admin/dashboard"));
+const AdminArticles      = lazy(() => import("@/pages/admin/articles"));
+const ArticleEditor      = lazy(() => import("@/pages/admin/article-editor"));
+const AdminKeywords      = lazy(() => import("@/pages/admin/keywords"));
+const AdminSearchConsole = lazy(() => import("@/pages/admin/search-console"));
+const AdminContacts      = lazy(() => import("@/pages/admin/contacts"));
+const AdminManagers      = lazy(() => import("@/pages/admin/managers"));
+const AdminEmailSales    = lazy(() => import("@/pages/admin/email-sales"));
+const AdminLogs          = lazy(() => import("@/pages/admin/logs"));
+const AdminSettings      = lazy(() => import("@/pages/admin/settings"));
+
+// LPを見ている間に公開ページをバックグラウンドでプリフェッチ
+function usePrefetch() {
+  const [location] = useLocation();
+  useEffect(() => {
+    if (location !== "/") return;
+    const timer = setTimeout(() => {
+      import("@/pages/recruit");
+      import("@/pages/partner");
+      import("@/pages/blog");
+      import("@/pages/company");
+      import("@/pages/about");
+      import("@/pages/services");
+      import("@/pages/contact");
+      import("@/pages/privacy");
+      import("@/pages/blog-post");
+    }, 2000); // LP表示から2秒後にバックグラウンドで取得開始
+    return () => clearTimeout(timer);
+  }, [location]);
+}
 
 function usePageTracking() {
   const [location] = useLocation();
@@ -43,35 +67,38 @@ function usePageTracking() {
 
 function Router() {
   usePageTracking();
+  usePrefetch();
 
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/recruit" component={Recruit} />
-      <Route path="/partner" component={Partner} />
-      <Route path="/blog" component={Blog} />
-      <Route path="/blog/:slug" component={BlogPost} />
-      <Route path="/company" component={Company} />
-      <Route path="/about" component={About} />
-      <Route path="/services" component={Services} />
-      <Route path="/sitemap" component={SitemapPage} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/privacy" component={Privacy} />
+    <Suspense fallback={null}>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/recruit" component={Recruit} />
+        <Route path="/partner" component={Partner} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/blog/:slug" component={BlogPost} />
+        <Route path="/company" component={Company} />
+        <Route path="/about" component={About} />
+        <Route path="/services" component={Services} />
+        <Route path="/sitemap" component={SitemapPage} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/privacy" component={Privacy} />
 
-      <Route path="/admin/login" component={AdminLogin} />
-      <Route path="/admin" component={AdminDashboard} />
-      <Route path="/admin/articles" component={AdminArticles} />
-      <Route path="/admin/articles/:id" component={ArticleEditor} />
-      <Route path="/admin/keywords" component={AdminKeywords} />
-      <Route path="/admin/search-console" component={AdminSearchConsole} />
-      <Route path="/admin/contacts" component={AdminContacts} />
-      <Route path="/admin/managers" component={AdminManagers} />
-      <Route path="/admin/email-sales" component={AdminEmailSales} />
-      <Route path="/admin/logs" component={AdminLogs} />
-      <Route path="/admin/settings" component={AdminSettings} />
+        <Route path="/admin/login" component={AdminLogin} />
+        <Route path="/admin" component={AdminDashboard} />
+        <Route path="/admin/articles" component={AdminArticles} />
+        <Route path="/admin/articles/:id" component={ArticleEditor} />
+        <Route path="/admin/keywords" component={AdminKeywords} />
+        <Route path="/admin/search-console" component={AdminSearchConsole} />
+        <Route path="/admin/contacts" component={AdminContacts} />
+        <Route path="/admin/managers" component={AdminManagers} />
+        <Route path="/admin/email-sales" component={AdminEmailSales} />
+        <Route path="/admin/logs" component={AdminLogs} />
+        <Route path="/admin/settings" component={AdminSettings} />
 
-      <Route component={NotFound} />
-    </Switch>
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 
