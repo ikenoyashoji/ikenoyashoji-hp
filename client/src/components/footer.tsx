@@ -10,7 +10,7 @@ export function Footer() {
       <div className="absolute inset-0 bg-[#0f2044]/65" />
 
       {/* Content — absolutely centered vertically */}
-      <div className="absolute inset-0 z-10 flex items-center px-16">
+      <div className="absolute inset-0 z-10 flex items-end px-16 pb-6">
         <div className="w-full flex items-center justify-between gap-6">
 
           {/* Left: company info */}
