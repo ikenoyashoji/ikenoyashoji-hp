@@ -40,9 +40,12 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside className="w-56 bg-black flex flex-col flex-shrink-0">
         {/* Logo */}
-        <div className="px-5 py-5 border-b border-white/10">
-          <div className="text-white font-bold text-sm tracking-wide">池ノ谷商事</div>
-          <div className="text-gray-500 text-[10px] mt-0.5 tracking-widest uppercase">Admin</div>
+        <div className="px-5 py-4 border-b border-white/10 flex items-center gap-3">
+          <img src="/logo-mark.png" alt="池ノ谷商事" className="w-8 h-8 object-contain flex-shrink-0" />
+          <div>
+            <div className="text-white font-bold text-xs leading-tight">株式会社</div>
+            <div className="text-white font-bold text-sm leading-tight">池ノ谷商事</div>
+          </div>
         </div>
 
         {/* Nav */}

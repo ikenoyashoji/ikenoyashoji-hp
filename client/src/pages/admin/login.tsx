@@ -26,10 +26,8 @@ export default function AdminLogin() {
       <div className="w-full max-w-sm">
         {/* Logo mark */}
         <div className="text-center mb-10">
-          <div className="w-12 h-12 bg-black flex items-center justify-center mx-auto mb-4">
-            <span className="text-white text-lg font-black">池</span>
-          </div>
-          <h1 className="text-xl font-bold text-gray-900 tracking-wider">池ノ谷商事</h1>
+          <img src="/logo-mark.png" alt="池ノ谷商事" className="w-16 h-16 object-contain mx-auto mb-4" />
+          <h1 className="text-xl font-bold text-gray-900 tracking-wider">株式会社池ノ谷商事</h1>
           <p className="text-gray-400 text-xs mt-1 tracking-widest uppercase">Admin Panel</p>
         </div>
 
