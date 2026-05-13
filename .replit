@@ -41,3 +41,15 @@ author = "agent"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[userenv]
+
+[userenv.shared]
+SMTP_HOST = "smtp.hostinger.com"
+SMTP_PORT = "587"
+SMTP_USER = "info@ikenoya-shoji.co.jp"
+SMTP_FROM = "info@ikenoya-shoji.co.jp"
+SMTP_PASS = "dummy_smtp_password"
+SITE_URL = "https://ikenoya-shoji.co.jp"
+ADMIN_USER = "admin"
+ADMIN_PASS = "admin123"
