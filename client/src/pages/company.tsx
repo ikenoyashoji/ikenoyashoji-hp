@@ -167,34 +167,52 @@ export default function Company() {
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               {
                 type: "本社",
-                name: "株式会社池ノ谷商事 本社",
                 zip: "〒243-0303",
                 address: "神奈川県愛甲郡愛川町中津7287",
                 tel: "046-212-2766",
                 fax: "046-401-1714",
               },
               {
-                type: "第二事業所",
-                name: "池ノ谷商事 第二事業所",
-                zip: "〒243-0303",
-                address: "神奈川県愛甲郡愛川町中津7287",
-                tel: "046-212-2766",
-                fax: "046-401-1714",
+                type: "湘南営業所",
+                zip: "〒257-0024",
+                address: "神奈川県秦野市名古木157-12",
+                tel: "0463-84-5181",
+                fax: "0463-84-5182",
+              },
+              {
+                type: "相模原車庫",
+                zip: "—",
+                address: "—",
+                tel: "—",
+                fax: "—",
+              },
+              {
+                type: "愛川第一倉庫",
+                zip: "—",
+                address: "—",
+                tel: "—",
+                fax: "—",
+              },
+              {
+                type: "厚木第一倉庫",
+                zip: "—",
+                address: "—",
+                tel: "—",
+                fax: "—",
               },
             ].map((loc, i) => (
-              <AnimateIn key={i} delay={i * 80}>
-                <div className="bg-white border border-gray-100 p-7">
+              <AnimateIn key={i} delay={i * 60}>
+                <div className="bg-white border border-gray-100 p-6">
                   <span className="inline-block text-[10px] tracking-[0.3em] bg-[#0f2044] text-white px-3 py-1 mb-4">{loc.type}</span>
-                  <h3 className="font-semibold text-gray-900 text-sm mb-3">{loc.name}</h3>
                   <div className="space-y-1.5 text-xs text-gray-500">
-                    <p>{loc.zip}</p>
-                    <p>{loc.address}</p>
-                    <p className="pt-1">TEL：{loc.tel}</p>
-                    <p>FAX：{loc.fax}</p>
+                    {loc.zip !== "—" && <p>{loc.zip}</p>}
+                    <p className={loc.address === "—" ? "text-gray-300 italic" : ""}>{loc.address === "—" ? "住所調整中" : loc.address}</p>
+                    <p className="pt-1">TEL：{loc.tel === "—" ? <span className="text-gray-300">—</span> : loc.tel}</p>
+                    <p>FAX：{loc.fax === "—" ? <span className="text-gray-300">—</span> : loc.fax}</p>
                   </div>
                 </div>
               </AnimateIn>
