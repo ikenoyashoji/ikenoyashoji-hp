@@ -15,8 +15,8 @@ export function Footer() {
 
         {/* Left: company name + address */}
         <div className="flex flex-col gap-1.5">
-          <p className="text-white font-bold text-[17px] tracking-wider leading-none">株式会社池ノ谷商事</p>
-          <div className="text-gray-200 text-[11px] leading-relaxed mt-0.5">
+          <p className="text-white font-bold text-[20px] tracking-wider leading-none">株式会社池ノ谷商事</p>
+          <div className="text-gray-200 text-[13px] leading-relaxed mt-0.5">
             <p>〒243-0303 神奈川県愛甲郡愛川町中津7287</p>
             <p>TEL : 046-212-2766　FAX : 046-401-1714</p>
           </div>
@@ -24,7 +24,7 @@ export function Footer() {
 
         {/* Center: copyright */}
         <div className="flex-1 flex justify-center pb-0.5">
-          <p className="text-gray-300 text-[11px] tracking-wide whitespace-nowrap">
+          <p className="text-gray-300 text-[13px] tracking-wide whitespace-nowrap">
             © 2023 株式会社 池ノ谷商事. All rights reserved.
           </p>
         </div>
@@ -65,7 +65,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          <div className="flex items-center gap-3 text-[11px] text-gray-300">
+          <div className="flex items-center gap-3 text-[13px] text-gray-300">
             <Link href="/privacy" className="hover:text-white transition-colors">個人情報保護方針</Link>
             <span className="text-gray-500">／</span>
             <Link href="/" className="hover:text-white transition-colors">サイトマップ</Link>
