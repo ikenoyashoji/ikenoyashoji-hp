@@ -157,6 +157,142 @@ export default function Company() {
         </div>
       </section>
 
+      {/* Locations */}
+      <section className="py-24 bg-gray-50 px-8">
+        <div className="max-w-4xl mx-auto">
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">LOCATIONS</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">拠点情報</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              {
+                type: "本社",
+                name: "株式会社池ノ谷商事 本社",
+                zip: "〒243-0303",
+                address: "神奈川県愛甲郡愛川町中津7287",
+                tel: "046-212-2766",
+                fax: "046-401-1714",
+              },
+              {
+                type: "第二事業所",
+                name: "池ノ谷商事 第二事業所",
+                zip: "〒243-0303",
+                address: "神奈川県愛甲郡愛川町中津7287",
+                tel: "046-212-2766",
+                fax: "046-401-1714",
+              },
+            ].map((loc, i) => (
+              <AnimateIn key={i} delay={i * 80}>
+                <div className="bg-white border border-gray-100 p-7">
+                  <span className="inline-block text-[10px] tracking-[0.3em] bg-[#0f2044] text-white px-3 py-1 mb-4">{loc.type}</span>
+                  <h3 className="font-semibold text-gray-900 text-sm mb-3">{loc.name}</h3>
+                  <div className="space-y-1.5 text-xs text-gray-500">
+                    <p>{loc.zip}</p>
+                    <p>{loc.address}</p>
+                    <p className="pt-1">TEL：{loc.tel}</p>
+                    <p>FAX：{loc.fax}</p>
+                  </div>
+                </div>
+              </AnimateIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Org Chart */}
+      <section className="py-24 bg-white px-8">
+        <div className="max-w-4xl mx-auto">
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">ORGANIZATION</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">本社組織図</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <AnimateIn>
+            <div className="flex flex-col items-center gap-0">
+              {/* Top */}
+              <div className="bg-[#0f2044] text-white text-sm font-semibold tracking-wider px-10 py-3 min-w-[200px] text-center">
+                代表取締役
+              </div>
+              <div className="w-px h-8 bg-gray-300" />
+              {/* Second layer */}
+              <div className="border border-gray-200 text-gray-800 text-sm font-medium tracking-wider px-8 py-3 min-w-[180px] text-center bg-gray-50">
+                管理本部
+              </div>
+              <div className="w-px h-8 bg-gray-300" />
+              {/* Third layer - 4 departments */}
+              <div className="relative w-full flex justify-center">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gray-300" />
+              </div>
+              <div className="grid grid-cols-4 gap-4 w-full max-w-2xl pt-8 relative">
+                <div className="absolute -top-px left-[12.5%] right-[12.5%] h-px bg-gray-300" />
+                {[
+                  { name: "営業部", en: "SALES" },
+                  { name: "運行管理部", en: "OPERATION" },
+                  { name: "整備部", en: "MAINTENANCE" },
+                  { name: "管理部", en: "ADMIN" },
+                ].map((dept) => (
+                  <div key={dept.name} className="flex flex-col items-center gap-0">
+                    <div className="w-px h-8 bg-gray-300" />
+                    <div className="border border-[#1d4ed8]/30 bg-blue-50 text-center px-3 py-3 w-full">
+                      <p className="text-[10px] text-gray-400 tracking-widest mb-0.5">{dept.en}</p>
+                      <p className="text-sm font-semibold text-[#1a4b99]">{dept.name}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimateIn>
+        </div>
+      </section>
+
+      {/* History */}
+      <section className="py-24 bg-gray-50 px-8">
+        <div className="max-w-4xl mx-auto">
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">HISTORY</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">沿革</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <div className="relative">
+            <div className="absolute left-[120px] top-0 bottom-0 w-px bg-gray-200" />
+            <div className="space-y-0">
+              {[
+                { year: "2023年2月", event: "神奈川県愛甲郡愛川町中津7287にて株式会社池ノ谷商事を設立" },
+                { year: "2023年3月", event: "一般貨物自動車運送事業 許可取得（関自貨第542号）" },
+                { year: "2023年4月", event: "貨物利用運送事業 登録取得（関自貨第1201号）、事業開始" },
+                { year: "2023年6月", event: "古物商許可取得（神奈川公安委員会 第452740020200号）" },
+                { year: "2023年9月", event: "車両台数・従業員数を拡充し、関東圏全域への配送網を整備" },
+                { year: "2024年4月", event: "物流コンサルティング事業・倉庫管理事業を開始" },
+                { year: "2024年9月", event: "総合保険代理店業務、各種車両販売・整備事業を開始" },
+                { year: "2025年2月", event: "従業員数100名超を達成、第二事業所を開設" },
+              ].map((item, i) => (
+                <AnimateIn key={i} delay={i * 60}>
+                  <div className="flex items-start gap-0 relative pb-0">
+                    <div className="w-[120px] flex-shrink-0 py-5 pr-6 text-right">
+                      <span className="text-xs text-gray-500 tracking-wide whitespace-nowrap">{item.year}</span>
+                    </div>
+                    <div className="flex-shrink-0 relative z-10 mt-5">
+                      <div className="w-3 h-3 rounded-full bg-[#1d4ed8] border-2 border-white ring-1 ring-[#1d4ed8]" />
+                    </div>
+                    <div className="flex-1 py-5 pl-6 border-b border-gray-100">
+                      <p className="text-sm text-gray-700 leading-relaxed">{item.event}</p>
+                    </div>
+                  </div>
+                </AnimateIn>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Certifications */}
       <section className="py-24 bg-gray-50 px-8">
         <div className="max-w-4xl mx-auto">
