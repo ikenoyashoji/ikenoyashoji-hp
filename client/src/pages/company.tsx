@@ -35,20 +35,21 @@ export default function Company() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] overflow-hidden" style={{ height: "420px" }}>
-        <img src={buildingImg} alt="池ノ谷商事 本社" className="absolute inset-0 w-full h-full object-cover object-left" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(120deg, rgba(26,75,153,0.88) 0%, rgba(29,78,216,0.72) 40%, rgba(15,32,68,0.82) 100%)" }} />
-        <div className="absolute inset-0 flex items-end px-16 pb-20">
-          <div>
-            <p className="text-white/40 text-[11px] tracking-[0.5em] uppercase mb-5">IKENOYA SHOJI CO., LTD.</p>
-            <h1 className="text-6xl md:text-7xl font-thin text-white tracking-[0.15em] leading-none mb-6">企業情報</h1>
-            <div className="w-12 h-px bg-white/60 mb-6" />
-            <p className="text-white/60 text-sm tracking-wider max-w-md leading-relaxed">
-              誠実に、まっすぐに。<br />地域に根ざし、信頼を育んできました。
-            </p>
+      <section className="relative mt-[100px] overflow-hidden">
+        <div className="relative">
+          <img src={buildingImg} alt="池ノ谷商事 本社" className="w-full" style={{ maxHeight: "280px", objectFit: "cover", objectPosition: "center 60%" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(105deg, rgba(26,75,153,0.82) 0%, rgba(29,78,216,0.55) 50%, rgba(15,32,68,0.35) 100%)" }} />
+          <div className="absolute inset-0 flex items-center px-14">
+            <div>
+              <p className="text-white/50 text-[10px] tracking-[0.5em] uppercase mb-3">IKENOYA SHOJI CO., LTD.</p>
+              <h1 className="text-5xl font-thin text-white tracking-[0.15em] leading-none mb-4">企業情報</h1>
+              <div className="w-10 h-px bg-white/50 mb-4" />
+              <p className="text-white/70 text-xs tracking-wider leading-relaxed">
+                誠実に、まっすぐに。地域に根ざし、信頼を育んできました。
+              </p>
+            </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-20" style={{ background: "linear-gradient(to top, white, transparent)" }} />
       </section>
 
       {/* Message */}
@@ -74,7 +75,7 @@ export default function Company() {
               <div className="w-24 h-24 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-4xl font-black">池</span>
               </div>
-              <p className="text-white font-bold tracking-wider">池ノ谷 太郎</p>
+              <p className="text-white font-bold tracking-wider">池ノ谷 翔</p>
               <p className="text-gray-400 text-sm mt-1 tracking-widest">代表取締役</p>
             </div>
           </AnimateIn>
