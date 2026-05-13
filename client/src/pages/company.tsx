@@ -311,37 +311,6 @@ export default function Company() {
         </div>
       </section>
 
-      {/* Certifications */}
-      <section className="py-24 bg-gray-50 px-8">
-        <div className="max-w-4xl mx-auto">
-          <AnimateIn>
-            <div className="text-center mb-16">
-              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">CERTIFICATIONS</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">認証・取組み</h2>
-              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
-            </div>
-          </AnimateIn>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {[
-              { title: "Gマーク認証取得", desc: "国土交通省認定の安全優良事業所として認定を受けています。" },
-              { title: "ISO 9001認証", desc: "品質マネジメントシステムの国際規格を取得し、品質向上に取り組んでいます。" },
-              { title: "グリーン経営認証", desc: "環境負荷低減に取り組むグリーン経営認証を取得しています。" },
-              { title: "働きやすい職場認証", desc: "ドライバーが働きやすい環境づくりに取り組み、認証を取得しています。" },
-            ].map((c, i) => (
-              <AnimateIn key={c.title} delay={i * 80}>
-                <div className="flex gap-4 p-6 bg-white border border-gray-100">
-                  <CheckCircle className="w-5 h-5 text-[#1d4ed8] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-semibold text-gray-800 text-sm mb-1">{c.title}</div>
-                    <p className="text-gray-500 text-xs leading-relaxed">{c.desc}</p>
-                  </div>
-                </div>
-              </AnimateIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-20 bg-[#0f2044] text-center px-8">
         <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">CONTACT</p>
