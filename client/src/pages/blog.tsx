@@ -94,7 +94,7 @@ export default function Blog() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] overflow-hidden flex items-end pb-16 px-8" style={{ minHeight: "320px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}>
+      <section className="relative mt-[100px] overflow-hidden flex items-end pb-16 px-8" style={{ minHeight: "200px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}>
         <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,1) 39px,rgba(255,255,255,1) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,1) 39px,rgba(255,255,255,1) 40px)" }} />
         <div className="relative max-w-5xl mx-auto w-full">
           <AnimateIn>
