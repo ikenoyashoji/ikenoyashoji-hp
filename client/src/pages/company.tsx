@@ -9,9 +9,9 @@ import { CheckCircle } from "lucide-react";
 const companyInfo = [
   { label: "会社名", value: "株式会社池ノ谷商事" },
   { label: "英語表記", value: "IKENOYA SHOJI CO., LTD." },
-  { label: "設立", value: "2009年（平成21年）4月" },
+  { label: "設立", value: "2023年（令和5年）4月" },
   { label: "資本金", value: "3,000万円" },
-  { label: "代表取締役", value: "池ノ谷 太郎" },
+  { label: "代表取締役", value: "池ノ谷 翔" },
   { label: "本社所在地", value: "〒243-0303 神奈川県愛甲郡愛川町中津7287" },
   { label: "TEL", value: "046-212-2766" },
   { label: "FAX", value: "046-401-1714" },
@@ -34,8 +34,8 @@ export default function Company() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] bg-[#0f2044] overflow-hidden" style={{ minHeight: "420px" }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)" }} />
+      <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "420px", background: "linear-gradient(135deg, #1a4b99 0%, #1d4ed8 50%, #0f2044 100%)" }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.05) 40px,rgba(255,255,255,0.05) 41px)" }} />
         <div className="absolute inset-0 flex items-center justify-center px-8">
           <div className="text-center">
             <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">IKENOYA SHOJI CO., LTD.</p>
