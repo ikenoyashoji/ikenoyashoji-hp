@@ -14,6 +14,7 @@ import Partner from "@/pages/partner";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
 import Company from "@/pages/company";
+import Services from "@/pages/services";
 import Contact from "@/pages/contact";
 import Privacy from "@/pages/privacy";
 
@@ -45,6 +46,7 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
       <Route path="/company" component={Company} />
+      <Route path="/services" component={Services} />
       <Route path="/contact" component={Contact} />
       <Route path="/privacy" component={Privacy} />
 
