@@ -12,10 +12,18 @@ export default function Privacy() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
-      <main className="flex-1 pt-16">
-        <div className="max-w-3xl mx-auto px-4 py-12">
-          <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Privacy Policy</span>
-          <p className="text-gray-400 text-sm mt-1 mb-10">プライバシーポリシー</p>
+      <section
+        className="mt-[100px] flex items-end pb-14 px-8 overflow-hidden"
+        style={{ minHeight: "200px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}
+      >
+        <div className="max-w-3xl mx-auto w-full">
+          <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">LEGAL</p>
+          <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">個人情報保護方針</h1>
+          <div className="w-12 h-0.5 bg-[#1d4ed8]" />
+        </div>
+      </section>
+      <main className="flex-1">
+        <div className="max-w-3xl mx-auto px-4 py-16">
 
           <div className="prose prose-sm max-w-none text-gray-600 space-y-8">
             <section>

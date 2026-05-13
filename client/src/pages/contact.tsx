@@ -108,16 +108,15 @@ export default function Contact() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] bg-[#0f2044] overflow-hidden" style={{ minHeight: "320px" }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)" }} />
-        <div className="absolute inset-0 flex items-center justify-center px-8">
-          <div className="text-center">
-            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">GET IN TOUCH</p>
-            <h1 className="text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">お問い合わせ</h1>
-            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
-          </div>
+      <section
+        className="mt-[100px] flex items-end pb-14 px-8 overflow-hidden"
+        style={{ minHeight: "200px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}
+      >
+        <div className="max-w-4xl mx-auto w-full">
+          <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">GET IN TOUCH</p>
+          <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">お問い合わせ</h1>
+          <div className="w-12 h-0.5 bg-[#1d4ed8]" />
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top, white, transparent)" }} />
       </section>
 
       <section className="py-20 bg-white px-8">

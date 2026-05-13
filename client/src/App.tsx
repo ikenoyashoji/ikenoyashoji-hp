@@ -14,9 +14,11 @@ import Partner from "@/pages/partner";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
 import Company from "@/pages/company";
+import About from "@/pages/about";
 import Services from "@/pages/services";
 import Contact from "@/pages/contact";
 import Privacy from "@/pages/privacy";
+import SitemapPage from "@/pages/sitemap";
 
 import AdminLogin from "@/pages/admin/login";
 import AdminDashboard from "@/pages/admin/dashboard";
@@ -46,7 +48,9 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
       <Route path="/company" component={Company} />
+      <Route path="/about" component={About} />
       <Route path="/services" component={Services} />
+      <Route path="/sitemap" component={SitemapPage} />
       <Route path="/contact" component={Contact} />
       <Route path="/privacy" component={Privacy} />
 
