@@ -3,9 +3,15 @@ import { Link } from "wouter";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { CtaBanner } from "@/components/cta-banner";
+import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
-import { CheckCircle, ChevronRight, Mail } from "lucide-react";
+import { CheckCircle, Mail } from "lucide-react";
+import recruitImg1 from "@assets/スクリーンショット_2026-05-13_4.02.02_1778612566803.png";
+import recruitImg2 from "@assets/スクリーンショット_2026-05-13_4.02.12_1778612566804.png";
+import recruitImg3 from "@assets/スクリーンショット_2026-05-13_4.02.22_1778612566811.png";
+import recruitImg4 from "@assets/スクリーンショット_2026-05-13_4.04.03_1778612674400.png";
+import recruitImg5 from "@assets/スクリーンショット_2026-05-13_4.04.12_1778612674403.png";
+import recruitImg6 from "@assets/スクリーンショット_2026-05-13_4.04.20_1778612674407.png";
 
 const positions = [
   { title: "トラックドライバー（正社員）", salary: "月給 25万〜35万円", features: ["社会保険完備", "賞与年2回", "退職金制度"], desc: "定期輸送・スポット輸送を担当。大型免許取得支援制度あり。", badge: "正社員" },
@@ -30,6 +36,8 @@ const faqs = [
   { q: "転職・中途採用も歓迎していますか？", a: "もちろんです。他業種からの転職者も多く活躍しています。これまでの経験を活かしながら成長できます。" },
 ];
 
+const recruitImgs = [recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5, recruitImg6];
+
 export default function Recruit() {
   useEffect(() => {
     trackPageView("/recruit");
@@ -41,92 +49,116 @@ export default function Recruit() {
       <Header />
 
       {/* Hero */}
-      <section className="relative pt-16 min-h-[60vh] flex items-stretch">
-        <div className="w-full md:w-1/2 bg-gradient-to-br from-[#1a4b99] to-[#1d4ed8] relative min-h-72">
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255,255,255,0.05) 15px, rgba(255,255,255,0.05) 16px)" }} />
-          <div className="absolute bottom-4 left-4 grid grid-cols-2 gap-2">
-            <div className="w-32 h-20 bg-white/10 rounded" />
-            <div className="w-32 h-20 bg-white/10 rounded" />
-          </div>
-        </div>
-        <div className="w-full md:w-1/2 bg-white flex items-center p-8 md:p-16">
-          <div>
-            <div className="mb-4">
-              <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">Recruit</span>
-              <p className="text-gray-400 text-sm mt-1">採用情報</p>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-[#1a4b99] mb-6 leading-snug">
-              支える仕事には、<br />
-              静かな誇りと、<br />
-              世界を動かす力がある。
-            </h1>
-            <p className="text-gray-600 text-sm leading-relaxed mb-6">
-              池ノ谷商事が担うのは、製品輸送や構内作業といった、一見すると目立たないけれど、現場に欠かせない仕事です。誠実に、まっすぐに。現場を支える一員として、一緒に働いてみませんか。
+      <section className="relative mt-[100px] bg-[#0f2044] overflow-hidden" style={{ minHeight: "420px" }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)" }} />
+        <div className="absolute inset-0 flex items-center justify-center px-8">
+          <div className="text-center">
+            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">JOIN OUR TEAM</p>
+            <h1 className="text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">採用情報</h1>
+            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-8" />
+            <p className="text-gray-300 text-sm leading-relaxed max-w-xl mx-auto">
+              支える仕事には、静かな誇りと、世界を動かす力がある。
             </p>
-            <Link href="/contact?type=recruit">
-              <button
-                className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
-                onClick={() => trackEvent("cta_contact_click", { location: "recruit_hero" })}
-                data-testid="button-recruit-hero-apply"
-              >
-                View More.
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </Link>
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top, white, transparent)" }} />
       </section>
 
-      {/* Marquee band */}
-      <div className="bg-gradient-to-r from-[#1a4b99] to-[#1d4ed8] py-4 overflow-hidden">
-        <div className="flex whitespace-nowrap animate-marquee">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <span key={i} className="text-3xl font-black italic text-white/20 mr-16 tracking-tight flex-shrink-0">
-              Driven by Trust. Everyday work. &nbsp;
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Positions */}
-      <section className="py-20 bg-white px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-10">
-            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Positions</span>
-            <p className="text-gray-400 text-sm mt-1">募集職種</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {positions.map((p) => (
-              <div key={p.title} className="border border-gray-200 rounded-lg p-6 hover:border-[#1d4ed8] transition-colors hover-elevate bg-white">
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-bold text-gray-800 text-sm leading-tight flex-1">{p.title}</h3>
-                  <span className="ml-2 text-xs bg-[#1a4b99] text-white px-2 py-0.5 rounded flex-shrink-0">{p.badge}</span>
-                </div>
-                <div className="text-[#1d4ed8] font-bold text-sm mb-3">{p.salary}</div>
-                <p className="text-gray-500 text-xs mb-4 leading-relaxed">{p.desc}</p>
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {p.features.map((f) => (
-                    <span key={f} className="bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded-full">{f}</span>
-                  ))}
-                </div>
-                <Link href="/contact?type=recruit">
-                  <button className="flex items-center gap-1 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white text-xs px-4 py-2 rounded-full" data-testid={`button-apply-${p.title}`}>
-                    <Mail className="w-3 h-3" /> 応募する
-                  </button>
-                </Link>
+      {/* Photo slider */}
+      <section className="bg-white py-16 overflow-hidden">
+        <div className="relative">
+          <div className="flex gap-4 animate-recruit-slide" style={{ width: "max-content" }}>
+            {[...recruitImgs, ...recruitImgs].map((img, i) => (
+              <div key={i} className="w-72 h-48 flex-shrink-0 overflow-hidden">
+                <img src={img} alt={`スタッフ写真 ${(i % 6) + 1}`} className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="py-20 bg-gray-50 px-4">
+      {/* Marquee */}
+      <div className="overflow-hidden py-5 bg-white border-b border-gray-100">
+        <div className="animate-marquee">
+          {[...Array(2)].map((_, i) => (
+            <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
+              {[...Array(8)].map((_, j) => (
+                <span key={j} className="text-4xl font-bold italic text-gray-100 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Message */}
+      <section className="py-24 bg-white px-8">
+        <div className="max-w-4xl mx-auto">
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">WHY JOIN US</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">ともに、働く。</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <AnimateIn>
+            <p className="text-gray-500 text-sm leading-relaxed text-center max-w-2xl mx-auto">
+              池ノ谷商事が担うのは、製品輸送や構内作業といった、一見すると目立たないけれど、現場に欠かせない仕事です。誠実に、まっすぐに。現場を支える一員として、一緒に働いてみませんか。
+            </p>
+          </AnimateIn>
+        </div>
+      </section>
+
+      {/* Positions */}
+      <section className="py-24 bg-gray-50 px-8">
         <div className="max-w-5xl mx-auto">
-          <div className="mb-10">
-            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Benefits</span>
-            <p className="text-gray-400 text-sm mt-1">待遇・福利厚生</p>
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">POSITIONS</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">募集職種</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <div className="grid md:grid-cols-2 gap-6">
+            {positions.map((p, i) => (
+              <AnimateIn key={p.title} delay={i * 80}>
+                <div className="bg-white border border-gray-100 p-8 hover:border-[#1d4ed8] transition-colors" data-testid={`card-position-${i}`}>
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="font-semibold text-gray-900 text-sm leading-tight flex-1">{p.title}</h3>
+                    <span className="ml-3 text-xs bg-[#0f2044] text-white px-2 py-0.5 flex-shrink-0">{p.badge}</span>
+                  </div>
+                  <div className="text-[#1d4ed8] font-bold text-sm mb-3">{p.salary}</div>
+                  <p className="text-gray-400 text-xs mb-5 leading-relaxed">{p.desc}</p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {p.features.map((f) => (
+                      <span key={f} className="border border-gray-200 text-gray-500 text-xs px-2 py-0.5">{f}</span>
+                    ))}
+                  </div>
+                  <Link href="/contact?type=recruit">
+                    <button
+                      className="flex items-center gap-2 border border-[#1d4ed8] text-[#1d4ed8] hover:bg-[#1d4ed8] hover:text-white text-xs px-5 py-2 transition-colors"
+                      onClick={() => trackEvent("cta_contact_click", { location: "recruit_position" })}
+                      data-testid={`button-apply-${i}`}
+                    >
+                      <Mail className="w-3 h-3" /> 応募する
+                    </button>
+                  </Link>
+                </div>
+              </AnimateIn>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="py-24 bg-white px-8">
+        <div className="max-w-5xl mx-auto">
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">BENEFITS</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">待遇・福利厚生</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {[
               "社会保険完備（健康・厚生年金・雇用・労災）",
@@ -141,48 +173,58 @@ export default function Recruit() {
               "大型免許取得費用補助",
               "各種資格取得支援制度",
               "社員旅行・懇親会あり",
-            ].map((b) => (
-              <div key={b} className="flex items-start gap-2 text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-100">
-                <CheckCircle className="w-4 h-4 text-[#1d4ed8] flex-shrink-0 mt-0.5" />
-                {b}
-              </div>
+            ].map((b, i) => (
+              <AnimateIn key={b} delay={i * 40}>
+                <div className="flex items-start gap-3 p-4 border border-gray-100 bg-gray-50/50">
+                  <CheckCircle className="w-4 h-4 text-[#1d4ed8] flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-gray-700">{b}</span>
+                </div>
+              </AnimateIn>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Day in life */}
-      <section className="py-20 bg-white px-4">
+      {/* Timeline */}
+      <section className="py-24 bg-gray-50 px-8">
         <div className="max-w-3xl mx-auto">
-          <div className="mb-10">
-            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">A Day in the Life</span>
-            <p className="text-gray-400 text-sm mt-1">1日の仕事の流れ</p>
-          </div>
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">A DAY IN THE LIFE</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">1日の仕事の流れ</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
           <div className="space-y-4">
             {timeline.map((t, i) => (
-              <div key={i} className="flex items-center gap-4">
-                <div className="text-[#1d4ed8] font-bold text-sm w-14 flex-shrink-0">{t.time}</div>
-                <div className="w-2 h-2 rounded-full bg-[#1d4ed8] flex-shrink-0" />
-                <div className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-3 flex-1">
-                  <span className="text-gray-800 text-sm font-medium">{t.title}</span>
+              <AnimateIn key={i} delay={i * 60}>
+                <div className="flex items-center gap-6">
+                  <div className="text-[#1d4ed8] font-bold text-sm w-14 flex-shrink-0 tracking-wider">{t.time}</div>
+                  <div className="w-2 h-2 bg-[#1d4ed8] flex-shrink-0" />
+                  <div className="bg-white border border-gray-100 px-5 py-3 flex-1">
+                    <span className="text-gray-800 text-sm">{t.title}</span>
+                  </div>
                 </div>
-              </div>
+              </AnimateIn>
             ))}
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-16 bg-gray-50 px-4">
+      <section className="py-24 bg-white px-8">
         <div className="max-w-3xl mx-auto">
-          <div className="mb-8">
-            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">FAQ</span>
-            <p className="text-gray-400 text-sm mt-1">採用に関するよくある質問</p>
-          </div>
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">FAQ</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">よくある質問</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
           <Accordion type="single" collapsible className="space-y-2">
             {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-gray-200 rounded-lg px-5" data-testid={`faq-recruit-${i}`}>
-                <AccordionTrigger className="text-gray-800 font-semibold text-sm text-left py-4">{faq.q}</AccordionTrigger>
+              <AccordionItem key={i} value={`faq-${i}`} className="bg-gray-50 border border-gray-100 px-5" data-testid={`faq-recruit-${i}`}>
+                <AccordionTrigger className="text-gray-800 font-medium text-sm text-left py-4">{faq.q}</AccordionTrigger>
                 <AccordionContent className="text-gray-500 text-sm leading-relaxed pb-4">{faq.a}</AccordionContent>
               </AccordionItem>
             ))}
@@ -190,7 +232,22 @@ export default function Recruit() {
         </div>
       </section>
 
-      <CtaBanner title="一緒に働きましょう" subtitle="ご応募・ご質問はお気軽にどうぞ。" quoteLabel="お問い合わせはこちら" quoteType="recruit" />
+      {/* CTA */}
+      <section className="py-20 bg-[#0f2044] text-center px-8">
+        <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">APPLY NOW</p>
+        <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-4">一緒に働きましょう</h2>
+        <p className="text-gray-400 text-sm mb-10">ご応募・ご質問はお気軽にどうぞ。</p>
+        <Link href="/contact?type=recruit">
+          <button
+            className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-10 py-4 text-sm tracking-widest transition-colors"
+            onClick={() => trackEvent("cta_contact_click", { location: "recruit_cta" })}
+            data-testid="button-recruit-cta"
+          >
+            お問い合わせはこちら
+          </button>
+        </Link>
+      </section>
+
       <Footer />
     </div>
   );

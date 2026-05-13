@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { CtaBanner } from "@/components/cta-banner";
+import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
-import { CheckCircle, ChevronRight } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 const benefits = [
   { title: "安定した継続案件", desc: "スポットだけでなく、定期案件も多数。車両の稼働率アップを支援します。" },
@@ -40,132 +40,155 @@ export default function Partner() {
       <Header />
 
       {/* Hero */}
-      <section className="pt-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 py-16">
-          <div className="max-w-2xl">
-            <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">Partner</span>
-            <p className="text-gray-400 text-sm mt-1 mb-6">協力会社募集</p>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 leading-snug">
-              一緒に成長する<br />物流パートナーを募集
-            </h1>
-            <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-8">
-              池ノ谷商事では、共に発展していける協力会社様を募集しています。安定した案件と透明な条件で、長期的なパートナーシップを築きましょう。
+      <section className="relative mt-[100px] bg-[#0f2044] overflow-hidden" style={{ minHeight: "420px" }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)" }} />
+        <div className="absolute inset-0 flex items-center justify-center px-8">
+          <div className="text-center">
+            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">PARTNER PROGRAM</p>
+            <h1 className="text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">協力会社募集</h1>
+            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-8" />
+            <p className="text-gray-300 text-sm leading-relaxed max-w-xl mx-auto">
+              一緒に成長する物流パートナーを募集しています。
             </p>
-            <Link href="/contact?type=partner">
-              <button
-                className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
-                onClick={() => trackEvent("cta_contact_click", { location: "partner_hero" })}
-                data-testid="button-partner-hero-register"
-              >
-                パートナー登録を申し込む
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </Link>
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top, white, transparent)" }} />
       </section>
 
-      {/* Wide image */}
-      <div className="relative bg-gradient-to-br from-[#1a4b99] to-[#0f2044]" style={{ minHeight: 260 }}>
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 21px)" }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 flex items-end h-full py-8">
-          <p className="text-white/30 text-3xl font-black italic">Everyday work. Global impact.</p>
-        </div>
-      </div>
-
       {/* Marquee */}
-      <div className="bg-gradient-to-r from-[#1a4b99] to-[#1d4ed8] py-4 overflow-hidden">
-        <div className="flex whitespace-nowrap animate-marquee">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <span key={i} className="text-3xl font-black italic text-white/20 mr-16 tracking-tight flex-shrink-0">
-              Driven by Trust. Partner Together. &nbsp;
+      <div className="overflow-hidden py-5 bg-white border-b border-gray-100">
+        <div className="animate-marquee">
+          {[...Array(2)].map((_, i) => (
+            <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
+              {[...Array(8)].map((_, j) => (
+                <span key={j} className="text-4xl font-bold italic text-gray-100 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
+              ))}
             </span>
           ))}
         </div>
       </div>
 
+      {/* Intro */}
+      <section className="py-24 bg-white px-8">
+        <div className="max-w-3xl mx-auto text-center">
+          <AnimateIn>
+            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">ABOUT</p>
+            <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">パートナーシップ</h2>
+            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-8" />
+            <p className="text-gray-500 text-sm leading-relaxed">
+              池ノ谷商事では、共に発展していける協力会社様を募集しています。<br />安定した案件と透明な条件で、長期的なパートナーシップを築きましょう。
+            </p>
+          </AnimateIn>
+        </div>
+      </section>
+
       {/* Benefits */}
-      <section className="py-20 bg-white px-4">
+      <section className="py-24 bg-gray-50 px-8">
         <div className="max-w-5xl mx-auto">
-          <div className="mb-10">
-            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Benefits</span>
-            <p className="text-gray-400 text-sm mt-1">池ノ谷商事と組む4つのメリット</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">BENEFITS</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">4つのメリット</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <div className="grid md:grid-cols-2 gap-6">
             {benefits.map((b, i) => (
-              <div key={b.title} className="border border-gray-200 rounded-lg p-6 hover:border-[#1d4ed8] transition-colors hover-elevate">
-                <div className="text-[#1d4ed8] font-black text-2xl mb-3">{String(i + 1).padStart(2, "0")}.</div>
-                <h3 className="font-bold text-gray-800 mb-2">{b.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{b.desc}</p>
-              </div>
+              <AnimateIn key={b.title} delay={i * 80}>
+                <div className="bg-white border border-gray-100 p-8 hover:border-[#1d4ed8] transition-colors">
+                  <p className="text-[#1d4ed8] text-xs tracking-[0.3em] mb-4">{String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="font-semibold text-gray-900 mb-3">{b.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{b.desc}</p>
+                </div>
+              </AnimateIn>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Requirements */}
-      <section className="py-20 bg-gray-50 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12">
+      {/* Requirements + Payment */}
+      <section className="py-24 bg-white px-8">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16">
+          <AnimateIn direction="left">
             <div>
-              <div className="mb-8">
-                <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Requirements</span>
-                <p className="text-gray-400 text-sm mt-1">登録条件</p>
-              </div>
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">REQUIREMENTS</p>
+              <h2 className="text-3xl font-light text-gray-900 tracking-[0.15em] mb-4">登録条件</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mb-8" />
               <div className="space-y-3">
                 {requirements.map((r, i) => (
-                  <div key={i} className="flex items-start gap-2">
+                  <div key={i} className="flex items-start gap-3">
                     <CheckCircle className="w-4 h-4 text-[#1d4ed8] flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-gray-700">{r}</span>
                   </div>
                 ))}
               </div>
-              <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-sm text-blue-800"><strong>個人事業主の方も歓迎。</strong> 軽貨物（黒ナンバー）での登録も可能です。</p>
+              <div className="mt-6 border-l-2 border-[#1d4ed8] pl-4">
+                <p className="text-sm text-gray-600"><span className="font-semibold">個人事業主の方も歓迎。</span> 軽貨物（黒ナンバー）での登録も可能です。</p>
               </div>
             </div>
+          </AnimateIn>
+          <AnimateIn direction="right">
             <div>
-              <div className="mb-8">
-                <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Payment</span>
-                <p className="text-gray-400 text-sm mt-1">支払い条件</p>
-              </div>
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">PAYMENT</p>
+              <h2 className="text-3xl font-light text-gray-900 tracking-[0.15em] mb-4">支払い条件</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mb-8" />
               <div className="space-y-4">
                 {[
                   { label: "支払いサイト", value: "月末締め翌月末払い" },
                   { label: "手数料", value: "なし（0%）" },
                   { label: "最低契約期間", value: "最短3ヶ月から" },
                 ].map((item) => (
-                  <div key={item.label} className="bg-white border border-gray-200 rounded-lg p-4 flex justify-between items-center">
+                  <div key={item.label} className="flex justify-between items-center border-b border-gray-100 pb-4">
                     <span className="text-gray-500 text-sm">{item.label}</span>
-                    <span className="text-gray-800 font-bold text-sm">{item.value}</span>
+                    <span className="text-gray-900 font-semibold text-sm">{item.value}</span>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
+          </AnimateIn>
         </div>
       </section>
 
       {/* How to join */}
-      <section className="py-20 bg-white px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-10 text-center">
-            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">How to Join</span>
-            <p className="text-gray-400 text-sm mt-1">登録の流れ</p>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {steps.map((s) => (
-              <div key={s.step} className="text-center">
-                <div className="w-12 h-12 rounded-full bg-[#1a4b99] text-white font-black text-lg flex items-center justify-center mx-auto mb-4">{s.step}</div>
-                <h3 className="font-bold text-gray-800 text-sm mb-2">{s.title}</h3>
-                <p className="text-gray-500 text-xs leading-relaxed">{s.desc}</p>
-              </div>
+      <section className="py-24 bg-gray-50 px-8">
+        <div className="max-w-5xl mx-auto">
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">HOW TO JOIN</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">登録の流れ</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {steps.map((s, i) => (
+              <AnimateIn key={s.step} delay={i * 80}>
+                <div className="text-center">
+                  <div className="w-14 h-14 bg-[#0f2044] text-white font-light text-xl flex items-center justify-center mx-auto mb-5 tracking-wider">{s.step}</div>
+                  <h3 className="font-semibold text-gray-900 text-sm mb-2">{s.title}</h3>
+                  <p className="text-gray-500 text-xs leading-relaxed">{s.desc}</p>
+                </div>
+              </AnimateIn>
             ))}
           </div>
         </div>
       </section>
 
-      <CtaBanner title="パートナー登録のご相談はこちら" subtitle="登録後すぐに案件紹介が可能です。まずはお気軽にご連絡ください。" quoteLabel="お問い合わせはこちら" quoteType="partner" />
+      {/* CTA */}
+      <section className="py-20 bg-[#0f2044] text-center px-8">
+        <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">REGISTER NOW</p>
+        <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-4">パートナー登録のご相談</h2>
+        <p className="text-gray-400 text-sm mb-10">登録後すぐに案件紹介が可能です。まずはお気軽にご連絡ください。</p>
+        <Link href="/contact?type=partner">
+          <button
+            className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-10 py-4 text-sm tracking-widest transition-colors"
+            onClick={() => trackEvent("cta_contact_click", { location: "partner_cta" })}
+            data-testid="button-partner-cta"
+          >
+            お問い合わせはこちら
+          </button>
+        </Link>
+      </section>
+
       <Footer />
     </div>
   );

@@ -14,7 +14,7 @@ import { Footer } from "@/components/footer";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { Phone, Mail, CheckCircle } from "lucide-react";
+import { Phone, Mail, MapPin, CheckCircle } from "lucide-react";
 
 const contactSchema = z.object({
   type: z.enum(["shipper", "recruit", "partner"]),
@@ -84,16 +84,18 @@ export default function Contact() {
     return (
       <div className="min-h-screen flex flex-col bg-white">
         <Header />
-        <div className="flex-1 flex items-center justify-center px-4 pt-16">
-          <div className="text-center max-w-md">
-            <div className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="w-10 h-10 text-[#1d4ed8]" />
+        <div className="flex-1 flex items-center justify-center px-4 mt-[100px]">
+          <div className="text-center max-w-md py-20">
+            <div className="w-16 h-16 bg-[#0f2044] flex items-center justify-center mx-auto mb-8">
+              <CheckCircle className="w-8 h-8 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">送信完了しました</h2>
-            <p className="text-gray-500 text-sm leading-relaxed mb-6">
+            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">THANK YOU</p>
+            <h2 className="text-3xl font-light text-gray-900 tracking-[0.15em] mb-6">送信完了しました</h2>
+            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-6" />
+            <p className="text-gray-500 text-sm leading-relaxed mb-8">
               お問い合わせありがとうございます。担当者より2営業日以内にご連絡いたします。
             </p>
-            <a href="/" className="text-[#1d4ed8] hover:underline text-sm">ホームに戻る</a>
+            <a href="/" className="border border-gray-300 text-gray-700 hover:border-[#1d4ed8] hover:text-[#1d4ed8] text-sm px-8 py-3 transition-colors inline-block">ホームに戻る</a>
           </div>
         </div>
         <Footer />
@@ -105,54 +107,76 @@ export default function Contact() {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <section className="pt-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 py-12">
-          <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">Contact</span>
-          <p className="text-gray-400 text-sm mt-1 mb-8">お問い合わせ</p>
+      {/* Hero */}
+      <section className="relative mt-[100px] bg-[#0f2044] overflow-hidden" style={{ minHeight: "320px" }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)" }} />
+        <div className="absolute inset-0 flex items-center justify-center px-8">
+          <div className="text-center">
+            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">GET IN TOUCH</p>
+            <h1 className="text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">お問い合わせ</h1>
+            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+          </div>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top, white, transparent)" }} />
+      </section>
 
-          <div className="grid md:grid-cols-3 gap-4 mb-10">
-            <a href="tel:0462122766" className="border border-gray-200 rounded-lg p-5 hover:border-[#1d4ed8] transition-colors hover-elevate flex items-center gap-3" data-testid="link-contact-tel">
-              <Phone className="w-5 h-5 text-[#1d4ed8] flex-shrink-0" />
+      <section className="py-20 bg-white px-8">
+        <div className="max-w-4xl mx-auto">
+
+          {/* Contact info */}
+          <div className="grid md:grid-cols-3 gap-4 mb-16">
+            <a href="tel:0462122766" className="border border-gray-100 p-6 hover:border-[#1d4ed8] transition-colors flex items-center gap-4" data-testid="link-contact-tel">
+              <div className="w-10 h-10 bg-[#0f2044] flex items-center justify-center flex-shrink-0">
+                <Phone className="w-4 h-4 text-white" />
+              </div>
               <div>
-                <div className="text-xs text-gray-400">お電話</div>
-                <div className="text-gray-800 font-bold">046-212-2766</div>
+                <div className="text-xs text-gray-400 tracking-widest mb-1">TEL</div>
+                <div className="text-gray-900 font-semibold text-sm">046-212-2766</div>
                 <div className="text-xs text-gray-400">平日 9:00〜18:00</div>
               </div>
             </a>
-            <a href="mailto:info@ikenoya-shoji.co.jp" className="border border-gray-200 rounded-lg p-5 hover:border-[#1d4ed8] transition-colors hover-elevate flex items-center gap-3" data-testid="link-contact-email">
-              <Mail className="w-5 h-5 text-[#1d4ed8] flex-shrink-0" />
+            <a href="mailto:info@ikenoya-shoji.co.jp" className="border border-gray-100 p-6 hover:border-[#1d4ed8] transition-colors flex items-center gap-4" data-testid="link-contact-email">
+              <div className="w-10 h-10 bg-[#0f2044] flex items-center justify-center flex-shrink-0">
+                <Mail className="w-4 h-4 text-white" />
+              </div>
               <div>
-                <div className="text-xs text-gray-400">メール</div>
-                <div className="text-gray-700 text-sm">info@ikenoya-shoji.co.jp</div>
+                <div className="text-xs text-gray-400 tracking-widest mb-1">EMAIL</div>
+                <div className="text-gray-700 text-xs">info@ikenoya-shoji.co.jp</div>
                 <div className="text-xs text-gray-400">24時間受付</div>
               </div>
             </a>
-            <div className="border border-gray-200 rounded-lg p-5 flex items-start gap-3">
-              <span className="text-lg">📍</span>
+            <div className="border border-gray-100 p-6 flex items-center gap-4">
+              <div className="w-10 h-10 bg-[#0f2044] flex items-center justify-center flex-shrink-0">
+                <MapPin className="w-4 h-4 text-white" />
+              </div>
               <div>
-                <div className="text-xs text-gray-400">本社所在地</div>
-                <div className="text-gray-700 text-xs leading-relaxed mt-1">〒135-0001<br />東京都江東区東陽1-1-1</div>
+                <div className="text-xs text-gray-400 tracking-widest mb-1">ADDRESS</div>
+                <div className="text-gray-700 text-xs leading-relaxed">〒243-0303<br />神奈川県愛甲郡愛川町中津7287</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-xl p-6 md:p-8">
-            <h2 className="font-bold text-gray-800 text-lg mb-6">お問い合わせフォーム</h2>
+          {/* Form */}
+          <div className="border border-gray-100 p-8 md:p-12">
+            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-2">CONTACT FORM</p>
+            <h2 className="text-2xl font-light text-gray-900 tracking-[0.15em] mb-2">お問い合わせフォーム</h2>
+            <div className="w-8 h-0.5 bg-[#1d4ed8] mb-8" />
+
             <Form {...form}>
-              <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-5">
+              <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-6">
                 <FormField
                   control={form.control}
                   name="type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm text-gray-600">お問い合わせ種別</FormLabel>
-                      <div className="grid grid-cols-3 gap-2">
+                      <FormLabel className="text-xs text-gray-500 tracking-widest uppercase">お問い合わせ種別</FormLabel>
+                      <div className="grid grid-cols-3 gap-2 mt-2">
                         {(Object.entries(typeConfig) as [string, (typeof typeConfig)[keyof typeof typeConfig]][]).map(([key, cfg]) => (
                           <button
                             key={key}
                             type="button"
                             onClick={() => field.onChange(key)}
-                            className={`px-3 py-2 rounded-lg border text-xs font-medium transition-colors ${field.value === key ? `${cfg.bg} ${cfg.color} border-current` : "border-gray-200 text-gray-500"}`}
+                            className={`px-3 py-2.5 border text-xs font-medium transition-colors ${field.value === key ? "bg-[#0f2044] text-white border-[#0f2044]" : "border-gray-200 text-gray-500 hover:border-gray-400"}`}
                             data-testid={`button-type-${key}`}
                           >
                             {cfg.label}
@@ -163,42 +187,42 @@ export default function Contact() {
                   )}
                 />
 
-                <div className="grid md:grid-cols-2 gap-5">
+                <div className="grid md:grid-cols-2 gap-6">
                   <FormField control={form.control} name="name" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm text-gray-600">お名前 <span className="text-red-500">*</span></FormLabel>
-                      <FormControl><Input {...field} placeholder="山田 太郎" className="border-gray-200 text-sm" data-testid="input-name" /></FormControl>
+                      <FormLabel className="text-xs text-gray-500 tracking-widest uppercase">お名前 <span className="text-red-500">*</span></FormLabel>
+                      <FormControl><Input {...field} placeholder="山田 太郎" className="border-gray-200 text-sm rounded-none mt-1" data-testid="input-name" /></FormControl>
                       <FormMessage className="text-xs" />
                     </FormItem>
                   )} />
                   <FormField control={form.control} name="company" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm text-gray-600">会社名・屋号</FormLabel>
-                      <FormControl><Input {...field} placeholder="株式会社〇〇" className="border-gray-200 text-sm" data-testid="input-company" /></FormControl>
+                      <FormLabel className="text-xs text-gray-500 tracking-widest uppercase">会社名・屋号</FormLabel>
+                      <FormControl><Input {...field} placeholder="株式会社〇〇" className="border-gray-200 text-sm rounded-none mt-1" data-testid="input-company" /></FormControl>
                     </FormItem>
                   )} />
                   <FormField control={form.control} name="email" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm text-gray-600">メールアドレス <span className="text-red-500">*</span></FormLabel>
-                      <FormControl><Input {...field} type="email" placeholder="info@example.com" className="border-gray-200 text-sm" data-testid="input-email" /></FormControl>
+                      <FormLabel className="text-xs text-gray-500 tracking-widest uppercase">メールアドレス <span className="text-red-500">*</span></FormLabel>
+                      <FormControl><Input {...field} type="email" placeholder="info@example.com" className="border-gray-200 text-sm rounded-none mt-1" data-testid="input-email" /></FormControl>
                       <FormMessage className="text-xs" />
                     </FormItem>
                   )} />
                   <FormField control={form.control} name="phone" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm text-gray-600">電話番号</FormLabel>
-                      <FormControl><Input {...field} type="tel" placeholder="03-XXXX-XXXX" className="border-gray-200 text-sm" data-testid="input-phone" /></FormControl>
+                      <FormLabel className="text-xs text-gray-500 tracking-widest uppercase">電話番号</FormLabel>
+                      <FormControl><Input {...field} type="tel" placeholder="046-XXX-XXXX" className="border-gray-200 text-sm rounded-none mt-1" data-testid="input-phone" /></FormControl>
                     </FormItem>
                   )} />
                 </div>
 
                 {watchType === "shipper" && (
-                  <div className="grid md:grid-cols-2 gap-5">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <FormField control={form.control} name="prefecture" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm text-gray-600">発送元都道府県</FormLabel>
+                        <FormLabel className="text-xs text-gray-500 tracking-widest uppercase">発送元都道府県</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl><SelectTrigger className="border-gray-200 text-sm" data-testid="select-prefecture"><SelectValue placeholder="都道府県を選択" /></SelectTrigger></FormControl>
+                          <FormControl><SelectTrigger className="border-gray-200 text-sm rounded-none mt-1" data-testid="select-prefecture"><SelectValue placeholder="都道府県を選択" /></SelectTrigger></FormControl>
                           <SelectContent>
                             {["東京都", "神奈川県", "千葉県", "埼玉県", "茨城県", "栃木県", "群馬県", "その他"].map((p) => (
                               <SelectItem key={p} value={p}>{p}</SelectItem>
@@ -209,9 +233,9 @@ export default function Contact() {
                     )} />
                     <FormField control={form.control} name="cargoType" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sm text-gray-600">主な貨物種類</FormLabel>
+                        <FormLabel className="text-xs text-gray-500 tracking-widest uppercase">主な貨物種類</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl><SelectTrigger className="border-gray-200 text-sm" data-testid="select-cargo-type"><SelectValue placeholder="貨物種類を選択" /></SelectTrigger></FormControl>
+                          <FormControl><SelectTrigger className="border-gray-200 text-sm rounded-none mt-1" data-testid="select-cargo-type"><SelectValue placeholder="貨物種類を選択" /></SelectTrigger></FormControl>
                           <SelectContent>
                             {["一般貨物", "精密機器・電子部品", "食品・冷凍食品", "建設資材・重量物", "危険物（要確認）", "その他"].map((c) => (
                               <SelectItem key={c} value={c}>{c}</SelectItem>
@@ -225,18 +249,18 @@ export default function Contact() {
 
                 <FormField control={form.control} name="message" render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm text-gray-600">お問い合わせ内容 <span className="text-red-500">*</span></FormLabel>
+                    <FormLabel className="text-xs text-gray-500 tracking-widest uppercase">お問い合わせ内容 <span className="text-red-500">*</span></FormLabel>
                     <FormControl>
-                      <Textarea {...field} rows={5} placeholder="ご依頼内容・ご質問などをご記入ください" className="border-gray-200 text-sm resize-none" data-testid="textarea-message" />
+                      <Textarea {...field} rows={5} placeholder="ご依頼内容・ご質問などをご記入ください" className="border-gray-200 text-sm resize-none rounded-none mt-1" data-testid="textarea-message" />
                     </FormControl>
                     <FormMessage className="text-xs" />
                   </FormItem>
                 )} />
 
                 <FormField control={form.control} name="privacyAgreed" render={({ field }) => (
-                  <FormItem className="flex items-start gap-2">
+                  <FormItem className="flex items-start gap-3">
                     <FormControl>
-                      <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5" data-testid="checkbox-privacy" />
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5 rounded-none" data-testid="checkbox-privacy" />
                     </FormControl>
                     <div className="text-sm text-gray-600">
                       <a href="/privacy" target="_blank" className="text-[#1a4b99] hover:underline">プライバシーポリシー</a>に同意する <span className="text-red-500">*</span>
@@ -248,7 +272,8 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full bg-[#1d4ed8] hover:bg-[#1e3a8a] disabled:opacity-50 text-white font-medium py-3 rounded-full transition-colors text-sm"
+                  className="w-full bg-[#0f2044] hover:bg-[#1a4b99] disabled:opacity-50 text-white font-light py-4 transition-colors text-sm tracking-widest"
+                  onClick={() => trackEvent("contact_form_attempt", { type: watchType })}
                   data-testid="button-submit"
                 >
                   {mutation.isPending ? "送信中..." : "送信する"}

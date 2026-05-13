@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { CtaBanner } from "@/components/cta-banner";
+import { AnimateIn } from "@/components/animate-in";
 import { trackPageView } from "@/lib/analytics";
-import { CheckCircle, ChevronRight, MapPin, Phone } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 const companyInfo = [
   { label: "会社名", value: "株式会社池ノ谷商事" },
@@ -33,127 +33,164 @@ export default function Company() {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      {/* Hero - representative message style */}
-      <section className="pt-16 relative min-h-[60vh] flex items-stretch">
-        <div className="w-full md:w-1/2 bg-gradient-to-br from-[#1a4b99] to-[#1d4ed8] relative">
-          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255,255,255,0.05) 15px, rgba(255,255,255,0.05) 16px)" }} />
-          <div className="absolute inset-0 flex items-center justify-center p-8">
-            <div className="relative text-center">
-              <div className="w-32 h-32 rounded-full bg-white/20 border-2 border-white/30 flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-4xl font-black">池</span>
-              </div>
-              <div className="text-white font-bold">池ノ谷 太郎</div>
-              <div className="text-white/60 text-sm">代表取締役</div>
-            </div>
+      {/* Hero */}
+      <section className="relative mt-[100px] bg-[#0f2044] overflow-hidden" style={{ minHeight: "420px" }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)" }} />
+        <div className="absolute inset-0 flex items-center justify-center px-8">
+          <div className="text-center">
+            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">IKENOYA SHOJI CO., LTD.</p>
+            <h1 className="text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">企業情報</h1>
+            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-8" />
+            <p className="text-gray-300 text-sm leading-relaxed max-w-xl mx-auto">
+              誠実に、まっすぐに。地域に根ざし、信頼を育んできました。
+            </p>
           </div>
         </div>
-        <div className="w-full md:w-1/2 bg-white flex items-center p-8 md:p-16">
-          <div>
-            <div className="mb-4">
-              <span className="text-[#1d4ed8] font-black text-4xl italic font-serif">Company</span>
-              <p className="text-gray-400 text-sm mt-1">企業情報</p>
+        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top, white, transparent)" }} />
+      </section>
+
+      {/* Message */}
+      <section className="py-24 bg-white px-8">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <AnimateIn direction="left">
+            <div>
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">MESSAGE</p>
+              <h2 className="text-3xl font-light text-gray-900 tracking-[0.15em] mb-6 leading-relaxed">
+                物流で、<br />社会をつなぐ。
+              </h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mb-8" />
+              <p className="text-gray-500 text-sm leading-relaxed mb-4">
+                池ノ谷商事は、2009年の創業以来、安全・確実・丁寧をモットーに、輸送業務と構内作業に取り組んできました。長年の経験と現場力を活かし、地域社会とともに歩みながら、お客様との信頼関係を一つひとつ丁寧に築いてきた歴史があります。
+              </p>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                これからも、誠実な姿勢で現場に向き合い、確かな仕事を積み重ねてまいります。
+              </p>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 leading-snug">
-              誠実に、まっすぐに。<br />
-              地域に根ざし、信頼を育んできました。
-            </h1>
-            <p className="text-gray-500 text-sm leading-relaxed mb-4">
-              池ノ谷商事は、2009年の創業以来、安全・確実・丁寧をモットーに、輸送業務と構内作業に取り組んできました。長年の経験と現場力を活かし、地域社会とともに歩みながら、お客様との信頼関係を一つひとつ丁寧に築いてきた歴史があります。
-            </p>
-            <p className="text-gray-500 text-sm leading-relaxed mb-6">
-              これからも、誠実な姿勢で現場に向き合い、確かな仕事を積み重ねてまいります。
-            </p>
-            <Link href="/contact">
-              <button className="flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e3a8a] text-white font-medium px-6 py-3 rounded-full transition-colors text-sm">
-                View More.
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </Link>
-          </div>
+          </AnimateIn>
+          <AnimateIn direction="right">
+            <div className="bg-[#0f2044] p-12 text-center">
+              <div className="w-24 h-24 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mx-auto mb-6">
+                <span className="text-white text-4xl font-black">池</span>
+              </div>
+              <p className="text-white font-bold tracking-wider">池ノ谷 太郎</p>
+              <p className="text-gray-400 text-sm mt-1 tracking-widest">代表取締役</p>
+            </div>
+          </AnimateIn>
         </div>
       </section>
 
-      {/* Wide photo strip */}
-      <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden" style={{ minHeight: 260 }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.03) 60px, rgba(255,255,255,0.03) 61px)" }} />
-        <div className="max-w-7xl mx-auto px-4 h-full flex items-end py-8">
-          <p className="text-white/20 text-5xl font-black italic tracking-tight">Driven by Trust.</p>
+      {/* Marquee */}
+      <div className="overflow-hidden py-5 bg-white border-y border-gray-100">
+        <div className="animate-marquee">
+          {[...Array(2)].map((_, i) => (
+            <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
+              {[...Array(8)].map((_, j) => (
+                <span key={j} className="text-4xl font-bold italic text-gray-100 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
+              ))}
+            </span>
+          ))}
         </div>
       </div>
 
       {/* Philosophy */}
-      <section className="py-20 bg-white px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-10">
-            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Philosophy</span>
-            <p className="text-gray-400 text-sm mt-1">企業理念</p>
-          </div>
-          <div className="bg-gradient-to-r from-[#1a4b99] to-[#1d4ed8] rounded-xl p-8 mb-8 text-center">
-            <p className="text-2xl md:text-3xl font-black text-white mb-2">"物流で、社会をつなぐ。"</p>
-            <p className="text-white/60 text-sm">CONNECTING SOCIETY THROUGH LOGISTICS</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-4">
+      <section className="py-24 bg-gray-50 px-8">
+        <div className="max-w-5xl mx-auto">
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">PHILOSOPHY</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">企業理念</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <AnimateIn>
+            <div className="bg-[#0f2044] py-12 px-8 text-center mb-12">
+              <p className="text-2xl md:text-3xl font-light text-white tracking-[0.15em] mb-3">"物流で、社会をつなぐ。"</p>
+              <p className="text-gray-400 text-xs tracking-[0.4em]">CONNECTING SOCIETY THROUGH LOGISTICS</p>
+            </div>
+          </AnimateIn>
+          <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: "誠実", desc: "お客様・パートナー・社員に対して、常に誠実であることを第一とします。" },
-              { title: "安全", desc: "全ての業務において安全を最優先に。事故ゼロの実現に向けて取り組みます。" },
-              { title: "革新", desc: "テクノロジーと現場力を融合させ、物流の常識を変え続けます。" },
-            ].map((p) => (
-              <div key={p.title} className="border border-gray-200 rounded-lg p-6 hover-elevate">
-                <div className="text-[#1d4ed8] font-black text-2xl mb-2">{p.title}</div>
-                <p className="text-gray-500 text-sm leading-relaxed">{p.desc}</p>
-              </div>
+              { en: "INTEGRITY", title: "誠実", desc: "お客様・パートナー・社員に対して、常に誠実であることを第一とします。" },
+              { en: "SAFETY", title: "安全", desc: "全ての業務において安全を最優先に。事故ゼロの実現に向けて取り組みます。" },
+              { en: "INNOVATION", title: "革新", desc: "テクノロジーと現場力を融合させ、物流の常識を変え続けます。" },
+            ].map((p, i) => (
+              <AnimateIn key={p.title} delay={i * 100}>
+                <div className="bg-white border border-gray-100 p-8">
+                  <p className="text-[#1d4ed8] text-xs tracking-[0.3em] mb-3">{p.en}</p>
+                  <div className="text-gray-900 font-bold text-2xl mb-4">{p.title}</div>
+                  <p className="text-gray-500 text-sm leading-relaxed">{p.desc}</p>
+                </div>
+              </AnimateIn>
             ))}
           </div>
         </div>
       </section>
 
       {/* Company info */}
-      <section className="py-16 bg-gray-50 px-4">
+      <section className="py-24 bg-white px-8">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Overview</span>
-            <p className="text-gray-400 text-sm mt-1">会社概要</p>
-          </div>
-          <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
-            {companyInfo.map((item, i) => (
-              <div key={item.label} className={`flex ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
-                <div className="w-40 md:w-48 flex-shrink-0 px-4 py-3 font-semibold text-sm text-gray-600 border-r border-gray-100 bg-gray-50">
-                  {item.label}
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">OVERVIEW</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">会社概要</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <AnimateIn>
+            <div className="border border-gray-100">
+              {companyInfo.map((item, i) => (
+                <div key={item.label} className={`flex border-b border-gray-100 last:border-b-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
+                  <div className="w-44 flex-shrink-0 px-6 py-4 text-sm font-medium text-gray-500 bg-gray-50 border-r border-gray-100">{item.label}</div>
+                  <div className="px-6 py-4 text-sm text-gray-800 flex-1">{item.value}</div>
                 </div>
-                <div className="px-4 py-3 text-sm text-gray-700 flex-1">{item.value}</div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </AnimateIn>
         </div>
       </section>
 
       {/* Certifications */}
-      <section className="py-16 bg-white px-4">
+      <section className="py-24 bg-gray-50 px-8">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <span className="text-[#1d4ed8] font-black text-3xl italic font-serif">Certifications</span>
-            <p className="text-gray-400 text-sm mt-1">認証・取組み</p>
-          </div>
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">CERTIFICATIONS</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">認証・取組み</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
               { title: "Gマーク認証取得", desc: "国土交通省認定の安全優良事業所として認定を受けています。" },
               { title: "ISO 9001認証", desc: "品質マネジメントシステムの国際規格を取得し、品質向上に取り組んでいます。" },
               { title: "グリーン経営認証", desc: "環境負荷低減に取り組むグリーン経営認証を取得しています。" },
               { title: "働きやすい職場認証", desc: "ドライバーが働きやすい環境づくりに取り組み、認証を取得しています。" },
-            ].map((c) => (
-              <div key={c.title} className="flex gap-3 p-4 border border-gray-200 rounded-lg">
-                <CheckCircle className="w-5 h-5 text-[#1d4ed8] flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="font-bold text-gray-800 text-sm mb-1">{c.title}</div>
-                  <p className="text-gray-500 text-xs leading-relaxed">{c.desc}</p>
+            ].map((c, i) => (
+              <AnimateIn key={c.title} delay={i * 80}>
+                <div className="flex gap-4 p-6 bg-white border border-gray-100">
+                  <CheckCircle className="w-5 h-5 text-[#1d4ed8] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-semibold text-gray-800 text-sm mb-1">{c.title}</div>
+                    <p className="text-gray-500 text-xs leading-relaxed">{c.desc}</p>
+                  </div>
                 </div>
-              </div>
+              </AnimateIn>
             ))}
           </div>
         </div>
       </section>
 
-      <CtaBanner />
+      {/* CTA */}
+      <section className="py-20 bg-[#0f2044] text-center px-8">
+        <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">CONTACT</p>
+        <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-8">お問い合わせ</h2>
+        <Link href="/contact">
+          <button className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-10 py-4 text-sm tracking-widest transition-colors" data-testid="button-company-contact">
+            お問い合わせはこちら
+          </button>
+        </Link>
+      </section>
+
       <Footer />
     </div>
   );
