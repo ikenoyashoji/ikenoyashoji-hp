@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Truck, Lock } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
 export default function AdminLogin() {
@@ -24,66 +22,68 @@ export default function AdminLogin() {
   });
 
   return (
-    <div className="min-h-screen bg-[#0a1628] flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="bg-amber-500 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <Truck className="w-7 h-7 text-white" />
+    <div className="min-h-screen bg-white flex items-center justify-center px-4">
+      <div className="w-full max-w-sm">
+        {/* Logo mark */}
+        <div className="text-center mb-10">
+          <div className="w-12 h-12 bg-black flex items-center justify-center mx-auto mb-4">
+            <span className="text-white text-lg font-black">池</span>
           </div>
-          <h1 className="text-2xl font-black text-white">池ノ谷商事</h1>
-          <p className="text-blue-400 text-sm mt-1">管理画面ログイン</p>
+          <h1 className="text-xl font-bold text-gray-900 tracking-wider">池ノ谷商事</h1>
+          <p className="text-gray-400 text-xs mt-1 tracking-widest uppercase">Admin Panel</p>
         </div>
 
-        <div className="bg-[#0f2044] rounded-xl border border-blue-900 p-8">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit((d) => { setError(""); mutation.mutate(d); })} className="space-y-4">
-              <FormField control={form.control} name="username" render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-blue-200 text-sm">ユーザー名</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="admin"
-                      className="bg-[#0a1628] border-blue-800 text-white placeholder:text-blue-600"
-                      {...field}
-                      data-testid="input-admin-username"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              <FormField control={form.control} name="password" render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-blue-200 text-sm">パスワード</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="••••••••"
-                      className="bg-[#0a1628] border-blue-800 text-white placeholder:text-blue-600"
-                      {...field}
-                      data-testid="input-admin-password"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit((d) => { setError(""); mutation.mutate(d); })} className="space-y-4">
+            <FormField control={form.control} name="username" render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs text-gray-600 font-medium tracking-wide">ユーザー名</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="admin"
+                    className="border-gray-300 bg-white text-gray-900 placeholder:text-gray-300 focus:border-black focus:ring-black rounded-none h-10"
+                    {...field}
+                    data-testid="input-admin-username"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
 
-              {error && <p className="text-red-400 text-sm">{error}</p>}
+            <FormField control={form.control} name="password" render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs text-gray-600 font-medium tracking-wide">パスワード</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    className="border-gray-300 bg-white text-gray-900 placeholder:text-gray-300 focus:border-black focus:ring-black rounded-none h-10"
+                    {...field}
+                    data-testid="input-admin-password"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
 
-              <Button
-                type="submit"
-                disabled={mutation.isPending}
-                className="w-full bg-amber-500 text-white font-bold border-amber-400 mt-2"
-                data-testid="button-admin-login"
-              >
-                <Lock className="w-4 h-4 mr-2" />
-                {mutation.isPending ? "ログイン中..." : "ログイン"}
-              </Button>
-            </form>
-          </Form>
-          <p className="text-blue-500 text-xs text-center mt-4">
-            デフォルト: admin / admin123（環境変数 ADMIN_USER/ADMIN_PASS で変更可）
-          </p>
-        </div>
+            {error && (
+              <p className="text-red-500 text-xs border border-red-200 bg-red-50 px-3 py-2">{error}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={mutation.isPending}
+              className="w-full bg-black text-white text-sm py-2.5 hover:bg-gray-800 transition-colors disabled:opacity-50 mt-2"
+              data-testid="button-admin-login"
+            >
+              {mutation.isPending ? "ログイン中..." : "ログイン"}
+            </button>
+          </form>
+        </Form>
+
+        <p className="text-gray-400 text-[10px] text-center mt-6">
+          デフォルト: admin / admin123
+        </p>
       </div>
     </div>
   );

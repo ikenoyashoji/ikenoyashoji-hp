@@ -1,23 +1,16 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { AdminLayout } from "@/components/admin-layout";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Trash2, Edit, Star, Wand2 } from "lucide-react";
+import { Plus, Trash2, Edit, Wand2 } from "lucide-react";
 import { Link } from "wouter";
 
 const targetLabels: Record<string, string> = { shipper: "荷主向け", recruit: "採用向け", partner: "協力会社向け" };
-const targetColors: Record<string, string> = {
-  shipper: "bg-blue-900 text-blue-300 border-blue-700",
-  recruit: "bg-green-900 text-green-300 border-green-700",
-  partner: "bg-amber-900 text-amber-300 border-amber-700",
-};
 
 export default function AdminKeywords() {
   const [addOpen, setAddOpen] = useState(false);
@@ -56,87 +49,121 @@ export default function AdminKeywords() {
     },
   });
 
-  const openEdit = (kw: any) => {
-    setEditItem({ ...kw, priority: String(kw.priority) });
-  };
-
-  const priorityStars = (p: number) =>
-    Array.from({ length: 5 }, (_, i) => (
-      <Star key={i} className={`w-3 h-3 ${i < p ? "text-amber-400 fill-amber-400" : "text-blue-800"}`} />
-    ));
+  const FormContent = ({ value, onChange }: { value: typeof form; onChange: (f: any) => void }) => (
+    <div className="space-y-3">
+      <div>
+        <label className="text-gray-600 text-xs font-medium">キーワード</label>
+        <Input
+          placeholder="例：物流 コスト削減 方法"
+          className="border-gray-200 text-gray-900 placeholder:text-gray-300 mt-1 text-sm rounded-none focus:border-black focus:ring-0"
+          value={value.keyword}
+          onChange={(e) => onChange((f: any) => ({ ...f, keyword: e.target.value }))}
+          data-testid="input-keyword"
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        <div>
+          <label className="text-gray-600 text-xs font-medium">ターゲット</label>
+          <Select value={value.target} onValueChange={(v) => onChange((f: any) => ({ ...f, target: v }))}>
+            <SelectTrigger className="border-gray-200 text-gray-700 text-xs h-8 mt-1 rounded-none" data-testid="select-keyword-target">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="rounded-none border-gray-200">
+              <SelectItem value="shipper" className="text-xs">荷主向け</SelectItem>
+              <SelectItem value="recruit" className="text-xs">採用向け</SelectItem>
+              <SelectItem value="partner" className="text-xs">協力会社向け</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <label className="text-gray-600 text-xs font-medium">優先度（1〜5）</label>
+          <Select value={value.priority} onValueChange={(v) => onChange((f: any) => ({ ...f, priority: v }))}>
+            <SelectTrigger className="border-gray-200 text-gray-700 text-xs h-8 mt-1 rounded-none" data-testid="select-keyword-priority">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="rounded-none border-gray-200">
+              {[1,2,3,4,5].map((n) => <SelectItem key={n} value={String(n)} className="text-xs">{"★".repeat(n)}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+      <div>
+        <label className="text-gray-600 text-xs font-medium">メモ（任意）</label>
+        <Input
+          placeholder="キーワードに関するメモ"
+          className="border-gray-200 text-gray-900 placeholder:text-gray-300 mt-1 text-xs rounded-none"
+          value={value.notes}
+          onChange={(e) => onChange((f: any) => ({ ...f, notes: e.target.value }))}
+        />
+      </div>
+    </div>
+  );
 
   return (
     <AdminLayout>
-      <div className="space-y-4">
+      <div className="space-y-4 max-w-3xl">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-black text-white">キーワード管理</h1>
-            <p className="text-blue-400 text-xs mt-0.5">{keywords?.length ?? 0}件のキーワード</p>
+            <h1 className="text-lg font-bold text-gray-900">キーワード管理</h1>
+            <p className="text-gray-400 text-xs mt-0.5">{keywords?.length ?? 0}件のキーワード</p>
           </div>
-          <Button
-            size="sm"
-            className="bg-amber-500 text-white border-amber-400 text-xs"
+          <button
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-black text-white text-xs hover:bg-gray-800 transition-colors"
             onClick={() => setAddOpen(true)}
             data-testid="button-add-keyword"
           >
-            <Plus className="w-3.5 h-3.5 mr-1" /> キーワード追加
-          </Button>
+            <Plus className="w-3.5 h-3.5" /> キーワード追加
+          </button>
         </div>
 
-        <div className="bg-blue-900/20 border border-blue-900/40 rounded-lg p-3 text-blue-300 text-xs">
-          <Wand2 className="w-3.5 h-3.5 inline mr-1.5 text-amber-400" />
+        <div className="border border-gray-200 bg-gray-50 p-3 text-gray-500 text-xs flex items-start gap-2">
+          <Wand2 className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
           キーワードを追加後、記事管理画面の「AI記事生成」ボタンから自動記事生成ができます。
         </div>
 
         {isLoading ? (
-          <div className="space-y-2">{[1, 2, 3, 4, 5].map(i => <Skeleton key={i} className="h-16 bg-[#0f2044]" />)}</div>
+          <div className="space-y-1">{[1,2,3,4,5].map(i => <Skeleton key={i} className="h-14 bg-gray-100" />)}</div>
         ) : !keywords?.length ? (
-          <div className="text-center py-16 text-blue-500">
+          <div className="text-center py-16 border border-gray-100 text-gray-400">
             <p className="text-sm mb-3">キーワードがありません</p>
-            <Button size="sm" className="bg-amber-500 text-white border-amber-400 text-xs" onClick={() => setAddOpen(true)}>
+            <button className="text-xs bg-black text-white px-4 py-2" onClick={() => setAddOpen(true)}>
               最初のキーワードを追加
-            </Button>
+            </button>
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-1">
             {keywords.map((kw: any) => (
-              <div key={kw.id} className="bg-[#0f2044] border border-blue-900 rounded-lg p-4 flex items-center gap-3" data-testid={`keyword-row-${kw.id}`}>
+              <div key={kw.id} className="bg-white border border-gray-200 p-3 flex items-center gap-3 hover:border-gray-400 transition-colors" data-testid={`keyword-row-${kw.id}`}>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <span className="text-white font-semibold text-sm">{kw.keyword}</span>
-                    <Badge variant="outline" className={`text-[10px] px-1.5 ${targetColors[kw.target]}`}>
-                      {targetLabels[kw.target]}
-                    </Badge>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="text-gray-900 font-medium text-sm">{kw.keyword}</span>
+                    <span className="text-[10px] px-1.5 py-0.5 border border-gray-200 text-gray-400">{targetLabels[kw.target]}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="flex">{priorityStars(kw.priority)}</div>
-                    {kw.notes && <span className="text-blue-500 text-xs truncate">{kw.notes}</span>}
+                    <span className="text-gray-300 text-xs">{"★".repeat(kw.priority)}{"☆".repeat(5 - kw.priority)}</span>
+                    {kw.notes && <span className="text-gray-400 text-xs truncate">{kw.notes}</span>}
                   </div>
                 </div>
                 <div className="flex gap-1 flex-shrink-0">
                   <Link href="/admin/articles">
-                    <Button size="sm" variant="outline" className="h-7 px-2 text-[10px] border-amber-700 text-amber-400 bg-transparent" title="AI記事生成">
+                    <button className="h-7 px-2 text-[10px] border border-gray-200 text-gray-500 hover:border-black transition-colors flex items-center" title="AI記事生成">
                       <Wand2 className="w-3 h-3" />
-                    </Button>
+                    </button>
                   </Link>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="h-7 px-2 text-[10px] border-blue-700 text-blue-300 bg-transparent"
-                    onClick={() => openEdit(kw)}
+                  <button
+                    className="h-7 px-2 text-[10px] border border-gray-200 text-gray-500 hover:border-black transition-colors flex items-center"
+                    onClick={() => setEditItem({ ...kw, priority: String(kw.priority) })}
                     data-testid={`button-edit-keyword-${kw.id}`}
                   >
                     <Edit className="w-3 h-3" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="h-7 px-2 text-[10px] border-red-900 text-red-400 bg-transparent"
+                  </button>
+                  <button
+                    className="h-7 px-2 text-[10px] border border-gray-200 text-gray-400 hover:border-red-300 hover:text-red-500 transition-colors flex items-center"
                     onClick={() => setDeleteId(kw.id)}
                     data-testid={`button-delete-keyword-${kw.id}`}
                   >
                     <Trash2 className="w-3 h-3" />
-                  </Button>
+                  </button>
                 </div>
               </div>
             ))}
@@ -146,145 +173,55 @@ export default function AdminKeywords() {
 
       {/* Add dialog */}
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
-        <DialogContent className="bg-[#0f2044] border-blue-900">
-          <DialogHeader>
-            <DialogTitle className="text-white">キーワード追加</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-3">
-            <div>
-              <label className="text-blue-300 text-xs">キーワード</label>
-              <Input
-                placeholder="例：物流 コスト削減 方法"
-                className="bg-[#0a1628] border-blue-800 text-white placeholder:text-blue-600 mt-1 text-sm"
-                value={form.keyword}
-                onChange={(e) => setForm((f) => ({ ...f, keyword: e.target.value }))}
-                data-testid="input-keyword"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <label className="text-blue-300 text-xs">ターゲット</label>
-                <Select value={form.target} onValueChange={(v) => setForm((f) => ({ ...f, target: v }))}>
-                  <SelectTrigger className="bg-[#0a1628] border-blue-800 text-white text-xs h-8 mt-1" data-testid="select-keyword-target">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#0f2044] border-blue-800">
-                    <SelectItem value="shipper" className="text-blue-200 text-xs">荷主向け</SelectItem>
-                    <SelectItem value="recruit" className="text-blue-200 text-xs">採用向け</SelectItem>
-                    <SelectItem value="partner" className="text-blue-200 text-xs">協力会社向け</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <label className="text-blue-300 text-xs">優先度（1〜5）</label>
-                <Select value={form.priority} onValueChange={(v) => setForm((f) => ({ ...f, priority: v }))}>
-                  <SelectTrigger className="bg-[#0a1628] border-blue-800 text-white text-xs h-8 mt-1" data-testid="select-keyword-priority">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#0f2044] border-blue-800">
-                    {[1, 2, 3, 4, 5].map((n) => <SelectItem key={n} value={String(n)} className="text-blue-200 text-xs">{"★".repeat(n)}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div>
-              <label className="text-blue-300 text-xs">メモ（任意）</label>
-              <Input
-                placeholder="キーワードに関するメモ"
-                className="bg-[#0a1628] border-blue-800 text-white placeholder:text-blue-600 mt-1 text-xs"
-                value={form.notes}
-                onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
-              />
-            </div>
-          </div>
+        <DialogContent className="bg-white border-gray-200 rounded-none max-w-sm">
+          <DialogHeader><DialogTitle className="text-gray-900">キーワード追加</DialogTitle></DialogHeader>
+          <FormContent value={form} onChange={setForm} />
           <DialogFooter className="gap-2">
-            <Button variant="outline" className="border-blue-700 text-blue-300 bg-transparent" onClick={() => setAddOpen(false)}>キャンセル</Button>
-            <Button
-              className="bg-amber-500 text-white border-amber-400"
+            <button className="px-4 py-2 border border-gray-300 text-gray-600 text-sm hover:border-black" onClick={() => setAddOpen(false)}>キャンセル</button>
+            <button
+              className="px-4 py-2 bg-black text-white text-sm hover:bg-gray-800 disabled:opacity-40"
               onClick={() => addMutation.mutate(form)}
               disabled={!form.keyword || addMutation.isPending}
               data-testid="button-keyword-save"
             >
               {addMutation.isPending ? "追加中..." : "追加する"}
-            </Button>
+            </button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
       {/* Edit dialog */}
       <Dialog open={!!editItem} onOpenChange={() => setEditItem(null)}>
-        <DialogContent className="bg-[#0f2044] border-blue-900">
-          <DialogHeader>
-            <DialogTitle className="text-white">キーワード編集</DialogTitle>
-          </DialogHeader>
-          {editItem && (
-            <div className="space-y-3">
-              <div>
-                <label className="text-blue-300 text-xs">キーワード</label>
-                <Input
-                  className="bg-[#0a1628] border-blue-800 text-white mt-1 text-sm"
-                  value={editItem.keyword}
-                  onChange={(e) => setEditItem((p: any) => ({ ...p, keyword: e.target.value }))}
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="text-blue-300 text-xs">ターゲット</label>
-                  <Select value={editItem.target} onValueChange={(v) => setEditItem((p: any) => ({ ...p, target: v }))}>
-                    <SelectTrigger className="bg-[#0a1628] border-blue-800 text-white text-xs h-8 mt-1">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-[#0f2044] border-blue-800">
-                      <SelectItem value="shipper" className="text-blue-200 text-xs">荷主向け</SelectItem>
-                      <SelectItem value="recruit" className="text-blue-200 text-xs">採用向け</SelectItem>
-                      <SelectItem value="partner" className="text-blue-200 text-xs">協力会社向け</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label className="text-blue-300 text-xs">優先度</label>
-                  <Select value={editItem.priority} onValueChange={(v) => setEditItem((p: any) => ({ ...p, priority: v }))}>
-                    <SelectTrigger className="bg-[#0a1628] border-blue-800 text-white text-xs h-8 mt-1">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-[#0f2044] border-blue-800">
-                      {[1, 2, 3, 4, 5].map((n) => <SelectItem key={n} value={String(n)} className="text-blue-200 text-xs">{"★".repeat(n)}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <div>
-                <label className="text-blue-300 text-xs">メモ</label>
-                <Input
-                  className="bg-[#0a1628] border-blue-800 text-white mt-1 text-xs"
-                  value={editItem.notes || ""}
-                  onChange={(e) => setEditItem((p: any) => ({ ...p, notes: e.target.value }))}
-                />
-              </div>
-            </div>
-          )}
+        <DialogContent className="bg-white border-gray-200 rounded-none max-w-sm">
+          <DialogHeader><DialogTitle className="text-gray-900">キーワード編集</DialogTitle></DialogHeader>
+          {editItem && <FormContent value={editItem} onChange={setEditItem} />}
           <DialogFooter className="gap-2">
-            <Button variant="outline" className="border-blue-700 text-blue-300 bg-transparent" onClick={() => setEditItem(null)}>キャンセル</Button>
-            <Button
-              className="bg-amber-500 text-white border-amber-400"
+            <button className="px-4 py-2 border border-gray-300 text-gray-600 text-sm hover:border-black" onClick={() => setEditItem(null)}>キャンセル</button>
+            <button
+              className="px-4 py-2 bg-black text-white text-sm hover:bg-gray-800 disabled:opacity-40"
               onClick={() => updateMutation.mutate(editItem)}
               disabled={updateMutation.isPending}
             >
               {updateMutation.isPending ? "更新中..." : "更新する"}
-            </Button>
+            </button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
+      {/* Delete dialog */}
       <Dialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>
-        <DialogContent className="bg-[#0f2044] border-blue-900">
-          <DialogHeader><DialogTitle className="text-white">削除の確認</DialogTitle></DialogHeader>
-          <p className="text-blue-300 text-sm">このキーワードを削除しますか？</p>
+        <DialogContent className="bg-white border-gray-200 rounded-none max-w-sm">
+          <DialogHeader><DialogTitle className="text-gray-900">削除の確認</DialogTitle></DialogHeader>
+          <p className="text-gray-500 text-sm">このキーワードを削除しますか？</p>
           <DialogFooter className="gap-2">
-            <Button variant="outline" className="border-blue-700 text-blue-300 bg-transparent" onClick={() => setDeleteId(null)}>キャンセル</Button>
-            <Button variant="destructive" onClick={() => deleteId && deleteMutation.mutate(deleteId)} disabled={deleteMutation.isPending}>
+            <button className="px-4 py-2 border border-gray-300 text-gray-600 text-sm hover:border-black" onClick={() => setDeleteId(null)}>キャンセル</button>
+            <button
+              className="px-4 py-2 bg-red-600 text-white text-sm hover:bg-red-700 disabled:opacity-50"
+              onClick={() => deleteId && deleteMutation.mutate(deleteId)}
+              disabled={deleteMutation.isPending}
+            >
               {deleteMutation.isPending ? "削除中..." : "削除"}
-            </Button>
+            </button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
