@@ -49,28 +49,28 @@ export default function Recruit() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] bg-[#0f2044] overflow-hidden" style={{ minHeight: "420px" }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)" }} />
-        <div className="absolute inset-0 flex items-center justify-center px-8">
-          <div className="text-center">
-            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">JOIN OUR TEAM</p>
-            <h1 className="text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">採用情報</h1>
-            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-8" />
-            <p className="text-gray-300 text-sm leading-relaxed max-w-xl mx-auto">
-              支える仕事には、静かな誇りと、世界を動かす力がある。
-            </p>
+      <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "420px" }}>
+        <img src={recruitImg1} alt="採用情報" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-[#0f2044]/75" />
+        <div className="absolute inset-0 flex items-end pb-16 px-8">
+          <div className="max-w-5xl mx-auto w-full">
+            <AnimateIn>
+              <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">JOIN OUR TEAM</p>
+              <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">採用情報</h1>
+              <div className="w-12 h-0.5 bg-[#1d4ed8]" />
+              <p className="text-gray-300 text-sm mt-4 tracking-wide">支える仕事には、静かな誇りと、世界を動かす力がある。</p>
+            </AnimateIn>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top, white, transparent)" }} />
       </section>
 
       {/* Photo slider */}
-      <section className="bg-white py-16 overflow-hidden">
+      <section className="bg-white py-12 overflow-hidden">
         <div className="relative">
-          <div className="flex gap-4 animate-recruit-slide" style={{ width: "max-content" }}>
+          <div className="flex gap-3 animate-recruit-slide" style={{ width: "max-content" }}>
             {[...recruitImgs, ...recruitImgs].map((img, i) => (
-              <div key={i} className="w-72 h-48 flex-shrink-0 overflow-hidden">
-                <img src={img} alt={`スタッフ写真 ${(i % 6) + 1}`} className="w-full h-full object-cover" />
+              <div key={i} className="w-44 h-64 flex-shrink-0 overflow-hidden">
+                <img src={img} alt={`スタッフ写真 ${(i % 6) + 1}`} className="w-full h-full object-cover object-top" />
               </div>
             ))}
           </div>
