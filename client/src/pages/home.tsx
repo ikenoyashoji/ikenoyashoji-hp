@@ -206,6 +206,9 @@ export default function Home() {
               { num: "01", title: "一般貨物自動車運送業", sub: "General Cargo Transport", img: businessImg1 },
               { num: "02", title: "倉庫管理・荷役作業",   sub: "Warehouse Management",   img: businessImg2 },
               { num: "03", title: "３PL",                  sub: "Third Party Logistics",  img: businessImg3 },
+              { num: "04", title: "物流コンサルティング", sub: "Logistics Consulting",    img: businessImg1 },
+              { num: "05", title: "総合保険代理店",       sub: "Insurance Agency",        img: businessImg2 },
+              { num: "06", title: "車両販売・整備",       sub: "Vehicle Sales & Maintenance", img: businessImg3 },
             ].map((s, i) => (
               <div key={i} className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden">
                 <div className="w-full aspect-[16/9] overflow-hidden">
