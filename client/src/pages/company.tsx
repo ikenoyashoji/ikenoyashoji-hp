@@ -108,8 +108,8 @@ export default function Company() {
           </AnimateIn>
           <AnimateIn>
             <div className="bg-[#0f2044] py-12 px-8 text-center mb-12">
-              <p className="text-2xl md:text-3xl font-light text-white tracking-[0.15em] mb-3">"物流で、社会をつなぐ。"</p>
-              <p className="text-gray-400 text-xs tracking-[0.4em]">CONNECTING SOCIETY THROUGH LOGISTICS</p>
+              <p className="text-2xl md:text-3xl font-light text-white tracking-[0.15em] mb-3">"運ぶ信頼、届ける真心"</p>
+              <p className="text-gray-400 text-xs tracking-[0.4em]">TRUST IN EVERY DELIVERY, SINCERITY IN EVERY STEP</p>
             </div>
           </AnimateIn>
           <div className="grid md:grid-cols-3 gap-6">
