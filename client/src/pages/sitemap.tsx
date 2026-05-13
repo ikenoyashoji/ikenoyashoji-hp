@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { useEffect } from "react";
 import { trackPageView } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 import { ChevronRight } from "lucide-react";
 
 const sitemapData = [
@@ -89,7 +90,11 @@ const sitemapData = [
 export default function Sitemap() {
   useEffect(() => {
     trackPageView("/sitemap");
-    document.title = "サイトマップ｜株式会社池ノ谷商事";
+    setSeo({
+      title: "サイトマップ",
+      description: "株式会社池ノ谷商事のウェブサイトのサイトマップです。各ページへのリンクを一覧でご確認いただけます。",
+      path: "/sitemap",
+    });
   }, []);
 
   return (

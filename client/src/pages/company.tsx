@@ -4,6 +4,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { trackPageView } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 import { CheckCircle } from "lucide-react";
 import buildingImg from "@assets/スクリーンショット_2026-05-13_4.37.54_1778614678216.png";
 import ceoImg from "@assets/スクリーンショット_2026-05-14_2.55.57_1778694961831.png";
@@ -32,7 +33,11 @@ const companyInfo = [
 export default function Company() {
   useEffect(() => {
     trackPageView("/company");
-    document.title = "企業情報｜株式会社池ノ谷商事";
+    setSeo({
+      title: "企業情報・会社概要",
+      description: "株式会社池ノ谷商事の会社概要・拠点情報・組織図・沿革をご覧いただけます。神奈川県愛川町に本社を置く総合物流企業です。資本金1,000万円、従業員100名以上。",
+      path: "/company",
+    });
   }, []);
 
   return (

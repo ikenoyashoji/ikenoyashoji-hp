@@ -1,7 +1,10 @@
+import { useEffect } from "react";
 import { Link } from "wouter";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
+import { trackPageView } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 import { ArrowRight, Truck, Warehouse, Network, BarChart3, Shield, Wrench } from "lucide-react";
 import heroImg from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
 import businessImg1 from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
@@ -71,6 +74,15 @@ const marqueeItems = [
 ];
 
 export default function Services() {
+  useEffect(() => {
+    trackPageView("/services");
+    setSeo({
+      title: "事業紹介｜運送・倉庫・3PL・保険・車両",
+      description: "株式会社池ノ谷商事の6つの事業：一般貨物運送・倉庫管理・3PL・物流コンサルティング・総合保険代理店・車両販売整備。神奈川県から関東圏全域の物流をワンストップで対応します。",
+      path: "/services",
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       <Header />

@@ -4,6 +4,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 import { CheckCircle } from "lucide-react";
 
 const benefits = [
@@ -32,7 +33,11 @@ const steps = [
 export default function Partner() {
   useEffect(() => {
     trackPageView("/partner");
-    document.title = "協力会社募集｜株式会社池ノ谷商事";
+    setSeo({
+      title: "協力会社募集｜傭車・業務委託のご案内",
+      description: "株式会社池ノ谷商事では協力会社・傭車パートナーを募集しています。関東圏全域の安定した継続案件をご提供。フリーランスドライバー・運送会社様もお気軽にご相談ください。",
+      path: "/partner",
+    });
   }, []);
 
   return (

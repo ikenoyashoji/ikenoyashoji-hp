@@ -7,6 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { trackPageView } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 import { Calendar, ChevronRight, Share2, Tag, ArrowLeft, List } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
@@ -27,7 +28,11 @@ export default function BlogPost() {
   useEffect(() => {
     if (article) {
       trackPageView(`/blog/${slug}`);
-      document.title = `${article.title}｜株式会社池ノ谷商事`;
+      setSeo({
+        title: article.title,
+        description: article.metaDescription || `${article.title} - 株式会社池ノ谷商事の物流コラム・お知らせです。`,
+        path: `/blog/${slug}`,
+      });
     }
   }, [article, slug]);
 

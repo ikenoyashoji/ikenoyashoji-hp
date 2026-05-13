@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { useEffect } from "react";
 import { trackPageView } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 import ceoImg from "@assets/スクリーンショット_2026-05-14_2.55.57_1778694961831.png";
 import truckImg from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
 
@@ -19,7 +20,11 @@ const marqueeItems = ["誠実", "挑戦", "共創", "安全", "Integrity", "Chal
 export default function About() {
   useEffect(() => {
     trackPageView("/about");
-    document.title = "池ノ谷商事について｜株式会社池ノ谷商事";
+    setSeo({
+      title: "池ノ谷商事について｜経営理念・代表メッセージ",
+      description: "「運ぶ信頼、届ける真心」を経営理念に掲げる株式会社池ノ谷商事。Mission・Vision・Valueと代表取締役・池ノ谷翔のメッセージをご紹介します。",
+      path: "/about",
+    });
   }, []);
 
   return (

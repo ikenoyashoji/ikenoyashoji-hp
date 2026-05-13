@@ -2,11 +2,16 @@ import { useEffect } from "react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { trackPageView } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 
 export default function Privacy() {
   useEffect(() => {
     trackPageView("/privacy");
-    document.title = "プライバシーポリシー｜株式会社池ノ谷商事";
+    setSeo({
+      title: "個人情報保護方針",
+      description: "株式会社池ノ谷商事の個人情報保護方針（プライバシーポリシー）をご確認いただけます。お客様の個人情報を適切に管理・保護することをお約束します。",
+      path: "/privacy",
+    });
   }, []);
 
   return (

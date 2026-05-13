@@ -7,6 +7,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { trackPageView } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 import { Search } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
@@ -67,7 +68,11 @@ export default function Blog() {
 
   useEffect(() => {
     trackPageView("/blog");
-    document.title = "お知らせ｜株式会社池ノ谷商事";
+    setSeo({
+      title: "お知らせ・物流コラム",
+      description: "株式会社池ノ谷商事の最新ニュース・物流コラム・採用情報をお届けします。輸送コスト削減・3PLの活用法・ドライバー採用など物流に役立つ情報を発信しています。",
+      path: "/blog",
+    });
   }, []);
 
   const { data: articles, isLoading } = useQuery<any[]>({ queryKey: ["/api/articles"] });

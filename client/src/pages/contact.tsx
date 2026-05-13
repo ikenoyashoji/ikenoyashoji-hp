@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { trackPageView, trackEvent } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { Phone, Mail, MapPin, CheckCircle } from "lucide-react";
@@ -46,7 +47,11 @@ export default function Contact() {
 
   useEffect(() => {
     trackPageView("/contact");
-    document.title = "お問い合わせ｜株式会社池ノ谷商事";
+    setSeo({
+      title: "お問い合わせ｜荷主・採用・協力会社",
+      description: "株式会社池ノ谷商事へのお問い合わせはこちら。荷主様の輸送ご相談、採用のお問い合わせ、協力会社のご登録を承ります。2営業日以内にご返答いたします。",
+      path: "/contact",
+    });
   }, []);
 
   const form = useForm<ContactFormValues>({

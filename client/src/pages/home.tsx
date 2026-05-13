@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 import heroBg from "@assets/imageああああ_1778609849549.png";
 import japanMapImg from "@assets/imageううう_1778610881804.png";
@@ -57,7 +58,11 @@ const staticTopics = [
 export default function Home() {
   useEffect(() => {
     trackPageView("/");
-    document.title = "株式会社池ノ谷商事｜関東圏の物流・輸送サービス";
+    setSeo({
+      title: "神奈川・関東の物流・運送・倉庫会社",
+      description: "株式会社池ノ谷商事は神奈川県愛川町を拠点に、一般貨物運送・倉庫管理・3PLを提供する総合物流企業です。荷主様の輸送コスト削減・物流効率化をワンストップで支援します。",
+      path: "/",
+    });
   }, []);
 
   const { data: articles } = useQuery<any[]>({ queryKey: ["/api/articles"] });

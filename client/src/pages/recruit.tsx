@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
+import { setSeo } from "@/lib/seo";
 import { CheckCircle, Mail } from "lucide-react";
 import truckHeroImg from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
 import recruitImg1 from "@assets/スクリーンショット_2026-05-13_4.02.02_1778612566803.png";
@@ -42,7 +43,11 @@ const recruitImgs = [recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruit
 export default function Recruit() {
   useEffect(() => {
     trackPageView("/recruit");
-    document.title = "採用情報｜株式会社池ノ谷商事";
+    setSeo({
+      title: "採用情報｜トラックドライバー・物流スタッフ募集",
+      description: "株式会社池ノ谷商事ではトラックドライバーをはじめとする物流スタッフを積極採用中。神奈川・関東エリア、未経験歓迎、充実した研修制度・待遇で働きやすい環境を整えています。",
+      path: "/recruit",
+    });
   }, []);
 
   return (
