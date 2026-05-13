@@ -10,6 +10,7 @@ import { trackPageView } from "@/lib/analytics";
 import { Search } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
+import heroImg from "@assets/スクリーンショット_2026-05-13_3.51.42_1778611939679.png";
 
 const categories = ["すべて", "物流コラム", "採用情報", "協力会社情報", "お知らせ", "事例紹介"];
 
@@ -35,16 +36,18 @@ export default function Blog() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] bg-[#0f2044] overflow-hidden" style={{ minHeight: "320px" }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)" }} />
-        <div className="absolute inset-0 flex items-center justify-center px-8">
-          <div className="text-center">
-            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">LATEST NEWS</p>
-            <h1 className="text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">お知らせ</h1>
-            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+      <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "320px" }}>
+        <img src={heroImg} alt="お知らせ" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-[#0f2044]/78" />
+        <div className="absolute inset-0 flex items-end pb-16 px-8">
+          <div className="max-w-5xl mx-auto w-full">
+            <AnimateIn>
+              <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">LATEST NEWS</p>
+              <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">お知らせ</h1>
+              <div className="w-12 h-0.5 bg-[#1d4ed8]" />
+            </AnimateIn>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top, white, transparent)" }} />
       </section>
 
       {/* Filter bar */}
