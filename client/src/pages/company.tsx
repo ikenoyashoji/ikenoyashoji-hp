@@ -84,7 +84,7 @@ export default function Company() {
       </section>
 
       {/* Marquee */}
-      <div className="overflow-hidden py-5 bg-white border-y border-gray-100">
+      <div className="overflow-hidden py-5 bg-white">
         <div className="animate-marquee">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
