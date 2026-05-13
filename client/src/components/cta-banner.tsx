@@ -30,7 +30,7 @@ export function CtaBanner({
             data-testid="link-cta-tel"
           >
             <Phone className="w-5 h-5" />
-            03-1234-5678
+            046-212-2766
           </a>
           <Link href={`/contact?type=${quoteType}`}>
             <button

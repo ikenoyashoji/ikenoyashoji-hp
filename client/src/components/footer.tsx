@@ -17,8 +17,8 @@ export function Footer() {
         <div className="flex flex-col gap-1.5">
           <p className="text-white font-bold text-[17px] tracking-wider leading-none">株式会社池ノ谷商事</p>
           <div className="text-gray-200 text-[11px] leading-relaxed mt-0.5">
-            <p>〒135-0001 東京都江東区東陽1-1-1</p>
-            <p>TEL : 03-1234-5678</p>
+            <p>〒243-0303 神奈川県愛甲郡愛川町中津7287</p>
+            <p>TEL : 046-212-2766　FAX : 046-401-1714</p>
           </div>
         </div>
 

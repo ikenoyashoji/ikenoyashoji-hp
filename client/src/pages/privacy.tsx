@@ -66,8 +66,8 @@ export default function Privacy() {
               <h2 className="text-lg font-bold text-gray-800 mb-3">8. お問い合わせ</h2>
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                 <p className="font-semibold text-gray-800 mb-1">株式会社池ノ谷商事 個人情報管理担当</p>
-                <p>〒135-0001 東京都江東区東陽1-1-1</p>
-                <p>TEL: 03-1234-5678</p>
+                <p>〒243-0303 神奈川県愛甲郡愛川町中津7287</p>
+                <p>TEL: 046-212-2766　FAX: 046-401-1714</p>
                 <p>Email: privacy@ikenoya-shoji.co.jp</p>
               </div>
             </section>

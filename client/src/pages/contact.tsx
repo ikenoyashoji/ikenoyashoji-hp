@@ -111,11 +111,11 @@ export default function Contact() {
           <p className="text-gray-400 text-sm mt-1 mb-8">お問い合わせ</p>
 
           <div className="grid md:grid-cols-3 gap-4 mb-10">
-            <a href="tel:0312345678" className="border border-gray-200 rounded-lg p-5 hover:border-[#1d4ed8] transition-colors hover-elevate flex items-center gap-3" data-testid="link-contact-tel">
+            <a href="tel:0462122766" className="border border-gray-200 rounded-lg p-5 hover:border-[#1d4ed8] transition-colors hover-elevate flex items-center gap-3" data-testid="link-contact-tel">
               <Phone className="w-5 h-5 text-[#1d4ed8] flex-shrink-0" />
               <div>
                 <div className="text-xs text-gray-400">お電話</div>
-                <div className="text-gray-800 font-bold">03-1234-5678</div>
+                <div className="text-gray-800 font-bold">046-212-2766</div>
                 <div className="text-xs text-gray-400">平日 9:00〜18:00</div>
               </div>
             </a>
