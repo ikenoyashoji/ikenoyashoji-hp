@@ -49,10 +49,10 @@ export default function Company() {
         <div className="relative">
           <img src={buildingImg} alt="池ノ谷商事 本社" className="w-full" style={{ maxHeight: "280px", objectFit: "cover", objectPosition: "center 60%" }} />
           <div className="absolute inset-0" style={{ background: "linear-gradient(105deg, rgba(26,75,153,0.82) 0%, rgba(29,78,216,0.55) 50%, rgba(15,32,68,0.35) 100%)" }} />
-          <div className="absolute inset-0 flex items-center px-14">
+          <div className="absolute inset-0 flex items-center px-6 sm:px-14">
             <div>
               <p className="text-white/50 text-[10px] tracking-[0.5em] uppercase mb-3">IKENOYA SHOJI CO., LTD.</p>
-              <h1 className="text-5xl font-thin text-white tracking-[0.15em] leading-none mb-4">企業情報</h1>
+              <h1 className="text-3xl sm:text-5xl font-thin text-white tracking-[0.15em] leading-none mb-4">企業情報</h1>
               <div className="w-10 h-px bg-white/50 mb-4" />
               <p className="text-white/70 text-xs tracking-wider leading-relaxed">
                 誠実に、まっすぐに。地域に根ざし、信頼を育んできました。
@@ -152,9 +152,9 @@ export default function Company() {
           <AnimateIn>
             <div className="border border-gray-100">
               {companyInfo.map((item, i) => (
-                <div key={item.label} className={`flex border-b border-gray-100 last:border-b-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
-                  <div className="w-44 flex-shrink-0 px-6 py-4 text-sm font-medium text-gray-500 bg-gray-50 border-r border-gray-100">{item.label}</div>
-                  <div className="px-6 py-4 text-sm text-gray-800 flex-1">{item.value}</div>
+                <div key={item.label} className={`flex flex-col sm:flex-row border-b border-gray-100 last:border-b-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
+                  <div className="sm:w-44 flex-shrink-0 px-4 sm:px-6 pt-3 pb-1 sm:py-4 text-xs sm:text-sm font-medium text-gray-500 bg-gray-50 sm:border-r border-gray-100">{item.label}</div>
+                  <div className="px-4 sm:px-6 pb-3 pt-1 sm:py-4 text-sm text-gray-800 flex-1 leading-relaxed">{item.value}</div>
                 </div>
               ))}
             </div>
@@ -252,7 +252,7 @@ export default function Company() {
               <div className="relative w-full flex justify-center">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gray-300" />
               </div>
-              <div className="grid grid-cols-4 gap-4 w-full max-w-2xl pt-8 relative">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl pt-8 relative">
                 <div className="absolute -top-px left-[12.5%] right-[12.5%] h-px bg-gray-300" />
                 {[
                   { name: "営業部", en: "SALES" },
@@ -285,7 +285,7 @@ export default function Company() {
             </div>
           </AnimateIn>
           <div className="relative">
-            <div className="absolute left-[120px] top-0 bottom-0 w-px bg-gray-200" />
+            <div className="absolute left-[80px] sm:left-[120px] top-0 bottom-0 w-px bg-gray-200" />
             <div className="space-y-0">
               {[
                 { year: "2023年2月", event: "神奈川県愛甲郡愛川町中津7287にて株式会社池ノ谷商事を設立" },
@@ -299,8 +299,8 @@ export default function Company() {
               ].map((item, i) => (
                 <AnimateIn key={i} delay={i * 60}>
                   <div className="flex items-start gap-0 relative pb-0">
-                    <div className="w-[120px] flex-shrink-0 py-5 pr-6 text-right">
-                      <span className="text-xs text-gray-500 tracking-wide whitespace-nowrap">{item.year}</span>
+                    <div className="w-[80px] sm:w-[120px] flex-shrink-0 py-5 pr-3 sm:pr-6 text-right">
+                      <span className="text-[10px] sm:text-xs text-gray-500 tracking-wide">{item.year}</span>
                     </div>
                     <div className="flex-shrink-0 relative z-10 mt-5">
                       <div className="w-3 h-3 rounded-full bg-[#1d4ed8] border-2 border-white ring-1 ring-[#1d4ed8]" />

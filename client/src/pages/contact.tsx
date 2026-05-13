@@ -114,17 +114,17 @@ export default function Contact() {
 
       {/* Hero */}
       <section
-        className="mt-[100px] flex items-end pb-14 px-8 overflow-hidden"
-        style={{ minHeight: "200px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}
+        className="mt-[100px] flex items-end pb-10 sm:pb-14 px-4 sm:px-8 overflow-hidden"
+        style={{ minHeight: "180px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}
       >
         <div className="max-w-4xl mx-auto w-full">
           <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">GET IN TOUCH</p>
-          <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">お問い合わせ</h1>
+          <h1 className="text-3xl sm:text-5xl font-extralight text-white tracking-[0.15em] mb-4">お問い合わせ</h1>
           <div className="w-12 h-0.5 bg-[#1d4ed8]" />
         </div>
       </section>
 
-      <section className="py-20 bg-white px-8">
+      <section className="py-12 sm:py-20 bg-white px-4 sm:px-8">
         <div className="max-w-4xl mx-auto">
 
           {/* Contact info */}
@@ -161,7 +161,7 @@ export default function Contact() {
           </div>
 
           {/* Form */}
-          <div className="border border-gray-100 p-8 md:p-12">
+          <div className="border border-gray-100 p-5 sm:p-8 md:p-12">
             <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-2">CONTACT FORM</p>
             <h2 className="text-2xl font-light text-gray-900 tracking-[0.15em] mb-2">お問い合わせフォーム</h2>
             <div className="w-8 h-0.5 bg-[#1d4ed8] mb-8" />
@@ -174,7 +174,7 @@ export default function Contact() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-xs text-gray-500 tracking-widest uppercase">お問い合わせ種別</FormLabel>
-                      <div className="grid grid-cols-3 gap-2 mt-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
                         {(Object.entries(typeConfig) as [string, (typeof typeConfig)[keyof typeof typeConfig]][]).map(([key, cfg]) => (
                           <button
                             key={key}

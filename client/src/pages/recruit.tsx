@@ -58,11 +58,11 @@ export default function Recruit() {
       <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "420px" }}>
         <img src={truckHeroImg} alt="採用情報" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-[#0f2044]/75" />
-        <div className="absolute inset-0 flex items-end pb-16 px-8">
+        <div className="absolute inset-0 flex items-end pb-10 sm:pb-16 px-4 sm:px-8">
           <div className="max-w-5xl mx-auto w-full">
             <AnimateIn>
               <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">JOIN OUR TEAM</p>
-              <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">採用情報</h1>
+              <h1 className="text-3xl sm:text-5xl font-extralight text-white tracking-[0.15em] mb-4">採用情報</h1>
               <div className="w-12 h-0.5 bg-[#1d4ed8]" />
               <p className="text-gray-300 text-sm mt-4 tracking-wide">支える仕事には、静かな誇りと、世界を動かす力がある。</p>
             </AnimateIn>
@@ -97,12 +97,12 @@ export default function Recruit() {
       </div>
 
       {/* Message */}
-      <section className="py-24 bg-white px-8">
+      <section className="py-16 sm:py-24 bg-white px-4 sm:px-8">
         <div className="max-w-4xl mx-auto">
           <AnimateIn>
-            <div className="text-center mb-16">
+            <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">WHY JOIN US</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">ともに、働く。</h2>
+              <h2 className="text-3xl sm:text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">ともに、働く。</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -115,12 +115,12 @@ export default function Recruit() {
       </section>
 
       {/* Positions */}
-      <section className="py-24 bg-gray-50 px-8">
+      <section className="py-16 sm:py-24 bg-gray-50 px-4 sm:px-8">
         <div className="max-w-5xl mx-auto">
           <AnimateIn>
-            <div className="text-center mb-16">
+            <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">POSITIONS</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">募集職種</h2>
+              <h2 className="text-3xl sm:text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">募集職種</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -156,10 +156,10 @@ export default function Recruit() {
       </section>
 
       {/* Benefits */}
-      <section className="py-24 bg-white px-8">
+      <section className="py-16 sm:py-24 bg-white px-4 sm:px-8">
         <div className="max-w-5xl mx-auto">
           <AnimateIn>
-            <div className="text-center mb-16">
+            <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">BENEFITS</p>
               <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">待遇・福利厚生</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
@@ -192,10 +192,10 @@ export default function Recruit() {
       </section>
 
       {/* Timeline */}
-      <section className="py-24 bg-gray-50 px-8">
+      <section className="py-16 sm:py-24 bg-gray-50 px-4 sm:px-8">
         <div className="max-w-3xl mx-auto">
           <AnimateIn>
-            <div className="text-center mb-16">
+            <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">A DAY IN THE LIFE</p>
               <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">1日の仕事の流れ</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
@@ -218,10 +218,10 @@ export default function Recruit() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 bg-white px-8">
+      <section className="py-16 sm:py-24 bg-white px-4 sm:px-8">
         <div className="max-w-3xl mx-auto">
           <AnimateIn>
-            <div className="text-center mb-16">
+            <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">FAQ</p>
               <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">よくある質問</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />

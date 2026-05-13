@@ -99,18 +99,18 @@ export default function Blog() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] overflow-hidden flex items-end pb-16 px-8" style={{ minHeight: "200px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}>
+      <section className="relative mt-[100px] overflow-hidden flex items-end pb-10 sm:pb-16 px-4 sm:px-8" style={{ minHeight: "180px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}>
         <div className="relative max-w-5xl mx-auto w-full">
           <AnimateIn>
             <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">LATEST NEWS</p>
-            <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">お知らせ</h1>
+            <h1 className="text-3xl sm:text-5xl font-extralight text-white tracking-[0.15em] mb-4">お知らせ</h1>
             <div className="w-12 h-0.5 bg-[#1d4ed8]" />
           </AnimateIn>
         </div>
       </section>
 
       {/* Filter bar */}
-      <section className="bg-white border-b border-gray-100 sticky top-[100px] z-40 px-8 py-4">
+      <section className="bg-white border-b border-gray-100 sticky top-[100px] z-40 px-4 sm:px-8 py-3 sm:py-4">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           <div className="flex gap-2 flex-wrap">
             {categories.map((c) => (
@@ -137,7 +137,7 @@ export default function Blog() {
         </div>
       </section>
 
-      <section className="flex-1 py-16 bg-white px-8">
+      <section className="flex-1 py-10 sm:py-16 bg-white px-4 sm:px-8">
         <div className="max-w-5xl mx-auto">
           {isLoading ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">

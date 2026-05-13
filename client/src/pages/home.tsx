@@ -107,7 +107,7 @@ export default function Home() {
       </div>
 
       {/* TOPICS section */}
-      <section className="py-16 bg-white px-4">
+      <section className="py-10 md:py-16 bg-white px-4">
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
             <div className="text-center mb-10">
@@ -116,7 +116,7 @@ export default function Home() {
               <p className="text-gray-400 text-xs tracking-widest">最新トピックス</p>
             </div>
           </AnimateIn>
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {staticTopics.map((t, i) => (
               <AnimateIn key={i} direction="up" delay={i * 80}>
                 <Link href={t.href}>
@@ -168,7 +168,7 @@ export default function Home() {
 
             {/* Right: text + buttons */}
             <AnimateIn direction="right">
-              <div className="pl-8">
+              <div className="pl-0 md:pl-8 mt-2 md:mt-0">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-snug">
                   全国へ広がる輸送ネットワーク
                 </h2>

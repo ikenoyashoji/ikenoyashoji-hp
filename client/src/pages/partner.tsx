@@ -47,10 +47,10 @@ export default function Partner() {
       {/* Hero */}
       <section className="relative mt-[100px] bg-[#0f2044] overflow-hidden" style={{ minHeight: "420px" }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)" }} />
-        <div className="absolute inset-0 flex items-center justify-center px-8">
+        <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-8">
           <div className="text-center">
             <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">PARTNER PROGRAM</p>
-            <h1 className="text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">協力会社募集</h1>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">協力会社募集</h1>
             <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-8" />
             <p className="text-gray-300 text-sm leading-relaxed max-w-xl mx-auto">
               一緒に成長する物流パートナーを募集しています。
@@ -74,7 +74,7 @@ export default function Partner() {
       </div>
 
       {/* Intro */}
-      <section className="py-24 bg-white px-8">
+      <section className="py-16 sm:py-24 bg-white px-4 sm:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <AnimateIn>
             <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">ABOUT</p>
@@ -88,10 +88,10 @@ export default function Partner() {
       </section>
 
       {/* Benefits */}
-      <section className="py-24 bg-gray-50 px-8">
+      <section className="py-16 sm:py-24 bg-gray-50 px-4 sm:px-8">
         <div className="max-w-5xl mx-auto">
           <AnimateIn>
-            <div className="text-center mb-16">
+            <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">BENEFITS</p>
               <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">4つのメリット</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
@@ -112,8 +112,8 @@ export default function Partner() {
       </section>
 
       {/* Requirements + Payment */}
-      <section className="py-24 bg-white px-8">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16">
+      <section className="py-16 sm:py-24 bg-white px-4 sm:px-8">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16">
           <AnimateIn direction="left">
             <div>
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">REQUIREMENTS</p>
@@ -155,10 +155,10 @@ export default function Partner() {
       </section>
 
       {/* How to join */}
-      <section className="py-24 bg-gray-50 px-8">
+      <section className="py-16 sm:py-24 bg-gray-50 px-4 sm:px-8">
         <div className="max-w-5xl mx-auto">
           <AnimateIn>
-            <div className="text-center mb-16">
+            <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">HOW TO JOIN</p>
               <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">登録の流れ</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
