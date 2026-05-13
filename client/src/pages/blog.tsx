@@ -10,7 +10,7 @@ import { trackPageView } from "@/lib/analytics";
 import { Search } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-import heroImg from "@assets/スクリーンショット_2026-05-13_3.51.42_1778611939679.png";
+
 import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
 import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
 import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
@@ -94,17 +94,14 @@ export default function Blog() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "320px" }}>
-        <img src={heroImg} alt="お知らせ" className="absolute inset-0 w-full h-full object-cover object-center" />
-        <div className="absolute inset-0 bg-[#0f2044]/78" />
-        <div className="absolute inset-0 flex items-end pb-16 px-8">
-          <div className="max-w-5xl mx-auto w-full">
-            <AnimateIn>
-              <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">LATEST NEWS</p>
-              <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">お知らせ</h1>
-              <div className="w-12 h-0.5 bg-[#1d4ed8]" />
-            </AnimateIn>
-          </div>
+      <section className="relative mt-[100px] overflow-hidden flex items-end pb-16 px-8" style={{ minHeight: "320px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}>
+        <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,1) 39px,rgba(255,255,255,1) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,1) 39px,rgba(255,255,255,1) 40px)" }} />
+        <div className="relative max-w-5xl mx-auto w-full">
+          <AnimateIn>
+            <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">LATEST NEWS</p>
+            <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">お知らせ</h1>
+            <div className="w-12 h-0.5 bg-[#1d4ed8]" />
+          </AnimateIn>
         </div>
       </section>
 
