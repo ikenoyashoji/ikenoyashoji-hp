@@ -35,8 +35,8 @@ export default function Company() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "520px" }}>
-        <img src={buildingImg} alt="池ノ谷商事 本社" className="absolute inset-0 w-full h-full object-cover object-center" />
+      <section className="relative mt-[100px] overflow-hidden" style={{ height: "420px" }}>
+        <img src={buildingImg} alt="池ノ谷商事 本社" className="absolute inset-0 w-full h-full object-cover object-left" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(120deg, rgba(26,75,153,0.88) 0%, rgba(29,78,216,0.72) 40%, rgba(15,32,68,0.82) 100%)" }} />
         <div className="absolute inset-0 flex items-end px-16 pb-20">
           <div>
