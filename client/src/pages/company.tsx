@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { trackPageView } from "@/lib/analytics";
 import { CheckCircle } from "lucide-react";
+import buildingImg from "@assets/スクリーンショット_2026-05-13_4.37.54_1778614678216.png";
 
 const companyInfo = [
   { label: "会社名", value: "株式会社池ノ谷商事" },
@@ -34,19 +35,20 @@ export default function Company() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "420px", background: "linear-gradient(135deg, #1a4b99 0%, #1d4ed8 50%, #0f2044 100%)" }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.05) 40px,rgba(255,255,255,0.05) 41px)" }} />
-        <div className="absolute inset-0 flex items-center justify-center px-8">
-          <div className="text-center">
-            <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">IKENOYA SHOJI CO., LTD.</p>
-            <h1 className="text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">企業情報</h1>
-            <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-8" />
-            <p className="text-gray-300 text-sm leading-relaxed max-w-xl mx-auto">
-              誠実に、まっすぐに。地域に根ざし、信頼を育んできました。
+      <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "520px" }}>
+        <img src={buildingImg} alt="池ノ谷商事 本社" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(120deg, rgba(26,75,153,0.88) 0%, rgba(29,78,216,0.72) 40%, rgba(15,32,68,0.82) 100%)" }} />
+        <div className="absolute inset-0 flex items-end px-16 pb-20">
+          <div>
+            <p className="text-white/40 text-[11px] tracking-[0.5em] uppercase mb-5">IKENOYA SHOJI CO., LTD.</p>
+            <h1 className="text-6xl md:text-7xl font-thin text-white tracking-[0.15em] leading-none mb-6">企業情報</h1>
+            <div className="w-12 h-px bg-white/60 mb-6" />
+            <p className="text-white/60 text-sm tracking-wider max-w-md leading-relaxed">
+              誠実に、まっすぐに。<br />地域に根ざし、信頼を育んできました。
             </p>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to top, white, transparent)" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-20" style={{ background: "linear-gradient(to top, white, transparent)" }} />
       </section>
 
       {/* Message */}
