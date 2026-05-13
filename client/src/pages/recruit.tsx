@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { CheckCircle, Mail } from "lucide-react";
+import truckHeroImg from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
 import recruitImg1 from "@assets/スクリーンショット_2026-05-13_4.02.02_1778612566803.png";
 import recruitImg2 from "@assets/スクリーンショット_2026-05-13_4.02.12_1778612566804.png";
 import recruitImg3 from "@assets/スクリーンショット_2026-05-13_4.02.22_1778612566811.png";
@@ -50,7 +51,7 @@ export default function Recruit() {
 
       {/* Hero */}
       <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "420px" }}>
-        <img src={recruitImg1} alt="採用情報" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <img src={truckHeroImg} alt="採用情報" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-[#0f2044]/75" />
         <div className="absolute inset-0 flex items-end pb-16 px-8">
           <div className="max-w-5xl mx-auto w-full">
