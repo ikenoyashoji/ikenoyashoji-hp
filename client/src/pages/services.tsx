@@ -3,6 +3,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
 import { ArrowRight, Truck, Warehouse, Network, BarChart3, Shield, Wrench } from "lucide-react";
+import heroImg from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
 import businessImg1 from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
 import businessImg2 from "@assets/スクリーンショット_2026-05-13_3.51.42_1778611939679.png";
 import businessImg3 from "@assets/スクリーンショット_2026-05-13_3.51.51_1778611943375.png";
@@ -75,13 +76,9 @@ export default function Services() {
       <Header />
 
       {/* Hero */}
-      <section
-        className="mt-[100px] relative h-[340px] flex items-end pb-16 px-8 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}
-      >
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.3) 39px,rgba(255,255,255,.3) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.3) 39px,rgba(255,255,255,.3) 40px)" }}
-        />
+      <section className="mt-[100px] relative h-[340px] flex items-end pb-16 px-8 overflow-hidden">
+        <img src={heroImg} alt="事業紹介" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-[#0f2044]/75" />
         <div className="relative max-w-5xl mx-auto w-full">
           <AnimateIn>
             <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">IKENOYA SHOJI CO., LTD.</p>
