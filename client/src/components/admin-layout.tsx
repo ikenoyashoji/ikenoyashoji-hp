@@ -44,10 +44,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         {/* Logo */}
         <div className="px-5 py-4 border-b border-white/10 flex items-center gap-3">
           <img src="/logo-mark.png" alt="池ノ谷商事" className="w-8 h-8 object-contain flex-shrink-0" />
-          <div>
-            <div className="text-white font-bold text-xs leading-tight">株式会社</div>
-            <div className="text-white font-bold text-sm leading-tight">池ノ谷商事</div>
-          </div>
+          <div className="text-white font-bold text-xs leading-tight">株式会社池ノ谷商事</div>
         </div>
 
         {/* Nav */}
