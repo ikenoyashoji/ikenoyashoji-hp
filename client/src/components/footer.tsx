@@ -25,7 +25,7 @@ export function Footer() {
         {/* Center: copyright */}
         <div className="flex-1 flex justify-center pb-0.5">
           <p className="text-gray-300 text-[11px] tracking-wide whitespace-nowrap">
-            © {new Date().getFullYear()} 株式会社池ノ谷商事. All rights reserved.
+            © 2023 株式会社 池ノ谷商事. All rights reserved.
           </p>
         </div>
 
