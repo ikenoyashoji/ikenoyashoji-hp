@@ -73,16 +73,16 @@ export default function Home() {
       <Header />
 
       {/* HERO */}
-      <section className="relative bg-white overflow-hidden mt-[100px]" style={{ maxHeight: "calc(100vh - 100px)" }}>
+      <section className="relative bg-white overflow-hidden mt-[100px]">
         <img
           src={heroBg}
           alt="運ぶ信頼、届ける真心 — 株式会社池ノ谷商事"
-          className="w-full h-full object-cover object-top block"
+          className="w-full h-auto md:h-[calc(100vh-100px)] md:object-cover md:object-top block"
         />
-        <div className="absolute inset-0 flex items-end pb-10 px-6 lg:px-16">
+        <div className="absolute inset-0 flex items-end pb-6 sm:pb-10 px-4 sm:px-6 lg:px-16">
           <Link href="/company">
             <button
-              className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-8 py-3 transition-colors text-sm tracking-wide bg-white"
+              className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 transition-colors text-sm tracking-wide bg-white"
               onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
               data-testid="button-hero-quote"
             >
