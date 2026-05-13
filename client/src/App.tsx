@@ -4,8 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { CookieBanner } from "@/components/cookie-banner";
-import { hasConsent, loadAnalytics, trackPageView } from "@/lib/analytics";
+import { loadAnalytics, trackPageView } from "@/lib/analytics";
 import NotFound from "@/pages/not-found";
 
 // LP（ホーム）は静的インポート — 即座に表示
@@ -104,15 +103,10 @@ function Router() {
 
 function AppInner() {
   useEffect(() => {
-    if (hasConsent()) loadAnalytics();
+    loadAnalytics();
   }, []);
 
-  return (
-    <>
-      <Router />
-      <CookieBanner />
-    </>
-  );
+  return <Router />;
 }
 
 function App() {
