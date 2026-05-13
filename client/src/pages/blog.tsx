@@ -11,8 +11,55 @@ import { Search } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import heroImg from "@assets/スクリーンショット_2026-05-13_3.51.42_1778611939679.png";
+import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
+import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
+import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
+import topicImg4 from "@assets/スクリーンショット_2026-05-13_2.45.03_1778607970643.png";
 
 const categories = ["すべて", "物流コラム", "採用情報", "協力会社情報", "お知らせ", "事例紹介"];
+
+const staticTopics = [
+  {
+    id: "s1",
+    imageUrl: topicImg1,
+    category: "採用情報",
+    date: "2026.05.12",
+    title: "WORK STYLE｜ドライバーのリアルな働き方と想いをお届けします。",
+    excerpt: "現場で働くドライバーたちの声、仕事への誇り、日々の工夫をリアルにお伝えします。",
+    href: "/recruit",
+    isStatic: true,
+  },
+  {
+    id: "s2",
+    imageUrl: topicImg2,
+    category: "物流コラム",
+    date: "2026.05.10",
+    title: "物流の裏側｜現場の工夫や課題解決の取り組みを発信します。",
+    excerpt: "物流現場で生まれる知恵と改善の取り組みを、わかりやすくお伝えするコラムシリーズ。",
+    href: "/blog",
+    isStatic: true,
+  },
+  {
+    id: "s3",
+    imageUrl: topicImg3,
+    category: "採用情報",
+    date: "2026.05.08",
+    title: "人を大切にする会社 池ノ谷商事の魅力｜女性スタッフも多数活躍中！",
+    excerpt: "育児と両立しながら活躍する女性スタッフや、未経験から成長したドライバーの声を紹介。",
+    href: "/recruit",
+    isStatic: true,
+  },
+  {
+    id: "s4",
+    imageUrl: topicImg4,
+    category: "お知らせ",
+    date: "2026.05.06",
+    title: "MOVE THE CITY｜街をつなぎ、未来を支える。現場から見える物流の今とこれから。",
+    excerpt: "物流が支える街の暮らし、そして変化する物流業界の現在地についてお届けします。",
+    href: "/blog",
+    isStatic: true,
+  },
+];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("すべて");
@@ -25,9 +72,20 @@ export default function Blog() {
 
   const { data: articles, isLoading } = useQuery<any[]>({ queryKey: ["/api/articles"] });
 
-  const filtered = (articles || []).filter((a) => {
+  const dbArticles = (articles || []).map((a) => ({
+    ...a,
+    date: a.publishedAt
+      ? format(new Date(a.publishedAt), "yyyy.MM.dd", { locale: ja })
+      : format(new Date(a.createdAt), "yyyy.MM.dd", { locale: ja }),
+    href: `/blog/${a.slug}`,
+    isStatic: false,
+  }));
+
+  const allArticles = [...staticTopics, ...dbArticles];
+
+  const filtered = allArticles.filter((a) => {
     const matchCat = selectedCategory === "すべて" || a.category === selectedCategory;
-    const matchSearch = !search || a.title.includes(search) || a.excerpt?.includes(search);
+    const matchSearch = !search || a.title.includes(search) || (a.excerpt || "").includes(search);
     return matchCat && matchSearch;
   });
 
@@ -82,7 +140,7 @@ export default function Blog() {
         <div className="max-w-5xl mx-auto">
           {isLoading ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
+              {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i}>
                   <Skeleton className="aspect-[4/3] w-full mb-4" />
                   <Skeleton className="h-4 w-full mb-2" />
@@ -99,11 +157,15 @@ export default function Blog() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {filtered.map((article: any, i: number) => (
                 <AnimateIn key={article.id} delay={i * 60}>
-                  <Link href={`/blog/${article.slug}`}>
+                  <Link href={article.href}>
                     <div className="group cursor-pointer" data-testid={`card-article-${article.id}`}>
                       <div className="aspect-[4/3] bg-gray-100 overflow-hidden relative mb-4">
                         {article.imageUrl ? (
-                          <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                          typeof article.imageUrl === "string" && article.imageUrl.startsWith("http") ? (
+                            <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                          ) : (
+                            <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" />
+                          )
                         ) : (
                           <div className="absolute inset-0 bg-[#0f2044] flex items-end p-5">
                             <span className="text-white/15 text-5xl font-black italic">{article.category}</span>
@@ -113,11 +175,7 @@ export default function Blog() {
                           <span className="bg-white text-[#0f2044] text-[10px] px-2 py-1 font-medium tracking-wider">{article.category}</span>
                         </div>
                       </div>
-                      <p className="text-gray-400 text-[11px] tracking-widest mb-2">
-                        {article.publishedAt
-                          ? format(new Date(article.publishedAt), "yyyy.MM.dd", { locale: ja })
-                          : format(new Date(article.createdAt), "yyyy.MM.dd", { locale: ja })}
-                      </p>
+                      <p className="text-gray-400 text-[11px] tracking-widest mb-2">{article.date}</p>
                       <h2 className="font-medium text-gray-900 text-sm leading-snug group-hover:text-[#1d4ed8] transition-colors line-clamp-2">{article.title}</h2>
                       <p className="text-gray-400 text-xs leading-relaxed line-clamp-2 mt-2">{article.excerpt}</p>
                     </div>
