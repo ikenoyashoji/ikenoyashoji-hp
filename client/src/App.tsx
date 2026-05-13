@@ -27,6 +27,10 @@ import ArticleEditor from "@/pages/admin/article-editor";
 import AdminKeywords from "@/pages/admin/keywords";
 import AdminSearchConsole from "@/pages/admin/search-console";
 import AdminContacts from "@/pages/admin/contacts";
+import AdminManagers from "@/pages/admin/managers";
+import AdminEmailSales from "@/pages/admin/email-sales";
+import AdminLogs from "@/pages/admin/logs";
+import AdminSettings from "@/pages/admin/settings";
 
 function usePageTracking() {
   const [location] = useLocation();
@@ -61,6 +65,10 @@ function Router() {
       <Route path="/admin/keywords" component={AdminKeywords} />
       <Route path="/admin/search-console" component={AdminSearchConsole} />
       <Route path="/admin/contacts" component={AdminContacts} />
+      <Route path="/admin/managers" component={AdminManagers} />
+      <Route path="/admin/email-sales" component={AdminEmailSales} />
+      <Route path="/admin/logs" component={AdminLogs} />
+      <Route path="/admin/settings" component={AdminSettings} />
 
       <Route component={NotFound} />
     </Switch>
