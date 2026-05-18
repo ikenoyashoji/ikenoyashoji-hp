@@ -12,10 +12,11 @@ import { Search } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 
-import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
-import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
-import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
-import topicImg4 from "@assets/スクリーンショット_2026-05-13_2.45.03_1778607970643.png";
+import heroImg from "@assets/blog_hero.png";
+import topicImg1 from "@assets/blog_topic_01.png";
+import topicImg2 from "@assets/blog_topic_02.png";
+import topicImg3 from "@assets/blog_topic_03.png";
+import topicImg4 from "@assets/blog_topic_04.png";
 
 const categories = ["すべて", "物流コラム", "採用情報", "協力会社情報", "お知らせ", "事例紹介"];
 
@@ -99,14 +100,19 @@ export default function Blog() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] overflow-hidden flex items-end pb-10 sm:pb-16 px-4 sm:px-8" style={{ minHeight: "180px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}>
-        <div className="relative max-w-5xl mx-auto w-full">
+      <section className="relative mt-[100px] h-[520px] flex items-center justify-center overflow-hidden">
+        <img src={heroImg} alt="お知らせ・コラム" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)", backgroundSize: "60px 60px" }} />
+        <div className="relative text-center px-8">
           <AnimateIn>
-            <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">LATEST NEWS</p>
-            <h1 className="text-3xl sm:text-5xl font-extralight text-white tracking-[0.15em] mb-4">お知らせ</h1>
-            <div className="w-12 h-0.5 bg-[#1d4ed8]" />
+            <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">LATEST NEWS & COLUMN</p>
+            <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">お知らせ</h1>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
+            <p className="text-gray-300 text-sm tracking-widest">物流の現場から、最新情報・コラム・採用情報をお届けします。</p>
           </AnimateIn>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Filter bar */}

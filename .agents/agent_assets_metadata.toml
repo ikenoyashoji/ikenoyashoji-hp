@@ -156,3 +156,33 @@ id = "oPtwnPJBXwyVrxir5pSSm"
 uri = "file://attached_assets/company_hero.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "9vmEvw76VaTMeS3DF_n4D"
+uri = "file://attached_assets/blog_hero.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Uv8J88xKvnn_i-iI4SAWe"
+uri = "file://attached_assets/blog_topic_01.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "gOkQd7fi0x_zaBBObs4m9"
+uri = "file://attached_assets/blog_topic_02.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "SQ8pz3as9jMnbuFaJH2NK"
+uri = "file://attached_assets/blog_topic_03.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "mq8g3cQZyM9BBOIRrjVzf"
+uri = "file://attached_assets/blog_topic_04.png"
+type = "image"
+title = "generated_image"
