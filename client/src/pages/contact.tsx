@@ -149,13 +149,13 @@ export default function Contact() {
                 <div className="text-xs text-gray-400">平日 9:00〜18:00</div>
               </div>
             </a>
-            <a href="mailto:info@ikenoya-shoji.co.jp" className="border border-gray-100 p-6 hover:border-[#1d4ed8] transition-colors flex items-center gap-4" data-testid="link-contact-email">
+            <a href="mailto:info@ikenoyashoji.co.jp" className="border border-gray-100 p-6 hover:border-[#1d4ed8] transition-colors flex items-center gap-4" data-testid="link-contact-email">
               <div className="w-10 h-10 bg-[#0f2044] flex items-center justify-center flex-shrink-0">
                 <Mail className="w-4 h-4 text-white" />
               </div>
               <div>
                 <div className="text-xs text-gray-400 tracking-widest mb-1">EMAIL</div>
-                <div className="text-gray-700 text-xs">info@ikenoya-shoji.co.jp</div>
+                <div className="text-gray-700 text-xs">info@ikenoyashoji.co.jp</div>
                 <div className="text-xs text-gray-400">24時間受付</div>
               </div>
             </a>
