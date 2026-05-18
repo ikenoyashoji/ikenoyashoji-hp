@@ -160,68 +160,14 @@ export default function Home() {
           </AnimateIn>
 
           <div className="grid md:grid-cols-2 gap-0 items-center">
-            {/* Left: Japan map image with animated dots */}
+            {/* Left: Japan map image */}
             <AnimateIn direction="left">
               <div className="flex items-center justify-center py-4">
-                <div className="relative w-full">
-                  <img
-                    src={japanMapImg}
-                    alt="全国配送ネットワーク地図"
-                    className="w-full h-auto object-contain"
-                  />
-                  {/* Animated pulse dots overlaid on map locations */}
-                  {[
-                    { top: "63%", left: "54%", delay: "0s",    size: 10, isHub: true  }, // 拠点ハブ（神奈川）
-                    { top: "53%", left: "57%", delay: "0.3s",  size: 7,  isHub: false }, // 東京
-                    { top: "61%", left: "50%", delay: "0.6s",  size: 7,  isHub: false }, // 名古屋
-                    { top: "64%", left: "45%", delay: "0.9s",  size: 7,  isHub: false }, // 大阪
-                    { top: "44%", left: "60%", delay: "1.2s",  size: 7,  isHub: false }, // 仙台
-                    { top: "27%", left: "63%", delay: "1.5s",  size: 7,  isHub: false }, // 札幌
-                    { top: "70%", left: "38%", delay: "1.8s",  size: 7,  isHub: false }, // 福岡
-                    { top: "79%", left: "35%", delay: "2.1s",  size: 7,  isHub: false }, // 鹿児島
-                  ].map((dot, i) => (
-                    <div
-                      key={i}
-                      className="absolute"
-                      style={{ top: dot.top, left: dot.left, transform: "translate(-50%, -50%)" }}
-                    >
-                      {/* Outer slow ring */}
-                      <div
-                        className="absolute rounded-full"
-                        style={{
-                          width: dot.size * 2,
-                          height: dot.size * 2,
-                          top: "50%", left: "50%",
-                          transform: "translate(-50%, -50%)",
-                          backgroundColor: dot.isHub ? "rgba(29,78,216,0.25)" : "rgba(29,78,216,0.2)",
-                          animation: `map-ping-slow ${dot.isHub ? "1.8s" : "2.2s"} ease-out ${dot.delay} infinite`,
-                        }}
-                      />
-                      {/* Inner fast ring */}
-                      <div
-                        className="absolute rounded-full"
-                        style={{
-                          width: dot.size * 1.5,
-                          height: dot.size * 1.5,
-                          top: "50%", left: "50%",
-                          transform: "translate(-50%, -50%)",
-                          backgroundColor: dot.isHub ? "rgba(29,78,216,0.4)" : "rgba(29,78,216,0.3)",
-                          animation: `map-ping ${dot.isHub ? "1.4s" : "1.8s"} ease-out ${dot.delay} infinite`,
-                        }}
-                      />
-                      {/* Solid center dot */}
-                      <div
-                        className="relative rounded-full"
-                        style={{
-                          width: dot.size,
-                          height: dot.size,
-                          backgroundColor: dot.isHub ? "#1d4ed8" : "#1a4b99",
-                          boxShadow: dot.isHub ? "0 0 0 2px white, 0 0 8px rgba(29,78,216,0.5)" : "0 0 0 1.5px white",
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
+                <img
+                  src={japanMapImg}
+                  alt="全国配送ネットワーク地図"
+                  className="w-full h-auto object-contain"
+                />
               </div>
             </AnimateIn>
 
