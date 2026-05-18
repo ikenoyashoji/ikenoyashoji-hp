@@ -13,10 +13,10 @@ import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 
 import heroImg from "@assets/blog_hero.png";
-import topicImg1 from "@assets/blog_topic_01.png";
-import topicImg2 from "@assets/blog_topic_02.png";
-import topicImg3 from "@assets/blog_topic_03.png";
-import topicImg4 from "@assets/blog_topic_04.png";
+import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
+import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
+import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
+import topicImg4 from "@assets/スクリーンショット_2026-05-13_2.45.03_1778607970643.png";
 
 const categories = ["すべて", "物流コラム", "採用情報", "協力会社情報", "お知らせ", "事例紹介"];
 
