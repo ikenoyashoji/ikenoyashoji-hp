@@ -125,10 +125,10 @@ export default function Company() {
               },
               {
                 type: "愛川第一車庫",
-                zip: "—",
-                address: "—",
-                tel: "—",
-                fax: "—",
+                zip: "〒243-0303",
+                address: "神奈川県愛甲郡愛川町中津7287",
+                tel: "046-212-2766",
+                fax: "046-401-1714",
               },
               {
                 type: "相模原第一車庫",
