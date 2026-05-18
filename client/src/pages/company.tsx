@@ -7,7 +7,6 @@ import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { CheckCircle } from "lucide-react";
 import buildingImg from "@assets/スクリーンショット_2026-05-13_4.37.54_1778614678216.png";
-import ceoImg from "@assets/スクリーンショット_2026-05-14_2.55.57_1778694961831.png";
 
 const companyInfo = [
   { label: "会社名", value: "株式会社池ノ谷商事" },
@@ -78,15 +77,6 @@ export default function Company() {
               <p className="text-gray-500 text-sm leading-relaxed">
                 これからも、誠実な姿勢で現場に向き合い、確かな仕事を積み重ねてまいります。
               </p>
-            </div>
-          </AnimateIn>
-          <AnimateIn direction="right">
-            <div className="relative overflow-hidden">
-              <img src={ceoImg} alt="代表取締役 池ノ谷 翔" className="w-full object-cover" style={{ aspectRatio: "4/5", objectPosition: "center top" }} />
-              <div className="absolute bottom-0 left-0 right-0 bg-[#0f2044]/90 px-6 py-4">
-                <p className="text-white font-semibold tracking-wider text-sm">池ノ谷 翔</p>
-                <p className="text-gray-400 text-xs mt-0.5 tracking-widest">代表取締役</p>
-              </div>
             </div>
           </AnimateIn>
         </div>
