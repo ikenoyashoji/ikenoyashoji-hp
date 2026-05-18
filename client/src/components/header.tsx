@@ -73,9 +73,9 @@ export function Header() {
               <div className="w-10 h-10 sm:w-[50px] sm:h-[50px] rounded-full bg-white overflow-hidden flex items-center justify-center flex-shrink-0">
                 <img src="/logo-mark.png" alt="池ノ谷商事ロゴ" className="w-full h-full object-contain" />
               </div>
-              <div className="flex flex-col leading-none">
-                <span className="text-[9px] text-gray-400 tracking-widest leading-none mb-px">総合物流企業</span>
-                <span className="text-black tracking-tight" style={{ fontFamily: "'Noto Serif JP', serif", fontWeight: 900 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                <span style={{ fontSize: '9px', color: 'rgb(156,163,175)', letterSpacing: '0.1em', lineHeight: '9px', display: 'block', marginBottom: '3px' }}>総合物流企業</span>
+                <span style={{ fontFamily: "'Noto Serif JP', serif", fontWeight: 900, lineHeight: 1, display: 'block' }}>
                   <span className="text-xs sm:text-sm">株式会社</span>
                   <span className="text-lg sm:text-2xl">池ノ谷商事</span>
                 </span>
