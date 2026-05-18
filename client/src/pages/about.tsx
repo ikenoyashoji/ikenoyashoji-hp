@@ -14,7 +14,6 @@ const values = [
   { num: "04", title: "安全", sub: "Safety", desc: "人命と荷物の安全を最優先に、安心できる物流環境を提供します。" },
 ];
 
-const marqueeItems = ["誠実", "挑戦", "共創", "安全", "Integrity", "Challenge", "Co-creation", "Safety", "誠実", "挑戦", "共創", "安全", "Integrity", "Challenge", "Co-creation", "Safety"];
 
 export default function About() {
   useEffect(() => {
@@ -34,7 +33,7 @@ export default function About() {
       <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "400px" }}>
         <img src={heroImg} alt="池ノ谷商事について" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-[#0f2044]/80" />
-        <div className="absolute inset-0 flex items-end pb-16 px-8">
+        <div className="absolute inset-0 flex items-center px-8">
           <div className="max-w-5xl mx-auto w-full">
             <AnimateIn>
               <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">IKENOYA SHOJI CO., LTD.</p>
@@ -45,15 +44,6 @@ export default function About() {
           </div>
         </div>
       </section>
-
-      {/* Marquee */}
-      <div className="bg-[#0f2044] py-3 overflow-hidden">
-        <div className="flex animate-marquee whitespace-nowrap" style={{ width: "max-content" }}>
-          {marqueeItems.map((item, i) => (
-            <span key={i} className="text-[10px] tracking-[0.4em] text-blue-300/60 uppercase mx-8">{item}</span>
-          ))}
-        </div>
-      </div>
 
       {/* Philosophy */}
       <section className="py-28 bg-white px-8">
