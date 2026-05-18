@@ -99,7 +99,7 @@ export default function Home() {
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
               {[...Array(8)].map((_, j) => (
-                <span key={j} className="text-4xl font-bold italic text-gray-200 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
+                <span key={j} className="text-4xl font-bold italic text-gray-200 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co.,Ltd.</span>
               ))}
             </span>
           ))}
@@ -276,7 +276,7 @@ export default function Home() {
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
               {[...Array(8)].map((_, j) => (
-                <span key={j} className="text-4xl font-bold italic text-gray-200 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
+                <span key={j} className="text-4xl font-bold italic text-gray-200 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co.,Ltd.</span>
               ))}
             </span>
           ))}
