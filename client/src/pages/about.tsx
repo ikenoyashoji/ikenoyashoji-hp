@@ -157,15 +157,10 @@ export default function About() {
         <AnimateIn>
           <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">CONTACT</p>
           <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-8">お気軽にお問い合わせください</h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Link href="/contact">
               <button className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-10 py-4 text-sm tracking-widest transition-colors" data-testid="button-about-contact">
                 お問い合わせ
-              </button>
-            </Link>
-            <Link href="/company">
-              <button className="border border-white/40 text-white/70 hover:border-white hover:text-white px-10 py-4 text-sm tracking-widest transition-colors" data-testid="button-about-company">
-                会社概要
               </button>
             </Link>
           </div>
