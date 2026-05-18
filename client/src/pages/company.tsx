@@ -60,21 +60,19 @@ export default function Company() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] overflow-hidden">
-        <div className="relative">
-          <img src={buildingImg} alt="池ノ谷商事 本社" className="w-full" style={{ maxHeight: "280px", objectFit: "cover", objectPosition: "center 60%" }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(105deg, rgba(26,75,153,0.82) 0%, rgba(29,78,216,0.55) 50%, rgba(15,32,68,0.35) 100%)" }} />
-          <div className="absolute inset-0 flex items-center px-6 sm:px-14">
-            <div>
-              <p className="text-white/50 text-[10px] tracking-[0.5em] uppercase mb-3">IKENOYA SHOJI CO., LTD.</p>
-              <h1 className="text-3xl sm:text-5xl font-thin text-white tracking-[0.15em] leading-none mb-4">企業情報</h1>
-              <div className="w-10 h-px bg-white/50 mb-4" />
-              <p className="text-white/70 text-xs tracking-wider leading-relaxed">
-                誠実に、まっすぐに。地域に根ざし、信頼を育んできました。
-              </p>
-            </div>
-          </div>
+      <section className="relative mt-[100px] h-[520px] flex items-center justify-center overflow-hidden">
+        <img src={buildingImg} alt="池ノ谷商事 本社" className="absolute inset-0 w-full h-full object-cover object-center" style={{ objectPosition: "center 60%" }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)", backgroundSize: "60px 60px" }} />
+        <div className="relative text-center px-8">
+          <AnimateIn>
+            <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">IKENOYA SHOJI CO., LTD.</p>
+            <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">企業情報</h1>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
+            <p className="text-gray-300 text-sm tracking-widest">誠実に、まっすぐに。地域に根ざし、信頼を育んできました。</p>
+          </AnimateIn>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Company info */}
