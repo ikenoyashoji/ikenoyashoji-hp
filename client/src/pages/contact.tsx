@@ -75,7 +75,8 @@ export default function Contact() {
 
   const mutation = useMutation({
     mutationFn: async (data: ContactFormValues) => {
-      return apiRequest("/api/contacts", { method: "POST", body: JSON.stringify(data) });
+      const { privacyAgreed: _, ...contactData } = data;
+      return apiRequest("POST", "/api/contacts", contactData);
     },
     onSuccess: () => {
       trackEvent("contact_form_submit", { type: watchType });
