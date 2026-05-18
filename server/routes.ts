@@ -531,6 +531,105 @@ CTR：${(ctr * 100).toFixed(1)}%
     res.json({ success: true, count: data.length });
   });
 
+  // Admin logs - activity feed
+  app.get("/api/admin/logs", requireAdmin, async (req, res) => {
+    const days = Number(req.query.days) || 30;
+    const [evts, pvs, cts, arts] = await Promise.all([
+      storage.getEvents(days),
+      storage.getPageViews(days),
+      storage.getContacts(),
+      storage.getArticles(),
+    ]);
+
+    const logs: any[] = [];
+
+    for (const ev of evts.slice(0, 80)) {
+      logs.push({ type: "event", label: ev.eventName, detail: ev.path || "", time: ev.createdAt });
+    }
+
+    for (const ct of cts.slice(0, 30)) {
+      const typeLabel = ct.type === "shipper" ? "荷主" : ct.type === "recruit" ? "採用" : "協力会社";
+      logs.push({ type: "contact", label: `問い合わせ受信（${typeLabel}）`, detail: `${ct.name} / ${ct.email}`, time: ct.createdAt });
+    }
+
+    for (const art of arts.filter((a) => a.publishedAt).slice(0, 20)) {
+      logs.push({ type: "article_publish", label: `記事を公開`, detail: art.title, time: art.publishedAt });
+    }
+    for (const art of arts.slice(0, 20)) {
+      logs.push({ type: "article_create", label: `記事を作成`, detail: art.title, time: art.createdAt });
+    }
+
+    logs.sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
+
+    const pvByDay: Record<string, number> = {};
+    for (const pv of pvs) {
+      const day = pv.createdAt.toISOString().split("T")[0];
+      pvByDay[day] = (pvByDay[day] || 0) + 1;
+    }
+
+    res.json({
+      logs: logs.slice(0, 100),
+      totalPV: pvs.length,
+      totalEvents: evts.length,
+      totalContacts: cts.length,
+      pvByDay: Object.entries(pvByDay).sort((a, b) => a[0].localeCompare(b[0])).map(([date, count]) => ({ date, count })),
+    });
+  });
+
+  // Admin settings status
+  app.get("/api/admin/settings/status", requireAdmin, (_req, res) => {
+    res.json({
+      openai: !!process.env.OPENAI_API_KEY,
+      smtp: !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS && process.env.SMTP_USER !== "your-email@example.com"),
+      smtpHost: process.env.SMTP_HOST || "",
+      smtpPort: process.env.SMTP_PORT || "587",
+      siteUrl: process.env.SITE_URL || "",
+      ga4: !!(process.env.VITE_GA4_ID),
+      clarity: !!(process.env.VITE_CLARITY_ID),
+      adminUser: process.env.ADMIN_USER || "admin",
+    });
+  });
+
+  // Email send
+  app.post("/api/admin/email/send", requireAdmin, async (req, res) => {
+    const { to, subject, body } = req.body;
+    if (!to || !subject || !body) return res.status(400).json({ error: "to, subject, body は必須です" });
+
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = Number(process.env.SMTP_PORT) || 587;
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+    const smtpFrom = process.env.SMTP_FROM || smtpUser;
+
+    const isConfigured = smtpHost && smtpUser && smtpPass && smtpUser !== "your-email@example.com" && smtpPass !== "your-password";
+    if (!isConfigured) {
+      return res.status(503).json({ error: "SMTPサーバーが設定されていません。SMTP_HOST・SMTP_USER・SMTP_PASSを環境変数に設定してください。" });
+    }
+
+    try {
+      const { createTransport } = await import("nodemailer");
+      const transporter = createTransport({
+        host: smtpHost,
+        port: smtpPort,
+        secure: smtpPort === 465,
+        auth: { user: smtpUser!, pass: smtpPass! },
+      });
+
+      const toList = Array.isArray(to) ? to : [to];
+      const info = await transporter.sendMail({
+        from: `株式会社池ノ谷商事 <${smtpFrom}>`,
+        to: toList.join(", "),
+        subject,
+        text: body,
+        html: body.replace(/\n/g, "<br>"),
+      }) as any;
+
+      res.json({ success: true, messageId: info.messageId, accepted: info.accepted });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   // Sitemap
   app.get("/sitemap.xml", async (_req, res) => {
     const publishedArts = await storage.getArticles("published");
