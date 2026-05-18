@@ -190,7 +190,7 @@ export default function Recruit() {
               <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">JOIN OUR TEAM</p>
               <h1 className="text-5xl sm:text-7xl font-extralight text-white tracking-[0.15em] mb-6">採用情報</h1>
               <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
-              <p className="text-gray-300 text-sm tracking-widest">支える仕事には、静かな誇りと、世界を動かす力がある。</p>
+              <p className="text-gray-300 text-sm tracking-widest">時間も、収入も、人生に彩りを。</p>
             </AnimateIn>
           </div>
         </div>
