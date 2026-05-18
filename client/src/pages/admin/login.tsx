@@ -78,10 +78,6 @@ export default function AdminLogin() {
             </button>
           </form>
         </Form>
-
-        <p className="text-gray-400 text-[10px] text-center mt-6">
-          デフォルト: admin / admin123
-        </p>
       </div>
     </div>
   );
