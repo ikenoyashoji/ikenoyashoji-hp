@@ -132,10 +132,10 @@ export default function Company() {
               },
               {
                 type: "相模原第一車庫",
-                zip: "—",
-                address: "—",
-                tel: "—",
-                fax: "—",
+                zip: "〒252-0244",
+                address: "神奈川県相模原市中央区田名4905",
+                tel: "046-212-2766",
+                fax: "046-401-1714",
               },
               {
                 type: "湘南営業所",
