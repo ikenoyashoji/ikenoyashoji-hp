@@ -1,12 +1,34 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
+import path from "path";
+import fs from "fs";
 import session from "express-session";
 import createMemoryStore from "memorystore";
 import bcrypt from "bcrypt";
+import multer from "multer";
+import express from "express";
 import { storage } from "./storage";
 import { insertArticleSchema, insertKeywordSchema, insertContactSchema, insertPageViewSchema, insertEventSchema } from "@shared/schema";
 
 const MemoryStore = createMemoryStore(session);
+
+const uploadsDir = path.resolve("public/uploads");
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (_req, _file, cb) => cb(null, uploadsDir),
+    filename: (_req, file, cb) => {
+      const ext = path.extname(file.originalname);
+      cb(null, `${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`);
+    },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) cb(null, true);
+    else cb(new Error("画像ファイルのみアップロードできます"));
+  },
+});
 
 declare module "express-session" {
   interface SessionData {
@@ -170,6 +192,9 @@ async function callOpenAI(messages: any[], systemPrompt: string) {
 }
 
 export async function registerRoutes(httpServer: Server, app: Express): Promise<Server> {
+  // Serve uploaded images as static files
+  app.use("/uploads", express.static(uploadsDir));
+
   app.use(
     session({
       secret: process.env.SESSION_SECRET || "logistics-secret-key",
@@ -661,6 +686,13 @@ ${articleUrls}
     const domain = process.env.SITE_URL || "https://example.com";
     res.set("Content-Type", "text/plain");
     res.send(`User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: ${domain}/sitemap.xml`);
+  });
+
+  // Image upload
+  app.post("/api/admin/upload", requireAdmin, upload.single("image"), (req, res) => {
+    if (!req.file) return res.status(400).json({ error: "ファイルが見つかりません" });
+    const url = `/uploads/${req.file.filename}`;
+    res.json({ url });
   });
 
   // Admin user management

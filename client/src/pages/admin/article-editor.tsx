@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useLocation } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Skeleton } from "@/components/ui/skeleton";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Save, Eye, ArrowLeft, Wand2, Globe } from "lucide-react";
+import { Save, Eye, ArrowLeft, Wand2, Globe, Upload, X, ImageIcon } from "lucide-react";
 import { Link } from "wouter";
 
 const categories = ["物流コラム", "採用情報", "協力会社情報", "お知らせ", "事例紹介"];
@@ -22,6 +22,8 @@ export default function ArticleEditor() {
   const { toast } = useToast();
   const [rewriting, setRewriting] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { data: article, isLoading } = useQuery<any>({
     queryKey: ["/api/admin/articles", id],
@@ -113,6 +115,26 @@ export default function ArticleEditor() {
       .replace(/[ぁ-ん]+/g, "ja").replace(/[一-龯ー]+/g, "jp")
       .replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").substring(0, 60);
     form.setValue("slug", slug || `article-${Date.now()}`);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: formData, credentials: "include" });
+      if (!res.ok) { const err = await res.json(); throw new Error(err.error); }
+      const { url } = await res.json();
+      form.setValue("imageUrl", url);
+      toast({ title: "画像をアップロードしました" });
+    } catch (err: any) {
+      toast({ title: "アップロード失敗", description: err.message, variant: "destructive" });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   };
 
   if (!isNew && isLoading) {
@@ -332,9 +354,64 @@ export default function ArticleEditor() {
                   )} />
                   <FormField control={form.control} name="imageUrl" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-600 text-xs font-medium">アイキャッチ画像URL</FormLabel>
+                      <FormLabel className="text-gray-600 text-xs font-medium">アイキャッチ画像</FormLabel>
                       <FormControl>
-                        <Input placeholder="https://..." className={`${inputClass} text-xs h-8`} {...field} data-testid="input-image-url" />
+                        <div className="space-y-2">
+                          {/* Preview */}
+                          {field.value ? (
+                            <div className="relative aspect-video bg-gray-100 border border-gray-200 overflow-hidden">
+                              <img
+                                src={field.value}
+                                alt="アイキャッチ"
+                                className="w-full h-full object-cover"
+                                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                              />
+                              <button
+                                type="button"
+                                className="absolute top-1 right-1 bg-black/60 hover:bg-black text-white p-0.5 rounded"
+                                onClick={() => field.onChange("")}
+                                title="画像を削除"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ) : (
+                            <div
+                              className="aspect-video bg-gray-50 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-1.5 cursor-pointer hover:border-gray-400 transition-colors"
+                              onClick={() => fileInputRef.current?.click()}
+                            >
+                              <ImageIcon className="w-6 h-6 text-gray-300" />
+                              <span className="text-gray-400 text-[10px]">クリックして画像をアップロード</span>
+                            </div>
+                          )}
+                          {/* Upload button */}
+                          <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={handleImageUpload}
+                            data-testid="input-image-file"
+                          />
+                          <button
+                            type="button"
+                            className="w-full flex items-center justify-center gap-1.5 border border-gray-200 text-gray-600 text-xs h-7 hover:border-gray-400 transition-colors disabled:opacity-50"
+                            onClick={() => fileInputRef.current?.click()}
+                            disabled={uploading}
+                            data-testid="button-upload-image"
+                          >
+                            <Upload className="w-3 h-3" />
+                            {uploading ? "アップロード中..." : "画像をアップロード"}
+                          </button>
+                          {/* URL直接入力 */}
+                          <Input
+                            placeholder="または画像URLを入力..."
+                            className={`${inputClass} text-[11px] h-7`}
+                            value={field.value}
+                            onChange={field.onChange}
+                            data-testid="input-image-url"
+                          />
+                        </div>
                       </FormControl>
                     </FormItem>
                   )} />
