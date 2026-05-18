@@ -76,8 +76,8 @@ export function Header() {
               <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px' }}>
                 {/* 左列: 物流企業 + 株式会社 (合計高さ = 池ノ谷商事) */}
                 <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1, fontFamily: "'Noto Serif JP', serif", fontWeight: 900 }}>
-                  <span className="text-[9px] sm:text-[12px]" style={{ color: 'rgb(156,163,175)', letterSpacing: '0.08em', lineHeight: 1 }}>物流企業</span>
-                  <span className="text-[9px] sm:text-[12px]" style={{ color: 'rgb(17,24,39)', lineHeight: 1 }}>株式会社</span>
+                  <span className="text-[9px] sm:text-[12px]" style={{ color: 'rgb(156,163,175)', letterSpacing: 0, lineHeight: 1 }}>物流企業</span>
+                  <span className="text-[9px] sm:text-[12px]" style={{ color: 'rgb(17,24,39)', letterSpacing: 0, lineHeight: 1 }}>株式会社</span>
                 </div>
                 {/* 右: 池ノ谷商事 */}
                 <span className="text-lg sm:text-2xl" style={{ fontFamily: "'Noto Serif JP', serif", fontWeight: 900, lineHeight: 1 }}>池ノ谷商事</span>
