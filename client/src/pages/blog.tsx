@@ -166,7 +166,7 @@ export default function Blog() {
                 <AnimateIn key={article.id} delay={i * 60}>
                   <Link href={article.href}>
                     <div className="group cursor-pointer" data-testid={`card-article-${article.id}`}>
-                      <div className="aspect-[4/3] bg-gray-100 overflow-hidden relative mb-4">
+                      <div className="aspect-[16/9] bg-gray-100 overflow-hidden relative mb-4">
                         {article.imageUrl ? (
                           typeof article.imageUrl === "string" && article.imageUrl.startsWith("http") ? (
                             <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
