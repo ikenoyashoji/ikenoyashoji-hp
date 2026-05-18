@@ -124,18 +124,25 @@ export default function Company() {
                 fax: "046-401-1714",
               },
               {
+                type: "愛川第一車庫",
+                zip: "—",
+                address: "—",
+                tel: "—",
+                fax: "—",
+              },
+              {
+                type: "相模原第一車庫",
+                zip: "—",
+                address: "—",
+                tel: "—",
+                fax: "—",
+              },
+              {
                 type: "湘南営業所",
                 zip: "〒257-0024",
                 address: "神奈川県秦野市名古木157-12",
                 tel: "0463-84-5181",
                 fax: "0463-84-5182",
-              },
-              {
-                type: "相模原車庫",
-                zip: "—",
-                address: "—",
-                tel: "—",
-                fax: "—",
               },
               {
                 type: "愛川第一倉庫",
@@ -145,7 +152,7 @@ export default function Company() {
                 fax: "—",
               },
               {
-                type: "厚木第一倉庫",
+                type: "厚木第二倉庫",
                 zip: "—",
                 address: "—",
                 tel: "—",
