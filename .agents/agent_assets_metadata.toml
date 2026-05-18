@@ -102,3 +102,9 @@ id = "4cDGmDyabQqML-WsuwzFt"
 uri = "file://attached_assets/about_hero.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "yVDWplZHlQTFsQnO6gEVp"
+uri = "file://attached_assets/services_hero.png"
+type = "image"
+title = "generated_image"

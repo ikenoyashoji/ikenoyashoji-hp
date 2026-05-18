@@ -6,7 +6,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ArrowRight, Truck, Warehouse, Network, BarChart3, Shield, Wrench } from "lucide-react";
-import heroImg from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
+import heroImg from "@assets/services_hero.png";
 import serviceImg01 from "@assets/service_01_general_cargo.png";
 import serviceImg02 from "@assets/service_02_freight_forwarding.png";
 import serviceImg03 from "@assets/service_03_light_cargo.png";
@@ -111,24 +111,48 @@ export default function Services() {
       <Header />
 
       {/* Hero */}
-      <section className="mt-[100px] relative h-[340px] flex items-end pb-16 px-8 overflow-hidden">
+      <section className="mt-[100px] relative h-[520px] flex items-center justify-center px-8 overflow-hidden">
         <img src={heroImg} alt="事業紹介" className="absolute inset-0 w-full h-full object-cover object-center" />
-        <div className="absolute inset-0 bg-[#0f2044]/75" />
-        <div className="relative max-w-5xl mx-auto w-full">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)", backgroundSize: "60px 60px" }} />
+        <div className="relative max-w-5xl mx-auto w-full text-center">
           <AnimateIn>
-            <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">IKENOYA SHOJI CO., LTD.</p>
-            <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">事業紹介</h1>
-            <div className="w-12 h-0.5 bg-[#1d4ed8]" />
-            <p className="text-gray-300 text-sm mt-4 tracking-wide">物流のプロとして、多角的なサービスで社会を支えます。</p>
+            <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">IKENOYA SHOJI CO., LTD.</p>
+            <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">事業紹介</h1>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
+            <p className="text-gray-300 text-sm tracking-widest">物流のプロとして、多角的なサービスで社会を支えます。</p>
           </AnimateIn>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+      </section>
+
+      {/* Stats Bar */}
+      <section className="bg-[#0f2044] py-8 px-8">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/10">
+          {[
+            { num: "8", unit: "事業", label: "SERVICES" },
+            { num: "120+", unit: "台", label: "VEHICLES" },
+            { num: "128", unit: "名", label: "EMPLOYEES" },
+            { num: "6", unit: "拠点", label: "LOCATIONS" },
+          ].map((stat, i) => (
+            <AnimateIn key={i} delay={i * 80}>
+              <div className="text-center px-6 py-2">
+                <div className="flex items-baseline justify-center gap-1">
+                  <span className="text-3xl md:text-4xl font-extralight text-white tracking-tight">{stat.num}</span>
+                  <span className="text-[#7eb3ff] text-sm">{stat.unit}</span>
+                </div>
+                <p className="text-[9px] tracking-[0.4em] text-gray-500 mt-1">{stat.label}</p>
+              </div>
+            </AnimateIn>
+          ))}
         </div>
       </section>
 
       {/* Marquee */}
-      <div className="bg-[#0f2044] py-3 overflow-hidden">
+      <div className="bg-[#071630] py-3 overflow-hidden">
         <div className="flex animate-marquee whitespace-nowrap" style={{ width: "max-content" }}>
           {marqueeItems.map((item, i) => (
-            <span key={i} className="text-[10px] tracking-[0.4em] text-blue-300/60 uppercase mx-8">{item}</span>
+            <span key={i} className="text-[10px] tracking-[0.4em] text-blue-300/40 uppercase mx-8">{item}</span>
           ))}
         </div>
       </div>
