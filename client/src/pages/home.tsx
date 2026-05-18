@@ -222,7 +222,8 @@ export default function Home() {
               { num: "07", title: "各種新車・中古車販売及び買取", sub: "Vehicle Sales & Purchase",      img: serviceImg07 },
               { num: "08", title: "一般整備・車検・板金・塗装・レッカー", sub: "Vehicle Maintenance & Repair", img: serviceImg08 },
             ].map((s, i) => (
-              <div key={i} className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden">
+              <AnimateIn key={i} delay={(i % 4) * 80} direction="up">
+              <div className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden">
                 <div className="w-full aspect-[16/9] overflow-hidden">
                   <img src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
@@ -241,6 +242,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+              </AnimateIn>
             ))}
           </div>
         </div>
