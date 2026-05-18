@@ -2,6 +2,7 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import session from "express-session";
 import createMemoryStore from "memorystore";
+import bcrypt from "bcrypt";
 import { storage } from "./storage";
 import { insertArticleSchema, insertKeywordSchema, insertContactSchema, insertPageViewSchema, insertEventSchema } from "@shared/schema";
 
@@ -187,14 +188,20 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   // Admin auth
-  app.post("/api/admin/login", (req, res) => {
+  app.post("/api/admin/login", async (req, res) => {
     const { username, password } = req.body;
+    // Check env-var master account first
     if (username === ADMIN_USER && password === ADMIN_PASS) {
       req.session.isAdmin = true;
-      res.json({ success: true });
-    } else {
-      res.status(401).json({ error: "Invalid credentials" });
+      return res.json({ success: true });
     }
+    // Check DB admin users
+    const dbUser = await storage.getAdminUserByUsername(username);
+    if (dbUser && await bcrypt.compare(password, dbUser.passwordHash)) {
+      req.session.isAdmin = true;
+      return res.json({ success: true });
+    }
+    res.status(401).json({ error: "Invalid credentials" });
   });
 
   app.post("/api/admin/logout", (req, res) => {
@@ -654,6 +661,38 @@ ${articleUrls}
     const domain = process.env.SITE_URL || "https://example.com";
     res.set("Content-Type", "text/plain");
     res.send(`User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: ${domain}/sitemap.xml`);
+  });
+
+  // Admin user management
+  app.get("/api/admin/managers", requireAdmin, async (_req, res) => {
+    const admins = await storage.getAdminUsers();
+    // Never return password hashes
+    res.json(admins.map(({ passwordHash: _, ...a }) => a));
+  });
+
+  app.post("/api/admin/managers", requireAdmin, async (req, res) => {
+    const { username, password, role } = req.body;
+    if (!username || !password) return res.status(400).json({ error: "username と password は必須です" });
+    if (password.length < 8) return res.status(400).json({ error: "パスワードは8文字以上にしてください" });
+    const existing = await storage.getAdminUserByUsername(username);
+    if (existing) return res.status(409).json({ error: "そのユーザー名はすでに使用されています" });
+    const passwordHash = await bcrypt.hash(password, 12);
+    const created = await storage.createAdminUser(username, passwordHash, role || "admin");
+    const { passwordHash: _, ...safe } = created;
+    res.json(safe);
+  });
+
+  app.patch("/api/admin/managers/:id/password", requireAdmin, async (req, res) => {
+    const { password } = req.body;
+    if (!password || password.length < 8) return res.status(400).json({ error: "パスワードは8文字以上にしてください" });
+    const passwordHash = await bcrypt.hash(password, 12);
+    await storage.updateAdminUserPassword(Number(req.params.id), passwordHash);
+    res.json({ success: true });
+  });
+
+  app.delete("/api/admin/managers/:id", requireAdmin, async (_req, res) => {
+    await storage.deleteAdminUser(Number(_req.params.id));
+    res.json({ success: true });
   });
 
   // Admin stats summary

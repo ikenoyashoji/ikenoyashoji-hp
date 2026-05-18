@@ -91,6 +91,17 @@ export const insertEventSchema = createInsertSchema(events).omit({ id: true, cre
 export type InsertEvent = z.infer<typeof insertEventSchema>;
 export type SiteEvent = typeof events.$inferSelect;
 
+export const adminUsers = pgTable("admin_users", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
+  role: text("role").notNull().default("admin"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+export const insertAdminUserSchema = createInsertSchema(adminUsers).omit({ id: true, createdAt: true });
+export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
+export type AdminUser = typeof adminUsers.$inferSelect;
+
 export const searchConsoleData = pgTable("search_console_data", {
   id: serial("id").primaryKey(),
   date: text("date").notNull(),

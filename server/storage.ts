@@ -1,7 +1,7 @@
-import { eq, desc, gte, sql } from "drizzle-orm";
+import { eq, desc, gte } from "drizzle-orm";
 import { db } from "./db";
 import {
-  users, articles, keywords, contacts, pageViews, events, searchConsoleData,
+  users, articles, keywords, contacts, pageViews, events, searchConsoleData, adminUsers,
   type User, type InsertUser,
   type Article, type InsertArticle,
   type Keyword, type InsertKeyword,
@@ -9,6 +9,7 @@ import {
   type PageView, type InsertPageView,
   type SiteEvent, type InsertEvent,
   type SearchConsoleData, type InsertSearchConsoleData,
+  type AdminUser,
 } from "@shared/schema";
 
 export interface IStorage {
@@ -39,6 +40,12 @@ export interface IStorage {
 
   upsertSearchConsoleData(data: InsertSearchConsoleData): Promise<void>;
   getSearchConsoleData(): Promise<SearchConsoleData[]>;
+
+  getAdminUsers(): Promise<AdminUser[]>;
+  getAdminUserByUsername(username: string): Promise<AdminUser | undefined>;
+  createAdminUser(username: string, passwordHash: string, role?: string): Promise<AdminUser>;
+  updateAdminUserPassword(id: number, passwordHash: string): Promise<void>;
+  deleteAdminUser(id: number): Promise<void>;
 }
 
 export class DrizzleStorage implements IStorage {
@@ -151,14 +158,33 @@ export class DrizzleStorage implements IStorage {
   }
 
   async upsertSearchConsoleData(data: InsertSearchConsoleData) {
-    await db
-      .insert(searchConsoleData)
-      .values(data)
-      .onConflictDoNothing();
+    await db.insert(searchConsoleData).values(data).onConflictDoNothing();
   }
 
   async getSearchConsoleData() {
     return db.select().from(searchConsoleData).orderBy(desc(searchConsoleData.date), desc(searchConsoleData.impressions));
+  }
+
+  async getAdminUsers() {
+    return db.select().from(adminUsers).orderBy(adminUsers.createdAt);
+  }
+
+  async getAdminUserByUsername(username: string) {
+    const [user] = await db.select().from(adminUsers).where(eq(adminUsers.username, username));
+    return user;
+  }
+
+  async createAdminUser(username: string, passwordHash: string, role = "admin") {
+    const [created] = await db.insert(adminUsers).values({ username, passwordHash, role }).returning();
+    return created;
+  }
+
+  async updateAdminUserPassword(id: number, passwordHash: string) {
+    await db.update(adminUsers).set({ passwordHash }).where(eq(adminUsers.id, id));
+  }
+
+  async deleteAdminUser(id: number) {
+    await db.delete(adminUsers).where(eq(adminUsers.id, id));
   }
 }
 
