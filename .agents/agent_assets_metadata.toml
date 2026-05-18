@@ -96,3 +96,9 @@ id = "nkYOKCx5cjhxDG7dgEUKq"
 uri = "file://attached_assets/recruit_06_senior_outdoor.png"
 type = "image"
 title = "Japanese senior employee logistics facility outdoor"
+
+[[generated]]
+id = "4cDGmDyabQqML-WsuwzFt"
+uri = "file://attached_assets/about_hero.png"
+type = "image"
+title = "generated_image"

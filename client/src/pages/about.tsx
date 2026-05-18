@@ -5,8 +5,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { useEffect } from "react";
 import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
-import ceoImg from "@assets/スクリーンショット_2026-05-14_2.55.57_1778694961831.png";
-import truckImg from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
+import heroImg from "@assets/about_hero.png";
 
 const values = [
   { num: "01", title: "誠実", sub: "Integrity", desc: "約束を守り、正直に、誠実に。すべての取引先・スタッフに対して真摯に向き合います。" },
@@ -33,7 +32,7 @@ export default function About() {
 
       {/* Hero */}
       <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "400px" }}>
-        <img src={truckImg} alt="池ノ谷商事について" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <img src={heroImg} alt="池ノ谷商事について" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-[#0f2044]/80" />
         <div className="absolute inset-0 flex items-end pb-16 px-8">
           <div className="max-w-5xl mx-auto w-full">
@@ -126,47 +125,6 @@ export default function About() {
               </AnimateIn>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CEO Message */}
-      <section className="py-24 bg-white px-8">
-        <div className="max-w-4xl mx-auto">
-          <AnimateIn>
-            <div className="text-center mb-16">
-              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">MESSAGE</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">代表メッセージ</h2>
-              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
-            </div>
-          </AnimateIn>
-          <AnimateIn>
-            <div className="flex flex-col md:flex-row gap-12 items-start">
-              <div className="md:w-72 flex-shrink-0">
-                <div className="aspect-[3/4] overflow-hidden">
-                  <img src={ceoImg} alt="代表取締役 池ノ谷 翔" className="w-full h-full object-cover object-top" />
-                </div>
-                <div className="mt-4 border-t border-gray-100 pt-4">
-                  <p className="text-gray-400 text-[10px] tracking-widest uppercase mb-1">Representative Director</p>
-                  <p className="text-gray-900 font-semibold tracking-wider">池ノ谷 翔</p>
-                  <p className="text-gray-400 text-xs mt-0.5">代表取締役</p>
-                </div>
-              </div>
-              <div className="flex-1">
-                <p className="text-gray-400 text-xs tracking-[0.3em] uppercase mb-6">— FROM THE CEO</p>
-                <div className="space-y-5 text-gray-600 text-sm leading-[2]">
-                  <p>
-                    株式会社池ノ谷商事は、2023年2月に神奈川県愛甲郡愛川町で創業いたしました。「運ぶ信頼、届ける真心」という理念のもと、お客様の荷物を大切に、そして確実にお届けすることを第一に考えてきました。
-                  </p>
-                  <p>
-                    物流という仕事は、社会のインフラとして欠かすことのできない存在です。しかし、その重要性に見合った評価や環境が十分でないことも、長年の課題でした。私たちはドライバーをはじめとするすべてのスタッフが誇りを持って働ける会社をつくることで、物流業界全体の底上げにも貢献したいと考えています。
-                  </p>
-                  <p>
-                    創業からわずか2年で従業員100名を超え、関東圏全域への物流ネットワークを構築できたのは、ひとえにお客様と仲間たちの信頼のおかげです。これからも「誠実・挑戦・共創・安全」の4つの価値観を大切にしながら、地域に根ざした総合物流企業として成長し続けます。
-                  </p>
-                </div>
-              </div>
-            </div>
-          </AnimateIn>
         </div>
       </section>
 
