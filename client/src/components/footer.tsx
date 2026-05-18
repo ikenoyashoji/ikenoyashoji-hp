@@ -20,7 +20,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Right: SNS + links + copyright */}
+          {/* Right: SNS + links */}
           <div className="flex flex-col items-start md:items-end gap-2">
             {/* SNS icons */}
             <div className="flex items-center gap-3 md:gap-4">
@@ -51,19 +51,19 @@ export function Footer() {
               </a>
             </div>
 
-            {/* Links + copyright */}
-            <div className="flex flex-col items-start md:items-end gap-1">
-              <div className="flex items-center gap-3 text-[11px] md:text-[13px] text-gray-300">
-                <Link href="/privacy" className="hover:text-white transition-colors">個人情報保護方針</Link>
-                <span className="text-gray-500">／</span>
-                <Link href="/sitemap" className="hover:text-white transition-colors">サイトマップ</Link>
-              </div>
-              <p className="text-gray-400 text-[10px] md:text-[13px] tracking-wide text-center w-full">
-                © 2023 株式会社 池ノ谷商事. All rights reserved.
-              </p>
+            {/* Links */}
+            <div className="flex items-center gap-3 text-[11px] md:text-[13px] text-gray-300">
+              <Link href="/privacy" className="hover:text-white transition-colors">個人情報保護方針</Link>
+              <span className="text-gray-500">／</span>
+              <Link href="/sitemap" className="hover:text-white transition-colors">サイトマップ</Link>
             </div>
           </div>
         </div>
+
+        {/* Copyright — full width, centered */}
+        <p className="text-gray-400 text-[10px] md:text-[13px] tracking-wide text-center w-full mt-3">
+          © 2023 株式会社 池ノ谷商事. All rights reserved.
+        </p>
       </div>
     </footer>
   );
