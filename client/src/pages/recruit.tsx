@@ -506,7 +506,7 @@ export default function Recruit() {
           <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-4">一緒に働きましょう</h2>
           <p className="text-gray-400 text-sm mb-10 max-w-xl mx-auto leading-relaxed">
             ご応募・ご質問はお気軽にどうぞ。履歴書不要、まずはお気軽にご連絡ください。<br />
-            <span className="text-[#7eb3ff]">TEL: 046-212-2766</span>（平日 9:00〜18:00）
+            <span className="text-[#7eb3ff]">TEL: 046-212-2766</span>（平日 9:00〜21:00）
           </p>
           <Link href="/contact?type=recruit">
             <button

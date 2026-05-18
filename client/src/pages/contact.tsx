@@ -146,7 +146,7 @@ export default function Contact() {
               <div>
                 <div className="text-xs text-gray-400 tracking-widest mb-1">TEL</div>
                 <div className="text-gray-900 font-semibold text-sm">046-212-2766</div>
-                <div className="text-xs text-gray-400">平日 9:00〜18:00</div>
+                <div className="text-xs text-gray-400">平日 9:00〜21:00</div>
               </div>
             </a>
             <a href="mailto:info@ikenoyashoji.co.jp" className="border border-gray-100 p-6 hover:border-[#1d4ed8] transition-colors flex items-center gap-4" data-testid="link-contact-email">

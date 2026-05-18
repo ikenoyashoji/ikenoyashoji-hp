@@ -292,7 +292,7 @@ export default function Privacy() {
                 <p>〒243-0303 神奈川県愛甲郡愛川町中津7287</p>
                 <p>TEL: <a href="tel:046-212-2766" className="text-[#1d4ed8] hover:underline">046-212-2766</a>　FAX: 046-401-1714</p>
                 <p>Email: <a href="mailto:info@ikenoyashoji.co.jp" className="text-[#1d4ed8] hover:underline">info@ikenoyashoji.co.jp</a></p>
-                <p className="text-xs text-gray-400 mt-2">受付時間：平日 9:00〜18:00（土日祝・年末年始を除く）</p>
+                <p className="text-xs text-gray-400 mt-2">受付時間：平日 9:00〜21:00（土日祝・年末年始を除く）</p>
               </div>
             </div>
           </AnimateIn>
