@@ -6,7 +6,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { CheckCircle } from "lucide-react";
-import buildingImg from "@assets/スクリーンショット_2026-05-13_4.37.54_1778614678216.png";
+import buildingImg from "@assets/company_hero.png";
 
 const companyInfo: { label: string; value: string | string[] }[] = [
   { label: "会社名", value: "株式会社池ノ谷商事" },

@@ -150,3 +150,9 @@ id = "4NBDqoXW1PnLhCjNv2l5q"
 uri = "file://attached_assets/recruit_slide_06.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "oPtwnPJBXwyVrxir5pSSm"
+uri = "file://attached_assets/company_hero.png"
+type = "image"
+title = "generated_image"
