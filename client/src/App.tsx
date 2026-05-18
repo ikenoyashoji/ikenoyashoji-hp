@@ -35,6 +35,7 @@ const AdminManagers      = lazy(() => import("@/pages/admin/managers"));
 const AdminEmailSales    = lazy(() => import("@/pages/admin/email-sales"));
 const AdminLogs          = lazy(() => import("@/pages/admin/logs"));
 const AdminSettings      = lazy(() => import("@/pages/admin/settings"));
+const AdminAutoPublish   = lazy(() => import("@/pages/admin/auto-publish"));
 
 // LPを見ている間に公開ページをバックグラウンドでプリフェッチ
 function usePrefetch() {
@@ -95,6 +96,7 @@ function Router() {
         <Route path="/admin/email-sales" component={AdminEmailSales} />
         <Route path="/admin/logs" component={AdminLogs} />
         <Route path="/admin/settings" component={AdminSettings} />
+        <Route path="/admin/auto-publish" component={AdminAutoPublish} />
 
         <Route component={NotFound} />
       </Switch>

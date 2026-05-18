@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { LayoutDashboard, FileText, LogOut, Users, ExternalLink, UserCog, Mail, ClipboardList, Settings } from "lucide-react";
+import { LayoutDashboard, FileText, LogOut, Users, ExternalLink, UserCog, Mail, ClipboardList, Settings, Bot } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
 const navItems = [
@@ -8,6 +8,7 @@ const navItems = [
   { href: "/admin/contacts", label: "お問い合わせ", icon: Users },
   { href: "/admin/managers", label: "管理者管理", icon: UserCog },
   { href: "/admin/articles", label: "記事管理", icon: FileText },
+  { href: "/admin/auto-publish", label: "AI自動投稿", icon: Bot },
   { href: "/admin/email-sales", label: "メール営業", icon: Mail },
   { href: "/admin/logs", label: "操作ログ", icon: ClipboardList },
   { href: "/admin/settings", label: "設定", icon: Settings },

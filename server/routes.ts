@@ -688,6 +688,39 @@ ${articleUrls}
     res.send(`User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: ${domain}/sitemap.xml`);
   });
 
+  // Auto-publish
+  app.get("/api/admin/auto-publish/status", requireAdmin, (_req, res) => {
+    const { loadConfig } = require("./auto-publish");
+    res.json(loadConfig());
+  });
+
+  app.post("/api/admin/auto-publish/toggle", requireAdmin, (req, res) => {
+    const { loadConfig, saveConfig, startCron, stopCron } = require("./auto-publish");
+    const config = loadConfig();
+    config.enabled = !config.enabled;
+    if (config.enabled) startCron(config.cronTime);
+    else stopCron();
+    saveConfig(config);
+    res.json({ enabled: config.enabled });
+  });
+
+  app.patch("/api/admin/auto-publish/settings", requireAdmin, (req, res) => {
+    const { loadConfig, saveConfig, startCron, stopCron } = require("./auto-publish");
+    const { cronTime, autoPublish } = req.body;
+    const config = loadConfig();
+    if (cronTime !== undefined) config.cronTime = cronTime;
+    if (autoPublish !== undefined) config.autoPublish = autoPublish;
+    if (config.enabled) { stopCron(); startCron(config.cronTime); }
+    saveConfig(config);
+    res.json(config);
+  });
+
+  app.post("/api/admin/auto-publish/trigger", requireAdmin, async (_req, res) => {
+    const { runAutoPublish } = require("./auto-publish");
+    const result = await runAutoPublish();
+    res.json(result);
+  });
+
   // Image upload
   app.post("/api/admin/upload", requireAdmin, upload.single("image"), (req, res) => {
     if (!req.file) return res.status(400).json({ error: "ファイルが見つかりません" });
