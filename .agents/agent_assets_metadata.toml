@@ -192,3 +192,15 @@ id = "v9CY0agZI9aMswu_sJ5U4"
 uri = "file://attached_assets/privacy_hero.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "IcZSSy-xqEfzMt479W60h"
+uri = "file://attached_assets/contact_hero.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "w5rwFsoBJzbAfq9aa6XA2"
+uri = "file://attached_assets/sitemap_hero.png"
+type = "image"
+title = "generated_image"

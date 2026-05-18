@@ -5,144 +5,205 @@ import { AnimateIn } from "@/components/animate-in";
 import { useEffect } from "react";
 import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Truck, Users, Handshake, BookOpen, Building2, Info, Phone, Shield, Map, LayoutGrid } from "lucide-react";
+import heroImg from "@assets/sitemap_hero.png";
 
-const sitemapData = [
+const siteStructure = [
   {
-    category: "メインページ",
-    en: "MAIN",
-    links: [
-      { label: "ホーム", href: "/" },
-      { label: "池ノ谷商事について", href: "/about" },
-    ],
-  },
-  {
-    category: "企業情報",
-    en: "COMPANY",
-    links: [
-      { label: "企業情報", href: "/company" },
-      { label: "会社概要", href: "/company" },
-      { label: "拠点情報", href: "/company" },
-      { label: "組織図・沿革", href: "/company" },
-    ],
-  },
-  {
-    category: "事業紹介",
+    category: "サービス・事業内容",
     en: "SERVICES",
+    icon: Truck,
     links: [
-      { label: "事業紹介トップ", href: "/services" },
-      { label: "一般貨物自動車運送業", href: "/services" },
-      { label: "倉庫管理・荷役作業", href: "/services" },
-      { label: "３PL（サードパーティロジスティクス）", href: "/services" },
-      { label: "物流コンサルティング", href: "/services" },
-      { label: "総合保険代理店", href: "/services" },
-      { label: "車両販売・整備", href: "/services" },
+      { label: "サービス一覧", href: "/services", desc: "輸送・倉庫・物流コンサルティングのご案内" },
+      { label: "一般貨物自動車運送事業", href: "/services#general", desc: "長距離・近距離の一般貨物輸送" },
+      { label: "貨物軽自動車運送事業", href: "/services#light", desc: "軽バン・軽トラによる小口配送" },
+      { label: "貨物利用運送事業", href: "/services#forwarding", desc: "最適なキャリアを組み合わせた輸送手配" },
+      { label: "倉庫管理サービス", href: "/services#warehouse", desc: "保管・入出庫・在庫管理の一括対応" },
     ],
   },
   {
     category: "採用情報",
     en: "RECRUIT",
+    icon: Users,
     links: [
-      { label: "採用情報トップ", href: "/recruit" },
-      { label: "募集職種", href: "/recruit" },
-      { label: "1日の流れ", href: "/recruit" },
-      { label: "よくある質問", href: "/recruit" },
-      { label: "応募フォーム", href: "/contact?type=recruit" },
+      { label: "採用トップ", href: "/recruit", desc: "池ノ谷商事で働くことの魅力" },
+      { label: "募集職種一覧", href: "/recruit#jobs", desc: "ドライバー・事務・管理職など" },
+      { label: "福利厚生・待遇", href: "/recruit#benefits", desc: "15の充実した福利厚生" },
+      { label: "キャリアパス", href: "/recruit#career", desc: "入社から管理職へのステップ" },
+      { label: "社員の声", href: "/recruit#voices", desc: "現役社員のリアルなコメント" },
+      { label: "よくある質問", href: "/recruit#faq", desc: "採用に関するQ&A" },
     ],
   },
   {
     category: "協力会社",
     en: "PARTNER",
+    icon: Handshake,
     links: [
-      { label: "協力会社募集", href: "/partner" },
-      { label: "協力会社登録フォーム", href: "/contact?type=partner" },
+      { label: "協力会社募集", href: "/partner", desc: "個人事業主・法人の方へ" },
+      { label: "ご登録の流れ", href: "/partner#flow", desc: "お問い合わせから契約まで" },
+      { label: "協力会社向けお問い合わせ", href: "/contact?type=partner", desc: "登録ご希望の方はこちら" },
     ],
   },
   {
-    category: "お知らせ",
-    en: "NEWS",
+    category: "ブログ・コラム",
+    en: "BLOG",
+    icon: BookOpen,
     links: [
-      { label: "お知らせ一覧", href: "/blog" },
-      { label: "物流コラム", href: "/blog" },
-      { label: "採用情報", href: "/blog" },
+      { label: "ブログトップ", href: "/blog", desc: "物流・採用に関する最新コラム" },
+      { label: "物流コラム", href: "/blog?category=物流コラム", desc: "荷主向け物流改善のヒント" },
+      { label: "採用情報", href: "/blog?category=採用情報", desc: "ドライバー求人・働き方" },
+      { label: "会社ニュース", href: "/blog?category=会社ニュース", desc: "池ノ谷商事からのお知らせ" },
+    ],
+  },
+  {
+    category: "会社情報",
+    en: "COMPANY",
+    icon: Building2,
+    links: [
+      { label: "会社概要", href: "/company", desc: "設立・資本金・許認可番号など" },
+      { label: "会社の特徴・強み", href: "/about", desc: "3つの強みと差別化ポイント" },
+      { label: "沿革", href: "/company#history", desc: "2023年設立からの歩み" },
+      { label: "拠点・アクセス", href: "/company#access", desc: "神奈川県愛川町 本社所在地" },
     ],
   },
   {
     category: "お問い合わせ",
     en: "CONTACT",
+    icon: Phone,
     links: [
-      { label: "お問い合わせ", href: "/contact" },
-      { label: "荷主・輸送のご相談", href: "/contact?type=shipper" },
-      { label: "採用のお問い合わせ", href: "/contact?type=recruit" },
-      { label: "協力会社のご登録", href: "/contact?type=partner" },
+      { label: "お問い合わせフォーム", href: "/contact", desc: "荷主・採用・協力会社の窓口" },
+      { label: "荷主・輸送のご相談", href: "/contact?type=shipper", desc: "輸送依頼・見積もりのご依頼" },
+      { label: "採用のお問い合わせ", href: "/contact?type=recruit", desc: "求人・採用に関するご質問" },
+      { label: "協力会社のご登録", href: "/contact?type=partner", desc: "協力会社として登録ご希望の方" },
     ],
   },
   {
-    category: "その他",
-    en: "OTHER",
+    category: "サイトポリシー",
+    en: "POLICY",
+    icon: Shield,
     links: [
-      { label: "個人情報保護方針", href: "/privacy" },
-      { label: "サイトマップ", href: "/sitemap" },
+      { label: "個人情報保護方針", href: "/privacy", desc: "個人情報の取り扱いについて" },
+      { label: "サイトマップ", href: "/sitemap", desc: "このページです" },
     ],
   },
 ];
 
-export default function Sitemap() {
+const quickLinks = [
+  { label: "ホーム", href: "/" },
+  { label: "サービス", href: "/services" },
+  { label: "採用情報", href: "/recruit" },
+  { label: "協力会社", href: "/partner" },
+  { label: "ブログ", href: "/blog" },
+  { label: "会社概要", href: "/company" },
+  { label: "会社の特徴", href: "/about" },
+  { label: "お問い合わせ", href: "/contact" },
+  { label: "個人情報保護方針", href: "/privacy" },
+];
+
+export default function SitemapPage() {
   useEffect(() => {
     trackPageView("/sitemap");
     setSeo({
       title: "サイトマップ",
-      description: "株式会社池ノ谷商事のウェブサイトのサイトマップです。各ページへのリンクを一覧でご確認いただけます。",
+      description: "株式会社池ノ谷商事のウェブサイト全ページ一覧です。サービス・採用・協力会社・会社情報・お問い合わせなどへのリンクをまとめています。",
       path: "/sitemap",
     });
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       {/* Hero */}
-      <section
-        className="mt-[100px] flex items-end pb-14 px-8 overflow-hidden"
-        style={{ minHeight: "200px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}
-      >
-        <div className="max-w-5xl mx-auto w-full">
+      <section className="relative mt-[100px] h-[520px] flex items-center justify-center overflow-hidden">
+        <img src={heroImg} alt="サイトマップ" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+        <div className="relative text-center px-8">
           <AnimateIn>
-            <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">SITEMAP</p>
-            <h1 className="text-5xl font-extralight text-white tracking-[0.15em] mb-4">サイトマップ</h1>
-            <div className="w-12 h-0.5 bg-[#1d4ed8]" />
+            <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">SITE MAP</p>
+            <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">サイトマップ</h1>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
+            <p className="text-gray-300 text-sm tracking-widest">全ページへのリンクをまとめています。</p>
           </AnimateIn>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Sitemap grid */}
-      <section className="py-20 px-8 bg-white">
+      <section className="py-16 px-8 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sitemapData.map((section, i) => (
-              <AnimateIn key={section.category} delay={i * 50}>
-                <div>
-                  <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100">
-                    <span className="text-[10px] tracking-[0.4em] text-[#1d4ed8] uppercase font-medium">{section.en}</span>
-                    <div className="w-px h-3 bg-gray-200" />
-                    <span className="text-sm font-semibold text-gray-800">{section.category}</span>
+          <AnimateIn>
+            <div className="flex items-center gap-3 mb-10">
+              <LayoutGrid className="w-5 h-5 text-[#1d4ed8]" />
+              <span className="text-xs tracking-[0.4em] text-gray-400 uppercase">All Pages</span>
+            </div>
+          </AnimateIn>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {siteStructure.map((section, i) => {
+              const Icon = section.icon;
+              return (
+                <AnimateIn key={section.category} delay={i * 60}>
+                  <div className="border border-gray-100 hover:border-gray-200 transition-colors">
+                    <div className="flex items-center gap-3 px-6 py-4 bg-gray-50 border-b border-gray-100">
+                      <div className="w-8 h-8 bg-[#0f2044] flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-4 h-4 text-white" />
+                      </div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-[10px] tracking-[0.3em] text-[#1d4ed8] font-medium uppercase">{section.en}</span>
+                        <span className="text-gray-300 text-xs">/</span>
+                        <h2 className="font-semibold text-gray-900 text-sm">{section.category}</h2>
+                      </div>
+                    </div>
+                    <ul className="divide-y divide-gray-50">
+                      {section.links.map((link) => (
+                        <li key={link.href + link.label}>
+                          <Link
+                            href={link.href}
+                            className="flex items-start gap-3 px-6 py-3.5 hover:bg-blue-50/50 transition-colors group"
+                          >
+                            <ChevronRight className="w-3.5 h-3.5 text-[#1d4ed8] flex-shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-transform" />
+                            <div>
+                              <span className="text-sm text-gray-800 group-hover:text-[#1d4ed8] transition-colors font-medium block">{link.label}</span>
+                              <span className="text-xs text-gray-400 leading-relaxed">{link.desc}</span>
+                            </div>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-2">
-                    {section.links.map((link) => (
-                      <li key={link.label}>
-                        <Link href={link.href}>
-                          <span className="flex items-center gap-2 text-sm text-gray-500 hover:text-[#1d4ed8] transition-colors group cursor-pointer">
-                            <ChevronRight className="w-3 h-3 text-gray-300 group-hover:text-[#1d4ed8] transition-colors flex-shrink-0" />
-                            {link.label}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </AnimateIn>
-            ))}
+                </AnimateIn>
+              );
+            })}
           </div>
+
+          {/* Quick links */}
+          <AnimateIn delay={siteStructure.length * 60 + 60}>
+            <div className="mt-12 border-t border-gray-100 pt-8">
+              <p className="text-xs tracking-[0.4em] text-gray-400 uppercase mb-4 flex items-center gap-2">
+                <Map className="w-3.5 h-3.5" /> Quick Links
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {quickLinks.map((q) => (
+                  <Link
+                    key={q.href}
+                    href={q.href}
+                    className="border border-gray-200 text-gray-500 hover:border-[#1d4ed8] hover:text-[#1d4ed8] text-xs px-4 py-2 transition-colors"
+                  >
+                    {q.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </AnimateIn>
         </div>
       </section>
 

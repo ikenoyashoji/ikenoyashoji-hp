@@ -16,6 +16,7 @@ import { setSeo } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { Phone, Mail, MapPin, CheckCircle } from "lucide-react";
+import heroImg from "@assets/contact_hero.png";
 
 const contactSchema = z.object({
   type: z.enum(["shipper", "recruit", "partner"]),
@@ -113,15 +114,24 @@ export default function Contact() {
       <Header />
 
       {/* Hero */}
-      <section
-        className="mt-[100px] flex items-end pb-10 sm:pb-14 px-4 sm:px-8 overflow-hidden"
-        style={{ minHeight: "180px", background: "linear-gradient(135deg, #0f2044 0%, #1a4b99 60%, #1d4ed8 100%)" }}
-      >
-        <div className="max-w-4xl mx-auto w-full">
-          <p className="text-[#7eb3ff] text-xs tracking-[0.5em] uppercase mb-3">GET IN TOUCH</p>
-          <h1 className="text-3xl sm:text-5xl font-extralight text-white tracking-[0.15em] mb-4">お問い合わせ</h1>
-          <div className="w-12 h-0.5 bg-[#1d4ed8]" />
+      <section className="relative mt-[100px] h-[520px] flex items-center justify-center overflow-hidden">
+        <img src={heroImg} alt="お問い合わせ" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+        <div className="relative text-center px-8">
+          <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">GET IN TOUCH</p>
+          <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">お問い合わせ</h1>
+          <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
+          <p className="text-gray-300 text-sm tracking-widest">2営業日以内にご返答いたします。</p>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       <section className="py-12 sm:py-20 bg-white px-4 sm:px-8">
