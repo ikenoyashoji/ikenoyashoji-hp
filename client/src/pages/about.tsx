@@ -118,6 +118,40 @@ export default function About() {
         </div>
       </section>
 
+      {/* CEO Message */}
+      <section className="py-24 bg-white px-8">
+        <div className="max-w-4xl mx-auto">
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">MESSAGE</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">代表メッセージ</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <AnimateIn>
+            <div className="max-w-2xl mx-auto">
+              <p className="text-gray-400 text-xs tracking-[0.3em] uppercase mb-6">— FROM THE CEO</p>
+              <div className="space-y-5 text-gray-600 text-sm leading-[2]">
+                <p>
+                  株式会社池ノ谷商事は、2023年2月に神奈川県愛甲郡愛川町で創業いたしました。「運ぶ信頼、届ける真心」という理念のもと、お客様の荷物を大切に、そして確実にお届けすることを第一に考えてきました。
+                </p>
+                <p>
+                  物流という仕事は、社会のインフラとして欠かすことのできない存在です。しかし、その重要性に見合った評価や環境が十分でないことも、長年の課題でした。私たちはドライバーをはじめとするすべてのスタッフが誇りを持って働ける会社をつくることで、物流業界全体の底上げにも貢献したいと考えています。
+                </p>
+                <p>
+                  創業からわずか2年で従業員100名を超え、関東圏全域への物流ネットワークを構築できたのは、ひとえにお客様と仲間たちの信頼のおかげです。これからも「誠実・挑戦・共創・安全」の4つの価値観を大切にしながら、地域に根ざした総合物流企業として成長し続けます。
+                </p>
+              </div>
+              <div className="mt-10 pt-8 border-t border-gray-100">
+                <p className="text-gray-400 text-[10px] tracking-widest uppercase mb-1">Representative Director</p>
+                <p className="text-gray-900 font-semibold tracking-wider">池ノ谷 翔</p>
+                <p className="text-gray-400 text-xs mt-0.5">代表取締役</p>
+              </div>
+            </div>
+          </AnimateIn>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-20 bg-[#0f2044] text-center px-8">
         <AnimateIn>
