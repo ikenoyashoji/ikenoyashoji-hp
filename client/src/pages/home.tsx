@@ -80,7 +80,7 @@ export default function Home() {
           className="w-full h-auto md:h-[calc(100vh-100px)] md:object-cover md:object-top block"
         />
         <div className="absolute inset-0 flex items-end pb-6 sm:pb-10 px-4 sm:px-6 lg:px-16">
-          <Link href="/company">
+          <Link href="/about">
             <button
               className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 transition-colors text-sm tracking-wide bg-white"
               onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
