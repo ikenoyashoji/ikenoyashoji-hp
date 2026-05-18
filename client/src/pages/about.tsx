@@ -59,7 +59,7 @@ export default function About() {
             <div className="text-center mb-16">
               <p className="text-[#1a4b99] text-xs tracking-[0.5em] uppercase mb-6">CORPORATE PHILOSOPHY</p>
               <h3 className="text-4xl md:text-5xl font-extralight text-gray-900 tracking-[0.3em] mb-6 leading-relaxed">
-                運ぶ信頼、<br />届ける真心。
+                運ぶ信頼、届ける真心。
               </h3>
               <div className="w-16 h-px bg-gray-200 mx-auto mb-8" />
               <p className="text-gray-500 text-sm leading-relaxed max-w-xl mx-auto">
