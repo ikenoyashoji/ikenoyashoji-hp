@@ -7,9 +7,14 @@ import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ArrowRight, Truck, Warehouse, Network, BarChart3, Shield, Wrench } from "lucide-react";
 import heroImg from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
-import businessImg1 from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
-import businessImg2 from "@assets/スクリーンショット_2026-05-13_3.51.42_1778611939679.png";
-import businessImg3 from "@assets/スクリーンショット_2026-05-13_3.51.51_1778611943375.png";
+import serviceImg01 from "@assets/service_01_general_cargo.png";
+import serviceImg02 from "@assets/service_02_freight_forwarding.png";
+import serviceImg03 from "@assets/service_03_light_cargo.png";
+import serviceImg04 from "@assets/service_04_consulting.png";
+import serviceImg05 from "@assets/service_05_warehouse.png";
+import serviceImg06 from "@assets/service_06_insurance.png";
+import serviceImg07 from "@assets/service_07_vehicle_sales.png";
+import serviceImg08 from "@assets/service_08_maintenance.png";
 
 const services = [
   {
@@ -17,7 +22,7 @@ const services = [
     title: "一般貨物自動車運送",
     sub: "General Cargo Transport",
     icon: Truck,
-    img: businessImg1,
+    img: serviceImg01,
     desc: "関東圏を中心に、大型・中型・小型トラックを駆使した幹線輸送から地域配送まで、あらゆる物量・品種に対応します。定期便・スポット便いずれも柔軟にご対応。リアルタイムGPS追跡で安全・確実な輸送をお約束します。",
     points: ["定期便・スポット便対応", "リアルタイムGPS追跡", "大型〜小型トラック対応", "24時間365日受付"],
   },
@@ -26,7 +31,7 @@ const services = [
     title: "貨物利用運送",
     sub: "Freight Forwarding",
     icon: Network,
-    img: businessImg2,
+    img: serviceImg02,
     desc: "自社トラック以外の輸送手段（鉄道・船舶・航空等）を活用した貨物利用運送サービス。幅広いネットワークにより、距離・品種を問わず最適なルートで貨物をお届けします。",
     points: ["鉄道・船舶・航空連携", "全国ネットワーク対応", "混載・チャーター選択可", "コスト最適化提案"],
   },
@@ -35,7 +40,7 @@ const services = [
     title: "貨物軽自動車運送",
     sub: "Light Cargo Transport",
     icon: Truck,
-    img: businessImg3,
+    img: serviceImg03,
     desc: "軽バン・軽トラックを活用した小口・ラストワンマイル配送に特化したサービス。狭小地・住宅地への配送や急ぎのスポット対応も迅速に承ります。",
     points: ["小口・宅配便対応", "ラストワンマイル配送", "スポット・急ぎ対応", "住宅地・狭小地対応"],
   },
@@ -44,7 +49,7 @@ const services = [
     title: "物流コンサルティング",
     sub: "Logistics Consulting",
     icon: BarChart3,
-    img: businessImg1,
+    img: serviceImg04,
     desc: "現状の物流フローを診断し、コスト削減・効率化・品質向上のための最適解をご提案します。KPI設計から改善施策の実行支援まで、物流の専門家として伴走型でサポートします。",
     points: ["物流コスト診断・分析", "改善提案・実行支援", "KPI設計・モニタリング", "DX・自動化推進"],
   },
@@ -53,7 +58,7 @@ const services = [
     title: "倉庫管理",
     sub: "Warehouse Management",
     icon: Warehouse,
-    img: businessImg2,
+    img: serviceImg05,
     desc: "愛川・厚木エリアの自社倉庫を活用した保管・管理サービス。入出庫管理から在庫管理システムの導入まで、お客様の物流センター機能を丸ごとサポートします。ピッキング・仕分け・梱包など荷役作業も一括対応。",
     points: ["入出庫・在庫管理", "ピッキング・仕分け・梱包", "温度管理対応倉庫", "WMS導入サポート"],
   },
@@ -62,7 +67,7 @@ const services = [
     title: "総合保険代理店",
     sub: "Insurance Agency",
     icon: Shield,
-    img: businessImg3,
+    img: serviceImg06,
     desc: "運送保険・貨物保険をはじめ、企業向け各種損害保険・生命保険の代理店業務を行います。物流事業者ならではのリスク知識を活かし、最適な保険プランをご提案します。",
     points: ["運送保険・貨物保険", "企業向け損害保険", "生命保険・団体保険", "保険見直し・最適化提案"],
   },
@@ -71,7 +76,7 @@ const services = [
     title: "各種新車・中古車販売及び買取",
     sub: "Vehicle Sales & Purchase",
     icon: Truck,
-    img: businessImg1,
+    img: serviceImg07,
     desc: "トラック・乗用車・特殊車両など各種新車・中古車の販売および買取を行います。古物商許可を取得しており、適正価格での売買をサポートします。在庫車両も豊富に取り揃えております。",
     points: ["各種新車・中古車販売", "車両買取", "古物商許可取得済", "豊富な在庫車両"],
   },
@@ -80,7 +85,7 @@ const services = [
     title: "一般整備・車検・板金・塗装・レッカー",
     sub: "Vehicle Maintenance & Repair",
     icon: Wrench,
-    img: businessImg2,
+    img: serviceImg08,
     desc: "自社整備工場による一般整備・車検・板金・塗装・レッカー牽引まで、車両に関するあらゆるサービスをワンストップで提供。迅速かつ丁寧な対応でお客様の車両を万全に保ちます。",
     points: ["一般整備・車検", "板金・塗装", "レッカー牽引", "自社整備工場"],
   },

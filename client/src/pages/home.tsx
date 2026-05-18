@@ -9,9 +9,14 @@ import { setSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 import heroBg from "@assets/imageああああ_1778609849549.png";
 import japanMapImg from "@assets/imageううう_1778610881804.png";
-import businessImg1 from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
-import businessImg2 from "@assets/スクリーンショット_2026-05-13_3.51.42_1778611939679.png";
-import businessImg3 from "@assets/スクリーンショット_2026-05-13_3.51.51_1778611943375.png";
+import serviceImg01 from "@assets/service_01_general_cargo.png";
+import serviceImg02 from "@assets/service_02_freight_forwarding.png";
+import serviceImg03 from "@assets/service_03_light_cargo.png";
+import serviceImg04 from "@assets/service_04_consulting.png";
+import serviceImg05 from "@assets/service_05_warehouse.png";
+import serviceImg06 from "@assets/service_06_insurance.png";
+import serviceImg07 from "@assets/service_07_vehicle_sales.png";
+import serviceImg08 from "@assets/service_08_maintenance.png";
 import recruitImg1 from "@assets/スクリーンショット_2026-05-13_4.02.02_1778612566803.png";
 import recruitImg2 from "@assets/スクリーンショット_2026-05-13_4.02.12_1778612566804.png";
 import recruitImg3 from "@assets/スクリーンショット_2026-05-13_4.02.22_1778612566811.png";
@@ -208,14 +213,14 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
-              { num: "01", title: "一般貨物自動車運送",           sub: "General Cargo Transport",      img: businessImg1 },
-              { num: "02", title: "貨物利用運送",                 sub: "Freight Forwarding",            img: businessImg2 },
-              { num: "03", title: "貨物軽自動車運送",             sub: "Light Cargo Transport",         img: businessImg3 },
-              { num: "04", title: "物流コンサルティング",         sub: "Logistics Consulting",          img: businessImg1 },
-              { num: "05", title: "倉庫管理",                     sub: "Warehouse Management",          img: businessImg2 },
-              { num: "06", title: "総合保険代理店",               sub: "Insurance Agency",              img: businessImg3 },
-              { num: "07", title: "各種新車・中古車販売及び買取", sub: "Vehicle Sales & Purchase",      img: businessImg1 },
-              { num: "08", title: "一般整備・車検・板金・塗装・レッカー", sub: "Vehicle Maintenance & Repair", img: businessImg2 },
+              { num: "01", title: "一般貨物自動車運送",           sub: "General Cargo Transport",      img: serviceImg01 },
+              { num: "02", title: "貨物利用運送",                 sub: "Freight Forwarding",            img: serviceImg02 },
+              { num: "03", title: "貨物軽自動車運送",             sub: "Light Cargo Transport",         img: serviceImg03 },
+              { num: "04", title: "物流コンサルティング",         sub: "Logistics Consulting",          img: serviceImg04 },
+              { num: "05", title: "倉庫管理",                     sub: "Warehouse Management",          img: serviceImg05 },
+              { num: "06", title: "総合保険代理店",               sub: "Insurance Agency",              img: serviceImg06 },
+              { num: "07", title: "各種新車・中古車販売及び買取", sub: "Vehicle Sales & Purchase",      img: serviceImg07 },
+              { num: "08", title: "一般整備・車検・板金・塗装・レッカー", sub: "Vehicle Maintenance & Repair", img: serviceImg08 },
             ].map((s, i) => (
               <div key={i} className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden">
                 <div className="w-full aspect-[16/9] overflow-hidden">
