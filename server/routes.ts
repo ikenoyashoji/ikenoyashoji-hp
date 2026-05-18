@@ -743,17 +743,114 @@ CTR：${(ctr * 100).toFixed(1)}%
   });
 
   // Admin settings status
-  app.get("/api/admin/settings/status", requireAdmin, (_req, res) => {
+  app.get("/api/admin/settings/status", requireAdmin, async (_req, res) => {
+    const stats = await storage.getDbStats();
     res.json({
       openai: !!process.env.OPENAI_API_KEY,
       smtp: !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS && process.env.SMTP_USER !== "your-email@example.com"),
       smtpHost: process.env.SMTP_HOST || "",
       smtpPort: process.env.SMTP_PORT || "587",
+      smtpUser: process.env.SMTP_USER || "",
+      smtpFrom: process.env.SMTP_FROM || process.env.SMTP_USER || "",
       siteUrl: process.env.SITE_URL || "",
       ga4: !!(process.env.VITE_GA4_ID),
+      ga4Id: process.env.VITE_GA4_ID || "",
       clarity: !!(process.env.VITE_CLARITY_ID),
+      clarityId: process.env.VITE_CLARITY_ID || "",
       adminUser: process.env.ADMIN_USER || "admin",
+      ...stats,
     });
+  });
+
+  // Test SMTP connection
+  app.post("/api/admin/settings/test-smtp", requireAdmin, async (req, res) => {
+    const { to } = req.body;
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = Number(process.env.SMTP_PORT) || 587;
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+    const smtpFrom = process.env.SMTP_FROM || smtpUser;
+    if (!smtpHost || !smtpUser || !smtpPass) {
+      return res.status(503).json({ error: "SMTP設定が不完全です。SMTP_HOST・SMTP_USER・SMTP_PASSを環境変数に設定してください。" });
+    }
+    try {
+      const { createTransport } = await import("nodemailer");
+      const transporter = createTransport({ host: smtpHost, port: smtpPort, secure: smtpPort === 465, auth: { user: smtpUser, pass: smtpPass } });
+      await transporter.verify();
+      await transporter.sendMail({
+        from: `池ノ谷商事 管理システム <${smtpFrom}>`,
+        to: to || smtpUser,
+        subject: "【テスト】SMTPメール送信テスト",
+        text: "このメールは管理画面からのSMTP接続テストです。正常に送信されています。",
+      });
+      res.json({ success: true, message: `${to || smtpUser} にテストメールを送信しました` });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Test OpenAI connection
+  app.post("/api/admin/settings/test-openai", requireAdmin, async (_req, res) => {
+    if (!process.env.OPENAI_API_KEY) return res.status(503).json({ error: "OPENAI_API_KEYが設定されていません" });
+    try {
+      const { default: OpenAI } = await import("openai");
+      const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+      const r = await client.chat.completions.create({ model: "gpt-4o", messages: [{ role: "user", content: "ping" }], max_tokens: 5 });
+      res.json({ success: true, model: r.model, message: "OpenAI APIへの接続が確認できました" });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Export contacts as CSV
+  app.get("/api/admin/export/contacts", requireAdmin, async (_req, res) => {
+    const cts = await storage.getContacts();
+    const header = "ID,種別,名前,会社名,メール,電話,内容,日時";
+    const rows = cts.map((c) => [
+      c.id, c.type, `"${(c.name || "").replace(/"/g, '""')}"`, `"${(c.company || "").replace(/"/g, '""')}"`,
+      c.email, c.phone || "", `"${(c.message || "").replace(/"/g, '""').replace(/\n/g, " ")}"`,
+      c.createdAt?.toISOString() || "",
+    ].join(",")).join("\n");
+    res.setHeader("Content-Type", "text/csv; charset=utf-8");
+    res.setHeader("Content-Disposition", `attachment; filename="contacts-${new Date().toISOString().split("T")[0]}.csv"`);
+    res.send("\uFEFF" + header + "\n" + rows);
+  });
+
+  // Export articles as CSV
+  app.get("/api/admin/export/articles", requireAdmin, async (_req, res) => {
+    const arts = await storage.getArticles();
+    const header = "ID,タイトル,スラッグ,カテゴリ,ステータス,公開日,作成日";
+    const rows = arts.map((a) => [
+      a.id, `"${(a.title || "").replace(/"/g, '""')}"`, a.slug, a.category, a.status,
+      a.publishedAt?.toISOString().split("T")[0] || "", a.createdAt?.toISOString().split("T")[0] || "",
+    ].join(",")).join("\n");
+    res.setHeader("Content-Type", "text/csv; charset=utf-8");
+    res.setHeader("Content-Disposition", `attachment; filename="articles-${new Date().toISOString().split("T")[0]}.csv"`);
+    res.send("\uFEFF" + header + "\n" + rows);
+  });
+
+  // Export email leads as CSV
+  app.get("/api/admin/export/leads", requireAdmin, async (_req, res) => {
+    const leads = await storage.getEmailLeads();
+    const header = "ID,会社名,ウェブサイト,メール,担当者,カテゴリ,ステータス,送信日,作成日";
+    const rows = leads.map((l) => [
+      l.id, `"${(l.company || "").replace(/"/g, '""')}"`, l.website || "", l.email || "",
+      `"${(l.contactName || "").replace(/"/g, '""')}"`, l.category || "", l.status || "",
+      l.sentAt?.toISOString().split("T")[0] || "", l.createdAt?.toISOString().split("T")[0] || "",
+    ].join(",")).join("\n");
+    res.setHeader("Content-Type", "text/csv; charset=utf-8");
+    res.setHeader("Content-Disposition", `attachment; filename="leads-${new Date().toISOString().split("T")[0]}.csv"`);
+    res.send("\uFEFF" + header + "\n" + rows);
+  });
+
+  // Clear analytics data
+  app.delete("/api/admin/analytics/pageviews", requireAdmin, async (_req, res) => {
+    const count = await storage.clearPageViews();
+    res.json({ success: true, deleted: count });
+  });
+  app.delete("/api/admin/analytics/events", requireAdmin, async (_req, res) => {
+    const count = await storage.clearEvents();
+    res.json({ success: true, deleted: count });
   });
 
   // Email Leads CRUD

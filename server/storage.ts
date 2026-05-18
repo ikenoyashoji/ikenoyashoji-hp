@@ -53,6 +53,10 @@ export interface IStorage {
   createEmailLead(lead: InsertEmailLead): Promise<EmailLead>;
   updateEmailLead(id: number, data: Partial<InsertEmailLead> & { sentAt?: Date | null }): Promise<EmailLead>;
   deleteEmailLead(id: number): Promise<void>;
+
+  clearPageViews(): Promise<number>;
+  clearEvents(): Promise<number>;
+  getDbStats(): Promise<{ pvCount: number; eventsCount: number; contactsCount: number; articlesCount: number; leadsCount: number }>;
 }
 
 export class DrizzleStorage implements IStorage {
@@ -219,6 +223,35 @@ export class DrizzleStorage implements IStorage {
 
   async deleteEmailLead(id: number) {
     await db.delete(emailLeads).where(eq(emailLeads.id, id));
+  }
+
+  async clearPageViews() {
+    const all = await db.select().from(pageViews);
+    await db.delete(pageViews);
+    return all.length;
+  }
+
+  async clearEvents() {
+    const all = await db.select().from(events);
+    await db.delete(events);
+    return all.length;
+  }
+
+  async getDbStats() {
+    const [pvs, evts, cts, arts, leads] = await Promise.all([
+      db.select().from(pageViews),
+      db.select().from(events),
+      db.select().from(contacts),
+      db.select().from(articles),
+      db.select().from(emailLeads),
+    ]);
+    return {
+      pvCount: pvs.length,
+      eventsCount: evts.length,
+      contactsCount: cts.length,
+      articlesCount: arts.length,
+      leadsCount: leads.length,
+    };
   }
 }
 
