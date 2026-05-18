@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -91,6 +91,55 @@ const services = [
   },
 ];
 
+function useCountUp(target: number, duration = 1200) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const start = performance.now();
+          const tick = (now: number) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) requestAnimationFrame(tick);
+            else setCount(target);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target, duration]);
+
+  return { count, ref };
+}
+
+function StatItem({ num, unit, label, delay }: { num: number; unit: string; label: string; delay: number }) {
+  const { count, ref } = useCountUp(num, 1400);
+  return (
+    <AnimateIn delay={delay}>
+      <div ref={ref} className="text-center px-6 py-2">
+        <div className="flex items-baseline justify-center gap-1">
+          <span className="text-3xl md:text-4xl font-extralight text-white tracking-tight tabular-nums">
+            {count}{unit === "台" && num === 120 ? "+" : ""}
+          </span>
+          <span className="text-[#7eb3ff] text-sm">{unit}</span>
+        </div>
+        <p className="text-[9px] tracking-[0.4em] text-gray-500 mt-1">{label}</p>
+      </div>
+    </AnimateIn>
+  );
+}
+
 const marqueeItems = [
   "一般貨物自動車運送", "貨物利用運送", "貨物軽自動車運送", "物流コンサルティング", "倉庫管理", "総合保険代理店", "各種新車・中古車販売及び買取", "一般整備・車検・板金・塗装・レッカー",
   "一般貨物自動車運送", "貨物利用運送", "貨物軽自動車運送", "物流コンサルティング", "倉庫管理", "総合保険代理店", "各種新車・中古車販売及び買取", "一般整備・車検・板金・塗装・レッカー",
@@ -129,22 +178,10 @@ export default function Services() {
       {/* Stats Bar */}
       <section className="bg-[#0f2044] py-8 px-8">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/10">
-          {[
-            { num: "8", unit: "事業", label: "SERVICES" },
-            { num: "120+", unit: "台", label: "VEHICLES" },
-            { num: "128", unit: "名", label: "EMPLOYEES" },
-            { num: "6", unit: "拠点", label: "LOCATIONS" },
-          ].map((stat, i) => (
-            <AnimateIn key={i} delay={i * 80}>
-              <div className="text-center px-6 py-2">
-                <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-3xl md:text-4xl font-extralight text-white tracking-tight">{stat.num}</span>
-                  <span className="text-[#7eb3ff] text-sm">{stat.unit}</span>
-                </div>
-                <p className="text-[9px] tracking-[0.4em] text-gray-500 mt-1">{stat.label}</p>
-              </div>
-            </AnimateIn>
-          ))}
+          <StatItem num={8}   unit="事業" label="SERVICES"   delay={0} />
+          <StatItem num={120} unit="台"   label="VEHICLES"   delay={80} />
+          <StatItem num={128} unit="名"   label="EMPLOYEES"  delay={160} />
+          <StatItem num={6}   unit="拠点" label="LOCATIONS"  delay={240} />
         </div>
       </section>
 
