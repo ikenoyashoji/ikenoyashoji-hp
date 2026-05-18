@@ -58,7 +58,7 @@ export function Footer() {
                 <span className="text-gray-500">／</span>
                 <Link href="/sitemap" className="hover:text-white transition-colors">サイトマップ</Link>
               </div>
-              <p className="text-gray-400 text-[10px] md:text-[13px] tracking-wide">
+              <p className="text-gray-400 text-[10px] md:text-[13px] tracking-wide text-center w-full">
                 © 2023 株式会社 池ノ谷商事. All rights reserved.
               </p>
             </div>
