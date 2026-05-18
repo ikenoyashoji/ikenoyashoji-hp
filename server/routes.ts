@@ -563,6 +563,140 @@ CTR：${(ctr * 100).toFixed(1)}%
     res.json({ success: true, count: data.length });
   });
 
+  // Visitor analytics - detailed session data
+  app.get("/api/admin/visitors", requireAdmin, async (req, res) => {
+    const days = Number(req.query.days) || 30;
+    const [pvs, evts] = await Promise.all([storage.getPageViews(days), storage.getEvents(days)]);
+
+    function parseDevice(ua: string): string {
+      if (!ua) return "不明";
+      if (/iPad/i.test(ua)) return "タブレット";
+      if (/Mobile|Android|iPhone|iPod/i.test(ua)) return "スマートフォン";
+      return "PC";
+    }
+    function parseBrowser(ua: string): string {
+      if (!ua) return "不明";
+      if (/Edg\//i.test(ua)) return "Edge";
+      if (/OPR|Opera/i.test(ua)) return "Opera";
+      if (/Chrome/i.test(ua) && !/Chromium/i.test(ua)) return "Chrome";
+      if (/Firefox/i.test(ua)) return "Firefox";
+      if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) return "Safari";
+      return "その他";
+    }
+    function parseOS(ua: string): string {
+      if (!ua) return "不明";
+      if (/Windows/i.test(ua)) return "Windows";
+      if (/Mac OS X/i.test(ua) && !/iPhone|iPad/i.test(ua)) return "macOS";
+      if (/iPhone/i.test(ua)) return "iOS";
+      if (/iPad/i.test(ua)) return "iPadOS";
+      if (/Android/i.test(ua)) return "Android";
+      if (/Linux/i.test(ua)) return "Linux";
+      return "その他";
+    }
+    function parseSource(referrer: string): string {
+      if (!referrer) return "ダイレクト";
+      const r = referrer.toLowerCase();
+      if (/google\./i.test(r)) return "Google検索";
+      if (/bing\./i.test(r)) return "Bing検索";
+      if (/yahoo\./i.test(r)) return "Yahoo!検索";
+      if (/duckduckgo\./i.test(r)) return "DDG検索";
+      if (/t\.co|twitter\.com|x\.com/i.test(r)) return "Twitter/X";
+      if (/instagram\./i.test(r)) return "Instagram";
+      if (/facebook\./i.test(r)) return "Facebook";
+      if (/line\./i.test(r)) return "LINE";
+      if (/linkedin\./i.test(r)) return "LinkedIn";
+      try { return new URL(referrer).hostname; } catch { return "外部リンク"; }
+    }
+    function parseSourceCategory(referrer: string): string {
+      if (!referrer) return "direct";
+      const r = referrer.toLowerCase();
+      if (/google\.|bing\.|yahoo\.|duckduckgo\./i.test(r)) return "organic";
+      if (/t\.co|twitter\.com|x\.com|instagram\.|facebook\.|line\.|linkedin\./i.test(r)) return "social";
+      return "referral";
+    }
+
+    // Group page views by sessionId
+    const sessionMap = new Map<string, any>();
+    for (const pv of pvs) {
+      const sid = pv.sessionId || "unknown";
+      if (!sessionMap.has(sid)) {
+        sessionMap.set(sid, {
+          sessionId: sid,
+          startAt: pv.createdAt,
+          lastAt: pv.createdAt,
+          pages: [],
+          referrer: pv.referrer || "",
+          userAgent: pv.userAgent || "",
+          prefecture: pv.prefecture || "",
+          events: [],
+        });
+      }
+      const s = sessionMap.get(sid);
+      s.pages.push({ path: pv.path, time: pv.createdAt });
+      if (new Date(pv.createdAt) < new Date(s.startAt)) s.startAt = pv.createdAt;
+      if (new Date(pv.createdAt) > new Date(s.lastAt)) s.lastAt = pv.createdAt;
+      if (!s.referrer && pv.referrer) s.referrer = pv.referrer;
+      if (!s.userAgent && pv.userAgent) s.userAgent = pv.userAgent;
+      if (!s.prefecture && pv.prefecture) s.prefecture = pv.prefecture;
+    }
+
+    // Attach events to sessions
+    for (const ev of evts) {
+      const sid = ev.sessionId || "unknown";
+      if (sessionMap.has(sid)) {
+        sessionMap.get(sid).events.push({ name: ev.eventName, path: ev.path, time: ev.createdAt, properties: ev.properties });
+      }
+    }
+
+    const sessions = Array.from(sessionMap.values()).map((s) => ({
+      ...s,
+      device: parseDevice(s.userAgent),
+      browser: parseBrowser(s.userAgent),
+      os: parseOS(s.userAgent),
+      source: parseSource(s.referrer),
+      sourceCategory: parseSourceCategory(s.referrer),
+      pageCount: s.pages.length,
+      hasCV: s.events.length > 0,
+      duration: Math.round((new Date(s.lastAt).getTime() - new Date(s.startAt).getTime()) / 1000),
+    })).sort((a, b) => new Date(b.startAt).getTime() - new Date(a.startAt).getTime());
+
+    // Aggregate stats
+    const sourceBreakdown: Record<string, number> = {};
+    const deviceBreakdown: Record<string, number> = {};
+    const browserBreakdown: Record<string, number> = {};
+    const prefBreakdown: Record<string, number> = {};
+    const pathBreakdown: Record<string, number> = {};
+
+    for (const s of sessions) {
+      sourceBreakdown[s.source] = (sourceBreakdown[s.source] || 0) + 1;
+      deviceBreakdown[s.device] = (deviceBreakdown[s.device] || 0) + 1;
+      browserBreakdown[s.browser] = (browserBreakdown[s.browser] || 0) + 1;
+      const pref = s.prefecture || "不明";
+      prefBreakdown[pref] = (prefBreakdown[pref] || 0) + 1;
+    }
+    for (const pv of pvs) {
+      pathBreakdown[pv.path] = (pathBreakdown[pv.path] || 0) + 1;
+    }
+
+    const cvSessions = sessions.filter((s) => s.hasCV).length;
+    const avgPages = sessions.length ? (pvs.length / sessions.length).toFixed(1) : "0";
+
+    res.json({
+      sessions: sessions.slice(0, 500),
+      totalSessions: sessions.length,
+      totalPV: pvs.length,
+      totalEvents: evts.length,
+      cvSessions,
+      cvRate: sessions.length ? ((cvSessions / sessions.length) * 100).toFixed(1) : "0",
+      avgPages,
+      sourceBreakdown: Object.entries(sourceBreakdown).sort((a, b) => b[1] - a[1]).map(([name, count]) => ({ name, count })),
+      deviceBreakdown: Object.entries(deviceBreakdown).sort((a, b) => b[1] - a[1]).map(([name, count]) => ({ name, count })),
+      browserBreakdown: Object.entries(browserBreakdown).sort((a, b) => b[1] - a[1]).map(([name, count]) => ({ name, count })),
+      prefBreakdown: Object.entries(prefBreakdown).sort((a, b) => b[1] - a[1]).slice(0, 20).map(([name, count]) => ({ name, count })),
+      topPages: Object.entries(pathBreakdown).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([path, count]) => ({ path, count })),
+    });
+  });
+
   // Admin logs - activity feed
   app.get("/api/admin/logs", requireAdmin, async (req, res) => {
     const days = Number(req.query.days) || 30;

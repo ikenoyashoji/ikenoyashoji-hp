@@ -46,7 +46,12 @@ export function trackPageView(path: string) {
   fetch("/api/analytics/pageview", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ path, sessionId: getSessionId(), userAgent: navigator.userAgent }),
+    body: JSON.stringify({
+      path,
+      sessionId: getSessionId(),
+      userAgent: navigator.userAgent,
+      referrer: document.referrer || "",
+    }),
   }).catch(() => {});
 }
 
