@@ -8,7 +8,7 @@ import { setSeo } from "@/lib/seo";
 import { CheckCircle } from "lucide-react";
 import buildingImg from "@assets/スクリーンショット_2026-05-13_4.37.54_1778614678216.png";
 
-const companyInfo = [
+const companyInfo: { label: string; value: string | string[] }[] = [
   { label: "会社名", value: "株式会社池ノ谷商事" },
   { label: "英語表記", value: "IKENOYA SHOJI CO., LTD." },
   { label: "本社所在地", value: "〒243-0303 神奈川県愛甲郡愛川町中津7287" },
@@ -19,14 +19,30 @@ const companyInfo = [
   { label: "設立", value: "令和5年2月20日" },
   { label: "資本金", value: "3,000,000円" },
   { label: "適格請求書発行事業者登録番号", value: "T802100108272" },
-  { label: "許認可", value: "関自貨第542号 / 関自貨第1201号 / 古物商　神奈川公安委員会　第452740020200号" },
-  { label: "事業内容", value: "一般貨物自動車運送、貨物利用運送、貨物軽自動車運送、物流コンサルティング、倉庫管理、総合保険代理店、各種新車・中古車販売及び買取、一般整備・車検・板金・塗装・レッカー" },
+  { label: "許認可", value: [
+    "関自貨第542号",
+    "関自貨第1201号",
+    "古物商　神奈川公安委員会　第452740020200号",
+  ]},
+  { label: "事業内容", value: [
+    "一般貨物自動車運送、貨物利用運送、貨物軽自動車運送、物流コンサルティング、倉庫管理、",
+    "総合保険代理店、各種新車・中古車販売及び買取、一般整備・車検・板金・塗装・レッカー",
+  ]},
   { label: "保有台数", value: "—" },
   { label: "従業員数", value: "約128名（パート・アルバイト含む）" },
   { label: "貨物保険", value: "三井住友海上　10,000,000円" },
   { label: "加盟団体", value: "公益社団法人 全日本トラック協会、神奈川トラック協会" },
-  { label: "主要取引先", value: "株式会社ギオンデリバリーサービス／株式会社ロジネットジャパン／株式会社丸和運輸機関／サン インテルネット株式会社／遠州トラック株式会社／SBS即配サポート株式会社／ヒップスタイル株式会社／ヤマト運輸株式会社／ファイズトランスポートサービス株式会社／白銅株式会社／中央運輸株式会社　他（順不同）" },
-  { label: "主要取引銀行", value: "相愛信用組合 本店 / 三井住友銀行 厚木市店 / きらぼし銀行 厚木支店" },
+  { label: "主要取引先", value: [
+    "株式会社ギオンデリバリーサービス／株式会社ロジネットジャパン／株式会社丸和運輸機関／",
+    "サン インテルネット株式会社／遠州トラック株式会社／SBS即配サポート株式会社／",
+    "ヒップスタイル株式会社／ヤマト運輸株式会社／ファイズトランスポートサービス株式会社／",
+    "白銅株式会社／中央運輸株式会社　他（順不同）",
+  ]},
+  { label: "主要取引銀行", value: [
+    "相愛信用組合 本店",
+    "三井住友銀行 厚木市店",
+    "きらぼし銀行 厚木支店",
+  ]},
 ];
 
 export default function Company() {
@@ -76,7 +92,11 @@ export default function Company() {
               {companyInfo.map((item, i) => (
                 <div key={item.label} className={`flex flex-col sm:flex-row border-b border-gray-100 last:border-b-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
                   <div className="sm:w-44 flex-shrink-0 px-4 sm:px-6 pt-3 pb-1 sm:py-4 text-xs sm:text-sm font-medium text-gray-500 bg-gray-50 sm:border-r border-gray-100">{item.label}</div>
-                  <div className="px-4 sm:px-6 pb-3 pt-1 sm:py-4 text-sm text-gray-800 flex-1 leading-relaxed">{item.value}</div>
+                  <div className="px-4 sm:px-6 pb-3 pt-1 sm:py-4 text-sm text-gray-800 flex-1 leading-relaxed">
+                    {Array.isArray(item.value)
+                      ? item.value.map((line, j) => <div key={j}>{line}</div>)
+                      : item.value}
+                  </div>
                 </div>
               ))}
             </div>
