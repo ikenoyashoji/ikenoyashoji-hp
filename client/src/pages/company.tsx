@@ -131,7 +131,7 @@ export default function Company() {
                 fax: "046-401-1714",
               },
               {
-                type: "相模原第一車庫",
+                type: "相模原第二車庫",
                 zip: "〒252-0244",
                 address: "神奈川県相模原市中央区田名4905",
                 tel: "046-212-2766",
