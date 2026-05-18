@@ -14,30 +14,30 @@ import businessImg3 from "@assets/スクリーンショット_2026-05-13_3.51.51
 const services = [
   {
     num: "01",
-    title: "一般貨物自動車運送業",
+    title: "一般貨物自動車運送",
     sub: "General Cargo Transport",
     icon: Truck,
     img: businessImg1,
     desc: "関東圏を中心に、大型・中型・小型トラックを駆使した幹線輸送から地域配送まで、あらゆる物量・品種に対応します。定期便・スポット便いずれも柔軟にご対応。リアルタイムGPS追跡で安全・確実な輸送をお約束します。",
-    points: ["定期便・スポット便対応", "リアルタイムGPS追跡", "大型〜軽貨物まで対応", "24時間365日受付"],
+    points: ["定期便・スポット便対応", "リアルタイムGPS追跡", "大型〜小型トラック対応", "24時間365日受付"],
   },
   {
     num: "02",
-    title: "倉庫管理・荷役作業",
-    sub: "Warehouse & Cargo Handling",
-    icon: Warehouse,
+    title: "貨物利用運送",
+    sub: "Freight Forwarding",
+    icon: Network,
     img: businessImg2,
-    desc: "愛川・厚木エリアの自社倉庫を活用した保管・管理サービス。入出庫管理から在庫管理システムの導入まで、お客様の物流センター機能を丸ごとサポートします。ピッキング・仕分け・梱包など荷役作業も一括対応。",
-    points: ["入出庫・在庫管理", "ピッキング・仕分け・梱包", "温度管理対応倉庫", "WMS導入サポート"],
+    desc: "自社トラック以外の輸送手段（鉄道・船舶・航空等）を活用した貨物利用運送サービス。幅広いネットワークにより、距離・品種を問わず最適なルートで貨物をお届けします。",
+    points: ["鉄道・船舶・航空連携", "全国ネットワーク対応", "混載・チャーター選択可", "コスト最適化提案"],
   },
   {
     num: "03",
-    title: "３PL（サードパーティロジスティクス）",
-    sub: "Third Party Logistics",
-    icon: Network,
+    title: "貨物軽自動車運送",
+    sub: "Light Cargo Transport",
+    icon: Truck,
     img: businessImg3,
-    desc: "輸送・保管・流通加工・情報管理を一括して請け負う3PLサービス。お客様の物流業務全体をアウトソーシングいただくことで、コア事業への集中と大幅なコスト削減を実現。サプライチェーン全体を最適化します。",
-    points: ["物流業務の一括アウトソーシング", "サプライチェーン最適化", "コスト削減提案", "専任担当者によるサポート"],
+    desc: "軽バン・軽トラックを活用した小口・ラストワンマイル配送に特化したサービス。狭小地・住宅地への配送や急ぎのスポット対応も迅速に承ります。",
+    points: ["小口・宅配便対応", "ラストワンマイル配送", "スポット・急ぎ対応", "住宅地・狭小地対応"],
   },
   {
     num: "04",
@@ -50,27 +50,45 @@ const services = [
   },
   {
     num: "05",
+    title: "倉庫管理",
+    sub: "Warehouse Management",
+    icon: Warehouse,
+    img: businessImg2,
+    desc: "愛川・厚木エリアの自社倉庫を活用した保管・管理サービス。入出庫管理から在庫管理システムの導入まで、お客様の物流センター機能を丸ごとサポートします。ピッキング・仕分け・梱包など荷役作業も一括対応。",
+    points: ["入出庫・在庫管理", "ピッキング・仕分け・梱包", "温度管理対応倉庫", "WMS導入サポート"],
+  },
+  {
+    num: "06",
     title: "総合保険代理店",
     sub: "Insurance Agency",
     icon: Shield,
-    img: businessImg2,
+    img: businessImg3,
     desc: "運送保険・貨物保険をはじめ、企業向け各種損害保険・生命保険の代理店業務を行います。物流事業者ならではのリスク知識を活かし、最適な保険プランをご提案します。",
     points: ["運送保険・貨物保険", "企業向け損害保険", "生命保険・団体保険", "保険見直し・最適化提案"],
   },
   {
-    num: "06",
-    title: "車両販売・整備",
-    sub: "Vehicle Sales & Maintenance",
+    num: "07",
+    title: "各種新車・中古車販売及び買取",
+    sub: "Vehicle Sales & Purchase",
+    icon: Truck,
+    img: businessImg1,
+    desc: "トラック・乗用車・特殊車両など各種新車・中古車の販売および買取を行います。古物商許可を取得しており、適正価格での売買をサポートします。在庫車両も豊富に取り揃えております。",
+    points: ["各種新車・中古車販売", "車両買取", "古物商許可取得済", "豊富な在庫車両"],
+  },
+  {
+    num: "08",
+    title: "一般整備・車検・板金・塗装・レッカー",
+    sub: "Vehicle Maintenance & Repair",
     icon: Wrench,
-    img: businessImg3,
-    desc: "トラック・特殊車両の販売から定期整備・車検・修理まで対応。古物商許可を取得しており、中古車両の売買も行います。自社整備工場で迅速かつ低コストな車両メンテナンスを提供します。",
-    points: ["新車・中古車両販売", "定期整備・車検・修理", "古物商（中古車売買）", "車両リース・レンタル"],
+    img: businessImg2,
+    desc: "自社整備工場による一般整備・車検・板金・塗装・レッカー牽引まで、車両に関するあらゆるサービスをワンストップで提供。迅速かつ丁寧な対応でお客様の車両を万全に保ちます。",
+    points: ["一般整備・車検", "板金・塗装", "レッカー牽引", "自社整備工場"],
   },
 ];
 
 const marqueeItems = [
-  "一般貨物自動車運送業", "倉庫管理・荷役作業", "３PL", "物流コンサルティング", "総合保険代理店", "車両販売・整備",
-  "一般貨物自動車運送業", "倉庫管理・荷役作業", "３PL", "物流コンサルティング", "総合保険代理店", "車両販売・整備",
+  "一般貨物自動車運送", "貨物利用運送", "貨物軽自動車運送", "物流コンサルティング", "倉庫管理", "総合保険代理店", "各種新車・中古車販売及び買取", "一般整備・車検・板金・塗装・レッカー",
+  "一般貨物自動車運送", "貨物利用運送", "貨物軽自動車運送", "物流コンサルティング", "倉庫管理", "総合保険代理店", "各種新車・中古車販売及び買取", "一般整備・車検・板金・塗装・レッカー",
 ];
 
 export default function Services() {
@@ -115,10 +133,10 @@ export default function Services() {
         <div className="max-w-3xl mx-auto text-center">
           <AnimateIn>
             <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">OUR BUSINESS</p>
-            <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">6つの事業領域</h2>
+            <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">8つの事業領域</h2>
             <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-8" />
             <p className="text-gray-500 text-sm leading-relaxed">
-              株式会社池ノ谷商事は、一般貨物運送を核として、倉庫管理・3PL・コンサルティング・保険・車両整備まで、<br className="hidden md:inline" />
+              株式会社池ノ谷商事は、一般貨物運送を核として、倉庫管理・物流コンサルティング・保険・車両販売整備まで、<br className="hidden md:inline" />
               物流に関わるあらゆるニーズにワンストップで対応できる総合物流企業です。
             </p>
           </AnimateIn>
