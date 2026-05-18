@@ -1,11 +1,12 @@
 import { Switch, Route, useLocation } from "wouter";
-import { useEffect, lazy, Suspense } from "react";
+import { useEffect, lazy, Suspense, useState, useCallback } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { loadAnalytics, trackPageView } from "@/lib/analytics";
 import NotFound from "@/pages/not-found";
+import { SplashScreen } from "@/components/splash-screen";
 
 // LP（ホーム）は静的インポート — 即座に表示
 import Home from "@/pages/home";
@@ -102,11 +103,19 @@ function Router() {
 }
 
 function AppInner() {
+  const [splashDone, setSplashDone] = useState(false);
+  const handleFinish = useCallback(() => setSplashDone(true), []);
+
   useEffect(() => {
     loadAnalytics();
   }, []);
 
-  return <Router />;
+  return (
+    <>
+      {!splashDone && <SplashScreen onFinish={handleFinish} />}
+      <Router />
+    </>
+  );
 }
 
 function App() {
