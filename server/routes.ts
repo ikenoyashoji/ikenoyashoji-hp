@@ -46,6 +46,32 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
 const ADMIN_USER = process.env.ADMIN_USER || "admin";
 const ADMIN_PASS = process.env.ADMIN_PASS || "admin123";
 
+const CATEGORY_IMAGES: Record<string, string> = {
+  "物流コラム": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80&auto=format&fit=crop",
+  "採用情報": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80&auto=format&fit=crop",
+  "採用": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80&auto=format&fit=crop",
+  "荷主向け": "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?w=800&q=80&auto=format&fit=crop",
+  "協力会社": "https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80&auto=format&fit=crop",
+  "お知らせ": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80&auto=format&fit=crop",
+  "default": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop",
+};
+
+async function migrateArticleImages() {
+  try {
+    const allArticles = await storage.getArticles();
+    const noImageArticles = allArticles.filter(a => !a.imageUrl || a.imageUrl === "");
+    for (const article of noImageArticles) {
+      const img = CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES["default"];
+      await storage.updateArticle(article.id, { imageUrl: img });
+    }
+    if (noImageArticles.length > 0) {
+      console.log(`[migrate] ${noImageArticles.length}件の記事に画像を設定しました`);
+    }
+  } catch (e) {
+    console.error("[migrate] 記事画像マイグレーション失敗:", e);
+  }
+}
+
 async function seedData() {
   try {
     const existingArticles = await storage.getArticles();
@@ -85,6 +111,7 @@ async function seedData() {
         category: "物流コラム",
         tags: ["物流コスト", "コスト削減", "定期輸送", "積載率"],
         status: "published",
+        imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80&auto=format&fit=crop",
         faqData: JSON.stringify([
           { q: "物流コスト削減の効果はどのくらいで出ますか？", a: "定期輸送への切り替えは契約翌月から、積載率改善は3ヶ月程度で効果が現れます。平均的に10〜25%の削減実績があります。" },
           { q: "小規模な荷主でも定期輸送の契約はできますか？", a: "はい、週1便程度から定期契約が可能です。まずはお気軽にご相談ください。" },
@@ -135,6 +162,7 @@ async function seedData() {
         category: "採用情報",
         tags: ["ドライバー求人", "トラック", "正社員", "関東"],
         status: "published",
+        imageUrl: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80&auto=format&fit=crop",
         faqData: JSON.stringify([
           { q: "未経験でも応募できますか？", a: "はい、大歓迎です。充実した研修制度がありますので、安心してスタートできます。普通自動車免許（AT限定可）があればご応募いただけます。" },
           { q: "大型免許の取得サポートはありますか？", a: "はい、入社後に大型免許や各種資格を取得する場合、費用の一部を会社が負担します。" },
@@ -206,6 +234,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   );
 
   await seedData();
+  await migrateArticleImages();
 
   // Health check
   app.get("/api/health", (_req, res) => {
