@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -7,6 +7,51 @@ import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { CheckCircle } from "lucide-react";
 import buildingImg from "@assets/company_hero.png";
+
+function useCountUp(target: number, duration = 1400) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const started = useRef(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const start = performance.now();
+          const tick = (now: number) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) requestAnimationFrame(tick);
+            else setCount(target);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target, duration]);
+  return { count, ref };
+}
+
+function StatItem({ num, suffix = "", unit, label, delay }: { num: number; suffix?: string; unit: string; label: string; delay: number }) {
+  const { count, ref } = useCountUp(num, 1400);
+  return (
+    <AnimateIn delay={delay}>
+      <div ref={ref} className="text-center px-6 py-2">
+        <div className="flex items-baseline justify-center gap-1">
+          <span className="text-3xl md:text-4xl font-extralight text-white tracking-tight tabular-nums">{count}{suffix}</span>
+          <span className="text-[#7eb3ff] text-sm">{unit}</span>
+        </div>
+        <p className="text-[9px] tracking-[0.4em] text-gray-500 mt-1">{label}</p>
+      </div>
+    </AnimateIn>
+  );
+}
 
 const companyInfo: { label: string; value: string | string[] }[] = [
   { label: "会社名", value: "株式会社池ノ谷商事" },
@@ -73,6 +118,16 @@ export default function Company() {
           </AnimateIn>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+      </section>
+
+      {/* Stats Bar */}
+      <section className="bg-[#0f2044] py-8 px-8">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/10">
+          <StatItem num={128} unit="名"  label="EMPLOYEES"  delay={0} />
+          <StatItem num={120} suffix="+" unit="台"  label="VEHICLES"   delay={80} />
+          <StatItem num={6}   unit="拠点" label="LOCATIONS"  delay={160} />
+          <StatItem num={3}   unit="年目" label="SINCE 2023"  delay={240} />
+        </div>
       </section>
 
       {/* Company info */}
