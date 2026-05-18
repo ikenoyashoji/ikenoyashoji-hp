@@ -87,7 +87,7 @@ export default function Blog() {
     isStatic: false,
   }));
 
-  const allArticles = [...staticTopics, ...dbArticles.filter((a) => a.imageUrl)];
+  const allArticles = [...staticTopics, ...dbArticles];
 
   const filtered = allArticles.filter((a) => {
     const matchCat = selectedCategory === "すべて" || a.category === selectedCategory;

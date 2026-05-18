@@ -133,12 +133,20 @@ export default function Home() {
                               src={article.imageUrl}
                               alt={article.title}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              onError={(e) => {
+                                const t = e.currentTarget;
+                                t.style.display = "none";
+                                const fb = t.nextElementSibling as HTMLElement;
+                                if (fb) fb.style.display = "flex";
+                              }}
                             />
-                          ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-[#0f2044] to-[#1d4ed8] flex items-center justify-center">
-                              <span className="text-white text-[10px] font-bold tracking-widest opacity-60">IKENOYA</span>
-                            </div>
-                          )}
+                          ) : null}
+                          <div
+                            className="w-full h-full bg-gradient-to-br from-[#0f2044] to-[#1d4ed8] flex items-center justify-center"
+                            style={{ display: article.imageUrl ? "none" : "flex" }}
+                          >
+                            <span className="text-white text-[10px] font-bold tracking-widest opacity-60">IKENOYA</span>
+                          </div>
                           <span className="absolute top-2 left-2 bg-[#1d4ed8] text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
                             {article.category || "物流コラム"}
                           </span>

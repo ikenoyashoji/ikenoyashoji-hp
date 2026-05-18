@@ -1,12 +1,10 @@
 import cron from "node-cron";
 import fs from "fs";
 import path from "path";
-import https from "https";
-import http from "http";
 import { storage } from "./storage";
+// Note: images are stored as base64 data URLs in DB (persistent across restarts)
 
 const CONFIG_FILE = path.resolve("auto-publish-config.json");
-const UPLOADS_DIR = path.resolve("public/uploads");
 
 export interface AutoPublishConfig {
   enabled: boolean;
@@ -56,22 +54,6 @@ async function callOpenAI(messages: any[], systemPrompt: string): Promise<string
   return data.choices[0].message.content as string;
 }
 
-function downloadFile(url: string, dest: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const proto = url.startsWith("https") ? https : http;
-    const file = fs.createWriteStream(dest);
-    proto
-      .get(url, (res) => {
-        res.pipe(file);
-        file.on("finish", () => { file.close(); resolve(); });
-      })
-      .on("error", (err) => {
-        fs.unlink(dest, () => {});
-        reject(err);
-      });
-  });
-}
-
 async function generateFashionImage(category: string): Promise<string | null> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) return null;
@@ -85,7 +67,6 @@ async function generateFashionImage(category: string): Promise<string | null> {
   };
 
   const subject = subjectMap[category] || subjectMap["物流コラム"];
-
   const prompt = `High-end Japanese fashion magazine editorial photography. Vogue Japan, Numero magazine aesthetic. Dramatic studio lighting, bold graphic composition. ${subject}. Luxury premium feel, monochrome accents with one bold color accent, cinematic depth of field, no text overlays, ultra-sharp professional photography, aspirational lifestyle feel, 16:9 widescreen magazine spread.`;
 
   try {
@@ -96,14 +77,16 @@ async function generateFashionImage(category: string): Promise<string | null> {
     });
     if (!response.ok) return null;
     const data = (await response.json()) as any;
-    const imageUrl = data.data?.[0]?.url;
-    if (!imageUrl) return null;
+    const dalleUrl = data.data?.[0]?.url;
+    if (!dalleUrl) return null;
 
-    if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-    const filename = `auto-${Date.now()}.png`;
-    const filepath = path.join(UPLOADS_DIR, filename);
-    await downloadFile(imageUrl, filepath);
-    return `/uploads/${filename}`;
+    // DALL-E URLs expire after 1 hour, so we download and convert to base64
+    // This stores the image permanently in the database
+    const imgRes = await fetch(dalleUrl);
+    if (!imgRes.ok) return null;
+    const buffer = await imgRes.arrayBuffer();
+    const base64 = Buffer.from(buffer).toString("base64");
+    return `data:image/png;base64,${base64}`;
   } catch (err) {
     console.error("[AutoPublish] Image generation error:", err);
     return null;
