@@ -186,3 +186,9 @@ id = "mq8g3cQZyM9BBOIRrjVzf"
 uri = "file://attached_assets/blog_topic_04.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "v9CY0agZI9aMswu_sJ5U4"
+uri = "file://attached_assets/privacy_hero.png"
+type = "image"
+title = "generated_image"
