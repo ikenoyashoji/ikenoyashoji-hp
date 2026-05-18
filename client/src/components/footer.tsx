@@ -7,7 +7,7 @@ export function Footer() {
       <img src={footerBg} alt="" className="w-full h-auto block" />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(15,32,68,0.35) 0%, rgba(15,32,68,0.80) 60%, rgba(15,32,68,0.95) 100%)" }} />
 
-      <div className="absolute inset-x-0 bottom-0 z-10 px-5 md:px-10 pb-5 pt-4">
+      <div className="absolute inset-x-0 bottom-0 z-10 px-5 md:px-10 pb-2 pt-4">
         {/* Mobile: stacked / Desktop: horizontal */}
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between md:gap-6">
 
