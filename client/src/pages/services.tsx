@@ -148,14 +148,6 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Marquee */}
-      <div className="bg-[#071630] py-3 overflow-hidden">
-        <div className="flex animate-marquee whitespace-nowrap" style={{ width: "max-content" }}>
-          {marqueeItems.map((item, i) => (
-            <span key={i} className="text-[10px] tracking-[0.4em] text-blue-300/40 uppercase mx-8">{item}</span>
-          ))}
-        </div>
-      </div>
 
       {/* Intro */}
       <section className="py-20 bg-white px-8">
