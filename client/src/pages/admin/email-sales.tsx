@@ -1,326 +1,489 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { AdminLayout } from "@/components/admin-layout";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { apiRequest } from "@/lib/queryClient";
+import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Send, Users, AlertCircle, CheckCircle, XCircle, ChevronDown } from "lucide-react";
-import { format } from "date-fns";
+import {
+  Mail, Send, Search, Trash2, RefreshCw, Play,
+  Globe, CheckCircle, AlertCircle, Clock, Wand2, Plus,
+} from "lucide-react";
+import { format, parseISO } from "date-fns";
 import { ja } from "date-fns/locale";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 
-const typeLabel: Record<string, string> = { shipper: "荷主", recruit: "採用", partner: "協力会社" };
+const STATUS_LABEL: Record<string, { label: string; color: string }> = {
+  pending: { label: "未送信", color: "text-gray-500 bg-gray-100" },
+  sent: { label: "送信済", color: "text-green-700 bg-green-50" },
+  failed: { label: "失敗", color: "text-red-600 bg-red-50" },
+  skipped: { label: "スキップ", color: "text-yellow-700 bg-yellow-50" },
+};
 
-const TEMPLATES = [
-  {
-    label: "荷主向け：物流改善提案",
-    subject: "【株式会社池ノ谷商事】物流コスト削減のご提案",
-    body: `いつもお世話になっております。
-株式会社池ノ谷商事の営業担当です。
+const CATEGORY_LABEL: Record<string, string> = {
+  shipper: "荷主",
+  partner: "協力会社",
+  recruit: "採用",
+};
 
-このたびは弊社サービスにご興味をお持ちいただき、誠にありがとうございます。
-
-弊社では関東圏を中心に、定期輸送・スポット輸送・チャーター便など
-お客様のニーズに合わせた輸送サービスをご提供しております。
-
-現在、物流コスト削減や輸送効率化でお困りの企業様向けに
-無料の物流診断を実施しております。
-
-ぜひ一度、ご相談の機会をいただけますでしょうか。
-ご都合のよいお日にちをお知らせいただければ幸いです。
-
-株式会社池ノ谷商事
-TEL: 03-XXXX-XXXX
-Email: info@ikenoyashoji.co.jp`,
-  },
-  {
-    label: "協力会社向け：パートナー募集",
-    subject: "【株式会社池ノ谷商事】業務委託パートナーのご案内",
-    body: `お世話になっております。
-株式会社池ノ谷商事です。
-
-弊社では現在、関東・関西エリアにて業務委託可能な
-協力会社様を積極的に募集しております。
-
-【特徴】
-・安定した仕事量の提供
-・適正な運賃設定
-・迅速な支払い（月末締め翌月末払い）
-
-詳細についてはお気軽にお問い合わせください。
-
-株式会社池ノ谷商事
-Email: info@ikenoyashoji.co.jp`,
-  },
-  {
-    label: "採用向け：求人のご案内",
-    subject: "【池ノ谷商事】ドライバー求人のご案内",
-    body: `この度は弊社求人にご関心をお持ちいただきありがとうございます。
-
-株式会社池ノ谷商事では現在、ドライバーを積極募集中です。
-
-【待遇】
-・月給25万円〜（経験考慮）
-・各種社会保険完備
-・年間休日105日以上
-・未経験歓迎
-
-ご応募・ご質問はお気軽にご連絡ください。
-
-株式会社池ノ谷商事 採用担当
-Email: info@ikenoyashoji.co.jp`,
-  },
-];
+function fmtDate(s: string | null) {
+  if (!s) return "—";
+  try { return format(parseISO(s), "M/d HH:mm", { locale: ja }); } catch { return s; }
+}
 
 export default function AdminEmailSales() {
-  const [filterType, setFilterType] = useState("all");
-  const [selected, setSelected] = useState<number[]>([]);
-  const [composeOpen, setComposeOpen] = useState(false);
-  const [subject, setSubject] = useState("");
-  const [body, setBody] = useState("");
-  const [manualTo, setManualTo] = useState("");
-  const [templateIdx, setTemplateIdx] = useState<number | "">("");
   const { toast } = useToast();
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [filterCat, setFilterCat] = useState("all");
+  const [search, setSearch] = useState("");
+  const [addOpen, setAddOpen] = useState(false);
+  const [addForm, setAddForm] = useState({ company: "", website: "", email: "", category: "shipper" });
+  const [crawling, setCrawling] = useState(false);
+  const [running, setRunning] = useState(false);
+  const [editSubject, setEditSubject] = useState("");
+  const [editBody, setEditBody] = useState("");
+  const [editMode, setEditMode] = useState(false);
 
-  const { data: contacts, isLoading } = useQuery<any[]>({ queryKey: ["/api/admin/contacts"] });
-  const { data: status } = useQuery<any>({ queryKey: ["/api/admin/settings/status"] });
+  const { data: leads = [], isLoading } = useQuery<any[]>({ queryKey: ["/api/admin/email-leads"] });
+  const { data: smtpStatus } = useQuery<any>({ queryKey: ["/api/admin/settings/status"] });
+  const smtpOk = smtpStatus?.smtp;
 
-  const filtered = (contacts || []).filter((c) => filterType === "all" || c.type === filterType);
+  const filtered = (leads as any[]).filter((l) => {
+    if (filterStatus !== "all" && l.status !== filterStatus) return false;
+    if (filterCat !== "all" && l.category !== filterCat) return false;
+    if (search && !l.company?.includes(search) && !l.email?.includes(search)) return false;
+    return true;
+  });
 
-  const toggleSelect = (id: number) => {
-    setSelected((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
+  const selected = filtered.find((l) => l.id === selectedId) ?? filtered[0] ?? null;
+
+  const stats = {
+    total: (leads as any[]).length,
+    sent: (leads as any[]).filter((l) => l.status === "sent").length,
+    pending: (leads as any[]).filter((l) => l.status === "pending").length,
+    withEmail: (leads as any[]).filter((l) => l.email).length,
   };
-  const toggleAll = () => {
-    if (selected.length === filtered.length) setSelected([]);
-    else setSelected(filtered.map((c) => c.id));
-  };
 
-  const applyTemplate = (idx: number) => {
-    const t = TEMPLATES[idx];
-    if (!t) return;
-    setSubject(t.subject);
-    setBody(t.body);
-    setTemplateIdx(idx);
-  };
-
-  const sendMutation = useMutation({
-    mutationFn: async () => {
-      const toList = selected.length > 0
-        ? filtered.filter((c) => selected.includes(c.id)).map((c) => c.email)
-        : manualTo.split(/[,\n]/).map((e) => e.trim()).filter(Boolean);
-
-      if (toList.length === 0) throw new Error("送信先が選択されていません");
-      if (!subject) throw new Error("件名を入力してください");
-      if (!body) throw new Error("本文を入力してください");
-
-      return apiRequest("POST", "/api/admin/email/send", { to: toList, subject, body });
-    },
-    onSuccess: (d: any) => {
-      setComposeOpen(false);
-      setSelected([]);
-      toast({ title: `メールを送信しました（${d.accepted?.length ?? "?"} 件）` });
-    },
-    onError: (err: any) => {
-      toast({ title: "送信に失敗しました", description: err.message, variant: "destructive" });
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => apiRequest("DELETE", `/api/admin/email-leads/${id}`, {}),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
+      setSelectedId(null);
+      toast({ title: "削除しました" });
     },
   });
 
-  const smtpOk = status?.smtp;
+  const generateMutation = useMutation({
+    mutationFn: (id: number) => apiRequest("POST", `/api/admin/email-leads/${id}/generate`, {}),
+    onSuccess: async (res) => {
+      const data = await res.json();
+      await queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
+      setEditSubject(data.emailSubject || "");
+      setEditBody(data.emailBody || "");
+      setEditMode(false);
+      toast({ title: "メールを生成しました" });
+    },
+    onError: () => toast({ title: "生成失敗", variant: "destructive" }),
+  });
+
+  const saveMutation = useMutation({
+    mutationFn: (id: number) => apiRequest("PATCH", `/api/admin/email-leads/${id}`, { emailSubject: editSubject, emailBody: editBody }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
+      setEditMode(false);
+      toast({ title: "保存しました" });
+    },
+  });
+
+  const sendMutation = useMutation({
+    mutationFn: (id: number) => apiRequest("POST", `/api/admin/email-leads/${id}/send`, {}),
+    onSuccess: async (res) => {
+      const data = await res.json();
+      if (data.error) { toast({ title: `送信失敗: ${data.error}`, variant: "destructive" }); return; }
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
+      toast({ title: "送信しました" });
+    },
+    onError: (e: any) => toast({ title: `送信失敗: ${e.message}`, variant: "destructive" }),
+  });
+
+  const addMutation = useMutation({
+    mutationFn: () => apiRequest("POST", "/api/admin/email-leads", addForm),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
+      setAddOpen(false);
+      setAddForm({ company: "", website: "", email: "", category: "shipper" });
+      toast({ title: "リードを追加しました" });
+    },
+  });
+
+  const handleCrawl = async () => {
+    setCrawling(true);
+    try {
+      const res = await apiRequest("POST", "/api/admin/email-sales/crawl", {});
+      const data = await res.json();
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
+      toast({ title: `クロール完了：${data.added}件追加` });
+    } catch { toast({ title: "クロール失敗", variant: "destructive" }); }
+    finally { setCrawling(false); }
+  };
+
+  const handlePipeline = async () => {
+    setRunning(true);
+    try {
+      const res = await apiRequest("POST", "/api/admin/email-sales/pipeline", {});
+      const data = await res.json();
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
+      toast({ title: `完了: クロール${data.crawled}件 生成${data.generated}件 送信${data.sent}件` });
+    } catch { toast({ title: "パイプライン失敗", variant: "destructive" }); }
+    finally { setRunning(false); }
+  };
+
+  const handleSelectLead = (lead: any) => {
+    setSelectedId(lead.id);
+    setEditSubject(lead.emailSubject || "");
+    setEditBody(lead.emailBody || "");
+    setEditMode(false);
+  };
 
   return (
     <AdminLayout>
-      <div className="space-y-5 max-w-4xl">
-        <div className="flex items-center justify-between flex-wrap gap-3">
-          <div>
-            <h1 className="text-lg font-bold text-gray-900">メール営業</h1>
-            <p className="text-gray-400 text-xs mt-0.5">問い合わせ済みの連絡先へのフォローアップメール送信</p>
+      <div className="flex flex-col h-full -m-6">
+        {/* Top toolbar */}
+        <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-200 bg-white flex-shrink-0 flex-wrap">
+          <div className="flex items-center gap-2">
+            <Mail className="w-4 h-4 text-gray-400" />
+            <span className="text-sm font-bold text-gray-900">メール営業</span>
           </div>
-          <button
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-black text-white text-xs hover:bg-gray-800 disabled:opacity-40 transition-colors"
-            onClick={() => setComposeOpen(true)}
-            data-testid="button-compose-email"
-          >
-            <Mail className="w-3.5 h-3.5" /> メールを作成
-          </button>
+
+          {/* Stats */}
+          <div className="flex items-center gap-3 ml-2 text-[11px] text-gray-400">
+            <span>計 <b className="text-gray-700">{stats.total}</b></span>
+            <span>送信済 <b className="text-green-600">{stats.sent}</b></span>
+            <span>未送信 <b className="text-gray-700">{stats.pending}</b></span>
+            <span>メールあり <b className="text-blue-600">{stats.withEmail}</b></span>
+          </div>
+
+          <div className="ml-auto flex items-center gap-2">
+            {!smtpOk && (
+              <span className="flex items-center gap-1 text-[11px] text-amber-600 border border-amber-200 bg-amber-50 px-2 py-1">
+                <AlertCircle className="w-3 h-3" /> SMTP未設定
+              </span>
+            )}
+            <button
+              className="flex items-center gap-1.5 px-2.5 py-1.5 border border-gray-200 text-gray-600 text-xs hover:border-black transition-colors"
+              onClick={() => setAddOpen(true)}
+            >
+              <Plus className="w-3 h-3" /> 手動追加
+            </button>
+            <button
+              className="flex items-center gap-1.5 px-2.5 py-1.5 border border-gray-200 text-gray-600 text-xs hover:border-black transition-colors disabled:opacity-40"
+              onClick={handleCrawl}
+              disabled={crawling}
+              data-testid="button-crawl-leads"
+            >
+              {crawling ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Search className="w-3 h-3" />}
+              DDGクロール
+            </button>
+            <button
+              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-black text-white text-xs hover:bg-gray-800 disabled:opacity-40 transition-colors"
+              onClick={handlePipeline}
+              disabled={running}
+              data-testid="button-run-pipeline"
+            >
+              {running ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Play className="w-3 h-3" />}
+              {running ? "実行中..." : "今すぐ一括実行（10件）"}
+            </button>
+          </div>
         </div>
 
-        {/* SMTP status */}
-        <div className={`border p-3 flex items-start gap-2.5 text-xs ${smtpOk ? "border-green-100 bg-green-50 text-green-700" : "border-amber-100 bg-amber-50 text-amber-700"}`}>
-          {smtpOk
-            ? <CheckCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-            : <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-          }
-          <div>
-            {smtpOk ? (
-              <span>SMTPが設定済みです。メール送信が可能です。</span>
+        {/* Split panel */}
+        <div className="flex flex-1 min-h-0 overflow-hidden">
+          {/* LEFT: Lead list */}
+          <div className="w-72 flex-shrink-0 border-r border-gray-200 bg-white flex flex-col">
+            {/* Filters */}
+            <div className="px-3 py-2 border-b border-gray-100 space-y-2">
+              <Input
+                placeholder="会社名・メールで検索"
+                className="h-7 text-xs border-gray-200 rounded-none"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <div className="flex gap-1.5">
+                <Select value={filterStatus} onValueChange={setFilterStatus}>
+                  <SelectTrigger className="flex-1 h-6 text-[10px] border-gray-200 rounded-none">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-none text-xs">
+                    <SelectItem value="all">全ステータス</SelectItem>
+                    <SelectItem value="pending">未送信</SelectItem>
+                    <SelectItem value="sent">送信済</SelectItem>
+                    <SelectItem value="failed">失敗</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={filterCat} onValueChange={setFilterCat}>
+                  <SelectTrigger className="flex-1 h-6 text-[10px] border-gray-200 rounded-none">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-none text-xs">
+                    <SelectItem value="all">全カテゴリ</SelectItem>
+                    <SelectItem value="shipper">荷主</SelectItem>
+                    <SelectItem value="partner">協力会社</SelectItem>
+                    <SelectItem value="recruit">採用</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* List */}
+            <div className="flex-1 overflow-y-auto">
+              {isLoading ? (
+                <div className="p-3 space-y-2">
+                  {[1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="h-14 bg-gray-50" />)}
+                </div>
+              ) : filtered.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-16 text-gray-300">
+                  <Mail className="w-8 h-8 mb-2 opacity-30" />
+                  <p className="text-xs">リードがありません</p>
+                  <p className="text-[10px] mt-1">DDGクロールで自動取得</p>
+                </div>
+              ) : (
+                filtered.map((lead) => {
+                  const st = STATUS_LABEL[lead.status] ?? STATUS_LABEL.pending;
+                  const isActive = selected?.id === lead.id;
+                  return (
+                    <div
+                      key={lead.id}
+                      className={`px-3 py-2.5 border-b border-gray-50 cursor-pointer transition-colors ${isActive ? "bg-black text-white" : "hover:bg-gray-50"}`}
+                      onClick={() => handleSelectLead(lead)}
+                      data-testid={`lead-row-${lead.id}`}
+                    >
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className={`text-[9px] px-1 py-0.5 rounded font-medium ${isActive ? "bg-white/20 text-white" : st.color}`}>
+                          {st.label}
+                        </span>
+                        <span className={`text-[9px] ${isActive ? "text-gray-300" : "text-gray-400"}`}>
+                          {CATEGORY_LABEL[lead.category] ?? lead.category}
+                        </span>
+                      </div>
+                      <p className={`text-xs font-medium truncate leading-tight ${isActive ? "text-white" : "text-gray-800"}`}>
+                        {lead.company || "（会社名なし）"}
+                      </p>
+                      <p className={`text-[10px] truncate mt-0.5 ${isActive ? "text-gray-300" : lead.email ? "text-blue-500" : "text-gray-300"}`}>
+                        {lead.email || "メールなし"}
+                      </p>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </div>
+
+          {/* RIGHT: Email preview */}
+          <div className="flex-1 flex flex-col bg-gray-50 min-w-0">
+            {!selected ? (
+              <div className="flex flex-col items-center justify-center h-full text-gray-300">
+                <Mail className="w-12 h-12 mb-3 opacity-20" />
+                <p className="text-sm">リードを選択してください</p>
+              </div>
             ) : (
               <>
-                <span className="font-semibold">SMTPサーバーが未設定のためメール送信はできません。</span>
-                <span className="block mt-0.5">「設定」ページから SMTP_HOST・SMTP_USER・SMTP_PASS を環境変数に設定してください。</span>
+                {/* Company info bar */}
+                <div className="px-5 py-3 bg-white border-b border-gray-200 flex items-center gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-gray-900 text-sm">{selected.company || "（会社名なし）"}</span>
+                      <span className="text-[10px] px-1.5 py-0.5 border border-gray-200 text-gray-500">
+                        {CATEGORY_LABEL[selected.category] ?? selected.category}
+                      </span>
+                      {(() => { const st = STATUS_LABEL[selected.status] ?? STATUS_LABEL.pending; return (
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded ${st.color}`}>{st.label}</span>
+                      ); })()}
+                    </div>
+                    <div className="flex items-center gap-3 mt-0.5 text-[11px] text-gray-500">
+                      {selected.email && (
+                        <span className="flex items-center gap-1"><Mail className="w-3 h-3" />{selected.email}</span>
+                      )}
+                      {selected.website && (
+                        <a href={selected.website} target="_blank" rel="noopener noreferrer"
+                          className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                          <Globe className="w-3 h-3" />{selected.website.replace(/^https?:\/\//, "").substring(0, 40)}
+                        </a>
+                      )}
+                      {selected.sentAt && (
+                        <span className="flex items-center gap-1 text-green-600">
+                          <CheckCircle className="w-3 h-3" />{fmtDate(selected.sentAt)}送信
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <button
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 border border-gray-200 text-gray-600 text-xs hover:border-black transition-colors disabled:opacity-40"
+                      onClick={() => generateMutation.mutate(selected.id)}
+                      disabled={generateMutation.isPending}
+                      data-testid="button-generate-email"
+                    >
+                      {generateMutation.isPending ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Wand2 className="w-3 h-3" />}
+                      AIで生成
+                    </button>
+                    {editMode ? (
+                      <>
+                        <button className="px-2.5 py-1.5 border border-gray-200 text-gray-600 text-xs hover:border-black"
+                          onClick={() => { setEditMode(false); setEditSubject(selected.emailSubject || ""); setEditBody(selected.emailBody || ""); }}>
+                          キャンセル
+                        </button>
+                        <button className="px-2.5 py-1.5 bg-gray-800 text-white text-xs hover:bg-black"
+                          onClick={() => saveMutation.mutate(selected.id)} disabled={saveMutation.isPending}>
+                          保存
+                        </button>
+                      </>
+                    ) : (
+                      <button className="px-2.5 py-1.5 border border-gray-200 text-gray-600 text-xs hover:border-black"
+                        onClick={() => setEditMode(true)}>
+                        編集
+                      </button>
+                    )}
+                    <button
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 bg-black text-white text-xs hover:bg-gray-800 disabled:opacity-40 transition-colors"
+                      onClick={() => sendMutation.mutate(selected.id)}
+                      disabled={!smtpOk || !selected.email || !selected.emailSubject || sendMutation.isPending || selected.status === "sent"}
+                      data-testid="button-send-lead-email"
+                    >
+                      {sendMutation.isPending ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Send className="w-3 h-3" />}
+                      送信
+                    </button>
+                    <button
+                      className="p-1.5 border border-gray-200 text-gray-400 hover:text-red-500 hover:border-red-200 transition-colors"
+                      onClick={() => deleteMutation.mutate(selected.id)}
+                      data-testid="button-delete-lead"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Email preview / edit */}
+                <div className="flex-1 overflow-y-auto p-5">
+                  {!selected.emailSubject && !editMode ? (
+                    <div className="flex flex-col items-center justify-center h-40 text-gray-300 border border-dashed border-gray-200 bg-white">
+                      <Wand2 className="w-8 h-8 mb-2 opacity-30" />
+                      <p className="text-sm">メールがまだ生成されていません</p>
+                      <button
+                        className="mt-3 flex items-center gap-1.5 px-3 py-1.5 bg-black text-white text-xs"
+                        onClick={() => generateMutation.mutate(selected.id)}
+                        disabled={generateMutation.isPending}
+                      >
+                        <Wand2 className="w-3 h-3" />
+                        {generateMutation.isPending ? "生成中..." : "AIでメールを生成"}
+                      </button>
+                    </div>
+                  ) : editMode ? (
+                    <div className="bg-white border border-gray-200 p-5 space-y-4">
+                      <div>
+                        <label className="text-xs text-gray-500 mb-1 block">件名</label>
+                        <Input
+                          className="border-gray-200 rounded-none text-sm"
+                          value={editSubject}
+                          onChange={(e) => setEditSubject(e.target.value)}
+                          data-testid="input-email-subject"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs text-gray-500 mb-1 block">本文</label>
+                        <Textarea
+                          className="border-gray-200 rounded-none text-xs resize-none"
+                          rows={18}
+                          value={editBody}
+                          onChange={(e) => setEditBody(e.target.value)}
+                          data-testid="textarea-email-body"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    /* Email preview render */
+                    <div className="bg-white border border-gray-200 shadow-sm max-w-2xl">
+                      {/* Email header */}
+                      <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">
+                        <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
+                          <Mail className="w-3.5 h-3.5" />
+                          <span>From: 株式会社池ノ谷商事 営業部 &lt;info@ikenoyashoji.co.jp&gt;</span>
+                        </div>
+                        <div className="text-xs text-gray-500 mb-2">To: {selected.email || "（メールなし）"}</div>
+                        <div className="text-sm font-semibold text-gray-900">{selected.emailSubject}</div>
+                      </div>
+                      {/* Email body */}
+                      <div className="px-6 py-5">
+                        <pre className="text-sm text-gray-700 whitespace-pre-wrap font-sans leading-relaxed">
+                          {selected.emailBody}
+                        </pre>
+                      </div>
+                      {/* Crawl meta */}
+                      {selected.crawlQuery && (
+                        <div className="px-6 py-2 border-t border-gray-50 flex items-center gap-2 text-[10px] text-gray-300">
+                          <Search className="w-3 h-3" />
+                          クロールクエリ: {selected.crawlQuery}
+                          <Clock className="w-3 h-3 ml-2" />
+                          {fmtDate(selected.createdAt)}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {selected.errorMsg && (
+                    <div className="mt-3 flex items-center gap-2 text-xs text-red-600 bg-red-50 border border-red-100 px-3 py-2">
+                      <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                      {selected.errorMsg}
+                    </div>
+                  )}
+                </div>
               </>
             )}
           </div>
         </div>
-
-        {/* Filter + contact list */}
-        <div className="bg-white border border-gray-200">
-          <div className="px-4 py-3 border-b border-gray-100 flex items-center gap-3 flex-wrap">
-            <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-700 text-sm font-medium">問い合わせ一覧</span>
-            </div>
-            <Select value={filterType} onValueChange={(v) => { setFilterType(v); setSelected([]); }}>
-              <SelectTrigger className="w-32 border-gray-200 text-gray-600 text-xs h-7 rounded-none" data-testid="select-email-filter">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="rounded-none border-gray-200">
-                <SelectItem value="all" className="text-xs">すべて</SelectItem>
-                <SelectItem value="shipper" className="text-xs">荷主</SelectItem>
-                <SelectItem value="recruit" className="text-xs">採用</SelectItem>
-                <SelectItem value="partner" className="text-xs">協力会社</SelectItem>
-              </SelectContent>
-            </Select>
-            {filtered.length > 0 && (
-              <button onClick={toggleAll} className="text-xs text-gray-500 hover:text-gray-900 ml-auto" data-testid="button-select-all">
-                {selected.length === filtered.length ? "選択解除" : `全選択（${filtered.length}件）`}
-              </button>
-            )}
-            {selected.length > 0 && (
-              <button
-                className="flex items-center gap-1 px-3 py-1 bg-black text-white text-xs hover:bg-gray-800 transition-colors"
-                onClick={() => setComposeOpen(true)}
-                data-testid="button-send-selected"
-              >
-                <Send className="w-3 h-3" /> 選択した{selected.length}件に送信
-              </button>
-            )}
-          </div>
-
-          {isLoading ? (
-            <div className="p-4 space-y-2">{[1,2,3].map(i => <Skeleton key={i} className="h-14 bg-gray-50" />)}</div>
-          ) : filtered.length === 0 ? (
-            <div className="py-16 text-center text-gray-300">
-              <Users className="w-8 h-8 mx-auto mb-2 opacity-30" />
-              <p className="text-sm">問い合わせがありません</p>
-            </div>
-          ) : (
-            <div className="divide-y divide-gray-50">
-              {filtered.map((c: any) => (
-                <div
-                  key={c.id}
-                  className={`px-4 py-3 flex items-center gap-3 cursor-pointer hover:bg-gray-50 transition-colors ${selected.includes(c.id) ? "bg-blue-50" : ""}`}
-                  onClick={() => toggleSelect(c.id)}
-                  data-testid={`contact-row-${c.id}`}
-                >
-                  <div className={`w-4 h-4 border flex-shrink-0 flex items-center justify-center ${selected.includes(c.id) ? "bg-black border-black" : "border-gray-300"}`}>
-                    {selected.includes(c.id) && <span className="text-white text-[10px] leading-none">✓</span>}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] px-1.5 py-0.5 border border-gray-200 text-gray-500">{typeLabel[c.type] ?? c.type}</span>
-                      <span className="text-gray-800 text-xs font-medium">{c.name}</span>
-                      {c.company && <span className="text-gray-400 text-xs">（{c.company}）</span>}
-                    </div>
-                    <p className="text-gray-500 text-[11px] mt-0.5">{c.email}</p>
-                  </div>
-                  <span className="text-gray-300 text-[11px] flex-shrink-0">{format(new Date(c.createdAt), "M/d", { locale: ja })}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
       </div>
 
-      {/* Compose dialog */}
-      <Dialog open={composeOpen} onOpenChange={setComposeOpen}>
-        <DialogContent className="bg-white border-gray-200 rounded-none max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-gray-900 flex items-center gap-2">
-              <Mail className="w-4 h-4" /> メール作成
-            </DialogTitle>
-          </DialogHeader>
-
-          <div className="space-y-4">
-            {/* To */}
+      {/* Add Lead Dialog */}
+      <Dialog open={addOpen} onOpenChange={setAddOpen}>
+        <DialogContent className="bg-white border-gray-200 rounded-none max-w-sm">
+          <DialogHeader><DialogTitle className="text-gray-900">リードを手動追加</DialogTitle></DialogHeader>
+          <div className="space-y-3">
             <div>
-              <label className="text-gray-600 text-xs font-medium">送信先</label>
-              {selected.length > 0 ? (
-                <div className="mt-1 border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-gray-700">
-                  選択された {selected.length} 件の問い合わせ先に送信
-                  <span className="text-gray-400 ml-2">（{filtered.filter((c) => selected.includes(c.id)).map((c) => c.email).join(", ")}）</span>
-                </div>
-              ) : (
-                <Input
-                  placeholder="例：customer@example.com（複数の場合はカンマ区切り）"
-                  className="border-gray-200 text-gray-900 placeholder:text-gray-300 mt-1 text-xs rounded-none focus:border-black focus:ring-0"
-                  value={manualTo}
-                  onChange={(e) => setManualTo(e.target.value)}
-                  data-testid="input-email-to"
-                />
-              )}
+              <label className="text-xs text-gray-500 mb-1 block">会社名</label>
+              <Input className="border-gray-200 rounded-none text-sm" value={addForm.company}
+                onChange={(e) => setAddForm((f) => ({ ...f, company: e.target.value }))} />
             </div>
-
-            {/* Template */}
             <div>
-              <label className="text-gray-600 text-xs font-medium">テンプレート（任意）</label>
-              <Select value={templateIdx === "" ? "" : String(templateIdx)} onValueChange={(v) => applyTemplate(Number(v))}>
-                <SelectTrigger className="border-gray-200 text-gray-600 text-xs h-8 mt-1 rounded-none" data-testid="select-email-template">
-                  <SelectValue placeholder="テンプレートを選択..." />
+              <label className="text-xs text-gray-500 mb-1 block">メールアドレス</label>
+              <Input className="border-gray-200 rounded-none text-sm" value={addForm.email}
+                onChange={(e) => setAddForm((f) => ({ ...f, email: e.target.value }))} />
+            </div>
+            <div>
+              <label className="text-xs text-gray-500 mb-1 block">Webサイト</label>
+              <Input className="border-gray-200 rounded-none text-sm" placeholder="https://..." value={addForm.website}
+                onChange={(e) => setAddForm((f) => ({ ...f, website: e.target.value }))} />
+            </div>
+            <div>
+              <label className="text-xs text-gray-500 mb-1 block">カテゴリ</label>
+              <Select value={addForm.category} onValueChange={(v) => setAddForm((f) => ({ ...f, category: v }))}>
+                <SelectTrigger className="border-gray-200 rounded-none text-xs h-8">
+                  <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="rounded-none border-gray-200">
-                  {TEMPLATES.map((t, i) => (
-                    <SelectItem key={i} value={String(i)} className="text-xs">{t.label}</SelectItem>
-                  ))}
+                <SelectContent className="rounded-none">
+                  <SelectItem value="shipper">荷主</SelectItem>
+                  <SelectItem value="partner">協力会社</SelectItem>
+                  <SelectItem value="recruit">採用</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-
-            {/* Subject */}
-            <div>
-              <label className="text-gray-600 text-xs font-medium">件名</label>
-              <Input
-                placeholder="メールの件名"
-                className="border-gray-200 text-gray-900 placeholder:text-gray-300 mt-1 text-sm rounded-none focus:border-black focus:ring-0"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                data-testid="input-email-subject"
-              />
-            </div>
-
-            {/* Body */}
-            <div>
-              <label className="text-gray-600 text-xs font-medium">本文</label>
-              <Textarea
-                placeholder="メールの本文"
-                className="border-gray-200 text-gray-900 placeholder:text-gray-300 mt-1 text-xs rounded-none resize-none focus:border-black focus:ring-0"
-                rows={12}
-                value={body}
-                onChange={(e) => setBody(e.target.value)}
-                data-testid="textarea-email-body"
-              />
-            </div>
-
-            {!smtpOk && (
-              <div className="flex items-center gap-2 border border-red-100 bg-red-50 p-3 text-xs text-red-600">
-                <XCircle className="w-3.5 h-3.5 flex-shrink-0" />
-                SMTPが設定されていないため送信できません。「設定」画面で SMTP 環境変数を設定してください。
-              </div>
-            )}
           </div>
-
           <DialogFooter className="gap-2">
-            <button className="px-4 py-2 border border-gray-300 text-gray-600 text-sm hover:border-black" onClick={() => setComposeOpen(false)}>キャンセル</button>
-            <button
-              className="px-4 py-2 bg-black text-white text-sm hover:bg-gray-800 disabled:opacity-40 flex items-center gap-2"
-              onClick={() => sendMutation.mutate()}
-              disabled={!smtpOk || sendMutation.isPending || (!subject || !body)}
-              data-testid="button-send-email"
-            >
-              <Send className="w-3.5 h-3.5" />
-              {sendMutation.isPending ? "送信中..." : "送信する"}
+            <button className="px-4 py-2 border border-gray-300 text-gray-600 text-sm" onClick={() => setAddOpen(false)}>キャンセル</button>
+            <button className="px-4 py-2 bg-black text-white text-sm disabled:opacity-40"
+              onClick={() => addMutation.mutate()} disabled={!addForm.company || addMutation.isPending}>
+              追加
             </button>
           </DialogFooter>
         </DialogContent>

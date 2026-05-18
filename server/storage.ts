@@ -1,7 +1,7 @@
 import { eq, desc, gte } from "drizzle-orm";
 import { db } from "./db";
 import {
-  users, articles, keywords, contacts, pageViews, events, searchConsoleData, adminUsers,
+  users, articles, keywords, contacts, pageViews, events, searchConsoleData, adminUsers, emailLeads,
   type User, type InsertUser,
   type Article, type InsertArticle,
   type Keyword, type InsertKeyword,
@@ -10,6 +10,7 @@ import {
   type SiteEvent, type InsertEvent,
   type SearchConsoleData, type InsertSearchConsoleData,
   type AdminUser,
+  type EmailLead, type InsertEmailLead,
 } from "@shared/schema";
 
 export interface IStorage {
@@ -46,6 +47,12 @@ export interface IStorage {
   createAdminUser(username: string, passwordHash: string, role?: string): Promise<AdminUser>;
   updateAdminUserPassword(id: number, passwordHash: string): Promise<void>;
   deleteAdminUser(id: number): Promise<void>;
+
+  getEmailLeads(status?: string): Promise<EmailLead[]>;
+  getEmailLeadByWebsite(website: string): Promise<EmailLead | undefined>;
+  createEmailLead(lead: InsertEmailLead): Promise<EmailLead>;
+  updateEmailLead(id: number, data: Partial<InsertEmailLead> & { sentAt?: Date | null }): Promise<EmailLead>;
+  deleteEmailLead(id: number): Promise<void>;
 }
 
 export class DrizzleStorage implements IStorage {
@@ -185,6 +192,33 @@ export class DrizzleStorage implements IStorage {
 
   async deleteAdminUser(id: number) {
     await db.delete(adminUsers).where(eq(adminUsers.id, id));
+  }
+
+  async getEmailLeads(status?: string) {
+    if (status) {
+      return db.select().from(emailLeads).where(eq(emailLeads.status, status)).orderBy(desc(emailLeads.createdAt));
+    }
+    return db.select().from(emailLeads).orderBy(desc(emailLeads.createdAt));
+  }
+
+  async getEmailLeadByWebsite(website: string) {
+    const normalized = website.replace(/\/$/, "").substring(0, 100);
+    const all = await db.select().from(emailLeads);
+    return all.find((l) => l.website?.replace(/\/$/, "").substring(0, 100) === normalized);
+  }
+
+  async createEmailLead(lead: InsertEmailLead) {
+    const [created] = await db.insert(emailLeads).values(lead).returning();
+    return created;
+  }
+
+  async updateEmailLead(id: number, data: Partial<InsertEmailLead> & { sentAt?: Date | null }) {
+    const [updated] = await db.update(emailLeads).set(data).where(eq(emailLeads.id, id)).returning();
+    return updated;
+  }
+
+  async deleteEmailLead(id: number) {
+    await db.delete(emailLeads).where(eq(emailLeads.id, id));
   }
 }
 

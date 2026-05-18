@@ -622,6 +622,66 @@ CTR：${(ctr * 100).toFixed(1)}%
     });
   });
 
+  // Email Leads CRUD
+  app.get("/api/admin/email-leads", requireAdmin, async (req, res) => {
+    const status = req.query.status as string | undefined;
+    const leads = await storage.getEmailLeads(status);
+    res.json(leads);
+  });
+
+  app.post("/api/admin/email-leads", requireAdmin, async (req, res) => {
+    const lead = await storage.createEmailLead(req.body);
+    res.json(lead);
+  });
+
+  app.patch("/api/admin/email-leads/:id", requireAdmin, async (req, res) => {
+    const lead = await storage.updateEmailLead(Number(req.params.id), req.body);
+    res.json(lead);
+  });
+
+  app.delete("/api/admin/email-leads/:id", requireAdmin, async (req, res) => {
+    await storage.deleteEmailLead(Number(req.params.id));
+    res.json({ ok: true });
+  });
+
+  app.post("/api/admin/email-leads/:id/generate", requireAdmin, async (req, res) => {
+    const lead = await storage.getEmailLeads();
+    const target = lead.find((l) => l.id === Number(req.params.id));
+    if (!target) return res.status(404).json({ error: "Not found" });
+    const { generateEmailForLead } = await import("./email-sales");
+    const { subject, body } = await generateEmailForLead(target);
+    const updated = await storage.updateEmailLead(target.id, { emailSubject: subject, emailBody: body });
+    res.json(updated);
+  });
+
+  app.post("/api/admin/email-leads/:id/send", requireAdmin, async (req, res) => {
+    const leads = await storage.getEmailLeads();
+    const target = leads.find((l) => l.id === Number(req.params.id));
+    if (!target) return res.status(404).json({ error: "Not found" });
+    if (!target.email) return res.status(400).json({ error: "No email address" });
+    try {
+      const { sendLeadEmail } = await import("./email-sales");
+      await sendLeadEmail(target);
+      const updated = await storage.updateEmailLead(target.id, { status: "sent", sentAt: new Date() });
+      res.json(updated);
+    } catch (err: any) {
+      await storage.updateEmailLead(target.id, { status: "failed", errorMsg: err.message });
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  app.post("/api/admin/email-sales/crawl", requireAdmin, async (req, res) => {
+    const { crawlLeads } = await import("./email-sales");
+    const count = await crawlLeads();
+    res.json({ added: count });
+  });
+
+  app.post("/api/admin/email-sales/pipeline", requireAdmin, async (req, res) => {
+    const { runEmailSalesPipeline } = await import("./email-sales");
+    const result = await runEmailSalesPipeline();
+    res.json(result);
+  });
+
   // Email send
   app.post("/api/admin/email/send", requireAdmin, async (req, res) => {
     const { to, subject, body } = req.body;
@@ -689,13 +749,13 @@ ${articleUrls}
   });
 
   // Auto-publish
-  app.get("/api/admin/auto-publish/status", requireAdmin, (_req, res) => {
-    const { loadConfig } = require("./auto-publish");
+  app.get("/api/admin/auto-publish/status", requireAdmin, async (_req, res) => {
+    const { loadConfig } = await import("./auto-publish");
     res.json(loadConfig());
   });
 
-  app.post("/api/admin/auto-publish/toggle", requireAdmin, (req, res) => {
-    const { loadConfig, saveConfig, startCron, stopCron } = require("./auto-publish");
+  app.post("/api/admin/auto-publish/toggle", requireAdmin, async (req, res) => {
+    const { loadConfig, saveConfig, startCron, stopCron } = await import("./auto-publish");
     const config = loadConfig();
     config.enabled = !config.enabled;
     if (config.enabled) startCron(config.cronTime);
@@ -704,8 +764,8 @@ ${articleUrls}
     res.json({ enabled: config.enabled });
   });
 
-  app.patch("/api/admin/auto-publish/settings", requireAdmin, (req, res) => {
-    const { loadConfig, saveConfig, startCron, stopCron } = require("./auto-publish");
+  app.patch("/api/admin/auto-publish/settings", requireAdmin, async (req, res) => {
+    const { loadConfig, saveConfig, startCron, stopCron } = await import("./auto-publish");
     const { cronTime, autoPublish } = req.body;
     const config = loadConfig();
     if (cronTime !== undefined) config.cronTime = cronTime;
@@ -716,7 +776,7 @@ ${articleUrls}
   });
 
   app.post("/api/admin/auto-publish/trigger", requireAdmin, async (_req, res) => {
-    const { runAutoPublish } = require("./auto-publish");
+    const { runAutoPublish } = await import("./auto-publish");
     const result = await runAutoPublish();
     res.json(result);
   });

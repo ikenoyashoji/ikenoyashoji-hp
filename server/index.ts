@@ -63,6 +63,10 @@ app.use((req, res, next) => {
   const { initAutoPublisher } = await import("./auto-publish");
   initAutoPublisher();
 
+  const { startEmailSalesCron } = await import("./email-sales");
+  const emailEnabled = process.env.EMAIL_SALES_ENABLED === "true";
+  if (emailEnabled) startEmailSalesCron(process.env.EMAIL_SALES_CRON || "0 10 * * *");
+
   await registerRoutes(httpServer, app);
 
   app.use((err: any, _req: Request, res: Response, next: NextFunction) => {

@@ -102,6 +102,25 @@ export const insertAdminUserSchema = createInsertSchema(adminUsers).omit({ id: t
 export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
 export type AdminUser = typeof adminUsers.$inferSelect;
 
+export const emailLeads = pgTable("email_leads", {
+  id: serial("id").primaryKey(),
+  company: text("company").notNull().default(""),
+  website: text("website").default(""),
+  email: text("email").default(""),
+  contactName: text("contact_name").default(""),
+  category: text("category").notNull().default("shipper"),
+  status: text("status").notNull().default("pending"),
+  emailSubject: text("email_subject").default(""),
+  emailBody: text("email_body").default(""),
+  crawlQuery: text("crawl_query").default(""),
+  errorMsg: text("error_msg").default(""),
+  sentAt: timestamp("sent_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+export const insertEmailLeadSchema = createInsertSchema(emailLeads).omit({ id: true, createdAt: true, sentAt: true });
+export type InsertEmailLead = z.infer<typeof insertEmailLeadSchema>;
+export type EmailLead = typeof emailLeads.$inferSelect;
+
 export const searchConsoleData = pgTable("search_console_data", {
   id: serial("id").primaryKey(),
   date: text("date").notNull(),
