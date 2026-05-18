@@ -228,7 +228,7 @@ export default function Home() {
                   <h3 className="text-gray-900 font-bold text-lg leading-snug">{s.title}</h3>
                   <p className="text-gray-400 text-xs italic tracking-wide">{s.sub}</p>
                   <div className="pt-2">
-                    <Link href="/contact">
+                    <Link href="/services">
                       <span className="text-[#1a4b99] text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                         詳しく見る <ArrowRight className="w-3 h-3" />
                       </span>
