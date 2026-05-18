@@ -74,7 +74,7 @@ export function Header() {
                 <img src="/logo-mark.png" alt="池ノ谷商事ロゴ" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="text-[9px] text-gray-400 tracking-widest mb-0.5">総合物流企業</span>
+                <span className="text-[9px] text-gray-400 tracking-widest leading-none mb-px">総合物流企業</span>
                 <span className="text-black tracking-tight" style={{ fontFamily: "'Noto Serif JP', serif", fontWeight: 900 }}>
                   <span className="text-xs sm:text-sm">株式会社</span>
                   <span className="text-lg sm:text-2xl">池ノ谷商事</span>
