@@ -12,44 +12,10 @@ import { Link } from "wouter";
 
 const targetLabels: Record<string, string> = { shipper: "荷主向け", recruit: "採用向け", partner: "協力会社向け" };
 
-export default function AdminKeywords() {
-  const [addOpen, setAddOpen] = useState(false);
-  const [editItem, setEditItem] = useState<any>(null);
-  const [deleteId, setDeleteId] = useState<number | null>(null);
-  const [form, setForm] = useState({ keyword: "", target: "shipper", priority: "3", notes: "" });
-  const { toast } = useToast();
+type FormState = { keyword: string; target: string; priority: string; notes: string };
 
-  const { data: keywords, isLoading } = useQuery<any[]>({ queryKey: ["/api/keywords"] });
-
-  const addMutation = useMutation({
-    mutationFn: (data: any) => apiRequest("POST", "/api/admin/keywords", { ...data, priority: parseInt(data.priority) }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/keywords"] });
-      setAddOpen(false);
-      setForm({ keyword: "", target: "shipper", priority: "3", notes: "" });
-      toast({ title: "キーワードを追加しました" });
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: (data: any) => apiRequest("PUT", `/api/admin/keywords/${data.id}`, { ...data, priority: parseInt(data.priority) }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/keywords"] });
-      setEditItem(null);
-      toast({ title: "キーワードを更新しました" });
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id: number) => apiRequest("DELETE", `/api/admin/keywords/${id}`, {}),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/keywords"] });
-      setDeleteId(null);
-      toast({ title: "キーワードを削除しました" });
-    },
-  });
-
-  const FormContent = ({ value, onChange }: { value: typeof form; onChange: (f: any) => void }) => (
+function KeywordForm({ value, onChange }: { value: FormState; onChange: React.Dispatch<React.SetStateAction<FormState>> }) {
+  return (
     <div className="space-y-3">
       <div>
         <label className="text-gray-600 text-xs font-medium">キーワード</label>
@@ -57,14 +23,14 @@ export default function AdminKeywords() {
           placeholder="例：物流 コスト削減 方法"
           className="border-gray-200 text-gray-900 placeholder:text-gray-300 mt-1 text-sm rounded-none focus:border-black focus:ring-0"
           value={value.keyword}
-          onChange={(e) => onChange((f: any) => ({ ...f, keyword: e.target.value }))}
+          onChange={(e) => onChange((f) => ({ ...f, keyword: e.target.value }))}
           data-testid="input-keyword"
         />
       </div>
       <div className="grid grid-cols-2 gap-2">
         <div>
           <label className="text-gray-600 text-xs font-medium">ターゲット</label>
-          <Select value={value.target} onValueChange={(v) => onChange((f: any) => ({ ...f, target: v }))}>
+          <Select value={value.target} onValueChange={(v) => onChange((f) => ({ ...f, target: v }))}>
             <SelectTrigger className="border-gray-200 text-gray-700 text-xs h-8 mt-1 rounded-none" data-testid="select-keyword-target">
               <SelectValue />
             </SelectTrigger>
@@ -77,12 +43,14 @@ export default function AdminKeywords() {
         </div>
         <div>
           <label className="text-gray-600 text-xs font-medium">優先度（1〜5）</label>
-          <Select value={value.priority} onValueChange={(v) => onChange((f: any) => ({ ...f, priority: v }))}>
+          <Select value={value.priority} onValueChange={(v) => onChange((f) => ({ ...f, priority: v }))}>
             <SelectTrigger className="border-gray-200 text-gray-700 text-xs h-8 mt-1 rounded-none" data-testid="select-keyword-priority">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="rounded-none border-gray-200">
-              {[1,2,3,4,5].map((n) => <SelectItem key={n} value={String(n)} className="text-xs">{"★".repeat(n)}</SelectItem>)}
+              {[1, 2, 3, 4, 5].map((n) => (
+                <SelectItem key={n} value={String(n)} className="text-xs">{"★".repeat(n)}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -93,11 +61,61 @@ export default function AdminKeywords() {
           placeholder="キーワードに関するメモ"
           className="border-gray-200 text-gray-900 placeholder:text-gray-300 mt-1 text-xs rounded-none"
           value={value.notes}
-          onChange={(e) => onChange((f: any) => ({ ...f, notes: e.target.value }))}
+          onChange={(e) => onChange((f) => ({ ...f, notes: e.target.value }))}
         />
       </div>
     </div>
   );
+}
+
+const emptyForm: FormState = { keyword: "", target: "shipper", priority: "3", notes: "" };
+
+export default function AdminKeywords() {
+  const [addOpen, setAddOpen] = useState(false);
+  const [editItem, setEditItem] = useState<any>(null);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [addForm, setAddForm] = useState<FormState>(emptyForm);
+  const [editForm, setEditForm] = useState<FormState>(emptyForm);
+  const { toast } = useToast();
+
+  const { data: keywords, isLoading } = useQuery<any[]>({ queryKey: ["/api/keywords"] });
+
+  const addMutation = useMutation({
+    mutationFn: () =>
+      apiRequest("POST", "/api/admin/keywords", { ...addForm, priority: parseInt(addForm.priority) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/keywords"] });
+      setAddOpen(false);
+      setAddForm(emptyForm);
+      toast({ title: "キーワードを追加しました" });
+    },
+    onError: () => toast({ title: "追加に失敗しました", variant: "destructive" }),
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: () =>
+      apiRequest("PUT", `/api/admin/keywords/${editItem?.id}`, { ...editForm, priority: parseInt(editForm.priority) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/keywords"] });
+      setEditItem(null);
+      toast({ title: "キーワードを更新しました" });
+    },
+    onError: () => toast({ title: "更新に失敗しました", variant: "destructive" }),
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => apiRequest("DELETE", `/api/admin/keywords/${id}`, {}),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/keywords"] });
+      setDeleteId(null);
+      toast({ title: "キーワードを削除しました" });
+    },
+  });
+
+  const openEdit = (kw: any) => {
+    setEditItem(kw);
+    setEditForm({ keyword: kw.keyword, target: kw.target, priority: String(kw.priority), notes: kw.notes || "" });
+  };
 
   return (
     <AdminLayout>
@@ -109,7 +127,7 @@ export default function AdminKeywords() {
           </div>
           <button
             className="flex items-center gap-1.5 px-3 py-1.5 bg-black text-white text-xs hover:bg-gray-800 transition-colors"
-            onClick={() => setAddOpen(true)}
+            onClick={() => { setAddForm(emptyForm); setAddOpen(true); }}
             data-testid="button-add-keyword"
           >
             <Plus className="w-3.5 h-3.5" /> キーワード追加
@@ -122,11 +140,11 @@ export default function AdminKeywords() {
         </div>
 
         {isLoading ? (
-          <div className="space-y-1">{[1,2,3,4,5].map(i => <Skeleton key={i} className="h-14 bg-gray-100" />)}</div>
+          <div className="space-y-1">{[1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="h-14 bg-gray-100" />)}</div>
         ) : !keywords?.length ? (
           <div className="text-center py-16 border border-gray-100 text-gray-400">
             <p className="text-sm mb-3">キーワードがありません</p>
-            <button className="text-xs bg-black text-white px-4 py-2" onClick={() => setAddOpen(true)}>
+            <button className="text-xs bg-black text-white px-4 py-2" onClick={() => { setAddForm(emptyForm); setAddOpen(true); }}>
               最初のキーワードを追加
             </button>
           </div>
@@ -152,7 +170,7 @@ export default function AdminKeywords() {
                   </Link>
                   <button
                     className="h-7 px-2 text-[10px] border border-gray-200 text-gray-500 hover:border-black transition-colors flex items-center"
-                    onClick={() => setEditItem({ ...kw, priority: String(kw.priority) })}
+                    onClick={() => openEdit(kw)}
                     data-testid={`button-edit-keyword-${kw.id}`}
                   >
                     <Edit className="w-3 h-3" />
@@ -175,13 +193,13 @@ export default function AdminKeywords() {
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
         <DialogContent className="bg-white border-gray-200 rounded-none max-w-sm">
           <DialogHeader><DialogTitle className="text-gray-900">キーワード追加</DialogTitle></DialogHeader>
-          <FormContent value={form} onChange={setForm} />
+          <KeywordForm value={addForm} onChange={setAddForm} />
           <DialogFooter className="gap-2">
             <button className="px-4 py-2 border border-gray-300 text-gray-600 text-sm hover:border-black" onClick={() => setAddOpen(false)}>キャンセル</button>
             <button
               className="px-4 py-2 bg-black text-white text-sm hover:bg-gray-800 disabled:opacity-40"
-              onClick={() => addMutation.mutate(form)}
-              disabled={!form.keyword || addMutation.isPending}
+              onClick={() => addMutation.mutate()}
+              disabled={!addForm.keyword || addMutation.isPending}
               data-testid="button-keyword-save"
             >
               {addMutation.isPending ? "追加中..." : "追加する"}
@@ -191,15 +209,15 @@ export default function AdminKeywords() {
       </Dialog>
 
       {/* Edit dialog */}
-      <Dialog open={!!editItem} onOpenChange={() => setEditItem(null)}>
+      <Dialog open={!!editItem} onOpenChange={(o) => { if (!o) setEditItem(null); }}>
         <DialogContent className="bg-white border-gray-200 rounded-none max-w-sm">
           <DialogHeader><DialogTitle className="text-gray-900">キーワード編集</DialogTitle></DialogHeader>
-          {editItem && <FormContent value={editItem} onChange={setEditItem} />}
+          <KeywordForm value={editForm} onChange={setEditForm} />
           <DialogFooter className="gap-2">
             <button className="px-4 py-2 border border-gray-300 text-gray-600 text-sm hover:border-black" onClick={() => setEditItem(null)}>キャンセル</button>
             <button
               className="px-4 py-2 bg-black text-white text-sm hover:bg-gray-800 disabled:opacity-40"
-              onClick={() => updateMutation.mutate(editItem)}
+              onClick={() => updateMutation.mutate()}
               disabled={updateMutation.isPending}
             >
               {updateMutation.isPending ? "更新中..." : "更新する"}
@@ -209,7 +227,7 @@ export default function AdminKeywords() {
       </Dialog>
 
       {/* Delete dialog */}
-      <Dialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>
+      <Dialog open={deleteId !== null} onOpenChange={(o) => { if (!o) setDeleteId(null); }}>
         <DialogContent className="bg-white border-gray-200 rounded-none max-w-sm">
           <DialogHeader><DialogTitle className="text-gray-900">削除の確認</DialogTitle></DialogHeader>
           <p className="text-gray-500 text-sm">このキーワードを削除しますか？</p>
