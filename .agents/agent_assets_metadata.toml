@@ -60,3 +60,39 @@ id = "TgRx8DFejHdXBMzVuF9Cu"
 uri = "file://attached_assets/service_08_maintenance.png"
 type = "image"
 title = "Japanese auto repair garage bright clean"
+
+[[generated]]
+id = "jjhejr1Jw7J3MuLssv6eR"
+uri = "file://attached_assets/recruit_01_driver_cab.png"
+type = "image"
+title = "Japanese truck driver cab editorial"
+
+[[generated]]
+id = "9OIJVyRygu6Om2TUrnJW2"
+uri = "file://attached_assets/recruit_02_coordinator_warehouse.png"
+type = "image"
+title = "Japanese female coordinator warehouse tablet"
+
+[[generated]]
+id = "yC2HMxTl-SPvHF2IFNPs4"
+uri = "file://attached_assets/recruit_03_delivery_street.png"
+type = "image"
+title = "Japanese delivery driver van cherry blossom"
+
+[[generated]]
+id = "Q0ezeFnYkcgH39L4LiWsB"
+uri = "file://attached_assets/recruit_04_office_worker.png"
+type = "image"
+title = "Japanese female office worker logistics screens"
+
+[[generated]]
+id = "2TzljHze1r396hcFpwcWJ"
+uri = "file://attached_assets/recruit_05_mechanics_team.png"
+type = "image"
+title = "Japanese mechanics team bright workshop"
+
+[[generated]]
+id = "nkYOKCx5cjhxDG7dgEUKq"
+uri = "file://attached_assets/recruit_06_senior_outdoor.png"
+type = "image"
+title = "Japanese senior employee logistics facility outdoor"
