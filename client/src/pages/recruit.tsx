@@ -7,13 +7,13 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { CheckCircle, Mail } from "lucide-react";
-import truckHeroImg from "@assets/スクリーンショット_2026-05-13_3.51.29_1778611935867.png";
-import recruitImg1 from "@assets/スクリーンショット_2026-05-13_4.02.02_1778612566803.png";
-import recruitImg2 from "@assets/スクリーンショット_2026-05-13_4.02.12_1778612566804.png";
-import recruitImg3 from "@assets/スクリーンショット_2026-05-13_4.02.22_1778612566811.png";
-import recruitImg4 from "@assets/スクリーンショット_2026-05-13_4.04.03_1778612674400.png";
-import recruitImg5 from "@assets/スクリーンショット_2026-05-13_4.04.12_1778612674403.png";
-import recruitImg6 from "@assets/スクリーンショット_2026-05-13_4.04.20_1778612674407.png";
+import truckHeroImg from "@assets/recruit_hero.png";
+import recruitImg1 from "@assets/recruit_slide_01.png";
+import recruitImg2 from "@assets/recruit_slide_02.png";
+import recruitImg3 from "@assets/recruit_slide_03.png";
+import recruitImg4 from "@assets/recruit_slide_04.png";
+import recruitImg5 from "@assets/recruit_slide_05.png";
+import recruitImg6 from "@assets/recruit_slide_06.png";
 
 const positions = [
   { title: "トラックドライバー（正社員）", salary: "月給 25万〜35万円", features: ["社会保険完備", "賞与年2回", "退職金制度"], desc: "定期輸送・スポット輸送を担当。大型免許取得支援制度あり。", badge: "正社員" },

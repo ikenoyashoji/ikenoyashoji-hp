@@ -108,3 +108,45 @@ id = "yVDWplZHlQTFsQnO6gEVp"
 uri = "file://attached_assets/services_hero.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "VIv9z_9kqayiEZ_T-gQ38"
+uri = "file://attached_assets/recruit_hero.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "kKyK_v5bLE-ayZ6jN8DVB"
+uri = "file://attached_assets/recruit_slide_01.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "wg-hLclpQPny5GftU9hLB"
+uri = "file://attached_assets/recruit_slide_02.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "yWKLp2PqaQ3sWRoU5D0zn"
+uri = "file://attached_assets/recruit_slide_03.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "2BaagaY1tjVqelT3Eit-d"
+uri = "file://attached_assets/recruit_slide_04.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "0_KbK4BpSIjzLFf5QrTu0"
+uri = "file://attached_assets/recruit_slide_05.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "4NBDqoXW1PnLhCjNv2l5q"
+uri = "file://attached_assets/recruit_slide_06.png"
+type = "image"
+title = "generated_image"
