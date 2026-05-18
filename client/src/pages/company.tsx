@@ -153,10 +153,10 @@ export default function Company() {
               },
               {
                 type: "厚木第二倉庫",
-                zip: "—",
-                address: "—",
-                tel: "—",
-                fax: "—",
+                zip: "〒243-0214",
+                address: "神奈川県厚木市下古沢1004",
+                tel: "046-212-2766",
+                fax: "046-401-1714",
               },
             ].map((loc, i) => (
               <AnimateIn key={i} delay={i * 60}>
