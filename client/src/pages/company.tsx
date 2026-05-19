@@ -85,7 +85,7 @@ const companyInfo: { label: string; value: string | string[] }[] = [
   ]},
   { label: "主要取引銀行", value: [
     "相愛信用組合 本店",
-    "三井住友銀行 厚木市店",
+    "三井住友銀行",
     "きらぼし銀行 厚木支店",
   ]},
 ];
