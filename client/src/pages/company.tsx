@@ -178,9 +178,9 @@ export default function Company() {
               { type: "相模原車庫",   zip: "〒252-0244", address: "神奈川県相模原市中央区田名4905",     tel: "046-212-2766", fax: "046-401-1714", mapQuery: "神奈川県相模原市中央区田名4905" },
             ];
             const card = (loc: typeof locs[0], i: number) => (
-              <AnimateIn key={i} delay={i * 60}>
-                <div className="bg-white border border-gray-200 overflow-hidden shadow-sm">
-                  <div className="p-6">
+              <AnimateIn key={i} delay={i * 60} className="h-full">
+                <div className="bg-white border border-gray-200 overflow-hidden shadow-sm flex flex-col h-full">
+                  <div className="p-6 flex-1">
                     <span className="inline-block text-xs tracking-[0.2em] bg-[#0f2044] text-white px-4 py-1.5 mb-4">{loc.type}</span>
                     <div className="space-y-1.5 text-xs text-gray-500">
                       <p>{loc.zip}</p>
@@ -191,7 +191,7 @@ export default function Company() {
                   </div>
                   <iframe
                     src={`https://maps.google.com/maps?q=${encodeURIComponent(loc.mapQuery)}&output=embed&hl=ja&z=16`}
-                    className="w-full h-40 border-0"
+                    className="w-full h-40 border-0 shrink-0"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   />
@@ -200,14 +200,14 @@ export default function Company() {
             );
             return (
               <div className="space-y-4">
-                <div className="grid grid-cols-3 gap-4">{locs.slice(0, 3).map((l, i) => card(l, i))}</div>
-                <div className="grid grid-cols-6 gap-4">
-                  <div className="col-span-2 col-start-2">{card(locs[3], 3)}</div>
-                  <div className="col-span-2">{card(locs[4], 4)}</div>
+                <div className="grid grid-cols-3 gap-4 items-stretch">{locs.slice(0, 3).map((l, i) => card(l, i))}</div>
+                <div className="grid grid-cols-6 gap-4 items-stretch">
+                  <div className="col-span-2 col-start-2 flex flex-col">{card(locs[3], 3)}</div>
+                  <div className="col-span-2 flex flex-col">{card(locs[4], 4)}</div>
                 </div>
-                <div className="grid grid-cols-6 gap-4">
-                  <div className="col-span-2 col-start-2">{card(locs[5], 5)}</div>
-                  <div className="col-span-2">{card(locs[6], 6)}</div>
+                <div className="grid grid-cols-6 gap-4 items-stretch">
+                  <div className="col-span-2 col-start-2 flex flex-col">{card(locs[5], 5)}</div>
+                  <div className="col-span-2 flex flex-col">{card(locs[6], 6)}</div>
                 </div>
               </div>
             );
