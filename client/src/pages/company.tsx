@@ -83,11 +83,7 @@ const companyInfo: { label: string; value: string | string[] }[] = [
     "ヒップスタイル株式会社／ヤマト運輸株式会社／ファイズトランスポートサービス株式会社／",
     "白銅株式会社／中央運輸株式会社　他（順不同）",
   ]},
-  { label: "主要取引銀行", value: [
-    "相愛信用組合 本店",
-    "三井住友銀行 厚木市店",
-    "きらぼし銀行 厚木支店",
-  ]},
+  { label: "主要取引銀行", value: "三井住友銀行" },
 ];
 
 export default function Company() {
