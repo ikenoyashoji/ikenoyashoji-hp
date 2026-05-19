@@ -215,62 +215,6 @@ export default function Company() {
         </div>
       </section>
 
-      {/* Org Chart */}
-      <section className="py-24 bg-white px-4 sm:px-8">
-        <div className="max-w-5xl mx-auto">
-          <AnimateIn>
-            <div className="text-center mb-16">
-              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">ORGANIZATION</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">本社組織図</h2>
-              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
-            </div>
-          </AnimateIn>
-          <AnimateIn>
-            <div className="flex flex-col items-center">
-              {/* 代表取締役 */}
-              <div className="bg-[#0f2044] text-white text-sm font-semibold tracking-[0.2em] px-12 py-4 min-w-[220px] text-center shadow-lg">
-                代表取締役
-              </div>
-              <div className="w-px h-8 bg-gray-300" />
-
-              {/* 3本部 */}
-              <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-px bg-gray-200 border border-gray-200">
-                {[
-                  {
-                    name: "管理本部", en: "MANAGEMENT",
-                    depts: ["総務・人事部", "経理・財務部", "法務・コンプライアンス部"],
-                  },
-                  {
-                    name: "営業本部", en: "SALES",
-                    depts: ["荷主営業部", "物流開発部", "パートナー営業部"],
-                  },
-                  {
-                    name: "運輸・事業本部", en: "OPERATIONS",
-                    depts: ["運行管理部", "安全管理部", "倉庫・整備部"],
-                  },
-                ].map((div) => (
-                  <div key={div.name} className="bg-white">
-                    <div className="bg-[#1a4b99] text-white text-center py-3 px-4">
-                      <p className="text-[9px] tracking-[0.35em] text-blue-200 mb-0.5">{div.en}</p>
-                      <p className="text-sm font-semibold tracking-wider">{div.name}</p>
-                    </div>
-                    <div className="p-4 space-y-2">
-                      {div.depts.map((d) => (
-                        <div key={d} className="border border-gray-100 bg-gray-50 py-2.5 px-4 text-xs text-gray-700 font-medium tracking-wide text-center">
-                          {d}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* 注記 */}
-              <p className="text-[10px] text-gray-400 mt-6 tracking-wider">※ 2025年4月現在</p>
-            </div>
-          </AnimateIn>
-        </div>
-      </section>
 
       {/* History */}
       <section className="py-24 bg-gray-50 px-4 sm:px-8">
