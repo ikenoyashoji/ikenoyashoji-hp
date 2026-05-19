@@ -150,7 +150,7 @@ export default function About() {
           </AnimateIn>
           <AnimateIn>
             <div className="max-w-2xl mx-auto text-center">
-              <h3 className="text-2xl md:text-3xl font-light text-gray-900 mb-8 leading-relaxed" style={{ fontFamily: "'Noto Serif JP', serif" }}>「運ぶ信頼、届ける真心」</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 leading-relaxed" style={{ fontFamily: "'Noto Serif JP', serif" }}>「運ぶ信頼、届ける真心」</h3>
               <div className="space-y-5 text-gray-600 text-sm leading-[2]">
                 <p>
                   弊社は2023年2月に法人設立、軽貨物輸送ならびに貨物取扱事業から始まりました。<br />
