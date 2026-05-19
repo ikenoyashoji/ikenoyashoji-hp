@@ -21,7 +21,7 @@ export function SplashScreen({ onFinish }: { onFinish: () => void }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: "16px",
+        gap: "4px",
         opacity: phase === "out" ? 0 : 1,
         transition: phase === "out" ? "opacity 0.65s ease" : "none",
         pointerEvents: phase === "out" ? "none" : "all",
