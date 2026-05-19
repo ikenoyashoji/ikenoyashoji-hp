@@ -214,7 +214,7 @@ export default function Company() {
             ].map((loc, i) => (
               <AnimateIn key={i} delay={i * 60}>
                 <div className="bg-white border border-gray-100 p-6">
-                  <span className="inline-block text-[10px] tracking-[0.3em] bg-[#0f2044] text-white px-3 py-1 mb-4">{loc.type}</span>
+                  <span className="inline-block text-xs tracking-[0.2em] bg-[#0f2044] text-white px-4 py-1.5 mb-4">{loc.type}</span>
                   <div className="space-y-1.5 text-xs text-gray-500">
                     {loc.zip !== "—" && <p>{loc.zip}</p>}
                     <p className={loc.address === "—" ? "text-gray-300 italic" : ""}>{loc.address === "—" ? "住所調整中" : loc.address}</p>
