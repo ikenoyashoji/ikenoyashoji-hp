@@ -18,8 +18,10 @@ export function SplashScreen({ onFinish }: { onFinish: () => void }) {
         zIndex: 9999,
         background: "#ffffff",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        gap: "16px",
         opacity: phase === "out" ? 0 : 1,
         transition: phase === "out" ? "opacity 0.65s ease" : "none",
         pointerEvents: phase === "out" ? "none" : "all",
@@ -37,6 +39,20 @@ export function SplashScreen({ onFinish }: { onFinish: () => void }) {
           transition: "opacity 0.5s ease, transform 0.5s ease",
         }}
       />
+      <p
+        style={{
+          fontFamily: "'Noto Serif JP', serif",
+          fontWeight: 700,
+          fontSize: "22px",
+          color: "#0f2044",
+          letterSpacing: "0.12em",
+          opacity: phase === "in" ? 0 : 1,
+          transform: phase === "in" ? "translateY(8px)" : "translateY(0)",
+          transition: "opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s",
+        }}
+      >
+        株式会社池ノ谷商事
+      </p>
     </div>
   );
 }
