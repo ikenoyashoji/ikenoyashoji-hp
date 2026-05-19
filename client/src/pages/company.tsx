@@ -179,7 +179,7 @@ export default function Company() {
             ];
             const card = (loc: typeof locs[0], i: number) => (
               <AnimateIn key={i} delay={i * 60}>
-                <div className="bg-white border border-gray-100 overflow-hidden">
+                <div className="bg-white border border-gray-200 overflow-hidden shadow-sm">
                   <div className="p-6">
                     <span className="inline-block text-xs tracking-[0.2em] bg-[#0f2044] text-white px-4 py-1.5 mb-4">{loc.type}</span>
                     <div className="space-y-1.5 text-xs text-gray-500">
