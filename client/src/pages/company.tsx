@@ -55,7 +55,7 @@ function StatItem({ num, suffix = "", unit, label, delay }: { num: number; suffi
 
 const companyInfo: { label: string; value: string | string[] }[] = [
   { label: "会社名", value: "株式会社池ノ谷商事" },
-  { label: "英語表記", value: "IKENOYA SHOJI CO., LTD." },
+  { label: "英語表記", value: "Ikenoyashoji Co.,Ltd." },
   { label: "本社所在地", value: "〒243-0303 神奈川県愛甲郡愛川町中津7287" },
   { label: "TEL", value: "046-212-2766" },
   { label: "FAX", value: "046-401-1714" },
@@ -111,7 +111,7 @@ export default function Company() {
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)", backgroundSize: "60px 60px" }} />
         <div className="relative text-center px-8">
           <AnimateIn>
-            <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">IKENOYA SHOJI CO., LTD.</p>
+            <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] mb-6">Ikenoyashoji Co.,Ltd.</p>
             <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">企業情報</h1>
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
             <p className="text-gray-300 text-sm tracking-widest">誠実に、まっすぐに。地域に根ざし、信頼を育んできました。</p>
