@@ -65,8 +65,8 @@ const companyInfo: { label: string; value: string | string[] }[] = [
   { label: "資本金", value: "3,000,000円" },
   { label: "インボイス登録番号", value: "T802100108272" },
   { label: "許認可", value: [
-    "貨物利用運送事業　関自貨第542号",
     "一般貨物自動車運送事業　関自貨第1201号",
+    "貨物利用運送事業　関自貨第542号",
     "古物商　神奈川公安委員会　第452740020200号",
   ]},
   { label: "事業内容", value: [
