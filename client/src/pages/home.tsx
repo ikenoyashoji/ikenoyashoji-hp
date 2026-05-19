@@ -267,7 +267,7 @@ export default function Home() {
               { num: "02", title: "貨物利用運送",                 sub: "Freight Forwarding",            img: serviceImg02 },
               { num: "03", title: "貨物軽自動車運送",             sub: "Light Cargo Transport",         img: serviceImg03 },
               { num: "04", title: "物流コンサルティング",         sub: "Logistics Consulting",          img: serviceImg04 },
-              { num: "05", title: "サードパーティーロジスティクス", sub: "3rd Party Logistics",            img: serviceImg05 },
+              { num: "05", title: "3PL",                           sub: "3rd Party Logistics",            img: serviceImg05 },
               { num: "06", title: "総合保険代理店",               sub: "Insurance Agency",              img: serviceImg06 },
               { num: "07", title: "各種新車・中古車販売及び買取", sub: "Vehicle Sales & Purchase",      img: serviceImg07 },
               { num: "08", title: "一般整備・車検・板金・塗装・レッカー", sub: "Vehicle Maintenance & Repair", img: serviceImg08 },
