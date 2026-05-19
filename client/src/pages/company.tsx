@@ -82,8 +82,8 @@ const companyInfo: { label: string; value: string | string[] }[] = [
   { label: "保有車両", value: "12台（13tウィングゲート・4tウィングゲート・3t冷凍車・2tl箱・2ts箱・1tバン）" },
   { label: "従業員数", value: "15名（パート・アルバイト含む）" },
   { label: "貨物保険", value: "東京海上日動　100,000,000円" },
-  { label: "加盟団体", value: "一般社団法人神奈川県トラック協会、愛甲商工会議所" },
-  { label: "顧問", value: "弁護士法人グレイス、Palm税理士法人、Palm社会保険労務士法人" },
+  { label: "加盟団体", value: ["一般社団法人神奈川県トラック協会", "愛甲商工会議所"] },
+  { label: "顧問", value: ["弁護士法人グレイス", "Palm税理士法人", "Palm社会保険労務士法人"] },
   { label: "主要取引先", value: [
     "アート引越センター株式会社",
     "株式会社アエナ",
