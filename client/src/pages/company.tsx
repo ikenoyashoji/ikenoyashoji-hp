@@ -169,24 +169,32 @@ export default function Company() {
           </AnimateIn>
           {(() => {
             const locs = [
-              { type: "本社営業所",   zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津7287",       tel: "046-212-2766", fax: "046-401-1714" },
-              { type: "湘南営業所",   zip: "〒257-0024", address: "神奈川県秦野市名古木157-12",          tel: "0463-84-5181", fax: "0463-84-5182" },
-              { type: "厚木営業所",   zip: "〒243-0127", address: "神奈川県厚木市森の里紅葉台3-4 2階\nニッコン（株）内", tel: "046-212-2766", fax: "046-401-1714" },
-              { type: "愛川倉庫",     zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津250-1\n（有）青木商事 内", tel: "046-212-2766", fax: "046-401-1714" },
-              { type: "厚木倉庫",     zip: "〒243-0127", address: "神奈川県厚木市森の里紅葉台3-4",      tel: "046-212-2766", fax: "046-401-1714" },
-              { type: "愛川第一車庫", zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津",           tel: "046-212-2766", fax: "046-401-1714" },
-              { type: "相模原車庫",   zip: "〒252-0244", address: "神奈川県相模原市中央区田名4905",     tel: "046-212-2766", fax: "046-401-1714" },
+              { type: "本社営業所",   zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津7287",       tel: "046-212-2766", fax: "046-401-1714", mapQuery: "神奈川県愛甲郡愛川町中津7287" },
+              { type: "湘南営業所",   zip: "〒257-0024", address: "神奈川県秦野市名古木157-12",          tel: "0463-84-5181", fax: "0463-84-5182", mapQuery: "神奈川県秦野市名古木157-12" },
+              { type: "厚木営業所",   zip: "〒243-0127", address: "神奈川県厚木市森の里紅葉台3-4 2階\nニッコン（株）内", tel: "046-212-2766", fax: "046-401-1714", mapQuery: "神奈川県厚木市森の里紅葉台3-4" },
+              { type: "愛川倉庫",     zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津250-1\n（有）青木商事 内", tel: "046-212-2766", fax: "046-401-1714", mapQuery: "神奈川県愛甲郡愛川町中津250-1" },
+              { type: "厚木倉庫",     zip: "〒243-0127", address: "神奈川県厚木市森の里紅葉台3-4",      tel: "046-212-2766", fax: "046-401-1714", mapQuery: "神奈川県厚木市森の里紅葉台3-4" },
+              { type: "愛川第一車庫", zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津",           tel: "046-212-2766", fax: "046-401-1714", mapQuery: "神奈川県愛甲郡愛川町中津7287" },
+              { type: "相模原車庫",   zip: "〒252-0244", address: "神奈川県相模原市中央区田名4905",     tel: "046-212-2766", fax: "046-401-1714", mapQuery: "神奈川県相模原市中央区田名4905" },
             ];
             const card = (loc: typeof locs[0], i: number) => (
               <AnimateIn key={i} delay={i * 60}>
-                <div className="bg-white border border-gray-100 p-6 h-full">
-                  <span className="inline-block text-xs tracking-[0.2em] bg-[#0f2044] text-white px-4 py-1.5 mb-4">{loc.type}</span>
-                  <div className="space-y-1.5 text-xs text-gray-500">
-                    <p>{loc.zip}</p>
-                    <p className="whitespace-pre-line">{loc.address}</p>
-                    <p className="pt-1">TEL：{loc.tel}</p>
-                    <p>FAX：{loc.fax}</p>
+                <div className="bg-white border border-gray-100 overflow-hidden">
+                  <div className="p-6">
+                    <span className="inline-block text-xs tracking-[0.2em] bg-[#0f2044] text-white px-4 py-1.5 mb-4">{loc.type}</span>
+                    <div className="space-y-1.5 text-xs text-gray-500">
+                      <p>{loc.zip}</p>
+                      <p className="whitespace-pre-line">{loc.address}</p>
+                      <p className="pt-1">TEL：{loc.tel}</p>
+                      <p>FAX：{loc.fax}</p>
+                    </div>
                   </div>
+                  <iframe
+                    src={`https://maps.google.com/maps?q=${encodeURIComponent(loc.mapQuery)}&output=embed&hl=ja&z=16`}
+                    className="w-full h-40 border-0"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
                 </div>
               </AnimateIn>
             );
