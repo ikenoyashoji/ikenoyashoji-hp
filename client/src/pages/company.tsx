@@ -63,7 +63,7 @@ const companyInfo: { label: string; value: string | string[] }[] = [
   { label: "代表取締役", value: "池ノ谷 翔" },
   { label: "設立", value: "令和5年2月20日" },
   { label: "資本金", value: "3,000,000円" },
-  { label: "適格請求書発行事業者登録番号", value: "T802100108272" },
+  { label: "インボイス登録番号", value: "T802100108272" },
   { label: "許認可", value: [
     "貨物利用運送事業　関自貨第542号",
     "一般貨物自動車運送事業　関自貨第1201号",
