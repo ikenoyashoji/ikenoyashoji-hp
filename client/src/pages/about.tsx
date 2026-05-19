@@ -89,6 +89,22 @@ export default function About() {
               </div>
             </div>
           </AnimateIn>
+          <AnimateIn>
+            <div className="grid md:grid-cols-3 gap-px bg-gray-100">
+              {[
+                { title: "Mission", sub: "使命", body: "物流を通じて、荷主・ドライバー・地域社会の三方が豊かになる物流インフラを創る。" },
+                { title: "Vision", sub: "ビジョン", body: "神奈川から全国へ。信頼される総合物流パートナーとして、日本の物流を支える。" },
+                { title: "Value", sub: "価値観", body: "誠実・挑戦・共創・安全。この4つの価値観を軸にすべての意思決定を行う。" },
+              ].map((item) => (
+                <div key={item.title} className="bg-white p-8 text-center">
+                  <p className="text-[#1d4ed8] text-xs tracking-[0.4em] uppercase mb-2">{item.title}</p>
+                  <p className="text-gray-800 font-semibold mb-4">{item.sub}</p>
+                  <div className="w-6 h-0.5 bg-[#1d4ed8] mx-auto mb-4" />
+                  <p className="text-gray-500 text-xs leading-relaxed">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </AnimateIn>
         </div>
       </section>
 
