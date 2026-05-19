@@ -6,14 +6,6 @@
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
-@keyframes heroReveal {
-  0%   { opacity: 0; transform: scale(1.04); }
-  100% { opacity: 1; transform: scale(1); }
-}
-.animate-hero-reveal {
-  animation: heroReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
 .animate-marquee {
   display: flex;
   animation: marquee 60s linear infinite;

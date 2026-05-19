@@ -82,7 +82,7 @@ export default function Home() {
         <img
           src={heroBg}
           alt="運ぶ信頼、届ける真心 — 株式会社池ノ谷商事"
-          className="w-full h-auto md:h-[calc(100vh-100px)] md:object-cover md:object-top block animate-hero-reveal"
+          className="w-full h-auto md:h-[calc(100vh-100px)] md:object-cover md:object-top block"
         />
         <div className="absolute inset-0 flex items-end pb-6 sm:pb-10 px-4 sm:px-6 lg:px-16">
           <Link href="/about">
