@@ -72,7 +72,7 @@ const companyInfo: { label: string; value: string | string[] }[] = [
   { label: "事業内容", value: [
     "一般貨物自動車運送、貨物利用運送、貨物軽自動車運送、物流コンサルティング、倉庫管理、",
     "総合保険代理店、各種新車・中古車販売及び買取、一般整備・車検・板金・塗装・レッカー",
-  ], vertical: true },
+  ]},
   { label: "保有車両", value: "12台（13tウィングゲート・4tウィングゲート・3t冷凍車・2tl箱・2ts箱・1tバン）" },
   { label: "従業員数", value: "15名（パート・アルバイト含む）" },
   { label: "貨物保険", value: "東京海上日動　100,000,000円" },
@@ -82,7 +82,7 @@ const companyInfo: { label: string; value: string | string[] }[] = [
     "サン インテルネット株式会社／遠州トラック株式会社／SBS即配サポート株式会社／",
     "ヒップスタイル株式会社／ヤマト運輸株式会社／ファイズトランスポートサービス株式会社／",
     "白銅株式会社／中央運輸株式会社　他（順不同）",
-  ], vertical: true },
+  ]},
   { label: "主要取引銀行", value: [
     "相愛信用組合 本店",
     "三井住友銀行",
@@ -144,14 +144,10 @@ export default function Company() {
               {companyInfo.map((item, i) => (
                 <div key={item.label} className={`flex flex-col sm:flex-row border-b border-gray-100 last:border-b-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
                   <div className="sm:w-56 flex-shrink-0 px-4 sm:px-6 pt-3 pb-1 sm:py-4 text-xs sm:text-sm font-medium text-gray-500 bg-gray-50 sm:border-r border-gray-100 whitespace-nowrap">{item.label}</div>
-                  <div className={`px-4 sm:px-6 pb-3 pt-1 sm:py-4 text-sm text-gray-800 flex-1 leading-relaxed ${(item as any).vertical ? "flex justify-start gap-6" : ""}`}>
-                    {(item as any).vertical && Array.isArray(item.value)
-                      ? item.value.map((line, j) => (
-                          <p key={j} style={{ writingMode: "vertical-rl", textOrientation: "mixed" }} className="text-xs leading-loose">{line}</p>
-                        ))
-                      : Array.isArray(item.value)
-                        ? item.value.map((line, j) => <div key={j}>{line}</div>)
-                        : item.value}
+                  <div className="px-4 sm:px-6 pb-3 pt-1 sm:py-4 text-sm text-gray-800 flex-1 leading-relaxed">
+                    {Array.isArray(item.value)
+                      ? item.value.map((line, j) => <div key={j}>{line}</div>)
+                      : item.value}
                   </div>
                 </div>
               ))}
