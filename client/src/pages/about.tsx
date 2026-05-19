@@ -92,9 +92,9 @@ export default function About() {
           <AnimateIn>
             <div className="grid md:grid-cols-3 gap-px bg-gray-100">
               {[
-                { title: "Mission", sub: "使命", body: "物流を通して、すべての人の日常を支え、想いを運び、届けた一つひとつで誰かの未来を切り拓く。幸せの連鎖を生み出す力であり続ける。" },
+                { title: "Mission", sub: "使命", body: "すべての人の人生を豊かにするために、物流を通じて日常を支え、想いを運び、届けた一つひとつが誰かの幸せへとつながる連鎖を生み出し続ける。" },
                 { title: "Vision", sub: "ビジョン", body: "すべての物流を、再現性ある仕組みで。誰がやっても成果が出る「非属人的で自走する物流の未来」を構造からつくる。" },
-                { title: "Value", sub: "価値観", body: "感謝・礼儀・誠実さを大切に、人として胸を張れる生き方を積み重ねる。「ありがとう」の連鎖が仕事の価値を生み、仲間との絆を深める。" },
+                { title: "Value", sub: "価値観", body: "誰もが公平に力を発揮できる環境の中で、感謝・礼儀・誠実さを軸に人として誠実に生きる。小さな成功体験を積み重ね、仲間と共に豊かな未来を築く。" },
               ].map((item) => (
                 <div key={item.title} className="bg-white p-8 text-center">
                   <p className="text-[#1d4ed8] text-xs tracking-[0.4em] uppercase mb-2">{item.title}</p>
