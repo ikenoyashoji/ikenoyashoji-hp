@@ -339,21 +339,15 @@ export default function Company() {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid={`link-yakkan-${i}`}
-                  className="group flex items-start gap-5 p-6 border border-gray-200 hover:border-[#1d4ed8] hover:shadow-md transition-all duration-300"
+                  className="group flex items-center justify-between p-6 border border-gray-200 hover:border-[#1d4ed8] hover:shadow-md transition-all duration-300"
                 >
-                  <div className="flex-shrink-0 w-12 h-12 bg-[#f0f4ff] group-hover:bg-[#1d4ed8] transition-colors duration-300 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-[#1d4ed8] group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 13h4M10 17h4M10 9h1" />
-                    </svg>
-                  </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] text-[#1d4ed8] tracking-widest mb-1 uppercase">PDF</p>
                     <p className="text-sm font-medium text-gray-900 leading-snug mb-1">{item.title}</p>
                     <p className="text-xs text-gray-500 mb-2">{item.subtitle}</p>
                     <span className="inline-block text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 tracking-wide">{item.label}</span>
                   </div>
-                  <div className="flex-shrink-0 self-center">
+                  <div className="flex-shrink-0 ml-4">
                     <svg className="w-4 h-4 text-gray-300 group-hover:text-[#1d4ed8] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
