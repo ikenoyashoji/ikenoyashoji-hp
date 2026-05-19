@@ -144,7 +144,7 @@ export default function Company() {
             <div className="border border-gray-100">
               {companyInfo.map((item, i) => (
                 <div key={item.label} className={`flex flex-col sm:flex-row border-b border-gray-100 last:border-b-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
-                  <div className="sm:w-44 flex-shrink-0 px-4 sm:px-6 pt-3 pb-1 sm:py-4 text-xs sm:text-sm font-medium text-gray-500 bg-gray-50 sm:border-r border-gray-100">{item.label}</div>
+                  <div className="sm:w-56 flex-shrink-0 px-4 sm:px-6 pt-3 pb-1 sm:py-4 text-xs sm:text-sm font-medium text-gray-500 bg-gray-50 sm:border-r border-gray-100 whitespace-nowrap">{item.label}</div>
                   <div className="px-4 sm:px-6 pb-3 pt-1 sm:py-4 text-sm text-gray-800 flex-1 leading-relaxed">
                     {Array.isArray(item.value)
                       ? item.value.map((line, j) => <div key={j}>{line}</div>)
