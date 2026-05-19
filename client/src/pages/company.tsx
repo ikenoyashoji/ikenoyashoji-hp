@@ -307,6 +307,63 @@ export default function Company() {
         </div>
       </section>
 
+      {/* 各種約款 */}
+      <section className="py-24 bg-white px-4 sm:px-8">
+        <div className="max-w-4xl mx-auto">
+          <AnimateIn>
+            <div className="text-center mb-16">
+              <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">TERMS & CONDITIONS</p>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">各種約款</h2>
+              <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
+            </div>
+          </AnimateIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {[
+              {
+                title: "標準貨物自動車運送約款",
+                subtitle: "国土交通省告示 平成29年改正版準拠",
+                label: "一般貨物自動車運送事業",
+                file: "/docs/standard-cargo-terms.pdf",
+              },
+              {
+                title: "貨物利用運送約款",
+                subtitle: "貨物利用運送事業法に基づく",
+                label: "貨物利用運送事業（登録番号：関自貨第542号）",
+                file: "/docs/freight-forwarding-terms.pdf",
+              },
+            ].map((item, i) => (
+              <AnimateIn key={i} delay={i * 100}>
+                <a
+                  href={item.file}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid={`link-yakkan-${i}`}
+                  className="group flex items-start gap-5 p-6 border border-gray-200 hover:border-[#1d4ed8] hover:shadow-md transition-all duration-300"
+                >
+                  <div className="flex-shrink-0 w-12 h-12 bg-[#f0f4ff] group-hover:bg-[#1d4ed8] transition-colors duration-300 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-[#1d4ed8] group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 13h4M10 17h4M10 9h1" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] text-[#1d4ed8] tracking-widest mb-1 uppercase">PDF</p>
+                    <p className="text-sm font-medium text-gray-900 leading-snug mb-1">{item.title}</p>
+                    <p className="text-xs text-gray-500 mb-2">{item.subtitle}</p>
+                    <span className="inline-block text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 tracking-wide">{item.label}</span>
+                  </div>
+                  <div className="flex-shrink-0 self-center">
+                    <svg className="w-4 h-4 text-gray-300 group-hover:text-[#1d4ed8] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                  </div>
+                </a>
+              </AnimateIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-20 bg-[#0f2044] text-center px-8">
         <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">CONTACT</p>
