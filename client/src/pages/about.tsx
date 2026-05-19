@@ -56,7 +56,7 @@ export default function About() {
             </div>
           </AnimateIn>
           <AnimateIn>
-            <div className="mb-16">
+            <div className="mb-16 text-center">
               <h3 className="text-3xl md:text-4xl font-light text-gray-900 mb-10 leading-relaxed">
                 「すべての人の人生を豊かに。」
               </h3>
