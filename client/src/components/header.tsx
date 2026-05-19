@@ -62,7 +62,7 @@ export function Header() {
                   )}
                   <a
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-[#1a4b99] transition-colors whitespace-nowrap"
+                    className="text-base text-gray-600 hover:text-[#1a4b99] transition-colors whitespace-nowrap"
                     data-testid={`link-nav-${link.label}`}
                   >
                     {link.label}
