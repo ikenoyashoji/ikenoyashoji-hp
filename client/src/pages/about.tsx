@@ -19,8 +19,8 @@ export default function About() {
   useEffect(() => {
     trackPageView("/about");
     setSeo({
-      title: "池ノ谷商事について｜経営理念・代表メッセージ",
-      description: "「運ぶ信頼、届ける真心」を経営理念に掲げる株式会社池ノ谷商事。Mission・Vision・Valueと代表取締役・池ノ谷翔のメッセージをご紹介します。",
+      title: "池ノ谷商事について｜企業理念・代表メッセージ",
+      description: "「すべての人の人生を豊かに。」を企業理念に掲げる株式会社池ノ谷商事。企業理念と代表取締役・池ノ谷翔のメッセージをご紹介します。",
       path: "/about",
     });
   }, []);
@@ -51,38 +51,42 @@ export default function About() {
           <AnimateIn>
             <div className="text-center mb-20">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">PHILOSOPHY</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">経営理念</h2>
+              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">企業理念</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
           <AnimateIn>
-            <div className="text-center mb-16">
-              <p className="text-[#1a4b99] text-xs tracking-[0.5em] uppercase mb-6">CORPORATE PHILOSOPHY</p>
-              <h3 className="text-4xl md:text-5xl font-extralight text-gray-900 tracking-[0.3em] mb-6 leading-relaxed">
-                運ぶ信頼、届ける真心。
+            <div className="mb-16">
+              <h3 className="text-3xl md:text-4xl font-light text-gray-900 mb-10 leading-relaxed">
+                「すべての人の人生を豊かに。」
               </h3>
-              <div className="w-16 h-px bg-gray-200 mx-auto mb-8" />
-              <p className="text-gray-500 text-sm leading-relaxed max-w-xl mx-auto">
-                物を運ぶことは、人と人をつなぐことです。<br />
-                私たちは単なる輸送会社ではなく、お客様の大切な荷物に込められた想いを、<br className="hidden md:inline" />
-                誠実と真心をもって届けることを使命としています。
-              </p>
-            </div>
-          </AnimateIn>
-          <AnimateIn>
-            <div className="grid md:grid-cols-3 gap-px bg-gray-100">
-              {[
-                { title: "Mission", sub: "使命", body: "物流を通じて、荷主・ドライバー・地域社会の三方が豊かになる物流インフラを創る。" },
-                { title: "Vision", sub: "ビジョン", body: "神奈川から全国へ。信頼される総合物流パートナーとして、日本の物流を支える。" },
-                { title: "Value", sub: "価値観", body: "誠実・挑戦・共創・安全。この4つの価値観を軸にすべての意思決定を行う。" },
-              ].map((item) => (
-                <div key={item.title} className="bg-white p-8 text-center">
-                  <p className="text-[#1d4ed8] text-xs tracking-[0.4em] uppercase mb-2">{item.title}</p>
-                  <p className="text-gray-800 font-semibold mb-4">{item.sub}</p>
-                  <div className="w-6 h-0.5 bg-[#1d4ed8] mx-auto mb-4" />
-                  <p className="text-gray-500 text-xs leading-relaxed">{item.body}</p>
-                </div>
-              ))}
+              <div className="space-y-6 text-gray-600 text-sm leading-loose">
+                <p>
+                  私たちは、<br />
+                  誰もが公平に力を発揮できる環境を整え、仕事を通じて人と出会い、関わり合い、<br />
+                  様々な経験を重ねながら、人生そのものを豊かに育んでいく場をつくっています。
+                </p>
+                <p>
+                  物流を通して、すべての人の日常を支え、想いを運び、そっと寄り添う存在でありたい。<br />
+                  届けた一つひとつが、誰かの未来を切り拓き、幸せの連鎖を生み出す力になると信じています。
+                </p>
+                <p>
+                  また、私たちは人間らしさを何より大切にします。<br />
+                  感謝、礼儀、誠実さを忘れずに、人として胸を張れる生き方を積み重ねていく。<br />
+                  「ありがとう」の連鎖が、仕事の価値を生み、仲間との絆を深めます。
+                </p>
+                <p>
+                  特別な力に頼ることなく、誰もが小さな成功体験を積み重ねられる、温かく公正な組織を育み、<br />
+                  変わり続ける社会の中で、仲間と会社の未来を築いていきます。
+                </p>
+                <p>
+                  そして私たちは、今までの価値観を尊重しながら、まだ見ぬ世界へ歩み続けます。<br />
+                  新たな経験と価値観を重ね、豊かな未来を創り上げていきます。
+                </p>
+                <p className="font-medium text-gray-700">
+                  池ノ谷商事は、「人を育て、想いを運び、未来へつながる豊かさを届け続けます。」
+                </p>
+              </div>
             </div>
           </AnimateIn>
         </div>
