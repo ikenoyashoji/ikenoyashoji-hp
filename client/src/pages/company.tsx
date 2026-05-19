@@ -167,64 +167,43 @@ export default function Company() {
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              {
-                type: "本社",
-                zip: "〒243-0303",
-                address: "神奈川県愛甲郡愛川町中津7287",
-                tel: "046-212-2766",
-                fax: "046-401-1714",
-              },
-              {
-                type: "湘南営業所",
-                zip: "〒257-0024",
-                address: "神奈川県秦野市名古木157-12",
-                tel: "0463-84-5181",
-                fax: "0463-84-5182",
-              },
-              {
-                type: "厚木営業所・倉庫",
-                zip: "〒243-0214",
-                address: "神奈川県厚木市下古沢1004",
-                tel: "046-212-2766",
-                fax: "046-401-1714",
-              },
-              {
-                type: "愛川倉庫",
-                zip: "〒243-0303",
-                address: "神奈川県愛甲郡愛川町中津",
-                tel: "046-212-2766",
-                fax: "046-401-1714",
-              },
-              {
-                type: "愛川第一車庫",
-                zip: "〒243-0303",
-                address: "神奈川県愛甲郡愛川町中津7287",
-                tel: "046-212-2766",
-                fax: "046-401-1714",
-              },
-              {
-                type: "相模原車庫",
-                zip: "〒252-0244",
-                address: "神奈川県相模原市中央区田名4905",
-                tel: "046-212-2766",
-                fax: "046-401-1714",
-              },
-            ].map((loc, i) => (
+          {(() => {
+            const locs = [
+              { type: "本社営業所",   zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津7287",       tel: "046-212-2766", fax: "046-401-1714" },
+              { type: "湘南営業所",   zip: "〒257-0024", address: "神奈川県秦野市名古木157-12",          tel: "0463-84-5181", fax: "0463-84-5182" },
+              { type: "厚木営業所",   zip: "〒243-0214", address: "神奈川県厚木市下古沢1004",            tel: "046-212-2766", fax: "046-401-1714" },
+              { type: "愛川倉庫",     zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津",           tel: "046-212-2766", fax: "046-401-1714" },
+              { type: "厚木倉庫",     zip: "〒243-0214", address: "神奈川県厚木市下古沢1004",            tel: "046-212-2766", fax: "046-401-1714" },
+              { type: "愛川第一車庫", zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津7287",       tel: "046-212-2766", fax: "046-401-1714" },
+              { type: "相模原車庫",   zip: "〒252-0244", address: "神奈川県相模原市中央区田名4905",     tel: "046-212-2766", fax: "046-401-1714" },
+            ];
+            const card = (loc: typeof locs[0], i: number) => (
               <AnimateIn key={i} delay={i * 60}>
-                <div className="bg-white border border-gray-100 p-6">
+                <div className="bg-white border border-gray-100 p-6 h-full">
                   <span className="inline-block text-xs tracking-[0.2em] bg-[#0f2044] text-white px-4 py-1.5 mb-4">{loc.type}</span>
                   <div className="space-y-1.5 text-xs text-gray-500">
-                    {loc.zip !== "—" && <p>{loc.zip}</p>}
-                    <p className={loc.address === "—" ? "text-gray-300 italic" : ""}>{loc.address === "—" ? "住所調整中" : loc.address}</p>
-                    <p className="pt-1">TEL：{loc.tel === "—" ? <span className="text-gray-300">—</span> : loc.tel}</p>
-                    <p>FAX：{loc.fax === "—" ? <span className="text-gray-300">—</span> : loc.fax}</p>
+                    <p>{loc.zip}</p>
+                    <p>{loc.address}</p>
+                    <p className="pt-1">TEL：{loc.tel}</p>
+                    <p>FAX：{loc.fax}</p>
                   </div>
                 </div>
               </AnimateIn>
-            ))}
-          </div>
+            );
+            return (
+              <div className="space-y-4">
+                <div className="grid grid-cols-3 gap-4">{locs.slice(0, 3).map((l, i) => card(l, i))}</div>
+                <div className="grid grid-cols-6 gap-4">
+                  <div className="col-span-2 col-start-2">{card(locs[3], 3)}</div>
+                  <div className="col-span-2">{card(locs[4], 4)}</div>
+                </div>
+                <div className="grid grid-cols-6 gap-4">
+                  <div className="col-span-2 col-start-2">{card(locs[5], 5)}</div>
+                  <div className="col-span-2">{card(locs[6], 6)}</div>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </section>
 
