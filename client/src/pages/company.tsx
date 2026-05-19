@@ -178,7 +178,19 @@ export default function Company() {
                 <div key={item.label} className={`flex flex-col sm:flex-row border-b border-gray-100 last:border-b-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
                   <div className="sm:w-56 flex-shrink-0 px-4 sm:px-6 pt-3 pb-1 sm:py-4 text-xs sm:text-sm font-medium text-gray-500 bg-gray-50 sm:border-r border-gray-100 whitespace-nowrap">{item.label}</div>
                   <div className="px-4 sm:px-6 pb-3 pt-1 sm:py-4 text-sm text-gray-800 flex-1 leading-relaxed">
-                    {Array.isArray(item.value)
+                    {Array.isArray(item.value) && item.label === "主要取引先"
+                      ? (() => {
+                          const half = Math.ceil(item.value.length / 2);
+                          const left = item.value.slice(0, half);
+                          const right = item.value.slice(half);
+                          return (
+                            <div className="grid grid-cols-2 gap-x-6">
+                              <div>{left.map((line, j) => <div key={j}>{line}</div>)}</div>
+                              <div>{right.map((line, j) => <div key={j}>{line}</div>)}</div>
+                            </div>
+                          );
+                        })()
+                      : Array.isArray(item.value)
                       ? item.value.map((line, j) => <div key={j}>{line}</div>)
                       : item.value}
                   </div>
