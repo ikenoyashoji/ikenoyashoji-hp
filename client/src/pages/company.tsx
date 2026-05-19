@@ -231,6 +231,9 @@ export default function Company() {
             <div className="space-y-0">
               {[
                 { year: "2023年2月", event: "神奈川県愛甲郡愛川町中津7287にて株式会社池ノ谷商事を設立", highlight: true },
+                { year: "2023年4月", event: "山口県阿知須DS 立ち上げ" },
+                { year: "2023年6月", event: "福岡県北九州DS 立ち上げ" },
+                { year: "2023年8月", event: "静岡県三島DS 立ち上げ" },
                 { year: "2023年9月", event: "貨物利用運送事業 登録取得（関自貨第542号）、輸送事業を開始" },
                 { year: "2023年9月", event: "湘南営業所（神奈川県秦野市名古木157-12）を開設。湘南・西湘エリアへ事業拡大" },
                 { year: "2023年10月", event: "愛甲商工会に加盟" },
