@@ -23,14 +23,14 @@ export function Header() {
           <div className="flex items-center justify-end h-9 gap-4">
             <a
               href="/company#access"
-              className="text-xs text-gray-500 hover:text-[#1a4b99] transition-colors"
+              className="text-sm text-gray-500 hover:text-[#1a4b99] transition-colors"
             >
               本社アクセス
             </a>
             <Link
               href="/contact"
               onClick={() => trackEvent("cta_contact_click", { location: "header_top" })}
-              className="flex items-center text-white text-xs font-medium px-5 py-1.5 transition-opacity hover:opacity-90"
+              className="flex items-center text-white text-sm font-medium px-5 py-1.5 transition-opacity hover:opacity-90"
               style={{ background: "linear-gradient(135deg, #1a4b99 0%, #1d4ed8 100%)" }}
               data-testid="button-contact-header-top"
             >
