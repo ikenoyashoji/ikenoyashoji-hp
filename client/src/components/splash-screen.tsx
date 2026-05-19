@@ -52,7 +52,7 @@ export function SplashScreen({ onFinish }: { onFinish: () => void }) {
           transition: "opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s",
         }}
       >
-        Ikenoya Shoji Co.,Ltd.
+        Ikenoyashoji Co.,Ltd.
       </p>
     </div>
   );
