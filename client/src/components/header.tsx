@@ -45,7 +45,7 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-3 lg:px-6">
           <div className="flex items-center h-16">
             {/* Logo image only */}
-            <Link href="/" className="flex items-center flex-shrink-0 mr-auto">
+            <Link href="/" className="flex items-center flex-shrink-0 mr-auto -ml-2">
               <img
                 src={logoFull}
                 alt="株式会社池ノ谷商事"
