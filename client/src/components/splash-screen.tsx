@@ -46,7 +46,7 @@ export function SplashScreen({ onFinish }: { onFinish: () => void }) {
           fontSize: "22px",
           color: "#098db7",
           letterSpacing: "0.12em",
-          marginTop: "-12px",
+          marginTop: "-40px",
           opacity: phase === "in" ? 0 : 1,
           transform: phase === "in" ? "translateY(8px)" : "translateY(0)",
           transition: "opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s",
