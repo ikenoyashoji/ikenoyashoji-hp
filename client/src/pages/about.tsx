@@ -169,7 +169,7 @@ export default function About() {
               </div>
               <div className="mt-10 pt-8 border-t border-gray-100 text-right">
                 <p className="text-gray-400 text-[10px] tracking-widest uppercase mb-1">Representative Director</p>
-                <p className="text-gray-900 text-2xl tracking-widest" style={{ fontFamily: "'Yuji Syuku', serif" }}>池ノ谷　翔</p>
+                <p className="text-gray-900 text-2xl tracking-widest" style={{ fontFamily: "'Yuji Boku', serif" }}>池ノ谷　翔</p>
                 <p className="text-gray-400 text-xs mt-0.5">代表取締役</p>
               </div>
             </div>
