@@ -29,8 +29,8 @@ export function SplashScreen({ onFinish }: { onFinish: () => void }) {
         src="/logo-mark.png"
         alt="池ノ谷商事"
         style={{
-          width: "220px",
-          height: "220px",
+          width: "300px",
+          height: "300px",
           objectFit: "contain",
           opacity: phase === "in" ? 0 : 1,
           transform: phase === "in" ? "scale(0.85)" : "scale(1)",
