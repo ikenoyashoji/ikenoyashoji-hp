@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Menu, X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
-const logoImg = "/logo-mark.png";
+const logoFull = "/logo-full.jpg";
 
 const navLinks = [
   { href: "/about", label: "池ノ谷商事について" },
@@ -11,30 +11,6 @@ const navLinks = [
   { href: "/recruit", label: "採用情報" },
   { href: "/blog", label: "お知らせ" },
 ];
-
-function LogoMark({ size = 36 }: { size?: number }) {
-  return (
-    <div
-      style={{
-        width: size,
-        height: size,
-        borderRadius: "50%",
-        background: "#ffffff",
-        overflow: "hidden",
-        flexShrink: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <img
-        src={logoImg}
-        alt="池ノ谷商事ロゴ"
-        style={{ width: "100%", height: "100%", objectFit: "contain" }}
-      />
-    </div>
-  );
-}
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -64,27 +40,20 @@ export function Header() {
         </div>
       </div>
 
-      {/* Main header row — PC: always visible horizontal nav */}
+      {/* Main header row */}
       <div className="border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-3 lg:px-6">
           <div className="flex items-center h-16">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-1.5 flex-shrink-0 mr-auto">
-              <div className="w-10 h-10 sm:w-[50px] sm:h-[50px] rounded-full bg-white overflow-hidden flex items-center justify-center flex-shrink-0">
-                <img src="/logo-mark.png" alt="池ノ谷商事ロゴ" className="w-full h-full object-contain" />
-              </div>
-              <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px' }}>
-                {/* 左列: 物流企業 + 株式会社 (合計高さ = 池ノ谷商事) */}
-                <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1, fontFamily: "'Noto Serif JP', serif", fontWeight: 900 }}>
-                  <span className="text-[9px] sm:text-[12px]" style={{ color: 'rgb(156,163,175)', letterSpacing: 0, lineHeight: 1 }}>物流企業</span>
-                  <span className="text-[9px] sm:text-[12px]" style={{ color: 'rgb(17,24,39)', letterSpacing: 0, lineHeight: 1 }}>株式会社</span>
-                </div>
-                {/* 右: 池ノ谷商事 */}
-                <span className="text-lg sm:text-2xl" style={{ fontFamily: "'Noto Serif JP', serif", fontWeight: 900, lineHeight: 1 }}>池ノ谷商事</span>
-              </div>
+            {/* Logo image only */}
+            <Link href="/" className="flex items-center flex-shrink-0 mr-auto">
+              <img
+                src={logoFull}
+                alt="株式会社池ノ谷商事"
+                className="h-10 sm:h-12 w-auto object-contain"
+              />
             </Link>
 
-            {/* Desktop Nav — always shown, slash separated */}
+            {/* Desktop Nav */}
             <nav className="hidden md:flex items-center">
               {navLinks.map((link, i) => (
                 <span key={link.label} className="flex items-center">
