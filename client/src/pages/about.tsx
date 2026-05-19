@@ -149,7 +149,7 @@ export default function About() {
             </div>
           </AnimateIn>
           <AnimateIn>
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-2xl mx-auto text-center">
               <h3 className="text-2xl md:text-3xl font-light text-gray-900 mb-8 leading-relaxed">「運ぶ信頼、届ける真心」</h3>
               <div className="space-y-5 text-gray-600 text-sm leading-[2]">
                 <p>
@@ -167,7 +167,7 @@ export default function About() {
                   この想いで精進してまいります。
                 </p>
               </div>
-              <div className="mt-10 pt-8 border-t border-gray-100">
+              <div className="mt-10 pt-8 border-t border-gray-100 text-right">
                 <p className="text-gray-400 text-[10px] tracking-widest uppercase mb-1">Representative Director</p>
                 <p className="text-gray-900 font-semibold tracking-wider">池ノ谷 翔</p>
                 <p className="text-gray-400 text-xs mt-0.5">代表取締役</p>
