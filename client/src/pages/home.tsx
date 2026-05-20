@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/header";
@@ -63,6 +63,58 @@ const staticTopics = [
 ];
 
 
+function TypewriterHeading({ lines, startDelay = 400, speed = 90 }: { lines: string[]; startDelay?: number; speed?: number }) {
+  const [displayed, setDisplayed] = useState<string[]>(lines.map(() => ""));
+  const [lineIdx, setLineIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+  const [started, setStarted] = useState(false);
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setStarted(true), startDelay);
+    return () => clearTimeout(t);
+  }, [startDelay]);
+
+  useEffect(() => {
+    if (!started || done) return;
+    if (lineIdx >= lines.length) { setDone(true); return; }
+    const line = lines[lineIdx];
+    if (charIdx < line.length) {
+      const t = setTimeout(() => {
+        setDisplayed(prev => {
+          const next = [...prev];
+          next[lineIdx] = line.slice(0, charIdx + 1);
+          return next;
+        });
+        setCharIdx(c => c + 1);
+      }, speed);
+      return () => clearTimeout(t);
+    } else if (lineIdx < lines.length - 1) {
+      const t = setTimeout(() => {
+        setLineIdx(l => l + 1);
+        setCharIdx(0);
+      }, speed * 4);
+      return () => clearTimeout(t);
+    } else {
+      setDone(true);
+    }
+  }, [started, done, lineIdx, charIdx, lines, speed]);
+
+  return (
+    <>
+      {lines.map((_, i) => (
+        <span key={i} style={{ display: "block" }}>
+          {displayed[i]}
+          {!done && i === lineIdx && (
+            <span className="tw-cursor" style={{ height: "0.85em" }} />
+          )}
+        </span>
+      ))}
+      {done && <span className="tw-cursor-done" style={{ height: "0.85em" }} />}
+    </>
+  );
+}
+
 export default function Home() {
   useEffect(() => {
     trackPageView("/");
@@ -125,14 +177,14 @@ export default function Home() {
               Since 2023
             </p>
             <h1
-              className="hero-slide font-bold text-gray-900 leading-[1.12] mb-7"
+              className="hero-slide font-bold text-gray-900 leading-[1.15] mb-7"
               style={{
                 animationDelay: "260ms",
                 fontFamily: "'Noto Serif JP', serif",
-                fontSize: "clamp(2.6rem, 4.8vw, 4.6rem)",
+                fontSize: "clamp(3.2rem, 5.6vw, 5.8rem)",
               }}
             >
-              運ぶ信頼<br />届ける真心
+              <TypewriterHeading lines={["運ぶ信頼", "届ける真心"]} startDelay={700} speed={95} />
             </h1>
             <div className="hero-slide w-8 h-px bg-gray-800 mb-9" style={{ animationDelay: "370ms" }} />
             <div className="hero-slide" style={{ animationDelay: "460ms" }}>
