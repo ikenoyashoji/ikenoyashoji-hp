@@ -189,7 +189,7 @@ export default function Home() {
                 fontSize: "clamp(3.2rem, 5.6vw, 5.8rem)",
               }}
             >
-              <TypewriterHeading lines={["運ぶ信頼", "届ける真心"]} active={splashDone} startDelay={300} speed={95} />
+              <TypewriterHeading lines={["運ぶ信頼", "届ける真心"]} active={splashDone} startDelay={300} speed={140} />
             </h1>
             <div className={`${hs} w-8 h-px bg-gray-800 mb-9`} style={{ animationDelay: "370ms" }} />
             <div className={hs} style={{ animationDelay: "460ms" }}>
