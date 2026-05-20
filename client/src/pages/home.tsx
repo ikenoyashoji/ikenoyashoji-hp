@@ -177,7 +177,7 @@ export default function Home() {
               Since 2023
             </p>
             <h1
-              className="hero-slide font-bold text-gray-900 leading-[1.15] mb-7"
+              className="hero-slide font-bold text-gray-900 leading-[1.15] mb-4"
               style={{
                 animationDelay: "260ms",
                 fontFamily: "'Noto Serif JP', serif",
