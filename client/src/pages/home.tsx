@@ -115,7 +115,7 @@ export default function Home() {
               className="hero-slide text-[9px] tracking-[0.4em] text-gray-400 uppercase mb-2"
               style={{ animationDelay: "50ms" }}
             >
-              Ikenoya Shoji Co., Ltd.
+              Ikenoyashoji Co., Ltd.
             </p>
             <div className="hero-slide w-8 h-px bg-gray-300 mb-3" style={{ animationDelay: "120ms" }} />
             <p
