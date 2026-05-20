@@ -217,7 +217,7 @@ export default function Home() {
               <text
                 fontSize="8.4"
                 letterSpacing="2.6"
-                fill="rgba(255,255,255,0.82)"
+                fill="rgba(255,255,255,1)"
                 fontFamily="'Open Sans', sans-serif"
                 fontWeight="600"
               >
