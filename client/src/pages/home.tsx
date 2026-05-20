@@ -8,7 +8,7 @@ import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 import { SplashContext } from "@/App";
-import heroTruck from "@assets/hero_truck_isuzu_white.png";
+import heroTruck from "@assets/BA217934-06C2-4655-A211-E785926B3978_1779270833860.PNG";
 import heroCold from "@assets/hero_warehouse_cold.png";
 import heroInterior from "@assets/hero_warehouse_interior.png";
 import heroAerial from "@assets/hero_aerial_logistics.png";
