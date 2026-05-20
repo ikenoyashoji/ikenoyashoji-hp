@@ -45,11 +45,5 @@ waitForPort = 5000
 [userenv]
 
 [userenv.shared]
-SMTP_HOST = "smtp.hostinger.com"
-SMTP_PORT = "587"
-SMTP_USER = "dummy"
-SMTP_FROM = "dummy"
-SMTP_PASS = "dummy"
-SITE_URL = "dummy"
 ADMIN_USER = "info@ikenoyashoji.co.jp"
 ADMIN_PASS = "@iny7287"
