@@ -208,8 +208,8 @@ export default function Home() {
         </div>
 
         {/* ── Circular rotating text (bottom-right) ── */}
-        <div className="absolute bottom-7 right-8 z-30 w-24 h-24 hidden md:block">
-          <svg viewBox="0 0 100 100" width="96" height="96">
+        <div className="absolute bottom-7 right-8 z-30 w-32 h-32 hidden md:block">
+          <svg viewBox="0 0 100 100" width="128" height="128">
             <defs>
               <path id="circle-path" d="M 50,50 m -34,0 a 34,34 0 1,1 68,0 a 34,34 0 1,1 -68,0" />
             </defs>
@@ -226,9 +226,6 @@ export default function Home() {
                 </textPath>
               </text>
             </g>
-            <circle cx="50" cy="50" r="6" fill="rgba(255,255,255,0.9)" />
-            <line x1="47" y1="50" x2="53" y2="50" stroke="rgba(30,60,120,0.8)" strokeWidth="1.5" />
-            <line x1="50" y1="47" x2="50" y2="53" stroke="rgba(30,60,120,0.8)" strokeWidth="1.5" />
           </svg>
         </div>
 
