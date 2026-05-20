@@ -147,7 +147,7 @@ export default function Home() {
           src={heroTruck}
           alt="イスズトラック 高速道路"
           className="hero-img-in absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "60% center", animationDelay: "0ms" }}
+          style={{ objectPosition: "72% center", animationDelay: "0ms" }}
         />
 
         {/* ── White diagonal mask (desktop) ── */}
