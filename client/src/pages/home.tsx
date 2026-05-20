@@ -195,7 +195,7 @@ export default function Home() {
             <div className={hs} style={{ animationDelay: "460ms" }}>
               <Link href="/about">
                 <button
-                  className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-7 py-3 transition-colors text-sm tracking-widest bg-white"
+                  className="btn-curtain flex items-center gap-3 border border-gray-900 text-gray-900 font-medium px-7 py-3 text-sm tracking-widest bg-white transition-colors duration-300"
                   onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
                   data-testid="button-hero-quote"
                 >

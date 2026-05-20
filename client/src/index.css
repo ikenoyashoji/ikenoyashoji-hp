@@ -349,6 +349,33 @@
 }
 
 /* ============================================================
+   Curtain Hover Button
+   ============================================================ */
+
+.btn-curtain {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+.btn-curtain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #1d4ed8;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+.btn-curtain:hover::before {
+  transform: scaleX(1);
+}
+.btn-curtain:hover {
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
+
+/* ============================================================
    Circular Rotating Text
    ============================================================ */
 
