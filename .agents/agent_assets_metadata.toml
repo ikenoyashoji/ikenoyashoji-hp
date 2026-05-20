@@ -204,3 +204,27 @@ id = "w5rwFsoBJzbAfq9aa6XA2"
 uri = "file://attached_assets/sitemap_hero.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "Zx-5NGFLPgM7d8ICZ8i0H"
+uri = "file://attached_assets/hero_truck_isuzu_white.png"
+type = "image"
+title = "white isuzu truck expressway"
+
+[[generated]]
+id = "82fbzYdSx73-m0aYeekhk"
+uri = "file://attached_assets/hero_warehouse_cold.png"
+type = "image"
+title = "refrigerated cold storage warehouse exterior"
+
+[[generated]]
+id = "W29fXIQ2o7j6BRf6N53-b"
+uri = "file://attached_assets/hero_warehouse_interior.png"
+type = "image"
+title = "logistics warehouse interior modern"
+
+[[generated]]
+id = "qMUB21PYp-cwOXkgpkufJ"
+uri = "file://attached_assets/hero_aerial_logistics.png"
+type = "image"
+title = "aerial logistics hub expressway"

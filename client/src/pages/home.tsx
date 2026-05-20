@@ -7,7 +7,10 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
-import heroBg from "@assets/imageああああ_1778609849549.png";
+import heroTruck from "@assets/hero_truck_isuzu_white.png";
+import heroCold from "@assets/hero_warehouse_cold.png";
+import heroInterior from "@assets/hero_warehouse_interior.png";
+import heroAerial from "@assets/hero_aerial_logistics.png";
 import japanMapImg from "@assets/imageううう_1778610881804.png";
 import serviceImg01 from "@assets/service_01_general_cargo.png";
 import serviceImg02 from "@assets/service_02_freight_forwarding.png";
@@ -78,23 +81,88 @@ export default function Home() {
       <Header />
 
       {/* HERO */}
-      <section className="relative bg-white overflow-hidden mt-[100px]">
-        <img
-          src={heroBg}
-          alt="運ぶ信頼、届ける真心 — 株式会社池ノ谷商事"
-          className="w-full h-auto md:h-[calc(100vh-100px)] md:object-cover md:object-top block"
-        />
-        <div className="absolute inset-0 flex items-end pb-6 sm:pb-10 px-4 sm:px-6 lg:px-16">
-          <Link href="/about">
-            <button
-              className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 transition-colors text-sm tracking-wide bg-white"
-              onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
-              data-testid="button-hero-quote"
-            >
-              池ノ谷商事について
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </Link>
+      <section className="relative bg-white overflow-hidden mt-[100px] flex" style={{ height: "calc(100vh - 100px)", minHeight: 560 }}>
+        {/* ── Left: Text panel ── */}
+        <div className="relative z-10 flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 bg-white flex-shrink-0 w-full md:w-[42%]">
+          <p className="hero-slide text-[9px] tracking-[0.35em] text-gray-400 uppercase mb-2" style={{ animationDelay: "0ms" }}>
+            Ikenoya Shoji Co., Ltd.
+          </p>
+          <div className="hero-slide w-7 h-px bg-gray-300 mb-3" style={{ animationDelay: "80ms" }} />
+          <p className="hero-slide text-[9px] tracking-[0.25em] text-gray-400 mb-8 uppercase" style={{ animationDelay: "130ms" }}>
+            Since 2023
+          </p>
+          <h1
+            className="hero-slide font-bold text-gray-900 leading-[1.15] mb-6"
+            style={{
+              animationDelay: "220ms",
+              fontFamily: "'Noto Serif JP', serif",
+              fontSize: "clamp(2.4rem, 4.5vw, 4.2rem)",
+            }}
+          >
+            運ぶ信頼<br />届ける真心
+          </h1>
+          <div className="hero-slide w-7 h-px bg-gray-800 mb-8" style={{ animationDelay: "340ms" }} />
+          <div className="hero-slide" style={{ animationDelay: "440ms" }}>
+            <Link href="/about">
+              <button
+                className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-6 py-2.5 transition-colors text-sm tracking-wide bg-white"
+                onClick={() => trackEvent("cta_quote_click", { location: "hero" })}
+                data-testid="button-hero-quote"
+              >
+                池ノ谷商事について
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </Link>
+          </div>
+        </div>
+
+        {/* ── Right: Split image panel (desktop only) ── */}
+        <div
+          className="hidden md:flex flex-1 overflow-hidden"
+          style={{ clipPath: "polygon(7% 0, 100% 0, 100% 100%, 0% 100%)" }}
+        >
+          {/* Main truck image */}
+          <div className="flex-1 overflow-hidden relative">
+            <img
+              src={heroTruck}
+              alt="イスズトラック 高速道路"
+              className="hero-img-in w-full h-full object-cover object-center"
+              style={{ animationDelay: "200ms" }}
+            />
+          </div>
+          {/* 3 stacked sub-images */}
+          <div className="w-[30%] flex flex-col flex-shrink-0">
+            <div className="flex-1 overflow-hidden relative">
+              <img
+                src={heroAerial}
+                alt="物流拠点 航空写真"
+                className="hero-img-in w-full h-full object-cover object-center"
+                style={{ animationDelay: "350ms" }}
+              />
+            </div>
+            <div className="flex-1 overflow-hidden relative border-t border-white/30">
+              <img
+                src={heroCold}
+                alt="冷蔵倉庫"
+                className="hero-img-in w-full h-full object-cover object-center"
+                style={{ animationDelay: "480ms" }}
+              />
+            </div>
+            <div className="flex-1 overflow-hidden relative border-t border-white/30">
+              <img
+                src={heroInterior}
+                alt="倉庫内部"
+                className="hero-img-in w-full h-full object-cover object-center"
+                style={{ animationDelay: "600ms" }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* ── Mobile: truck image behind text ── */}
+        <div className="md:hidden absolute inset-0 z-0">
+          <img src={heroTruck} alt="イスズトラック" className="w-full h-full object-cover object-center" />
+          <div className="absolute inset-0 bg-white/85" />
         </div>
       </section>
 
