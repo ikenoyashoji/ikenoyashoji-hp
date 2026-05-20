@@ -208,7 +208,7 @@ export default function Home() {
         </div>
 
         {/* ── Circular rotating text (bottom-right) ── */}
-        <div className="absolute bottom-7 right-8 z-30 w-32 h-32 hidden md:block">
+        <div className="absolute top-7 right-8 z-30 w-32 h-32 hidden md:block">
           <svg viewBox="0 0 100 100" width="128" height="128">
             <defs>
               <path id="circle-path" d="M 50,50 m -34,0 a 34,34 0 1,1 68,0 a 34,34 0 1,1 -68,0" />
