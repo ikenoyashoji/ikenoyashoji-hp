@@ -218,7 +218,7 @@ export default function Home() {
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
               {[...Array(8)].map((_, j) => (
-                <span key={j} className="text-3xl font-extralight uppercase text-gray-400 tracking-[0.45em]" style={{ fontFamily: "'Montserrat', sans-serif" }}>Delivering Trust, Carrying Sincerity</span>
+                <span key={j} className="text-5xl text-gray-400 tracking-[0.12em]" style={{ fontFamily: "'Great Vibes', cursive" }}>Delivering Trust, Carrying Sincerity</span>
               ))}
             </span>
           ))}
@@ -449,7 +449,7 @@ export default function Home() {
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
               {[...Array(8)].map((_, j) => (
-                <span key={j} className="text-3xl font-extralight uppercase text-gray-400 tracking-[0.45em]" style={{ fontFamily: "'Montserrat', sans-serif" }}>Delivering Trust, Carrying Sincerity</span>
+                <span key={j} className="text-5xl text-gray-400 tracking-[0.12em]" style={{ fontFamily: "'Great Vibes', cursive" }}>Delivering Trust, Carrying Sincerity</span>
               ))}
             </span>
           ))}
