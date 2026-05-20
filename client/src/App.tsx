@@ -105,13 +105,8 @@ function Router() {
 }
 
 function AppInner() {
-  const [splashDone, setSplashDone] = useState(() => {
-    try { return sessionStorage.getItem("splashShown") === "1"; } catch { return false; }
-  });
-  const handleFinish = useCallback(() => {
-    try { sessionStorage.setItem("splashShown", "1"); } catch {}
-    setSplashDone(true);
-  }, []);
+  const [splashDone, setSplashDone] = useState(false);
+  const handleFinish = useCallback(() => setSplashDone(true), []);
 
   useEffect(() => {
     loadAnalytics();
