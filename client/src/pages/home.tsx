@@ -226,7 +226,7 @@ export default function Home() {
                 filter="url(#text-shadow)"
               >
                 <textPath href="#circle-path">
-                  IKENOYASHOJI ✦ IKENOYASHOJI ✦ 
+                  IKENOYASHOJI · IKENOYASHOJI · 
                 </textPath>
               </text>
             </g>
