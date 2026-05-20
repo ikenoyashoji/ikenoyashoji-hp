@@ -8,7 +8,7 @@ import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 import { SplashContext } from "@/App";
-import heroTruck from "@assets/BA217934-06C2-4655-A211-E785926B3978_1779270833860.PNG";
+import heroTruck from "@assets/EE51C913-0C77-4C38-BA78-E222D18E72B5_1779273390396.PNG";
 import heroCold from "@assets/hero_warehouse_cold.png";
 import heroInterior from "@assets/hero_warehouse_interior.png";
 import heroAerial from "@assets/hero_aerial_logistics.png";
@@ -147,7 +147,7 @@ export default function Home() {
           src={heroTruck}
           alt="イスズトラック 高速道路"
           className="hero-img-in absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "160% center", animationDelay: "0ms" }}
+          style={{ objectPosition: "center center", animationDelay: "0ms" }}
         />
 
         {/* ── White diagonal mask (desktop) ── */}
