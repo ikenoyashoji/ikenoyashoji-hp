@@ -213,6 +213,7 @@ export default function Home() {
             <defs>
               <path id="circle-path" d="M 50,50 m -34,0 a 34,34 0 1,1 68,0 a 34,34 0 1,1 -68,0" />
             </defs>
+            <circle cx="50" cy="50" r="34" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="0.6" />
             <g className="rotate-circle">
               <text
                 fontSize="8.4"
