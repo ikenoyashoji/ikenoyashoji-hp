@@ -131,7 +131,12 @@ export default function Home() {
   }, []);
 
   const { data: articles } = useQuery<any[]>({ queryKey: ["/api/articles"] });
-  const latestArticles = articles?.slice(0, 4) || [];
+  const realArticles = articles?.slice(0, 4) || [];
+  const fillerTopics = staticTopics.slice(0, Math.max(0, 4 - realArticles.length));
+  const topicItems = [
+    ...realArticles.map((a: any) => ({ type: "article" as const, data: a })),
+    ...fillerTopics.map((t) => ({ type: "static" as const, data: t })),
+  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -262,71 +267,71 @@ export default function Home() {
             </div>
           </AnimateIn>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-            {latestArticles.length > 0
-              ? latestArticles.map((article: any, i: number) => (
-                  <AnimateIn key={article.id} direction="up" delay={i * 80}>
-                    <Link href={`/blog/${article.slug}`}>
-                      <div className="group cursor-pointer" data-testid={`card-topic-${i}`}>
-                        <div className="aspect-[4/3] overflow-hidden relative rounded-sm mb-3 bg-gray-100">
-                          {article.imageUrl ? (
-                            <img
-                              src={article.imageUrl}
-                              alt={article.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                              onError={(e) => {
-                                const t = e.currentTarget;
-                                t.style.display = "none";
-                                const fb = t.nextElementSibling as HTMLElement;
-                                if (fb) fb.style.display = "flex";
-                              }}
-                            />
-                          ) : null}
-                          <div
-                            className="w-full h-full bg-gradient-to-br from-[#0f2044] to-[#1d4ed8] flex items-center justify-center"
-                            style={{ display: article.imageUrl ? "none" : "flex" }}
-                          >
-                            <span className="text-white text-[10px] font-bold tracking-widest opacity-60">IKENOYA</span>
-                          </div>
-                          <span className="absolute top-2 left-2 bg-[#1d4ed8] text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
-                            {article.category || "物流コラム"}
-                          </span>
-                        </div>
-                        <p className="text-gray-400 text-xs mb-1">
-                          {article.publishedAt
-                            ? new Date(article.publishedAt).toLocaleDateString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, ".")
-                            : new Date(article.createdAt).toLocaleDateString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, ".")}
-                        </p>
-                        <h3 className="text-gray-700 text-xs leading-relaxed line-clamp-2 group-hover:text-[#1d4ed8] transition-colors">
-                          {article.title}
-                        </h3>
-                      </div>
-                    </Link>
-                  </AnimateIn>
-                ))
-              : staticTopics.map((t, i) => (
-                  <AnimateIn key={i} direction="up" delay={i * 80}>
-                    <Link href={t.href}>
-                      <div className="group cursor-pointer" data-testid={`card-topic-${i}`}>
-                        <div className="aspect-[4/3] overflow-hidden relative rounded-sm mb-3 bg-gray-100">
+            {topicItems.map((item, i) =>
+              item.type === "article" ? (
+                <AnimateIn key={`a-${item.data.id}`} direction="up" delay={i * 80}>
+                  <Link href={`/blog/${item.data.slug}`}>
+                    <div className="group cursor-pointer" data-testid={`card-topic-${i}`}>
+                      <div className="aspect-[4/3] overflow-hidden relative rounded-sm mb-3 bg-gray-100">
+                        {item.data.imageUrl ? (
                           <img
-                            src={t.img}
-                            alt={t.title}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                            src={item.data.imageUrl}
+                            alt={item.data.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            onError={(e) => {
+                              const t = e.currentTarget;
+                              t.style.display = "none";
+                              const fb = t.nextElementSibling as HTMLElement;
+                              if (fb) fb.style.display = "flex";
+                            }}
                           />
-                          <span className="absolute top-2 left-2 bg-[#1d4ed8] text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
-                            {t.category}
-                          </span>
+                        ) : null}
+                        <div
+                          className="w-full h-full bg-gradient-to-br from-[#0f2044] to-[#1d4ed8] flex items-center justify-center"
+                          style={{ display: item.data.imageUrl ? "none" : "flex" }}
+                        >
+                          <span className="text-white text-[10px] font-bold tracking-widest opacity-60">IKENOYA</span>
                         </div>
-                        <p className="text-gray-400 text-xs mb-1">{t.date}</p>
-                        <h3 className="text-gray-700 text-xs leading-relaxed line-clamp-2 group-hover:text-[#1d4ed8] transition-colors">
-                          {t.title}
-                        </h3>
+                        <span className="absolute top-2 left-2 bg-[#1d4ed8] text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
+                          {item.data.category || "物流コラム"}
+                        </span>
                       </div>
-                    </Link>
-                  </AnimateIn>
-                ))}
+                      <p className="text-gray-400 text-xs mb-1">
+                        {item.data.publishedAt
+                          ? new Date(item.data.publishedAt).toLocaleDateString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, ".")
+                          : new Date(item.data.createdAt).toLocaleDateString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, ".")}
+                      </p>
+                      <h3 className="text-gray-700 text-xs leading-relaxed line-clamp-2 group-hover:text-[#1d4ed8] transition-colors">
+                        {item.data.title}
+                      </h3>
+                    </div>
+                  </Link>
+                </AnimateIn>
+              ) : (
+                <AnimateIn key={`s-${i}`} direction="up" delay={i * 80}>
+                  <Link href={item.data.href}>
+                    <div className="group cursor-pointer" data-testid={`card-topic-${i}`}>
+                      <div className="aspect-[4/3] overflow-hidden relative rounded-sm mb-3 bg-gray-100">
+                        <img
+                          src={item.data.img}
+                          alt={item.data.title}
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <span className="absolute top-2 left-2 bg-[#1d4ed8] text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
+                          {item.data.category}
+                        </span>
+                      </div>
+                      <p className="text-gray-400 text-xs mb-1">{item.data.date}</p>
+                      <h3 className="text-gray-700 text-xs leading-relaxed line-clamp-2 group-hover:text-[#1d4ed8] transition-colors">
+                        {item.data.title}
+                      </h3>
+                    </div>
+                  </Link>
+                </AnimateIn>
+              )
+            )}
           </div>
-          {latestArticles.length > 0 && (
+          {realArticles.length > 0 && (
             <div className="text-center mt-8">
               <Link href="/blog">
                 <button className="border border-gray-300 text-gray-600 hover:border-[#1d4ed8] hover:text-[#1d4ed8] text-xs px-8 py-2.5 transition-colors tracking-widest">
