@@ -164,14 +164,14 @@ export default function Home() {
         <div className="absolute inset-0 z-20 flex items-center">
           <div className="px-8 sm:px-12 lg:px-16 xl:px-24 max-w-[48%] md:max-w-[40%]">
             <p
-              className="hero-slide text-[9px] tracking-[0.4em] text-gray-400 mb-2"
+              className="hero-slide text-[12px] tracking-[0.35em] text-gray-400 mb-2"
               style={{ animationDelay: "50ms" }}
             >
               Ikenoyashoji Co., Ltd.
             </p>
             <div className="hero-slide w-8 h-px bg-gray-300 mb-3" style={{ animationDelay: "120ms" }} />
             <p
-              className="hero-slide text-[9px] tracking-[0.3em] text-gray-400 mb-10 uppercase"
+              className="hero-slide text-[12px] tracking-[0.28em] text-gray-400 mb-10 uppercase"
               style={{ animationDelay: "170ms" }}
             >
               Since 2023
