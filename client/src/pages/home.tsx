@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/header";
@@ -7,6 +7,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
+import { SplashContext } from "@/App";
 import heroTruck from "@assets/hero_truck_isuzu_white.png";
 import heroCold from "@assets/hero_warehouse_cold.png";
 import heroInterior from "@assets/hero_warehouse_interior.png";
@@ -63,7 +64,7 @@ const staticTopics = [
 ];
 
 
-function TypewriterHeading({ lines, startDelay = 400, speed = 90 }: { lines: string[]; startDelay?: number; speed?: number }) {
+function TypewriterHeading({ lines, active = false, startDelay = 400, speed = 90 }: { lines: string[]; active?: boolean; startDelay?: number; speed?: number }) {
   const [displayed, setDisplayed] = useState<string[]>(lines.map(() => ""));
   const [lineIdx, setLineIdx] = useState(0);
   const [charIdx, setCharIdx] = useState(0);
@@ -71,9 +72,10 @@ function TypewriterHeading({ lines, startDelay = 400, speed = 90 }: { lines: str
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    if (!active) return;
     const t = setTimeout(() => setStarted(true), startDelay);
     return () => clearTimeout(t);
-  }, [startDelay]);
+  }, [active, startDelay]);
 
   useEffect(() => {
     if (!started || done) return;
@@ -116,6 +118,9 @@ function TypewriterHeading({ lines, startDelay = 400, speed = 90 }: { lines: str
 }
 
 export default function Home() {
+  const splashDone = useContext(SplashContext);
+  const hs = splashDone ? "hero-slide" : "opacity-0";
+
   useEffect(() => {
     trackPageView("/");
     setSeo({
@@ -164,30 +169,30 @@ export default function Home() {
         <div className="absolute inset-0 z-20 flex items-center">
           <div className="px-8 sm:px-12 lg:px-16 xl:px-24 max-w-[48%] md:max-w-[40%]">
             <p
-              className="hero-slide text-[12px] tracking-[0.35em] text-gray-400 mb-2"
+              className={`${hs} text-[12px] tracking-[0.35em] text-gray-400 mb-2`}
               style={{ animationDelay: "50ms" }}
             >
               Ikenoyashoji Co., Ltd.
             </p>
-            <div className="hero-slide w-8 h-px bg-gray-300 mb-3" style={{ animationDelay: "120ms" }} />
+            <div className={`${hs} w-8 h-px bg-gray-300 mb-3`} style={{ animationDelay: "120ms" }} />
             <p
-              className="hero-slide text-[12px] tracking-[0.28em] text-gray-400 mb-10 uppercase"
+              className={`${hs} text-[12px] tracking-[0.28em] text-gray-400 mb-10 uppercase`}
               style={{ animationDelay: "170ms" }}
             >
               Since 2023
             </p>
             <h1
-              className="hero-slide font-bold text-gray-900 leading-[1.15] mb-2"
+              className={`${hs} font-bold text-gray-900 leading-[1.15] mb-2`}
               style={{
                 animationDelay: "260ms",
                 fontFamily: "'Noto Serif JP', serif",
                 fontSize: "clamp(3.2rem, 5.6vw, 5.8rem)",
               }}
             >
-              <TypewriterHeading lines={["運ぶ信頼", "届ける真心"]} startDelay={700} speed={95} />
+              <TypewriterHeading lines={["運ぶ信頼", "届ける真心"]} active={splashDone} startDelay={300} speed={95} />
             </h1>
-            <div className="hero-slide w-8 h-px bg-gray-800 mb-9" style={{ animationDelay: "370ms" }} />
-            <div className="hero-slide" style={{ animationDelay: "460ms" }}>
+            <div className={`${hs} w-8 h-px bg-gray-800 mb-9`} style={{ animationDelay: "370ms" }} />
+            <div className={hs} style={{ animationDelay: "460ms" }}>
               <Link href="/about">
                 <button
                   className="flex items-center gap-3 border border-gray-900 text-gray-900 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white font-medium px-7 py-3 transition-colors text-sm tracking-widest bg-white"
