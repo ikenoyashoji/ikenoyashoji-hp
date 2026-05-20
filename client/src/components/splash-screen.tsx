@@ -44,7 +44,7 @@ export function SplashScreen({ onFinish }: { onFinish: () => void }) {
           fontFamily: "'Noto Serif JP', serif",
           fontWeight: 700,
           fontSize: "22px",
-          color: "#9ca3af",
+          color: "#098db7",
           letterSpacing: "0.12em",
           marginTop: "-70px",
           opacity: phase === "in" ? 0 : 1,
