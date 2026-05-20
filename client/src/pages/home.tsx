@@ -112,7 +112,7 @@ export default function Home() {
         <div className="absolute inset-0 z-20 flex items-center">
           <div className="px-8 sm:px-12 lg:px-16 xl:px-24 max-w-[48%] md:max-w-[40%]">
             <p
-              className="hero-slide text-[9px] tracking-[0.4em] text-gray-400 uppercase mb-2"
+              className="hero-slide text-[9px] tracking-[0.4em] text-gray-400 mb-2"
               style={{ animationDelay: "50ms" }}
             >
               Ikenoyashoji Co., Ltd.
