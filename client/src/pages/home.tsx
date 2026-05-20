@@ -212,8 +212,10 @@ export default function Home() {
           <svg viewBox="0 0 100 100" width="128" height="128">
             <defs>
               <path id="circle-path" d="M 50,50 m -34,0 a 34,34 0 1,1 68,0 a 34,34 0 1,1 -68,0" />
+              <filter id="text-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="rgba(0,0,0,0.7)" />
+              </filter>
             </defs>
-            <circle cx="50" cy="50" r="34" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="0.6" />
             <g className="rotate-circle">
               <text
                 fontSize="8.4"
@@ -221,6 +223,7 @@ export default function Home() {
                 fill="rgba(255,255,255,1)"
                 fontFamily="'Open Sans', sans-serif"
                 fontWeight="600"
+                filter="url(#text-shadow)"
               >
                 <textPath href="#circle-path">
                   IKENOYASHOJI ✦ IKENOYASHOJI ✦ 
