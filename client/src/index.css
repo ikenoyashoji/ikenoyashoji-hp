@@ -349,6 +349,19 @@
 }
 
 /* ============================================================
+   Circular Rotating Text
+   ============================================================ */
+
+@keyframes rotateCircle {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.rotate-circle {
+  animation: rotateCircle 12s linear infinite;
+  transform-origin: center center;
+}
+
+/* ============================================================
    Scroll Animations
    ============================================================ */
 

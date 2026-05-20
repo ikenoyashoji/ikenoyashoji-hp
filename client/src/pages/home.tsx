@@ -207,6 +207,31 @@ export default function Home() {
           </div>
         </div>
 
+        {/* ── Circular rotating text (bottom-right) ── */}
+        <div className="absolute bottom-7 right-8 z-30 w-24 h-24 hidden md:block">
+          <svg viewBox="0 0 100 100" width="96" height="96">
+            <defs>
+              <path id="circle-path" d="M 50,50 m -34,0 a 34,34 0 1,1 68,0 a 34,34 0 1,1 -68,0" />
+            </defs>
+            <g className="rotate-circle">
+              <text
+                fontSize="8.4"
+                letterSpacing="2.6"
+                fill="rgba(255,255,255,0.82)"
+                fontFamily="'Open Sans', sans-serif"
+                fontWeight="600"
+              >
+                <textPath href="#circle-path">
+                  Ikenoyashoji Co., Ltd. ✦ Ikenoyashoji Co., Ltd. ✦ 
+                </textPath>
+              </text>
+            </g>
+            <circle cx="50" cy="50" r="6" fill="rgba(255,255,255,0.9)" />
+            <line x1="47" y1="50" x2="53" y2="50" stroke="rgba(30,60,120,0.8)" strokeWidth="1.5" />
+            <line x1="50" y1="47" x2="50" y2="53" stroke="rgba(30,60,120,0.8)" strokeWidth="1.5" />
+          </svg>
+        </div>
+
         {/* ── Subtle bottom fade ── */}
         <div className="absolute bottom-0 left-0 right-0 h-24 z-10 pointer-events-none"
           style={{ background: "linear-gradient(to top, rgba(255,255,255,0.6), transparent)" }} />
