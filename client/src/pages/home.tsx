@@ -222,7 +222,7 @@ export default function Home() {
                 fontWeight="600"
               >
                 <textPath href="#circle-path">
-                  Ikenoyashoji Co., Ltd. ✦ Ikenoyashoji Co., Ltd. ✦ 
+                  IKENOYASHOJI CO., LTD. ✦ IKENOYASHOJI CO., LTD. ✦ 
                 </textPath>
               </text>
             </g>
