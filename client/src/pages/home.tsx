@@ -7,7 +7,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
-import { SplashContext } from "@/lib/splash-context";
+import { SplashContext } from "@/App";
 import heroTruck from "@assets/EE51C913-0C77-4C38-BA78-E222D18E72B5_1779273390396.PNG";
 import heroCold from "@assets/hero_warehouse_cold.png";
 import heroInterior from "@assets/hero_warehouse_interior.png";
@@ -145,7 +145,7 @@ export default function Home() {
       {/* HERO */}
       <section
         className="relative overflow-hidden mt-[100px]"
-        style={{ height: "calc(100vh - 100px)", minHeight: 560, background: "#111827" }}
+        style={{ height: "calc(100vh - 100px)", minHeight: 560 }}
       >
         {/* ── Full-bleed background image ── */}
         <img

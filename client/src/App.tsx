@@ -1,5 +1,5 @@
 import { Switch, Route, useLocation } from "wouter";
-import { useEffect, lazy, Suspense, useState, useCallback, useContext } from "react";
+import { useEffect, lazy, Suspense, useState, useCallback, createContext, useContext } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -11,7 +11,7 @@ import { SplashScreen } from "@/components/splash-screen";
 // LP（ホーム）は静的インポート — 即座に表示
 import Home from "@/pages/home";
 
-import { SplashContext } from "@/lib/splash-context";
+export const SplashContext = createContext(false);
 
 // 公開ページ — 遅延読み込み
 const Recruit       = lazy(() => import("@/pages/recruit"));
@@ -45,19 +45,16 @@ function usePrefetch() {
   useEffect(() => {
     if (location !== "/") return;
     const timer = setTimeout(() => {
-      const pages = [
-        () => import("@/pages/recruit"),
-        () => import("@/pages/partner"),
-        () => import("@/pages/blog"),
-        () => import("@/pages/company"),
-        () => import("@/pages/about"),
-        () => import("@/pages/services"),
-        () => import("@/pages/contact"),
-        () => import("@/pages/privacy"),
-        () => import("@/pages/blog-post"),
-      ];
-      pages.forEach(p => p().catch(() => {}));
-    }, 2000);
+      import("@/pages/recruit");
+      import("@/pages/partner");
+      import("@/pages/blog");
+      import("@/pages/company");
+      import("@/pages/about");
+      import("@/pages/services");
+      import("@/pages/contact");
+      import("@/pages/privacy");
+      import("@/pages/blog-post");
+    }, 2000); // LP表示から2秒後にバックグラウンドで取得開始
     return () => clearTimeout(timer);
   }, [location]);
 }
@@ -110,18 +107,8 @@ function Router() {
 }
 
 function AppInner() {
-  const [location] = useLocation();
-  const isHome = location === "/";
-
-  // sessionStorage で「スプラッシュ済み」を管理 → HMRでリセットされない
-  const [splashDone, setSplashDone] = useState(
-    () => !isHome || sessionStorage.getItem("splashShown") === "1"
-  );
-
-  const handleFinish = useCallback(() => {
-    sessionStorage.setItem("splashShown", "1");
-    setSplashDone(true);
-  }, []);
+  const [splashDone, setSplashDone] = useState(false);
+  const handleFinish = useCallback(() => setSplashDone(true), []);
 
   useEffect(() => {
     loadAnalytics();
@@ -129,7 +116,7 @@ function AppInner() {
 
   return (
     <SplashContext.Provider value={splashDone}>
-      {isHome && !splashDone && <SplashScreen onFinish={handleFinish} />}
+      {!splashDone && <SplashScreen onFinish={handleFinish} />}
       <Router />
     </SplashContext.Provider>
   );
