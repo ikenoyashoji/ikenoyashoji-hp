@@ -1,5 +1,5 @@
 import { Switch, Route, useLocation } from "wouter";
-import { useEffect, lazy, Suspense, useState, useCallback, createContext, useContext, Component } from "react";
+import { useEffect, lazy, Suspense, useState, useCallback, Component } from "react";
 import type { ReactNode } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -9,8 +9,7 @@ import { loadAnalytics, trackPageView } from "@/lib/analytics";
 import NotFound from "@/pages/not-found";
 import { SplashScreen } from "@/components/splash-screen";
 import Home from "@/pages/home";
-
-export const SplashContext = createContext(false);
+import { SplashContext } from "@/lib/splash-context";
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
   constructor(props: { children: ReactNode }) {
@@ -18,8 +17,13 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { error: boolean 
     this.state = { error: false };
   }
   static getDerivedStateFromError() { return { error: true }; }
-  componentDidCatch() { this.setState({ error: false }); window.location.reload(); }
-  render() { return this.state.error ? null : this.props.children; }
+  componentDidCatch(err: unknown) { console.error("[ErrorBoundary]", err); }
+  render() {
+    if (this.state.error) {
+      return <div style={{ padding: 32, color: "#333" }}>読み込みエラーが発生しました。<br /><button onClick={() => this.setState({ error: false })}>再試行</button></div>;
+    }
+    return this.props.children;
+  }
 }
 
 const Recruit       = lazy(() => import("@/pages/recruit"));
