@@ -145,7 +145,7 @@ export default function Home() {
       {/* HERO */}
       <section
         className="relative overflow-hidden mt-[100px]"
-        style={{ height: "calc(100vh - 100px)", minHeight: 560 }}
+        style={{ height: "calc(100vh - 100px)", minHeight: 560, background: "#111827" }}
       >
         {/* ── Full-bleed background image ── */}
         <img

@@ -112,8 +112,16 @@ function Router() {
 function AppInner() {
   const [location] = useLocation();
   const isHome = location === "/";
-  const [splashDone, setSplashDone] = useState(!isHome);
-  const handleFinish = useCallback(() => setSplashDone(true), []);
+
+  // sessionStorage で「スプラッシュ済み」を管理 → HMRでリセットされない
+  const [splashDone, setSplashDone] = useState(
+    () => !isHome || sessionStorage.getItem("splashShown") === "1"
+  );
+
+  const handleFinish = useCallback(() => {
+    sessionStorage.setItem("splashShown", "1");
+    setSplashDone(true);
+  }, []);
 
   useEffect(() => {
     loadAnalytics();
