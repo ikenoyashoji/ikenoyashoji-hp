@@ -1,5 +1,6 @@
 import { Switch, Route, useLocation } from "wouter";
-import { useEffect, lazy, Suspense, useState, useCallback, createContext, useContext } from "react";
+import { useEffect, lazy, Suspense, useState, useCallback, createContext, useContext, Component } from "react";
+import type { ReactNode } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -7,13 +8,20 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { loadAnalytics, trackPageView } from "@/lib/analytics";
 import NotFound from "@/pages/not-found";
 import { SplashScreen } from "@/components/splash-screen";
-
-// LP（ホーム）は静的インポート — 即座に表示
 import Home from "@/pages/home";
 
 export const SplashContext = createContext(false);
 
-// 公開ページ — 遅延読み込み
+class ErrorBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { error: false };
+  }
+  static getDerivedStateFromError() { return { error: true }; }
+  componentDidCatch() { this.setState({ error: false }); window.location.reload(); }
+  render() { return this.state.error ? null : this.props.children; }
+}
+
 const Recruit       = lazy(() => import("@/pages/recruit"));
 const Partner       = lazy(() => import("@/pages/partner"));
 const Blog          = lazy(() => import("@/pages/blog"));
@@ -25,7 +33,6 @@ const Contact       = lazy(() => import("@/pages/contact"));
 const Privacy       = lazy(() => import("@/pages/privacy"));
 const SitemapPage   = lazy(() => import("@/pages/sitemap"));
 
-// 管理画面 — 遅延読み込み
 const AdminLogin         = lazy(() => import("@/pages/admin/login"));
 const AdminDashboard     = lazy(() => import("@/pages/admin/dashboard"));
 const AdminArticles      = lazy(() => import("@/pages/admin/articles"));
@@ -39,22 +46,24 @@ const AdminLogs          = lazy(() => import("@/pages/admin/logs"));
 const AdminSettings      = lazy(() => import("@/pages/admin/settings"));
 const AdminAutoPublish   = lazy(() => import("@/pages/admin/auto-publish"));
 
-// LPを見ている間に公開ページをバックグラウンドでプリフェッチ
 function usePrefetch() {
   const [location] = useLocation();
   useEffect(() => {
     if (location !== "/") return;
     const timer = setTimeout(() => {
-      import("@/pages/recruit");
-      import("@/pages/partner");
-      import("@/pages/blog");
-      import("@/pages/company");
-      import("@/pages/about");
-      import("@/pages/services");
-      import("@/pages/contact");
-      import("@/pages/privacy");
-      import("@/pages/blog-post");
-    }, 2000); // LP表示から2秒後にバックグラウンドで取得開始
+      const pages = [
+        import("@/pages/recruit"),
+        import("@/pages/partner"),
+        import("@/pages/blog"),
+        import("@/pages/company"),
+        import("@/pages/about"),
+        import("@/pages/services"),
+        import("@/pages/contact"),
+        import("@/pages/privacy"),
+        import("@/pages/blog-post"),
+      ];
+      pages.forEach(p => p.catch(() => {}));
+    }, 3000);
     return () => clearTimeout(timer);
   }, [location]);
 }
@@ -73,36 +82,38 @@ function Router() {
   usePrefetch();
 
   return (
-    <Suspense fallback={null}>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/recruit" component={Recruit} />
-        <Route path="/partner" component={Partner} />
-        <Route path="/blog" component={Blog} />
-        <Route path="/blog/:slug" component={BlogPost} />
-        <Route path="/company" component={Company} />
-        <Route path="/about" component={About} />
-        <Route path="/services" component={Services} />
-        <Route path="/sitemap" component={SitemapPage} />
-        <Route path="/contact" component={Contact} />
-        <Route path="/privacy" component={Privacy} />
+    <ErrorBoundary>
+      <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/recruit" component={Recruit} />
+          <Route path="/partner" component={Partner} />
+          <Route path="/blog" component={Blog} />
+          <Route path="/blog/:slug" component={BlogPost} />
+          <Route path="/company" component={Company} />
+          <Route path="/about" component={About} />
+          <Route path="/services" component={Services} />
+          <Route path="/sitemap" component={SitemapPage} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/privacy" component={Privacy} />
 
-        <Route path="/admin/login" component={AdminLogin} />
-        <Route path="/admin" component={AdminDashboard} />
-        <Route path="/admin/articles" component={AdminArticles} />
-        <Route path="/admin/articles/:id" component={ArticleEditor} />
-        <Route path="/admin/keywords" component={AdminKeywords} />
-        <Route path="/admin/search-console" component={AdminSearchConsole} />
-        <Route path="/admin/contacts" component={AdminContacts} />
-        <Route path="/admin/managers" component={AdminManagers} />
-        <Route path="/admin/email-sales" component={AdminEmailSales} />
-        <Route path="/admin/logs" component={AdminLogs} />
-        <Route path="/admin/settings" component={AdminSettings} />
-        <Route path="/admin/auto-publish" component={AdminAutoPublish} />
+          <Route path="/admin/login" component={AdminLogin} />
+          <Route path="/admin" component={AdminDashboard} />
+          <Route path="/admin/articles" component={AdminArticles} />
+          <Route path="/admin/articles/:id" component={ArticleEditor} />
+          <Route path="/admin/keywords" component={AdminKeywords} />
+          <Route path="/admin/search-console" component={AdminSearchConsole} />
+          <Route path="/admin/contacts" component={AdminContacts} />
+          <Route path="/admin/managers" component={AdminManagers} />
+          <Route path="/admin/email-sales" component={AdminEmailSales} />
+          <Route path="/admin/logs" component={AdminLogs} />
+          <Route path="/admin/settings" component={AdminSettings} />
+          <Route path="/admin/auto-publish" component={AdminAutoPublish} />
 
-        <Route component={NotFound} />
-      </Switch>
-    </Suspense>
+          <Route component={NotFound} />
+        </Switch>
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
