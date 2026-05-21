@@ -1,5 +1,5 @@
 import { Switch, Route, useLocation } from "wouter";
-import { useEffect, lazy, Suspense, useState, useCallback, createContext, useContext } from "react";
+import { useEffect, lazy, Suspense, useState, useCallback, useContext } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -11,7 +11,7 @@ import { SplashScreen } from "@/components/splash-screen";
 // LP（ホーム）は静的インポート — 即座に表示
 import Home from "@/pages/home";
 
-export const SplashContext = createContext(false);
+import { SplashContext } from "@/lib/splash-context";
 
 // 公開ページ — 遅延読み込み
 const Recruit       = lazy(() => import("@/pages/recruit"));
