@@ -107,7 +107,9 @@ function Router() {
 }
 
 function AppInner() {
-  const [splashDone, setSplashDone] = useState(false);
+  const [location] = useLocation();
+  const isHome = location === "/";
+  const [splashDone, setSplashDone] = useState(!isHome);
   const handleFinish = useCallback(() => setSplashDone(true), []);
 
   useEffect(() => {
@@ -116,7 +118,7 @@ function AppInner() {
 
   return (
     <SplashContext.Provider value={splashDone}>
-      {!splashDone && <SplashScreen onFinish={handleFinish} />}
+      {isHome && !splashDone && <SplashScreen onFinish={handleFinish} />}
       <Router />
     </SplashContext.Provider>
   );
