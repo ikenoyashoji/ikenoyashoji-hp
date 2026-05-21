@@ -45,16 +45,19 @@ function usePrefetch() {
   useEffect(() => {
     if (location !== "/") return;
     const timer = setTimeout(() => {
-      import("@/pages/recruit");
-      import("@/pages/partner");
-      import("@/pages/blog");
-      import("@/pages/company");
-      import("@/pages/about");
-      import("@/pages/services");
-      import("@/pages/contact");
-      import("@/pages/privacy");
-      import("@/pages/blog-post");
-    }, 2000); // LP表示から2秒後にバックグラウンドで取得開始
+      const pages = [
+        () => import("@/pages/recruit"),
+        () => import("@/pages/partner"),
+        () => import("@/pages/blog"),
+        () => import("@/pages/company"),
+        () => import("@/pages/about"),
+        () => import("@/pages/services"),
+        () => import("@/pages/contact"),
+        () => import("@/pages/privacy"),
+        () => import("@/pages/blog-post"),
+      ];
+      pages.forEach(p => p().catch(() => {}));
+    }, 2000);
     return () => clearTimeout(timer);
   }, [location]);
 }
