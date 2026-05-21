@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/header";
@@ -7,7 +7,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
-import { useSplash } from "@/lib/splash-context";
+import { SplashContext } from "@/App";
 import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_1779386329218.PNG";
 import heroCold from "@assets/hero_warehouse_cold.png";
 import heroInterior from "@assets/hero_warehouse_interior.png";
@@ -118,7 +118,7 @@ function TypewriterHeading({ lines, active = false, startDelay = 400, speed = 90
 }
 
 export default function Home() {
-  const splashDone = useSplash();
+  const splashDone = useContext(SplashContext);
   const hs = splashDone ? "hero-slide" : "opacity-0";
 
   useEffect(() => {
