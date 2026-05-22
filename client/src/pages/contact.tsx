@@ -115,8 +115,8 @@ export default function Contact() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] h-[520px] flex items-center justify-center overflow-hidden">
-        <img src={heroImg} alt="お問い合わせ" className="absolute inset-0 w-full h-full object-cover object-center" />
+      <section className="relative mt-[100px] overflow-hidden">
+        <img src={heroImg} alt="お問い合わせ" className="w-full h-auto block" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
         <div
           className="absolute inset-0 opacity-10"
@@ -126,7 +126,7 @@ export default function Contact() {
             backgroundSize: "60px 60px",
           }}
         />
-        <div className="relative text-center px-8">
+        <div className="absolute inset-0 flex items-center justify-center text-center px-8">
           <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">GET IN TOUCH</p>
           <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">お問い合わせ</h1>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />

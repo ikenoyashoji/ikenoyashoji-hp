@@ -160,18 +160,18 @@ export default function Services() {
       <Header />
 
       {/* Hero */}
-      <section className="mt-[100px] relative h-[520px] flex items-center justify-center px-8 overflow-hidden">
-        <img src={heroImg} alt="事業紹介" className="absolute inset-0 w-full h-full object-cover object-center" />
+      <section className="mt-[100px] relative overflow-hidden">
+        <img src={heroImg} alt="事業紹介" className="w-full h-auto block" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)", backgroundSize: "60px 60px" }} />
-        <div className="relative max-w-5xl mx-auto w-full text-center">
+        <div className="absolute inset-0 flex items-center justify-center"><div className="max-w-5xl mx-auto w-full text-center px-8">
           <AnimateIn>
             <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">IKENOYA SHOJI CO., LTD.</p>
             <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">事業紹介</h1>
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
             <p className="text-gray-300 text-sm tracking-widest">物流のプロとして、多角的なサービスで社会を支えます。</p>
           </AnimateIn>
-        </div>
+        </div></div>
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 

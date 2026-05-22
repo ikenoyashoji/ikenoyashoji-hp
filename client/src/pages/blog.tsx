@@ -100,11 +100,11 @@ export default function Blog() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] h-[520px] flex items-center justify-center overflow-hidden">
-        <img src={heroImg} alt="お知らせ・コラム" className="absolute inset-0 w-full h-full object-cover object-center" />
+      <section className="relative mt-[100px] overflow-hidden">
+        <img src={heroImg} alt="お知らせ・コラム" className="w-full h-auto block" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)", backgroundSize: "60px 60px" }} />
-        <div className="relative text-center px-8">
+        <div className="absolute inset-0 flex items-center justify-center text-center px-8">
           <AnimateIn>
             <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">LATEST NEWS & COLUMN</p>
             <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">お知らせ</h1>

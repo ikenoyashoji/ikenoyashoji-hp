@@ -181,8 +181,8 @@ export default function Recruit() {
       <Header />
 
       {/* Hero */}
-      <section className="relative mt-[100px] overflow-hidden" style={{ minHeight: "500px" }}>
-        <img src={truckHeroImg} alt="採用情報" className="absolute inset-0 w-full h-full object-cover object-center" />
+      <section className="relative mt-[100px]">
+        <img src={truckHeroImg} alt="採用情報" className="w-full h-auto block" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
         <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-8">
           <div className="text-center">
