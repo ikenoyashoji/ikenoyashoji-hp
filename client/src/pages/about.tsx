@@ -39,7 +39,6 @@ export default function About() {
             <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">IKENOYA SHOJI CO., LTD.</p>
             <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">池ノ谷商事について</h1>
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
-            <p className="text-gray-300 text-sm tracking-widest">運ぶ信頼、届ける真心。</p>
           </AnimateIn>
         </div>
       </section>
