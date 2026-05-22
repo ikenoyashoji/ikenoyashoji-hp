@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import footerBg from "@assets/A3922DE7-DDF0-4864-843F-9E18EE9F09DC_1779427972172.PNG";
+import footerBg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
 
 export function Footer() {
   return (
