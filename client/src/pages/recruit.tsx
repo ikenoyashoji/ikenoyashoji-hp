@@ -274,21 +274,19 @@ export default function Recruit() {
           </AnimateIn>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {[
-              "社会保険完備（健康保険・厚生年金・雇用保険・労災保険）",
+              "健康保険",
+              "厚生年金",
+              "雇用保険",
+              "労災保険",
               "各種資格取得費用補助",
               "家族手当（実績・状況により支給）",
               "皆勤手当（実績・状況により支給）",
-              "通勤手当支給",
-              "試用期間3ヶ月（同条件）",
+              "通勤手当（実績・状況により支給）",
+              "試用期間3ヶ月・同条件",
               "マイカー通勤可・駐車場完備",
               "自転車通勤可・駐輪場完備",
-              "制服・作業着支給",
-              "車両完備（個人持ち込み不要）",
-              "土日祝休み（シフト制・週休2日）",
-              "希望休の相談可能",
               "社員登用制度あり",
-              "即日勤務OK",
-              "週2・3日からスタートOK",
+              "昇給あり",
             ].map((b, i) => (
               <AnimateIn key={b} delay={i * 30}>
                 <div className="flex items-start gap-3 p-4 border border-gray-100 bg-gray-50/50 hover:border-[#1d4ed8] transition-colors">
