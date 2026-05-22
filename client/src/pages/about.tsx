@@ -102,7 +102,7 @@ export default function About() {
             <div className="grid md:grid-cols-3 gap-px bg-gray-100">
               {[
                 { title: "Mission", sub: "使命", body: "すべての人の人生を\n豊かにするために\n物流を通じて日常を支え\n想いを運び、届けた\n一つひとつが誰かの\n幸せへとつながる連鎖を\n生み出し続ける。" },
-                { title: "Vision", sub: "ビジョン", body: "すべての物流を、再現性ある仕組みで。誰がやっても成果が出る「非属人的で自走する物流の未来」を構造からつくる。" },
+                { title: "Vision", sub: "ビジョン", body: "すべての物流を\n再現性ある仕組みで\n誰がやっても成果が出る\n「非属人的で自走する物流の未来」\nを構造からつくる。" },
                 { title: "Value", sub: "価値観", body: "誰もが公平に力を発揮できる環境の中で、感謝・礼儀・誠実さを軸に人として誠実に生きる。小さな成功体験を積み重ね、仲間と共に豊かな未来を築く。" },
               ].map((item) => (
                 <div key={item.title} className="bg-white p-10 text-center">
