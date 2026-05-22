@@ -14,7 +14,7 @@ import { ja } from "date-fns/locale";
 
 import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
 
-const categories = ["すべて", "物流コラム", "採用情報", "協力会社情報", "お知らせ", "事例紹介"];
+const categories = ["すべて", "物流コラム", "採用情報", "お知らせ"];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("すべて");
