@@ -21,12 +21,11 @@ import serviceImg05 from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_177942703
 import serviceImg06 from "@assets/3EF77FFF-E87F-4925-A5AD-B58610F4588C_1779426911532.PNG";
 import serviceImg07 from "@assets/4EDD08B8-A65F-40A7-93F3-7F0D21C63C92_1779427089063.PNG";
 import serviceImg08 from "@assets/スクリーンショット_2026-05-22_14.19.00_1779427152403.png";
-import recruitImg1 from "@assets/recruit_01_driver_cab.png";
-import recruitImg2 from "@assets/recruit_02_coordinator_warehouse.png";
-import recruitImg3 from "@assets/recruit_03_delivery_street.png";
-import recruitImg4 from "@assets/recruit_04_office_worker.png";
-import recruitImg5 from "@assets/recruit_05_mechanics_team.png";
-import recruitImg6 from "@assets/recruit_06_senior_outdoor.png";
+import recruitImg1 from "@assets/3A3C76C0-4233-44A3-B457-22FF64E8AF06_1779427576892.PNG";
+import recruitImg2 from "@assets/BC6D7FFA-B15E-457A-8DC2-C1E0FA25B943_1779427576893.PNG";
+import recruitImg3 from "@assets/1F4EB5CB-29A3-47D1-9277-E1E76987A7B8_1779427576893.PNG";
+import recruitImg4 from "@assets/0A6767E5-1451-438C-B486-1782B1297F10_1779427576893.PNG";
+import recruitImg5 from "@assets/B30768FD-5A67-43D6-A365-9C50F0948EAC_1779427576893.PNG";
 import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
 import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
 import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
@@ -455,8 +454,8 @@ export default function Home() {
         {/* Image slider strip */}
         <div className="overflow-hidden w-full mb-8">
           <div className="flex animate-recruit-slide" style={{ width: "max-content" }}>
-            {[recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5, recruitImg6,
-              recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5, recruitImg6].map((img, i) => (
+            {[recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5,
+              recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5].map((img, i) => (
               <div key={i} className="flex-shrink-0 h-72 w-52 overflow-hidden border-r-2 border-white">
                 <img src={img} alt={`recruit-${i}`} className="w-full h-full object-cover object-top" />
               </div>
