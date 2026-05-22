@@ -72,6 +72,21 @@ async function migrateArticleImages() {
   }
 }
 
+async function fixBlogCategories() {
+  try {
+    const allArticles = await storage.getArticles();
+    const blogArticles = allArticles.filter(a => a.category === "BLOG" || a.category === "blog");
+    for (const article of blogArticles) {
+      await storage.updateArticle(article.id, { category: "物流コラム" });
+    }
+    if (blogArticles.length > 0) {
+      console.log(`[fix] ${blogArticles.length}件の記事のカテゴリを"BLOG"→"物流コラム"に修正しました`);
+    }
+  } catch (e) {
+    console.error("[fix] カテゴリ修正失敗:", e);
+  }
+}
+
 async function seedData() {
   try {
     const existingArticles = await storage.getArticles();
@@ -234,6 +249,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   );
 
   await seedData();
+  await fixBlogCategories();
   await migrateArticleImages();
 
   // Health check
