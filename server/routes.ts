@@ -561,7 +561,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   "slug": "url-slug-in-english",
   "metaDescription": "メタディスクリプション（90〜120文字）",
   "excerpt": "記事の要約（100〜150文字）",
-  "category": "カテゴリ名（物流コラム/採用情報/協力会社情報/お知らせのいずれか）",
+  "category": "カテゴリ名（物流コラム/採用情報/お知らせのいずれか）",
   "tags": ["タグ1", "タグ2", "タグ3"],
   "content": "本文HTML（h2/h3タグ使用、3000〜4000文字）",
   "faqData": [{"q": "質問", "a": "回答"}],

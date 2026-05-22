@@ -13,7 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Save, Eye, ArrowLeft, Wand2, Globe, Upload, X, ImageIcon } from "lucide-react";
 import { Link } from "wouter";
 
-const categories = ["物流コラム", "採用情報", "協力会社情報", "お知らせ", "事例紹介"];
+const categories = ["物流コラム", "採用情報", "お知らせ"];
 
 export default function ArticleEditor() {
   const { id } = useParams<{ id: string }>();
