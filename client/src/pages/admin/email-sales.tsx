@@ -28,6 +28,44 @@ const CATEGORY_LABEL: Record<string, string> = {
   recruit: "採用",
 };
 
+function buildHtmlEmailPreview(body: string): string {
+  const paragraphs = body
+    .split(/\n+/)
+    .map((l) => l.trim())
+    .filter(Boolean)
+    .map((l) => `<p style="margin:0 0 16px 0;line-height:1.8;color:#333333;">${l}</p>`)
+    .join("\n");
+  return `<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"/></head>
+<body style="margin:0;padding:0;background:#f4f6f9;font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:24px 16px;">
+<tr><td align="center">
+<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+  <tr><td style="background:linear-gradient(135deg,#0f2044 0%,#1a4b99 100%);padding:28px 36px;">
+    <p style="margin:0 0 4px 0;font-size:10px;letter-spacing:0.25em;color:#7eb3ff;">IKENOYASHOJI CO., LTD.</p>
+    <p style="margin:0;font-size:18px;font-weight:700;color:#fff;letter-spacing:0.05em;">株式会社池ノ谷商事</p>
+    <p style="margin:5px 0 0 0;font-size:10px;color:rgba(255,255,255,0.6);letter-spacing:0.1em;">物流・運送サービスのご案内</p>
+  </td></tr>
+  <tr><td style="padding:32px 36px 20px 36px;">${paragraphs}</td></tr>
+  <tr><td style="padding:0 36px 32px 36px;">
+    <table cellpadding="0" cellspacing="0"><tr>
+      <td style="background:linear-gradient(135deg,#1a4b99,#1d4ed8);border-radius:2px;">
+        <a href="https://ikenoyashoji.jp/contact" style="display:inline-block;padding:12px 28px;color:#fff;font-size:12px;font-weight:600;text-decoration:none;letter-spacing:0.08em;">お問い合わせ・ご相談はこちら →</a>
+      </td>
+    </tr></table>
+  </td></tr>
+  <tr><td style="padding:0 36px;"><hr style="border:none;border-top:1px solid #e8ecf0;margin:0;"/></td></tr>
+  <tr><td style="padding:20px 36px 28px 36px;background:#fafbfc;">
+    <p style="margin:0 0 5px 0;font-size:12px;font-weight:700;color:#0f2044;">株式会社池ノ谷商事　営業部</p>
+    <p style="margin:0 0 3px 0;font-size:11px;color:#666;">〒243-0303　神奈川県愛甲郡愛川町中津7287</p>
+    <p style="margin:0 0 3px 0;font-size:11px;color:#666;">TEL: 046-212-2766　／　Email: <a href="mailto:sales@ikenoyashoji.fun" style="color:#1a4b99;text-decoration:none;">sales@ikenoyashoji.fun</a></p>
+    <p style="margin:6px 0 0 0;font-size:11px;color:#666;">URL: <a href="https://ikenoyashoji.jp" style="color:#1a4b99;text-decoration:none;">https://ikenoyashoji.jp</a></p>
+    <p style="margin:16px 0 0 0;font-size:10px;color:#aaa;line-height:1.6;">このメールは池ノ谷商事 営業部より送信されています。配信停止をご希望の場合は返信にてお知らせください。</p>
+  </td></tr>
+</table>
+</td></tr></table>
+</body></html>`;
+}
+
 function fmtDate(s: string | null) {
   if (!s) return "—";
   try { return format(parseISO(s), "M/d HH:mm", { locale: ja }); } catch { return s; }
@@ -414,12 +452,20 @@ export default function AdminEmailSales() {
                         <div className="text-xs text-gray-500 mb-2">To: {selected.email || "（メールなし）"}</div>
                         <div className="text-sm font-semibold text-gray-900">{selected.emailSubject}</div>
                       </div>
-                      {/* Email body */}
-                      <div className="px-6 py-5">
-                        <pre className="text-sm text-gray-700 whitespace-pre-wrap font-sans leading-relaxed">
-                          {selected.emailBody}
-                        </pre>
-                      </div>
+                      {/* Email body – HTML preview */}
+                      {selected.emailBody ? (
+                        <iframe
+                          srcDoc={buildHtmlEmailPreview(selected.emailBody)}
+                          className="w-full border-0"
+                          style={{ height: "520px" }}
+                          sandbox="allow-same-origin"
+                          title="email-preview"
+                        />
+                      ) : (
+                        <div className="px-6 py-8 text-center text-gray-400 text-sm">
+                          「AIで生成」ボタンでメール本文を生成してください
+                        </div>
+                      )}
                       {/* Crawl meta */}
                       {selected.crawlQuery && (
                         <div className="px-6 py-2 border-t border-gray-50 flex items-center gap-2 text-[10px] text-gray-300">
