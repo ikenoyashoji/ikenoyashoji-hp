@@ -15,7 +15,7 @@ import heroAerial from "@assets/hero_aerial_logistics.png";
 import japanMapImg from "@assets/imageううう_1778610881804.png";
 import serviceImg01 from "@assets/4A8E31BC-A53B-4581-BFDB-808A56C9285B_1779426681105.PNG";
 import serviceImg02 from "@assets/CD5B5D20-9501-48AD-AD3B-EDD91D28BA1F_1779426738532.PNG";
-import serviceImg03 from "@assets/service_03_light_cargo.png";
+import serviceImg03 from "@assets/0878E4B7-4446-434F-9882-22577A67DDBD_1779426777782.PNG";
 import serviceImg04 from "@assets/service_04_consulting.png";
 import serviceImg05 from "@assets/service_05_warehouse.png";
 import serviceImg06 from "@assets/service_06_insurance.png";
