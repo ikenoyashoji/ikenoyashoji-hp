@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Header } from "@/components/header";
+import { AnimateIn } from "@/components/animate-in";
 import { Footer } from "@/components/footer";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
@@ -126,11 +127,12 @@ export default function Contact() {
             backgroundSize: "60px 60px",
           }}
         />
-        <div className="absolute inset-0 flex items-center justify-center text-center px-8">
-          <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">GET IN TOUCH</p>
-          <h1 className="hero-title text-5xl md:text-6xl font-extralight text-white tracking-[0.15em] mb-6">お問い合わせ</h1>
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
-          <p className="text-gray-300 text-sm tracking-widest">2営業日以内にご返答いたします。</p>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8">
+          <AnimateIn>
+            <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] mb-6">Ikenoyashoji Co.,Ltd.</p>
+            <h1 className="hero-title text-5xl md:text-6xl font-extralight text-white tracking-[0.15em] mb-6">お問い合わせ</h1>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto" />
+          </AnimateIn>
         </div>
       </section>
 
