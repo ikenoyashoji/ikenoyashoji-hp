@@ -271,12 +271,12 @@ export default function Home() {
                 <AnimateIn key={`a-${item.data.id}`} direction="up" delay={i * 80}>
                   <Link href={`/blog/${item.data.slug}`}>
                     <div className="group cursor-pointer" data-testid={`card-topic-${i}`}>
-                      <div className="aspect-[4/3] overflow-hidden relative rounded-sm mb-3 bg-gray-100">
+                      <div className="overflow-hidden relative rounded-sm mb-3 bg-gray-100">
                         {item.data.imageUrl ? (
                           <img
                             src={item.data.imageUrl}
                             alt={item.data.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            className="w-full h-auto block group-hover:scale-105 transition-transform duration-500"
                             onError={(e) => {
                               const t = e.currentTarget;
                               t.style.display = "none";
@@ -310,11 +310,11 @@ export default function Home() {
                 <AnimateIn key={`s-${i}`} direction="up" delay={i * 80}>
                   <Link href={item.data.href}>
                     <div className="group cursor-pointer" data-testid={`card-topic-${i}`}>
-                      <div className="aspect-[4/3] overflow-hidden relative rounded-sm mb-3 bg-gray-100">
+                      <div className="overflow-hidden relative rounded-sm mb-3 bg-gray-100">
                         <img
                           src={item.data.img}
                           alt={item.data.title}
-                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-auto block group-hover:scale-105 transition-transform duration-500"
                         />
                         <span className="absolute top-2 left-2 bg-[#1d4ed8] text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
                           {item.data.category}
