@@ -57,7 +57,7 @@ export default function About() {
               <h3 className="text-3xl md:text-4xl font-light text-gray-900 mb-10 leading-relaxed">
                 「すべての人の人生を豊かに。」
               </h3>
-              <div className="space-y-6 text-gray-600 text-sm leading-loose max-w-3xl mx-auto">
+              <div className="space-y-6 text-gray-600 text-sm leading-loose max-w-2xl mx-auto text-left">
                 <p>
                   私たちは、誰もが公平に力を発揮できる環境を整え、仕事を通じて人と出会い、関わり合い、様々な経験を重ねながら、人生そのものを豊かに育んでいく場をつくっています。
                 </p>
