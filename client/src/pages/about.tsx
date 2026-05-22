@@ -105,11 +105,11 @@ export default function About() {
                 { title: "Vision", sub: "ビジョン", body: "すべての物流を、再現性ある仕組みで。誰がやっても成果が出る「非属人的で自走する物流の未来」を構造からつくる。" },
                 { title: "Value", sub: "価値観", body: "誰もが公平に力を発揮できる環境の中で、感謝・礼儀・誠実さを軸に人として誠実に生きる。小さな成功体験を積み重ね、仲間と共に豊かな未来を築く。" },
               ].map((item) => (
-                <div key={item.title} className="bg-white p-8 text-center">
-                  <p className="text-[#1d4ed8] text-xs tracking-[0.4em] uppercase mb-2">{item.title}</p>
-                  <p className="text-gray-800 font-semibold mb-4">{item.sub}</p>
-                  <div className="w-6 h-0.5 bg-[#1d4ed8] mx-auto mb-4" />
-                  <p className="text-gray-500 text-xs leading-relaxed">{item.body}</p>
+                <div key={item.title} className="bg-white p-10 text-center">
+                  <p className="text-[#1d4ed8] text-[10px] tracking-[0.5em] uppercase mb-3">{item.title}</p>
+                  <p className="text-gray-800 font-semibold text-lg mb-4">{item.sub}</p>
+                  <div className="w-6 h-0.5 bg-[#1d4ed8] mx-auto mb-5" />
+                  <p className="text-gray-500 text-sm leading-[2] [text-wrap:balance]">{item.body}</p>
                 </div>
               ))}
             </div>
