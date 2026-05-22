@@ -20,7 +20,7 @@ import serviceImg04 from "@assets/32441AFB-7881-4D18-AC34-2DBF80A87B7F_177942684
 import serviceImg05 from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.PNG";
 import serviceImg06 from "@assets/3EF77FFF-E87F-4925-A5AD-B58610F4588C_1779426911532.PNG";
 import serviceImg07 from "@assets/4EDD08B8-A65F-40A7-93F3-7F0D21C63C92_1779427089063.PNG";
-import serviceImg08 from "@assets/service_08_maintenance.png";
+import serviceImg08 from "@assets/スクリーンショット_2026-05-22_14.19.00_1779427152403.png";
 import recruitImg1 from "@assets/recruit_01_driver_cab.png";
 import recruitImg2 from "@assets/recruit_02_coordinator_warehouse.png";
 import recruitImg3 from "@assets/recruit_03_delivery_street.png";
