@@ -220,9 +220,6 @@ function buildHtmlEmail(body: string, unsubscribeToken?: string): string {
           <!-- HEADER -->
           <tr>
             <td style="background:linear-gradient(160deg,#050e1f 0%,#0f2044 28%,#1a4b99 68%,#2563eb 100%);padding:44px 44px 40px 44px;text-align:center;">
-              <div class="logo-ring" style="display:inline-block;width:72px;height:72px;border-radius:50%;border:2.5px solid rgba(147,197,253,0.65);background:rgba(255,255,255,0.05);margin:0 auto 22px auto;line-height:72px;text-align:center;vertical-align:middle;">
-                <span style="font-size:30px;font-weight:900;color:#ffffff;font-family:serif;vertical-align:middle;line-height:72px;">池</span>
-              </div>
               <p class="hd-title" style="margin:0 0 6px 0;font-size:11px;letter-spacing:0.38em;color:#93c5fd;font-weight:400;text-transform:uppercase;">Ikenoyashoji Co., Ltd.</p>
               <p class="hd-title" style="margin:0 0 10px 0;font-size:26px;font-weight:800;color:#ffffff;letter-spacing:0.06em;">株式会社池ノ谷商事</p>
               <p class="hd-sub" style="margin:0;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.14em;">物流・運送サービスのご案内</p>
@@ -244,7 +241,7 @@ function buildHtmlEmail(body: string, unsubscribeToken?: string): string {
             <td style="padding:4px 44px 40px 44px;background:#ffffff;">
               <table cellpadding="0" cellspacing="0"><tr>
                 <td style="background:linear-gradient(135deg,#1a4b99 0%,#2563eb 100%);border-radius:4px;box-shadow:0 4px 14px rgba(37,99,235,0.35);">
-                  <a href="https://ikenoyashoji.jp/contact" style="display:inline-block;padding:15px 36px;color:#ffffff;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.1em;">お問い合わせ・ご相談はこちら →</a>
+                  <a href="mailto:info@ikenoyashoji.co.jp" style="display:inline-block;padding:15px 36px;color:#ffffff;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.1em;">メールでお問い合わせ →</a>
                 </td>
               </tr></table>
             </td>
