@@ -405,7 +405,7 @@ export default function Home() {
             <p className="text-gray-400 text-xs tracking-widest">事業紹介</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
             {[
               { num: "01", title: "一般貨物自動車運送",           sub: "General Cargo Transport",      img: serviceImg01 },
               { num: "02", title: "貨物利用運送",                 sub: "Freight Forwarding",            img: serviceImg02 },
@@ -417,17 +417,17 @@ export default function Home() {
               { num: "08", title: "一般整備・車検・板金・塗装・レッカー", sub: "Vehicle Maintenance & Repair", img: serviceImg08 },
             ].map((s, i) => (
               <AnimateIn key={i} delay={(i % 4) * 80} direction="up">
-              <div className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden">
-                <div className="w-full overflow-hidden">
-                  <img src={s.img} alt={s.title} className="w-full h-auto block group-hover:scale-105 transition-transform duration-500" />
+              <div className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden h-full">
+                <div className="w-full h-48 overflow-hidden flex-shrink-0">
+                  <img src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 {/* Text content */}
-                <div className="p-8 flex flex-col gap-3">
+                <div className="p-6 flex flex-col gap-2 flex-1">
                   <div className="text-[#1d4ed8] text-xs font-medium tracking-widest">{s.num}</div>
                   <div className="w-6 h-0.5 bg-[#1d4ed8]" />
-                  <h3 className="text-gray-900 font-bold text-lg leading-snug">{s.title}</h3>
+                  <h3 className="text-gray-900 font-bold text-sm leading-snug">{s.title}</h3>
                   <p className="text-gray-400 text-xs italic tracking-wide">{s.sub}</p>
-                  <div className="pt-2">
+                  <div className="pt-2 mt-auto">
                     <Link href="/services">
                       <span className="text-[#1a4b99] text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                         詳しく見る <ArrowRight className="w-3 h-3" />
