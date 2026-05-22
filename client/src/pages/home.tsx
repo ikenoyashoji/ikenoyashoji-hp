@@ -466,7 +466,7 @@ export default function Home() {
         {/* CTA button */}
         <div className="flex justify-end max-w-7xl mx-auto px-4 pb-16">
           <Link href="/recruit">
-            <span className="flex items-center gap-3 border border-gray-900 text-gray-900 text-sm font-medium px-8 py-3 hover:bg-[#1d4ed8] hover:border-[#1d4ed8] hover:text-white transition-colors" data-testid="link-recruit-detail">
+            <span className="btn-curtain flex items-center gap-3 border border-gray-900 text-gray-900 text-sm font-medium px-8 py-3" data-testid="link-recruit-detail">
               詳しく見る <ArrowRight className="w-4 h-4" />
             </span>
           </Link>
