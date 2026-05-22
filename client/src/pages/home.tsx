@@ -17,7 +17,7 @@ import serviceImg01 from "@assets/4A8E31BC-A53B-4581-BFDB-808A56C9285B_177942668
 import serviceImg02 from "@assets/CD5B5D20-9501-48AD-AD3B-EDD91D28BA1F_1779426738532.PNG";
 import serviceImg03 from "@assets/0878E4B7-4446-434F-9882-22577A67DDBD_1779426777782.PNG";
 import serviceImg04 from "@assets/32441AFB-7881-4D18-AC34-2DBF80A87B7F_1779426843675.PNG";
-import serviceImg05 from "@assets/service_05_warehouse.png";
+import serviceImg05 from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.PNG";
 import serviceImg06 from "@assets/3EF77FFF-E87F-4925-A5AD-B58610F4588C_1779426911532.PNG";
 import serviceImg07 from "@assets/service_07_vehicle_sales.png";
 import serviceImg08 from "@assets/service_08_maintenance.png";
