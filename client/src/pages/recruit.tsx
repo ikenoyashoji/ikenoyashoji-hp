@@ -193,16 +193,16 @@ export default function Recruit() {
           </AnimateIn>
           <AnimateIn>
             <p className="text-gray-500 text-sm leading-relaxed text-center max-w-2xl mx-auto mb-16">
-              池ノ谷商事が担うのは、製品輸送や構内作業といった、一見すると目立たないけれど、現場に欠かせない仕事です。誠実に、まっすぐに。現場を支える一員として、一緒に働いてみませんか。
+              神奈川県愛川町を拠点に、近距離ルート配送を中心とした物流業務を担う池ノ谷商事。社員同士の距離が近く、アットホームで明るい職場環境です。20代〜50代まで幅広いスタッフがチームワークを大切に働いています。あなたの頑張りをしっかり評価し、長く安定して働ける環境をご用意しています。
             </p>
           </AnimateIn>
           {/* 4 Pillars */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { icon: Shield, title: "安定した雇用", desc: "創業から右肩上がりで成長中。物流需要は社会インフラとして安定した需要があります。" },
-              { icon: TrendingUp, title: "明確なキャリアパス", desc: "ドライバーから管理職まで。実力と年数に応じた昇給・昇格制度を整備しています。" },
-              { icon: Star, title: "充実した研修", desc: "未経験でも安心のOJT制度。免許・資格取得費用も会社が全額サポートします。" },
-              { icon: Clock, title: "働き方改革推進", desc: "月平均残業20時間以下。有給取得も推奨。プライベートを大切にできる環境です。" },
+              { icon: Shield, title: "アットホームな職場", desc: "社員同士の距離が近く、明るい雰囲気。新人の方もすぐに馴染める環境で、先輩スタッフが丁寧にサポートします。" },
+              { icon: TrendingUp, title: "頑張りをしっかり評価", desc: "昇給あり・社員登用制度完備。実績や成果に応じて公正に評価され、長く安定して働けます。" },
+              { icon: Star, title: "充実したサポート体制", desc: "未経験でも安心。各種資格取得費用の補助制度あり。先輩スタッフが丁寧に指導します。" },
+              { icon: Clock, title: "柔軟な働き方", desc: "希望休の相談可能。シフト制・週休2日でライフスタイルに合わせた働き方ができます。" },
             ].map((p, i) => {
               const Icon = p.icon;
               return (
