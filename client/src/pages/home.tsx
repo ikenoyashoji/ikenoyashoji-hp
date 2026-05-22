@@ -13,7 +13,7 @@ import heroCold from "@assets/hero_warehouse_cold.png";
 import heroInterior from "@assets/hero_warehouse_interior.png";
 import heroAerial from "@assets/hero_aerial_logistics.png";
 import japanMapImg from "@assets/imageううう_1778610881804.png";
-import serviceImg01 from "@assets/service_01_general_cargo.png";
+import serviceImg01 from "@assets/4A8E31BC-A53B-4581-BFDB-808A56C9285B_1779426681105.PNG";
 import serviceImg02 from "@assets/service_02_freight_forwarding.png";
 import serviceImg03 from "@assets/service_03_light_cargo.png";
 import serviceImg04 from "@assets/service_04_consulting.png";
