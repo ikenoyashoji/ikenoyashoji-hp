@@ -215,7 +215,7 @@ export default function Recruit() {
           <AnimateIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">WHY JOIN US</p>
-              <h2 className="text-3xl sm:text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">ともに、働く。</h2>
+              <h2 className="text-3xl sm:text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">時間も、収入も、人生に彩りを</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
