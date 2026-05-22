@@ -128,7 +128,7 @@ export default function Contact() {
         />
         <div className="absolute inset-0 flex items-center justify-center text-center px-8">
           <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">GET IN TOUCH</p>
-          <h1 className="text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">お問い合わせ</h1>
+          <h1 className="hero-title text-6xl md:text-7xl font-extralight text-white tracking-[0.15em] mb-6">お問い合わせ</h1>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
           <p className="text-gray-300 text-sm tracking-widest">2営業日以内にご返答いたします。</p>
         </div>
