@@ -153,7 +153,7 @@ export default function Company() {
 
 
       {/* Company info */}
-      <section className="py-24 bg-white px-8">
+      <section className="py-16 sm:py-24 bg-white px-4 sm:px-8">
         <div className="max-w-4xl mx-auto">
           <AnimateIn>
             <div className="text-center mb-16">
@@ -192,7 +192,7 @@ export default function Company() {
       </section>
 
       {/* Locations */}
-      <section className="py-24 bg-gray-50 px-8">
+      <section className="py-16 sm:py-24 bg-gray-50 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto">
           <AnimateIn>
             <div className="text-center mb-16">
@@ -234,14 +234,14 @@ export default function Company() {
             );
             return (
               <div className="space-y-4">
-                <div className="grid grid-cols-3 gap-4 items-stretch">{locs.slice(0, 3).map((l, i) => card(l, i))}</div>
-                <div className="grid grid-cols-6 gap-4 items-stretch">
-                  <div className="col-span-2 col-start-2 flex flex-col">{card(locs[3], 3)}</div>
-                  <div className="col-span-2 flex flex-col">{card(locs[4], 4)}</div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-stretch">{locs.slice(0, 3).map((l, i) => card(l, i))}</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch sm:max-w-[66.7%] sm:mx-auto">
+                  {card(locs[3], 3)}
+                  {card(locs[4], 4)}
                 </div>
-                <div className="grid grid-cols-6 gap-4 items-stretch">
-                  <div className="col-span-2 col-start-2 flex flex-col">{card(locs[5], 5)}</div>
-                  <div className="col-span-2 flex flex-col">{card(locs[6], 6)}</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch sm:max-w-[66.7%] sm:mx-auto">
+                  {card(locs[5], 5)}
+                  {card(locs[6], 6)}
                 </div>
               </div>
             );

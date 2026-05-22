@@ -167,7 +167,7 @@ export default function Home() {
 
         {/* ── Text content ── */}
         <div className="absolute inset-0 z-20 flex items-center">
-          <div className="px-8 sm:px-12 lg:px-16 xl:px-24 max-w-[48%] md:max-w-[40%]">
+          <div className="px-6 sm:px-10 lg:px-16 xl:px-24 w-[92%] sm:w-[62%] md:w-auto md:max-w-[42%]">
             <p
               className={`${hs} text-[12px] tracking-[0.35em] text-gray-400 mb-2`}
               style={{ animationDelay: "50ms" }}
@@ -186,7 +186,7 @@ export default function Home() {
               style={{
                 animationDelay: "260ms",
                 fontFamily: "'Noto Serif JP', serif",
-                fontSize: "clamp(3.2rem, 5.6vw, 5.8rem)",
+                fontSize: "clamp(2.6rem, 6vw, 5.8rem)",
               }}
             >
               <TypewriterHeading lines={["運ぶ信頼", "届ける真心"]} active={splashDone} startDelay={300} speed={140} />
@@ -343,6 +343,7 @@ export default function Home() {
                 <img
                   src={japanMapImg}
                   alt="全国配送ネットワーク地図"
+                  loading="lazy"
                   className="w-full h-auto object-contain"
                 />
               </div>
@@ -388,7 +389,7 @@ export default function Home() {
             <p className="text-gray-400 text-xs tracking-widest">事業紹介</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 items-stretch">
             {[
               { num: "01", title: "一般貨物自動車運送",           sub: "General Cargo Transport",      img: serviceImg01 },
               { num: "02", title: "貨物利用運送",                 sub: "Freight Forwarding",            img: serviceImg02 },
@@ -402,7 +403,7 @@ export default function Home() {
               <AnimateIn key={i} delay={(i % 4) * 80} direction="up">
               <div className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden h-full">
                 <div className="w-full h-48 overflow-hidden flex-shrink-0">
-                  <img src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={s.img} alt={s.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 {/* Text content */}
                 <div className="p-6 flex flex-col gap-2 flex-1">
@@ -440,7 +441,7 @@ export default function Home() {
             {[recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5,
               recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5].map((img, i) => (
               <div key={i} className="flex-shrink-0 h-64 w-44 overflow-hidden">
-                <img src={img} alt={`recruit-${i}`} className="w-full h-full object-cover object-top" />
+                <img src={img} alt={`recruit-${i}`} loading="lazy" className="w-full h-full object-cover object-top" />
               </div>
             ))}
           </div>

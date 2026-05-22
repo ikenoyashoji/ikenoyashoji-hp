@@ -446,7 +446,7 @@ export default function Recruit() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-[#0f2044] text-center px-8">
+      <section className="py-16 sm:py-24 bg-[#0f2044] text-center px-4 sm:px-8">
         <AnimateIn>
           <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">APPLY NOW</p>
           <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-4">時間も、収入も、人生に彩りを</h2>
