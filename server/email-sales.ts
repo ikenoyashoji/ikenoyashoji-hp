@@ -147,7 +147,7 @@ export async function generateEmailForLead(lead: any): Promise<{ subject: string
 ルール：
 - 件名は30〜50文字
 - 本文は200〜300文字（短く、読みやすく）
-- 最後に署名を入れる（池ノ谷商事 営業部、TEL:046-286-0015、Email:info@ikenoyashoji.co.jp）
+- 最後に署名を入れる（池ノ谷商事 営業部、TEL:046-212-2766、Email:sales@ikenoyashoji.fun）
 - 特定の数値や名前は記載しない（相手の詳細が不明なため）
 
 JSON形式のみで出力：{"subject": "...", "body": "..."}`
@@ -169,16 +169,92 @@ export function createTransporter() {
   return nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });
 }
 
+function buildHtmlEmail(body: string): string {
+  const paragraphs = body
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => `  <p style="margin:0 0 16px 0;line-height:1.8;color:#333333;">${line}</p>`)
+    .join("\n");
+
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+</head>
+<body style="margin:0;padding:0;background-color:#f4f6f9;font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:4px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#0f2044 0%,#1a4b99 100%);padding:32px 40px;">
+              <p style="margin:0 0 4px 0;font-size:11px;letter-spacing:0.25em;color:#7eb3ff;font-weight:400;">IKENOYASHOJI CO., LTD.</p>
+              <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.05em;">株式会社池ノ谷商事</p>
+              <p style="margin:6px 0 0 0;font-size:11px;color:rgba(255,255,255,0.6);letter-spacing:0.1em;">物流・運送サービスのご案内</p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:36px 40px 24px 40px;">
+              ${paragraphs}
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding:0 40px 36px 40px;">
+              <table cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="background:linear-gradient(135deg,#1a4b99,#1d4ed8);border-radius:2px;">
+                    <a href="https://ikenoyashoji.jp/contact" style="display:inline-block;padding:14px 32px;color:#ffffff;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.08em;">お問い合わせ・ご相談はこちら →</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="padding:0 40px;"><hr style="border:none;border-top:1px solid #e8ecf0;margin:0;" /></td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:24px 40px 32px 40px;background:#fafbfc;">
+              <p style="margin:0 0 6px 0;font-size:13px;font-weight:700;color:#0f2044;">株式会社池ノ谷商事　営業部</p>
+              <p style="margin:0 0 4px 0;font-size:12px;color:#666666;">〒243-0303　神奈川県愛甲郡愛川町中津7287</p>
+              <p style="margin:0 0 4px 0;font-size:12px;color:#666666;">TEL: 046-212-2766　／　Email: <a href="mailto:sales@ikenoyashoji.fun" style="color:#1a4b99;text-decoration:none;">sales@ikenoyashoji.fun</a></p>
+              <p style="margin:8px 0 0 0;font-size:12px;color:#666666;">URL: <a href="https://ikenoyashoji.jp" style="color:#1a4b99;text-decoration:none;">https://ikenoyashoji.jp</a></p>
+              <p style="margin:20px 0 0 0;font-size:10px;color:#aaaaaa;line-height:1.6;">このメールは池ノ谷商事 営業部より送信されています。配信停止をご希望の場合は、このメールへの返信にてお知らせください。</p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
 export async function sendLeadEmail(lead: any): Promise<boolean> {
   const transporter = createTransporter();
   if (!transporter) throw new Error("SMTP not configured");
   if (!lead.email) throw new Error("No email address");
+
+  const html = buildHtmlEmail(lead.emailBody || "");
 
   await transporter.sendMail({
     from: `"株式会社池ノ谷商事 営業部" <sales@ikenoyashoji.fun>`,
     to: lead.email,
     subject: lead.emailSubject,
     text: lead.emailBody,
+    html,
   });
   return true;
 }
