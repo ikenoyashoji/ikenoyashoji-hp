@@ -158,7 +158,10 @@ export default function About() {
             </div>
           </AnimateIn>
           <AnimateIn>
-            <div className="max-w-2xl mx-auto text-left">
+            <div className="max-w-2xl mx-auto text-center">
+              <h3 className="text-2xl md:text-3xl font-light text-gray-900 mb-10 leading-relaxed tracking-[0.1em]" style={{ fontFamily: "'Noto Serif JP', serif" }}>
+                運ぶ信頼<br />届ける真心
+              </h3>
               <div className="space-y-6 text-gray-600 text-sm leading-[2]">
                 <p>物流という仕事は、決して目立つ仕事ではありません。</p>
                 <p>ですが、必要な物が必要な時に届くという"当たり前の日常"を支えている、社会に欠かすことのできない仕事だと私は考えています。</p>
