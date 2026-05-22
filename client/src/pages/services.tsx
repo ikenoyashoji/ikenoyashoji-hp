@@ -200,11 +200,11 @@ export default function Services() {
               <AnimateIn key={s.num} delay={i * 60}>
                 <div className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} border border-gray-100 mb-6 group overflow-hidden`}>
                   {/* Image */}
-                  <div className="md:w-2/5 aspect-[16/10] md:aspect-auto overflow-hidden flex-shrink-0">
+                  <div className="md:w-2/5 flex-shrink-0 overflow-hidden">
                     <img
                       src={s.img}
                       alt={s.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-auto block group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
                   {/* Text */}
