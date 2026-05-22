@@ -175,7 +175,7 @@ export async function sendLeadEmail(lead: any): Promise<boolean> {
   if (!lead.email) throw new Error("No email address");
 
   await transporter.sendMail({
-    from: `"株式会社池ノ谷商事 営業部" <${process.env.SMTP_USER}>`,
+    from: `"株式会社池ノ谷商事 営業部" <sales@ikenoyashoji.fun>`,
     to: lead.email,
     subject: lead.emailSubject,
     text: lead.emailBody,

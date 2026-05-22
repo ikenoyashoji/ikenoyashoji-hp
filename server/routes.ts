@@ -369,6 +369,38 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     if (!parsed.success) return res.status(400).json({ error: parsed.error });
     const contact = await storage.createContact(parsed.data);
     res.json(contact);
+
+    // 問い合わせ通知メールを info@ikenoyashoji.co.jp に送信（非同期・失敗しても無視）
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+    const smtpPort = Number(process.env.SMTP_PORT) || 587;
+    const smtpFrom = process.env.SMTP_FROM || smtpUser;
+    if (smtpHost && smtpUser && smtpPass) {
+      const typeLabel = contact.type === "shipper" ? "荷主・輸送" : contact.type === "recruit" ? "採用" : "協力会社";
+      const bodyLines = [
+        `【お問い合わせ通知】${typeLabel}のお問い合わせが届きました`,
+        `─────────────────────────────`,
+        `種別　: ${typeLabel}`,
+        `お名前: ${contact.name}`,
+        `メール: ${contact.email}`,
+        `電話　: ${contact.phone || "未記入"}`,
+        `会社名: ${contact.company || "未記入"}`,
+        `メッセージ:\n${contact.message || "未記入"}`,
+        `─────────────────────────────`,
+        `管理画面: https://ikenoyashoji.jp/admin`,
+        `送信日時: ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}`,
+      ];
+      import("nodemailer").then(({ createTransport }) => {
+        const transporter = createTransport({ host: smtpHost, port: smtpPort, secure: smtpPort === 465, auth: { user: smtpUser, pass: smtpPass } });
+        transporter.sendMail({
+          from: `株式会社池ノ谷商事 <${smtpFrom}>`,
+          to: "info@ikenoyashoji.co.jp",
+          subject: `【お問い合わせ】${typeLabel} - ${contact.name}様`,
+          text: bodyLines.join("\n"),
+        }).catch((e: Error) => console.error("[ContactNotify] メール送信失敗:", e.message));
+      });
+    }
   });
 
   app.get("/api/admin/contacts", requireAdmin, async (_req, res) => {
