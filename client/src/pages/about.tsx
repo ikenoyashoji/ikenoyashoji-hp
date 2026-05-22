@@ -109,7 +109,7 @@ export default function About() {
                   <p className="text-[#1d4ed8] text-[10px] tracking-[0.5em] uppercase mb-3">{item.title}</p>
                   <p className="text-gray-800 font-semibold text-lg mb-4">{item.sub}</p>
                   <div className="w-6 h-0.5 bg-[#1d4ed8] mx-auto mb-5" />
-                  <p className="text-gray-500 text-sm leading-[2] [text-wrap:balance]">{item.body}</p>
+                  <p className="text-gray-500 text-sm leading-[2] text-left">{item.body}</p>
                 </div>
               ))}
             </div>
