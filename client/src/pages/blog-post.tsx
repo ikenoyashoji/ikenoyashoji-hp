@@ -11,7 +11,6 @@ import { setSeo } from "@/lib/seo";
 import { Calendar, ChevronRight, Share2, Tag, ArrowLeft, List } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-import heroBg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -106,7 +105,7 @@ export default function BlogPost() {
         {/* Article hero */}
         <div
           className="relative py-16 px-8"
-          style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}
+          style={article.imageUrl ? { backgroundImage: `url(${article.imageUrl})`, backgroundSize: "cover", backgroundPosition: "center" } : { backgroundColor: "#0f2044" }}
         >
           <div className="absolute inset-0 bg-[#0f2044]/80" />
           <div className="relative max-w-3xl mx-auto">
