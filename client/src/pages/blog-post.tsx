@@ -188,31 +188,34 @@ export default function BlogPost() {
             </div>
           )}
 
-          {/* CTA */}
-          <div className="mt-12 bg-[#0f2044] p-8 text-center">
-            <p className="text-[#7eb3ff] text-[10px] tracking-[0.5em] mb-3">
-              {article.category === "採用情報" ? "RECRUIT" : "CONTACT"}
-            </p>
-            <h3 className="text-white text-xl font-light tracking-wide mb-3">
-              {article.category === "採用情報"
-                ? "池ノ谷商事で、一緒に働きませんか？"
-                : "物流のことなら、まずご相談ください。"}
-            </h3>
-            <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-              {article.category === "採用情報"
-                ? "未経験歓迎・充実した研修制度あり。採用に関するご質問はお気軽にどうぞ。"
-                : "輸送依頼・見積もり・物流コンサルティング。どんなご要望もお気軽に。"}
-            </p>
-            <Link
-              href={article.category === "採用情報" ? "/contact?type=recruit" : "/contact?type=shipper"}
-              className="inline-block bg-white text-[#0f2044] text-xs font-medium px-8 py-3 hover:bg-[#7eb3ff] hover:text-white transition-colors tracking-widest"
-              data-testid="link-article-cta"
-            >
-              {article.category === "採用情報" ? "採用に応募・相談する" : "お問い合わせ・見積もり依頼"}
-            </Link>
-            <p className="text-gray-500 text-xs mt-4">TEL: 046-212-2766（平日 9:00〜18:00）</p>
-          </div>
+        </div>
 
+        {/* CTA — full width */}
+        <div className="bg-[#0f2044] py-14 px-8 text-center">
+          <p className="text-[#7eb3ff] text-[10px] tracking-[0.5em] mb-3">
+            {article.category === "採用情報" ? "RECRUIT" : "CONTACT"}
+          </p>
+          <h3 className="text-white text-xl font-light tracking-wide mb-3">
+            {article.category === "採用情報"
+              ? "池ノ谷商事で、一緒に働きませんか？"
+              : "物流のことなら、まずご相談ください。"}
+          </h3>
+          <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+            {article.category === "採用情報"
+              ? "未経験歓迎・充実した研修制度あり。採用に関するご質問はお気軽にどうぞ。"
+              : "輸送依頼・見積もり・物流コンサルティング。どんなご要望もお気軽に。"}
+          </p>
+          <Link
+            href={article.category === "採用情報" ? "/contact?type=recruit" : "/contact?type=shipper"}
+            className="inline-block bg-white text-[#0f2044] text-xs font-medium px-8 py-3 hover:bg-[#7eb3ff] hover:text-white transition-colors tracking-widest"
+            data-testid="link-article-cta"
+          >
+            {article.category === "採用情報" ? "採用に応募・相談する" : "お問い合わせ・見積もり依頼"}
+          </Link>
+          <p className="text-gray-500 text-xs mt-4">TEL: 046-212-2766（平日 9:00〜18:00）</p>
+        </div>
+
+        <div className="max-w-3xl mx-auto px-8 pb-12">
           {/* Share */}
           <div className="mt-10 pt-8 border-t border-gray-100">
             <div className="flex items-center gap-2 flex-wrap">
