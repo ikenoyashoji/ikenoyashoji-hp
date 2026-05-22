@@ -187,10 +187,9 @@ export default function Recruit() {
         <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-8">
           <div className="text-center">
             <AnimateIn>
-              <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-6">JOIN OUR TEAM</p>
+              <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] mb-6">Ikenoyashoji Co.,Ltd.</p>
               <h1 className="hero-title text-4xl sm:text-6xl font-extralight text-white tracking-[0.15em] mb-6">採用情報</h1>
               <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
-              <p className="text-gray-300 text-sm tracking-widest">時間も、収入も、人生に彩りを。</p>
             </AnimateIn>
           </div>
         </div>
