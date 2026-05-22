@@ -110,10 +110,10 @@ const voices = [
 ];
 
 const careerPath = [
-  { stage: "入社", period: "〜3ヶ月", title: "研修・OJT期間", desc: "座学研修2週間 + ベテランドライバーによる添乗OJT。安全運転・法規・積み付けを学ぶ。", color: "bg-gray-100 border-gray-200" },
-  { stage: "1年目", period: "〜1年", title: "独り立ち", desc: "担当ルートを持ち、定期配送を担当。GPS・デジタコを活用した効率的な運行を身につける。", color: "bg-blue-50 border-blue-200" },
-  { stage: "3年目", period: "〜3年", title: "上位資格取得", desc: "大型・中型免許、フォークリフト等の資格取得を会社がサポート。資格手当で収入アップ。", color: "bg-indigo-50 border-indigo-200" },
-  { stage: "5年目〜", period: "5年〜", title: "リーダー・管理職", desc: "チームリーダー、配車担当、管理職へのキャリアアップ。経験と実績で評価される環境。", color: "bg-[#0f2044] border-[#0f2044] text-white" },
+  { stage: "入社", period: "〜3ヶ月", title: "研修・サポート期間", desc: "先輩スタッフが丁寧にサポート。ルート配送の基礎・安全運転・お客様対応を実務で学ぶ。試用期間3ヶ月・同条件。", color: "bg-gray-100 border-gray-200" },
+  { stage: "1年目", period: "〜1年", title: "担当ルートを持つ", desc: "ひとり立ちし、お客様先への定期配送を担当。信頼関係を築きながら経験を積む。", color: "bg-blue-50 border-blue-200" },
+  { stage: "3年目", period: "〜3年", title: "昇給・スキルアップ", desc: "各種資格取得を会社がサポート。頑張りが評価に直結し、昇給で収入アップを実現。", color: "bg-indigo-50 border-indigo-200" },
+  { stage: "5年目〜", period: "5年〜", title: "配車・リーダー職", desc: "配車オペレーターや管理職へのキャリアアップ。経験と実績で長く安定して活躍できる環境。", color: "bg-[#0f2044] border-[#0f2044] text-white" },
 ];
 
 const applicationFlow = [
