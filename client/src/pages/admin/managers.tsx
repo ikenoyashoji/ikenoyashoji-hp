@@ -95,7 +95,7 @@ export default function AdminManagers() {
 
   return (
     <AdminLayout>
-      <div className="max-w-2xl space-y-5">
+      <div className="max-w-2xl mx-auto space-y-5">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-lg font-bold text-gray-900">管理者管理</h1>
