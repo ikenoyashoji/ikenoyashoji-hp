@@ -50,6 +50,7 @@ export interface IStorage {
   deleteAdminUser(id: number): Promise<void>;
 
   getEmailLeads(status?: string): Promise<EmailLead[]>;
+  getEmailLeadById(id: number): Promise<EmailLead | undefined>;
   getEmailLeadByWebsite(website: string): Promise<EmailLead | undefined>;
   createEmailLead(lead: InsertEmailLead): Promise<EmailLead>;
   updateEmailLead(id: number, data: Partial<InsertEmailLead> & { sentAt?: Date | null }): Promise<EmailLead>;
@@ -208,6 +209,11 @@ export class DrizzleStorage implements IStorage {
       return db.select().from(emailLeads).where(eq(emailLeads.status, status)).orderBy(desc(emailLeads.createdAt));
     }
     return db.select().from(emailLeads).orderBy(desc(emailLeads.createdAt));
+  }
+
+  async getEmailLeadById(id: number) {
+    const [lead] = await db.select().from(emailLeads).where(eq(emailLeads.id, id));
+    return lead;
   }
 
   async getEmailLeadByWebsite(website: string) {

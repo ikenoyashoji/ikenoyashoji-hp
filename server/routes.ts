@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 import multer from "multer";
 import express from "express";
 import { storage } from "./storage";
-import { insertArticleSchema, insertKeywordSchema, insertContactSchema, insertPageViewSchema, insertEventSchema } from "@shared/schema";
+import { insertArticleSchema, insertKeywordSchema, insertContactSchema, insertPageViewSchema, insertEventSchema, insertEmailLeadSchema, insertSearchConsoleSchema } from "@shared/schema";
 
 const MemoryStore = createMemoryStore(session);
 
@@ -290,6 +290,37 @@ async function generateArticleImage(title: string, keyword: string, category?: s
   return `/uploads/${filename}`;
 }
 
+// ─── Simple in-memory rate limiter ────────────────────────────────────────────
+interface RateLimitEntry { count: number; resetAt: number }
+const rateLimitStore = new Map<string, RateLimitEntry>();
+
+function rateLimit(opts: { windowMs: number; max: number; keyFn?: (req: Request) => string }) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const key = opts.keyFn ? opts.keyFn(req) : (req.ip || "unknown");
+    const now = Date.now();
+    let entry = rateLimitStore.get(key);
+    if (!entry || now > entry.resetAt) {
+      entry = { count: 1, resetAt: now + opts.windowMs };
+      rateLimitStore.set(key, entry);
+    } else {
+      entry.count++;
+    }
+    if (entry.count > opts.max) {
+      res.setHeader("Retry-After", String(Math.ceil((entry.resetAt - now) / 1000)));
+      return res.status(429).json({ error: "リクエストが多すぎます。しばらく待ってから再試行してください。" });
+    }
+    next();
+  };
+}
+// Clean up expired entries every 10 minutes
+setInterval(() => {
+  const now = Date.now();
+  for (const [k, v] of rateLimitStore) {
+    if (now > v.resetAt) rateLimitStore.delete(k);
+  }
+}, 600_000).unref();
+// ──────────────────────────────────────────────────────────────────────────────
+
 export async function registerRoutes(httpServer: Server, app: Express): Promise<Server> {
   // Serve uploaded images as static files
   app.use("/uploads", express.static(uploadsDir));
@@ -300,7 +331,12 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       resave: false,
       saveUninitialized: false,
       store: new MemoryStore({ checkPeriod: 86400000 }),
-      cookie: { secure: false, httpOnly: true, maxAge: 86400000 },
+      cookie: {
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+        maxAge: 86400000,
+        sameSite: "lax",
+      },
     })
   );
 
@@ -314,7 +350,9 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   // Admin auth
-  app.post("/api/admin/login", async (req, res) => {
+  app.post("/api/admin/login",
+    rateLimit({ windowMs: 15 * 60_000, max: 10, keyFn: (r) => `login:${r.ip}` }),
+    async (req, res) => {
     const { username, password } = req.body;
     // Check env-var master account first
     if (username === ADMIN_USER && password === ADMIN_PASS) {
@@ -345,16 +383,24 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
   // Articles (public - published only)
   app.get("/api/articles", async (_req, res) => {
-    const arts = await storage.getArticles("published");
-    res.json(arts);
+    try {
+      const arts = await storage.getArticles("published");
+      res.json(arts);
+    } catch (err: any) {
+      res.status(500).json({ error: "Internal server error" });
+    }
   });
 
   app.get("/api/articles/:slug", async (req, res) => {
-    const article = await storage.getArticleBySlug(req.params.slug);
-    if (!article || article.status !== "published") {
-      return res.status(404).json({ error: "Not found" });
+    try {
+      const article = await storage.getArticleBySlug(req.params.slug);
+      if (!article || article.status !== "published") {
+        return res.status(404).json({ error: "Not found" });
+      }
+      res.json(article);
+    } catch (err: any) {
+      res.status(500).json({ error: "Internal server error" });
     }
-    res.json(article);
   });
 
   // Articles admin CRUD
@@ -377,8 +423,14 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   app.put("/api/admin/articles/:id", requireAdmin, async (req, res) => {
-    const article = await storage.updateArticle(Number(req.params.id), req.body);
-    res.json(article);
+    try {
+      const partial = insertArticleSchema.partial().safeParse(req.body);
+      if (!partial.success) return res.status(400).json({ error: partial.error });
+      const article = await storage.updateArticle(Number(req.params.id), partial.data);
+      res.json(article);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
   });
 
   app.post("/api/admin/articles/:id/publish", requireAdmin, async (req, res) => {
@@ -398,29 +450,49 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
 
   // Keywords
   app.get("/api/keywords", async (_req, res) => {
-    const kws = await storage.getKeywords();
-    res.json(kws);
+    try {
+      const kws = await storage.getKeywords();
+      res.json(kws);
+    } catch {
+      res.status(500).json({ error: "Internal server error" });
+    }
   });
 
   app.post("/api/admin/keywords", requireAdmin, async (req, res) => {
-    const parsed = insertKeywordSchema.safeParse(req.body);
-    if (!parsed.success) return res.status(400).json({ error: parsed.error });
-    const kw = await storage.createKeyword(parsed.data);
-    res.json(kw);
+    try {
+      const parsed = insertKeywordSchema.safeParse(req.body);
+      if (!parsed.success) return res.status(400).json({ error: parsed.error });
+      const kw = await storage.createKeyword(parsed.data);
+      res.json(kw);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
   });
 
   app.put("/api/admin/keywords/:id", requireAdmin, async (req, res) => {
-    const kw = await storage.updateKeyword(Number(req.params.id), req.body);
-    res.json(kw);
+    try {
+      const partial = insertKeywordSchema.partial().safeParse(req.body);
+      if (!partial.success) return res.status(400).json({ error: partial.error });
+      const kw = await storage.updateKeyword(Number(req.params.id), partial.data);
+      res.json(kw);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
   });
 
   app.delete("/api/admin/keywords/:id", requireAdmin, async (req, res) => {
-    await storage.deleteKeyword(Number(req.params.id));
-    res.json({ success: true });
+    try {
+      await storage.deleteKeyword(Number(req.params.id));
+      res.json({ success: true });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
   });
 
   // Contact form
-  app.post("/api/contacts", async (req, res) => {
+  app.post("/api/contacts",
+    rateLimit({ windowMs: 10 * 60_000, max: 5, keyFn: (r) => `contact:${r.ip}` }),
+    async (req, res) => {
     const parsed = insertContactSchema.safeParse(req.body);
     if (!parsed.success) return res.status(400).json({ error: parsed.error });
     const contact = await storage.createContact(parsed.data);
@@ -465,7 +537,9 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   // Analytics - pageview tracking
-  app.post("/api/analytics/pageview", async (req, res) => {
+  app.post("/api/analytics/pageview",
+    rateLimit({ windowMs: 60_000, max: 120, keyFn: (r) => `pv:${r.ip}` }),
+    async (req, res) => {
     try {
       const parsed = insertPageViewSchema.safeParse(req.body);
       if (!parsed.success) return res.status(400).json({ error: parsed.error });
@@ -477,7 +551,9 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   // Analytics - event tracking
-  app.post("/api/analytics/event", async (req, res) => {
+  app.post("/api/analytics/event",
+    rateLimit({ windowMs: 60_000, max: 120, keyFn: (r) => `ev:${r.ip}` }),
+    async (req, res) => {
     try {
       const parsed = insertEventSchema.safeParse(req.body);
       if (!parsed.success) return res.status(400).json({ error: parsed.error });
@@ -697,11 +773,30 @@ CTR：${(ctr * 100).toFixed(1)}%
   app.post("/api/admin/search-console/save", requireAdmin, async (req, res) => {
     const { data } = req.body;
     if (!Array.isArray(data)) return res.status(400).json({ error: "data must be array" });
+    if (data.length > 5000) return res.status(400).json({ error: "data exceeds maximum of 5000 rows" });
 
-    for (const row of data) {
-      await storage.upsertSearchConsoleData(row);
+    const errors: number[] = [];
+    const valid: any[] = [];
+    for (let i = 0; i < data.length; i++) {
+      const parsed = insertSearchConsoleSchema.safeParse(data[i]);
+      if (parsed.success) {
+        valid.push(parsed.data);
+      } else {
+        errors.push(i);
+      }
     }
-    res.json({ success: true, count: data.length });
+    if (errors.length > 0) {
+      return res.status(400).json({ error: `Invalid rows at indices: ${errors.slice(0, 5).join(", ")}` });
+    }
+
+    try {
+      for (const row of valid) {
+        await storage.upsertSearchConsoleData(row);
+      }
+      res.json({ success: true, count: valid.length });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
   });
 
   // Visitor analytics - detailed session data
@@ -1003,13 +1098,25 @@ CTR：${(ctr * 100).toFixed(1)}%
   });
 
   app.post("/api/admin/email-leads", requireAdmin, async (req, res) => {
-    const lead = await storage.createEmailLead(req.body);
-    res.json(lead);
+    try {
+      const parsed = insertEmailLeadSchema.partial().safeParse(req.body);
+      if (!parsed.success) return res.status(400).json({ error: parsed.error });
+      const lead = await storage.createEmailLead(parsed.data as any);
+      res.json(lead);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
   });
 
   app.patch("/api/admin/email-leads/:id", requireAdmin, async (req, res) => {
-    const lead = await storage.updateEmailLead(Number(req.params.id), req.body);
-    res.json(lead);
+    try {
+      const parsed = insertEmailLeadSchema.partial().safeParse(req.body);
+      if (!parsed.success) return res.status(400).json({ error: parsed.error });
+      const lead = await storage.updateEmailLead(Number(req.params.id), parsed.data as any);
+      res.json(lead);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
   });
 
   app.delete("/api/admin/email-leads/:id", requireAdmin, async (req, res) => {
@@ -1018,8 +1125,7 @@ CTR：${(ctr * 100).toFixed(1)}%
   });
 
   app.post("/api/admin/email-leads/:id/generate", requireAdmin, async (req, res) => {
-    const lead = await storage.getEmailLeads();
-    const target = lead.find((l) => l.id === Number(req.params.id));
+    const target = await storage.getEmailLeadById(Number(req.params.id));
     if (!target) return res.status(404).json({ error: "Not found" });
     const { generateEmailForLead } = await import("./email-sales");
     const { subject, body, unsubscribeToken } = await generateEmailForLead(target);
@@ -1055,8 +1161,7 @@ CTR：${(ctr * 100).toFixed(1)}%
   });
 
   app.post("/api/admin/email-leads/:id/send", requireAdmin, async (req, res) => {
-    const leads = await storage.getEmailLeads();
-    const target = leads.find((l) => l.id === Number(req.params.id));
+    const target = await storage.getEmailLeadById(Number(req.params.id));
     if (!target) return res.status(404).json({ error: "Not found" });
     if (!target.email) return res.status(400).json({ error: "No email address" });
     try {
