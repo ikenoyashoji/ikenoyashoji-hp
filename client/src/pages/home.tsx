@@ -55,7 +55,7 @@ const staticTopics = [
   },
   {
     img: topicImg4,
-    category: "BLOG",
+    category: "物流コラム",
     date: "2026.05.06",
     title: "MOVE THE CITY｜街をつなぎ、未来を支える。現場から見える物流の今とこれから。",
     href: "/blog",
