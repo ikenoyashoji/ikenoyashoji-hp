@@ -208,18 +208,6 @@ export default function Recruit() {
         </div>
       </section>
 
-      {/* Marquee */}
-      <div className="overflow-hidden py-5 bg-white border-b border-gray-100">
-        <div className="animate-marquee">
-          {[...Array(2)].map((_, i) => (
-            <span key={i} className="flex items-center gap-24 pr-24 whitespace-nowrap">
-              {[...Array(8)].map((_, j) => (
-                <span key={j} className="text-4xl font-bold italic text-gray-100 tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>Ikenoya Shoji Co,Ltd.</span>
-              ))}
-            </span>
-          ))}
-        </div>
-      </div>
 
       {/* Message */}
       <section className="py-16 sm:py-24 bg-white px-4 sm:px-8">
