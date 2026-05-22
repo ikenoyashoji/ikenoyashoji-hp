@@ -418,8 +418,8 @@ export default function Home() {
             ].map((s, i) => (
               <AnimateIn key={i} delay={(i % 4) * 80} direction="up">
               <div className="border border-gray-100 hover:border-[#1a4b99] transition-colors flex flex-col group overflow-hidden">
-                <div className="w-full aspect-[16/9] overflow-hidden">
-                  <img src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="w-full overflow-hidden">
+                  <img src={s.img} alt={s.title} className="w-full h-auto block group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 {/* Text content */}
                 <div className="p-8 flex flex-col gap-3">
