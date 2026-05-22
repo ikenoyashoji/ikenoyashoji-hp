@@ -62,71 +62,232 @@ async function fetchPageText(url: string): Promise<string> {
   }
 }
 
-// ── DuckDuckGo crawler ────────────────────────────────────────────────────────
-export async function crawlLeads(): Promise<number> {
-  let added = 0;
-  const queryIdx = new Date().getDate() % SEARCH_QUERIES.length;
-  const { q, category } = SEARCH_QUERIES[queryIdx];
+// ── Large-company domains to skip ─────────────────────────────────────────────
+const SKIP_DOMAINS = [
+  // Search/social/platform
+  "google.", "youtube.", "facebook.", "twitter.", "x.com", "instagram.", "linkedin.",
+  "amazon.co.jp", "rakuten.co.jp", "yahoo.co.jp", "nikkei.com", "nhk.or.jp",
+  "wikipedia.org", "wikimedia.org", "note.com", "zenn.dev", "qiita.com",
+  // Government
+  ".go.jp", "e-gov.go.jp", "mlit.go.jp", "mhlw.go.jp", "meti.go.jp", "pref.",
+  // Job boards & recruitment
+  "recruit.co.jp", "mynavi.jp", "doda.jp", "indeed.com", "rikunabi.com",
+  "hellowork", "stanby.com", "townwork.net", "baitoru.com", "en-gage.net",
+  "hatalike.jp", "job-j.net", "doraever.jp", "plex-job.com", "kyu-jin",
+  "hataraku.com", "work.co.jp", "careerjet.", "glassdoor.", "jobsearch.",
+  "engage.jp", "jobmedley.", "type.jp", "dip-net.jp", "yumenavi.",
+  "r-agent.com", "tempstaff.", "staffservice.", "pasona.", "adecco.",
+  "manpower.", "persol.", "ricrute.", "int-info.", "an.r.recruit.",
+  // SaaS/media/blog
+  "freee.co.jp", "moneyforward.", "zaim.net", "yayoi-kk.", "freenance.",
+  "help.", "support.", "lycbiz.com", "lycorp.co.jp", "smarthr.",
+  "chatwork.", "slack.com", "notion.so", "hubspot.", "salesforce.",
+  // Large corporations
+  "jreast.co.jp", "jr-central.co.jp", "jr-west.co.jp", "jtb.co.jp",
+  "toyota.co.jp", "honda.co.jp", "sony.co.jp", "panasonic.com",
+  "softbank.jp", "ntt.co.jp", "docomo.co.jp", "au.com",
+  "yamato-hd.co.jp", "sagawa-exp.co.jp", "nittsu.co.jp", "seino.co.jp",
+  "fujifilm.com", "canon.jp", "epson.jp", "toshiba.", "hitachi.",
+];
 
-  console.log(`[EmailSales] Crawling DDG: "${q}"`);
+// ── Pages to probe for email on a site ────────────────────────────────────────
+const CONTACT_PATHS = [
+  "/contact", "/contacts", "/contact.html",
+  "/about", "/about.html", "/about-us",
+  "/company", "/company.html", "/会社概要",
+  "/inquiry", "/inquiry.html", "/お問い合わせ",
+  "/form", "/recruit", "/採用情報",
+  "/profile", "/overview", "/corporate",
+];
 
-  const ddgUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(q)}`;
-  const html = await fetchPageText(ddgUrl);
-  if (!html) { console.error("[EmailSales] No DDG response"); return 0; }
+function pickBestEmail(emails: string[]): string {
+  if (emails.length === 0) return "";
+  const ranked = emails
+    .filter((e) =>
+      !e.startsWith("noreply") &&
+      !e.startsWith("no-reply") &&
+      !e.startsWith("donotreply") &&
+      !e.includes("@example") &&
+      !e.includes("@w3.org") &&
+      !e.includes("@sentry") &&
+      !e.includes("@jquery") &&
+      !e.includes("@wordpress") &&
+      e.length < 80
+    )
+    .sort((a, b) => {
+      // Prefer info@, sales@, contact@, inquiry@ over generic
+      const score = (e: string) => {
+        if (e.startsWith("info@") || e.startsWith("sales@") || e.startsWith("contact@")) return 3;
+        if (e.startsWith("inquiry@") || e.startsWith("mail@") || e.startsWith("office@")) return 2;
+        return 1;
+      };
+      return score(b) - score(a);
+    });
+  return ranked[0] || emails[0];
+}
 
+function parseYahooResults(html: string): Array<{ title: string; url: string }> {
   const $ = cheerio.load(html);
-  const results: Array<{ title: string; url: string; snippet: string }> = [];
+  const results: Array<{ title: string; url: string }> = [];
+  const seen = new Set<string>();
 
-  $(".result__body, .result").each((_, el) => {
-    const title = $(el).find(".result__a, .result__title").first().text().trim();
-    const href = $(el).find(".result__a").attr("href") || "";
-    const snippet = $(el).find(".result__snippet").first().text().trim();
-    const url = href.startsWith("http") ? href : href.includes("uddg=") ? decodeURIComponent(href.split("uddg=")[1]?.split("&")[0] || "") : "";
-    if (title && url && url.startsWith("http")) results.push({ title, url, snippet });
+  // Yahoo Japan search result links are in <a> tags inside .sw-Card or h3 > a
+  $("a[href]").each((_, el) => {
+    const href = $(el).attr("href") || "";
+    if (!href.startsWith("http")) return;
+
+    // Filter out Yahoo internal links and known skip domains
+    if (href.includes("yahoo.co.jp") || href.includes("yahoo.com")) return;
+    if (href.includes("yimg.jp") || href.includes("lycorp.co.jp")) return;
+    if (SKIP_DOMAINS.some((d) => href.includes(d))) return;
+    if (href.includes("wikipedia") || href.includes("blogspot") || href.includes("note.com")) return;
+    if (href.includes("mlit.go.jp") || href.includes("pref.") || href.includes(".go.jp")) return;
+
+    let rootUrl = "";
+    try {
+      const u = new URL(href);
+      rootUrl = `${u.protocol}//${u.host}`;
+    } catch { return; }
+
+    if (seen.has(rootUrl)) return;
+    seen.add(rootUrl);
+
+    const title = $(el).text().trim().replace(/[\|｜→▶\n]+/g, " ").trim();
+    if (title && rootUrl) results.push({ title: title.substring(0, 80), url: rootUrl });
   });
 
-  console.log(`[EmailSales] Found ${results.length} DDG results`);
+  return results;
+}
 
-  for (const result of results.slice(0, 12)) {
-    try {
-      // Check if this website is already in DB
-      const existing = await (storage as any).getEmailLeadByWebsite?.(result.url);
-      if (existing) continue;
+async function findEmailOnSite(rootUrl: string): Promise<string> {
+  // 1. Try homepage first
+  const homeHtml = await fetchPageText(rootUrl);
+  const homeEmails = extractEmails(homeHtml);
+  const best = pickBestEmail(homeEmails);
+  if (best) return best;
 
-      // Try to extract email from the page
-      const pageHtml = await fetchPageText(result.url);
-      let emails = extractEmails(pageHtml);
+  // 2. Try to find a contact/inquiry link in the homepage HTML
+  const $ = cheerio.load(homeHtml);
+  const internalLinks: string[] = [];
+  $("a[href]").each((_, el) => {
+    const href = $(el).attr("href") || "";
+    if (
+      href.match(/contact|inquiry|about|company|form|お問い合わせ|会社概要|採用|recruit/i) &&
+      !href.startsWith("http")
+    ) {
+      internalLinks.unshift(href.startsWith("/") ? href : `/${href}`);
+    }
+  });
 
-      // Also try /contact page
-      if (emails.length === 0) {
-        const contactUrl = result.url.replace(/\/$/, "") + "/contact";
-        const contactHtml = await fetchPageText(contactUrl);
-        emails = extractEmails(contactHtml);
+  // 3. Combine heuristic paths + discovered internal links (unique, first 8)
+  const pathsToTry = [
+    ...new Set([...internalLinks, ...CONTACT_PATHS]),
+  ].slice(0, 8);
+
+  for (const path of pathsToTry) {
+    await new Promise((r) => setTimeout(r, 400));
+    const url = rootUrl.replace(/\/$/, "") + path;
+    const pageHtml = await fetchPageText(url);
+    if (!pageHtml) continue;
+    const emails = extractEmails(pageHtml);
+    const picked = pickBestEmail(emails);
+    if (picked) {
+      console.log(`[EmailSales] Found email via ${path}: ${picked}`);
+      return picked;
+    }
+  }
+  return "";
+}
+
+// ── Yahoo Japan crawler ───────────────────────────────────────────────────────
+const YAHOO_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+
+async function fetchYahooPage(q: string, page: number): Promise<string> {
+  const b = (page - 1) * 10 + 1;
+  const url = `https://search.yahoo.co.jp/search?p=${encodeURIComponent(q)}&n=20&b=${b}`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        "User-Agent": YAHOO_UA,
+        "Accept-Language": "ja,en;q=0.9",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      },
+    });
+    clearTimeout(timer);
+    if (!res.ok) return "";
+    return await res.text();
+  } catch {
+    clearTimeout(timer);
+    return "";
+  }
+}
+
+export async function crawlLeads(): Promise<number> {
+  let added = 0;
+
+  // Run multiple queries per crawl (rotate through all queries)
+  const today = new Date().getDate();
+  const startIdx = today % SEARCH_QUERIES.length;
+  const queriesToRun = [
+    SEARCH_QUERIES[startIdx],
+    SEARCH_QUERIES[(startIdx + 1) % SEARCH_QUERIES.length],
+    SEARCH_QUERIES[(startIdx + 2) % SEARCH_QUERIES.length],
+  ];
+
+  for (const { q, category } of queriesToRun) {
+    console.log(`[EmailSales] Crawling Yahoo: "${q}"`);
+
+    // Fetch page 1 and page 2 for more results
+    const allResults: Array<{ title: string; url: string }> = [];
+    for (const page of [1, 2]) {
+      const html = await fetchYahooPage(q, page);
+      if (!html) { console.warn(`[EmailSales] No response for page ${page}`); continue; }
+      const parsed = parseYahooResults(html);
+      for (const r of parsed) {
+        if (!allResults.find((x) => x.url === r.url)) allResults.push(r);
       }
+      await new Promise((r) => setTimeout(r, 1500));
+    }
 
-      // Extract company name from title (remove common suffixes)
-      const company = result.title.replace(/[\|｜\-–—].*$/, "").trim().substring(0, 80) || result.url;
-      const email = emails[0] || "";
+    console.log(`[EmailSales] Found ${allResults.length} unique results for "${q}"`);
 
-      await (storage as any).createEmailLead({
-        company,
-        website: result.url.substring(0, 200),
-        email,
-        contactName: "",
-        category,
-        status: "pending",
-        emailSubject: "",
-        emailBody: "",
-        crawlQuery: q,
-        errorMsg: "",
-      });
-      added++;
-    } catch (err) {
-      console.error("[EmailSales] Lead extract error:", err);
+    for (const result of allResults.slice(0, 10)) {
+      try {
+        const existing = await (storage as any).getEmailLeadByWebsite?.(result.url);
+        if (existing) {
+          console.log(`[EmailSales] Skip (exists): ${result.url}`);
+          continue;
+        }
+
+        const email = await findEmailOnSite(result.url);
+        const company = result.title.substring(0, 80) || result.url;
+
+        await (storage as any).createEmailLead({
+          company,
+          website: result.url.substring(0, 200),
+          email,
+          contactName: "",
+          category,
+          status: "pending",
+          emailSubject: "",
+          emailBody: "",
+          crawlQuery: q,
+          errorMsg: "",
+        });
+        added++;
+        console.log(`[EmailSales] Added: "${company}" | email: ${email || "（なし）"} | ${result.url}`);
+
+        await new Promise((r) => setTimeout(r, 600));
+      } catch (err) {
+        console.error("[EmailSales] Lead extract error:", err);
+      }
     }
   }
 
-  console.log(`[EmailSales] Added ${added} new leads`);
+  console.log(`[EmailSales] Total added: ${added}`);
   return added;
 }
 
@@ -281,8 +442,10 @@ export async function sendLeadEmail(lead: any): Promise<boolean> {
 
   const html = buildHtmlEmail(lead.emailBody || "", lead.unsubscribeToken || "");
 
+  const fromAddr = process.env.SMTP_FROM || process.env.SMTP_USER || "info@ikenoyashoji.jp";
   await transporter.sendMail({
-    from: `"株式会社池ノ谷商事 営業部" <sales@ikenoyashoji.fun>`,
+    from: `"株式会社池ノ谷商事 営業部" <${fromAddr}>`,
+    replyTo: "sales@ikenoyashoji.fun",
     to: lead.email,
     subject: lead.emailSubject,
     text: lead.emailBody,

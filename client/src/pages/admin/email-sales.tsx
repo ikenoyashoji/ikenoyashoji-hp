@@ -313,7 +313,7 @@ export default function AdminEmailSales() {
               data-testid="button-crawl-leads"
             >
               {crawling ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Search className="w-3 h-3" />}
-              DDGクロール
+              Yahoo検索クロール
             </button>
             <button
               className="flex items-center gap-1.5 px-2.5 py-1.5 bg-black text-white text-xs hover:bg-gray-800 disabled:opacity-40 transition-colors"
@@ -376,7 +376,7 @@ export default function AdminEmailSales() {
                 <div className="flex flex-col items-center justify-center py-16 text-gray-300">
                   <Mail className="w-8 h-8 mb-2 opacity-30" />
                   <p className="text-xs">リードがありません</p>
-                  <p className="text-[10px] mt-1">DDGクロールで自動取得</p>
+                  <p className="text-[10px] mt-1">Yahoo検索で自動取得</p>
                 </div>
               ) : (
                 filtered.map((lead) => {
@@ -570,7 +570,7 @@ export default function AdminEmailSales() {
                       <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">
                         <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
                           <Mail className="w-3.5 h-3.5" />
-                          <span>From: 株式会社池ノ谷商事 営業部 &lt;sales@ikenoyashoji.fun&gt;</span>
+                          <span>From: 株式会社池ノ谷商事 営業部 &lt;info@ikenoyashoji.jp&gt;　Reply-To: sales@ikenoyashoji.fun</span>
                         </div>
                         <div className="text-xs text-gray-500 mb-2">To: {selected.email || "（メールなし）"}</div>
                         <div className="text-sm font-semibold text-gray-900">{selected.emailSubject}</div>
