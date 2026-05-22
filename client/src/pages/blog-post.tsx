@@ -212,7 +212,7 @@ export default function BlogPost() {
           >
             {article.category === "採用情報" ? "採用に応募・相談する" : "お問い合わせ・見積もり依頼"}
           </Link>
-          <p className="text-gray-500 text-xs mt-4">TEL: 046-212-2766（平日 9:00〜18:00）</p>
+          <p className="text-gray-500 text-xs mt-4">TEL: 046-212-2766（平日 9:00〜21:00）</p>
         </div>
 
         <div className="max-w-3xl mx-auto px-8 pb-12">
