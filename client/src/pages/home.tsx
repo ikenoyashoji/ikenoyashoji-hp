@@ -104,7 +104,7 @@ function TypewriterHeading({ lines, active = false, startDelay = 400, speed = 90
   return (
     <>
       {lines.map((_, i) => (
-        <span key={i} style={{ display: "block" }}>
+        <span key={i} style={{ display: "block", whiteSpace: "nowrap" }}>
           {displayed[i]}
           {!done && i === lineIdx && (
             <span className="tw-cursor" style={{ height: "0.85em" }} />
