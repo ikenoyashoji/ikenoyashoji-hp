@@ -7,7 +7,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
-import { SplashContext } from "@/App";
+import { SplashContext } from "@/lib/splash-context";
 import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_1779426563754.PNG";
 import heroCold from "@assets/hero_warehouse_cold.png";
 import heroInterior from "@assets/hero_warehouse_interior.png";

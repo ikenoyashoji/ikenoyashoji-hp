@@ -17,7 +17,11 @@ const navItems = [
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
 
-  const { data: me, isLoading } = useQuery({ queryKey: ["/api/admin/me"] });
+  const { data: me, isLoading } = useQuery({
+    queryKey: ["/api/admin/me"],
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
 
   const handleLogout = async () => {
     await apiRequest("POST", "/api/admin/logout", {});

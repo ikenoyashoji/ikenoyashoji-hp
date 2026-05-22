@@ -1,5 +1,5 @@
 import { Switch, Route, useLocation } from "wouter";
-import { useEffect, lazy, Suspense, useState, useCallback, createContext, useContext } from "react";
+import { useEffect, useRef, lazy, Suspense, useState, useCallback } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -11,7 +11,7 @@ import { SplashScreen } from "@/components/splash-screen";
 // LP（ホーム）は静的インポート — 即座に表示
 import Home from "@/pages/home";
 
-export const SplashContext = createContext(false);
+import { SplashContext } from "@/lib/splash-context";
 
 // 公開ページ — 遅延読み込み
 const Recruit       = lazy(() => import("@/pages/recruit"));
@@ -54,8 +54,29 @@ function usePrefetch() {
       import("@/pages/contact");
       import("@/pages/privacy");
       import("@/pages/blog-post");
-    }, 2000); // LP表示から2秒後にバックグラウンドで取得開始
+    }, 2000);
     return () => clearTimeout(timer);
+  }, [location]);
+}
+
+// 管理画面に入った瞬間に全管理ページを先読みしてページ遷移のチカチカを防止
+function usePrefetchAdmin() {
+  const [location] = useLocation();
+  const prefetched = useRef(false);
+  useEffect(() => {
+    if (!location.startsWith("/admin") || prefetched.current) return;
+    prefetched.current = true;
+    import("@/pages/admin/dashboard");
+    import("@/pages/admin/articles");
+    import("@/pages/admin/article-editor");
+    import("@/pages/admin/keywords");
+    import("@/pages/admin/search-console");
+    import("@/pages/admin/contacts");
+    import("@/pages/admin/managers");
+    import("@/pages/admin/email-sales");
+    import("@/pages/admin/logs");
+    import("@/pages/admin/settings");
+    import("@/pages/admin/auto-publish");
   }, [location]);
 }
 
@@ -71,6 +92,7 @@ function usePageTracking() {
 function Router() {
   usePageTracking();
   usePrefetch();
+  usePrefetchAdmin();
 
   return (
     <Suspense fallback={null}>
