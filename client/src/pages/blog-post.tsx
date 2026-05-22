@@ -58,7 +58,10 @@ export default function BlogPost() {
     const url = window.location.href;
     const title = article?.title || "";
     if (platform === "twitter") window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`);
+    if (platform === "facebook") window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`);
     if (platform === "line") window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`);
+    if (platform === "hatena") window.open(`https://b.hatena.ne.jp/add?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`);
+    if (platform === "pocket") window.open(`https://getpocket.com/save?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`);
     if (platform === "copy") { navigator.clipboard.writeText(url); }
   };
 
@@ -185,15 +188,43 @@ export default function BlogPost() {
             </div>
           )}
 
+          {/* CTA */}
+          <div className="mt-12 bg-[#0f2044] p-8 text-center">
+            <p className="text-[#7eb3ff] text-[10px] tracking-[0.5em] mb-3">
+              {article.category === "採用情報" ? "RECRUIT" : "CONTACT"}
+            </p>
+            <h3 className="text-white text-xl font-light tracking-wide mb-3">
+              {article.category === "採用情報"
+                ? "池ノ谷商事で、一緒に働きませんか？"
+                : "物流のことなら、まずご相談ください。"}
+            </h3>
+            <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+              {article.category === "採用情報"
+                ? "未経験歓迎・充実した研修制度あり。採用に関するご質問はお気軽にどうぞ。"
+                : "輸送依頼・見積もり・物流コンサルティング。どんなご要望もお気軽に。"}
+            </p>
+            <Link
+              href={article.category === "採用情報" ? "/contact?type=recruit" : "/contact?type=shipper"}
+              className="inline-block bg-white text-[#0f2044] text-xs font-medium px-8 py-3 hover:bg-[#7eb3ff] hover:text-white transition-colors tracking-widest"
+              data-testid="link-article-cta"
+            >
+              {article.category === "採用情報" ? "採用に応募・相談する" : "お問い合わせ・見積もり依頼"}
+            </Link>
+            <p className="text-gray-500 text-xs mt-4">TEL: 046-212-2766（平日 9:00〜18:00）</p>
+          </div>
+
           {/* Share */}
-          <div className="mt-12 pt-8 border-t border-gray-100">
-            <div className="flex items-center gap-3 flex-wrap">
-              <span className="text-xs font-medium text-gray-500 flex items-center gap-1 tracking-widest">
+          <div className="mt-10 pt-8 border-t border-gray-100">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-xs font-medium text-gray-500 flex items-center gap-1 tracking-widest mr-1">
                 <Share2 className="w-4 h-4" /> SHARE
               </span>
-              <button onClick={() => share("twitter")} className="bg-gray-900 text-white text-xs px-4 py-1.5 hover:bg-gray-700 transition-colors" data-testid="button-share-twitter">X (Twitter)</button>
-              <button onClick={() => share("line")} className="bg-green-500 text-white text-xs px-4 py-1.5 hover:bg-green-600 transition-colors" data-testid="button-share-line">LINE</button>
-              <button onClick={() => share("copy")} className="bg-gray-100 text-gray-600 text-xs px-4 py-1.5 hover:bg-gray-200 transition-colors border border-gray-200" data-testid="button-share-copy">URLをコピー</button>
+              <button onClick={() => share("twitter")} className="bg-[#000000] text-white text-xs px-3 py-1.5 hover:opacity-80 transition-opacity" data-testid="button-share-twitter">X</button>
+              <button onClick={() => share("facebook")} className="bg-[#1877F2] text-white text-xs px-3 py-1.5 hover:opacity-80 transition-opacity" data-testid="button-share-facebook">Facebook</button>
+              <button onClick={() => share("line")} className="bg-[#06C755] text-white text-xs px-3 py-1.5 hover:opacity-80 transition-opacity" data-testid="button-share-line">LINE</button>
+              <button onClick={() => share("hatena")} className="bg-[#00A4DE] text-white text-xs px-3 py-1.5 hover:opacity-80 transition-opacity" data-testid="button-share-hatena">はてブ</button>
+              <button onClick={() => share("pocket")} className="bg-[#EF4056] text-white text-xs px-3 py-1.5 hover:opacity-80 transition-opacity" data-testid="button-share-pocket">Pocket</button>
+              <button onClick={() => share("copy")} className="bg-gray-100 text-gray-600 text-xs px-3 py-1.5 hover:bg-gray-200 transition-colors border border-gray-200" data-testid="button-share-copy">URLコピー</button>
             </div>
           </div>
 
