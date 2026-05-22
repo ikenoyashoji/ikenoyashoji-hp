@@ -36,7 +36,7 @@ export default function About() {
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)", backgroundSize: "60px 60px" }} />
         <div className="absolute inset-0 flex items-center justify-center text-center px-8">
           <AnimateIn>
-            <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] uppercase mb-4">Ikenoyashoji Co.,Ltd.</p>
+            <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] mb-4">Ikenoyashoji Co.,Ltd.</p>
             <h1 className="hero-title text-5xl md:text-6xl font-extralight text-white tracking-[0.15em] mb-6">池ノ谷商事について</h1>
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
           </AnimateIn>
