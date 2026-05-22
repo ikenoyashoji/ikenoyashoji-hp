@@ -16,7 +16,7 @@ import { setSeo } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { Phone, Mail, MapPin, CheckCircle } from "lucide-react";
-import heroImg from "@assets/contact_hero.png";
+import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
 
 const contactSchema = z.object({
   type: z.enum(["shipper", "recruit", "partner"]),

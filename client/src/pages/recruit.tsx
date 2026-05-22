@@ -7,7 +7,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { CheckCircle, Mail, ArrowRight, Star, TrendingUp, Shield, Clock } from "lucide-react";
-import truckHeroImg from "@assets/recruit_hero.png";
+import truckHeroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
 import recruitImg1 from "@assets/recruit_slide_01.png";
 import recruitImg2 from "@assets/recruit_slide_02.png";
 import recruitImg3 from "@assets/recruit_slide_03.png";

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ChevronRight, Truck, Users, Handshake, BookOpen, Building2, Info, Phone, Shield, Map, LayoutGrid } from "lucide-react";
-import heroImg from "@assets/sitemap_hero.png";
+import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
 
 const siteStructure = [
   {

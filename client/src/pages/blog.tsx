@@ -12,7 +12,7 @@ import { Search } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 
-import heroImg from "@assets/blog_hero.png";
+import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
 import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
 import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
 import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
