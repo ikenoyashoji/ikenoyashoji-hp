@@ -172,7 +172,6 @@ export default function Services() {
             <p className="text-gray-300 text-sm tracking-widest">物流のプロとして、多角的なサービスで社会を支えます。</p>
           </AnimateIn>
         </div></div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Stats Bar */}

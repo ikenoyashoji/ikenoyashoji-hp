@@ -42,7 +42,6 @@ export default function About() {
             <p className="text-gray-300 text-sm tracking-widest">運ぶ信頼、届ける真心。</p>
           </AnimateIn>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Philosophy */}

@@ -149,7 +149,6 @@ export default function Company() {
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
           </AnimateIn>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Stats Bar */}

@@ -132,7 +132,6 @@ export default function Contact() {
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
           <p className="text-gray-300 text-sm tracking-widest">2営業日以内にご返答いたします。</p>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       <section className="py-12 sm:py-20 bg-white px-4 sm:px-8">

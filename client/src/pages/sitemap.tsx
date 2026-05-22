@@ -139,7 +139,6 @@ export default function SitemapPage() {
             <p className="text-gray-300 text-sm tracking-widest">全ページへのリンクをまとめています。</p>
           </AnimateIn>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Sitemap grid */}

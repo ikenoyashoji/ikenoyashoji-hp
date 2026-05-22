@@ -112,7 +112,6 @@ export default function Blog() {
             <p className="text-gray-300 text-sm tracking-widest">物流の現場から、最新情報・コラム・採用情報をお届けします。</p>
           </AnimateIn>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Filter bar */}
