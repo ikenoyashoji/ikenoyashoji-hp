@@ -211,7 +211,7 @@ export default function AdminSettings() {
             </p>
             <div>
               <EnvRow name="ADMIN_USER" value={isLoading ? "" : (st?.adminUser || "")} />
-              <EnvRow name="ADMIN_PASS" value={isLoading ? "" : (st?.smtp ? "設定済み" : "")} secret />
+              <EnvRow name="ADMIN_PASS" value={isLoading ? "" : (st?.adminPassSet ? "設定済み" : "")} secret />
             </div>
           </div>
         </Section>

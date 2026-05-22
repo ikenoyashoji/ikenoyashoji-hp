@@ -899,6 +899,7 @@ CTR：${(ctr * 100).toFixed(1)}%
       clarity: !!(process.env.VITE_CLARITY_ID),
       clarityId: process.env.VITE_CLARITY_ID || "",
       adminUser: process.env.ADMIN_USER || "admin",
+      adminPassSet: !!(process.env.ADMIN_PASS),
       ...stats,
     });
   });
