@@ -212,8 +212,8 @@ export default function Home() {
         </div>
 
         {/* ── Circular rotating text (bottom-right) ── */}
-        <div className="absolute top-7 right-8 z-30 w-32 h-32 hidden md:block">
-          <svg viewBox="0 0 100 100" width="128" height="128">
+        <div className="absolute top-7 right-8 z-30 w-48 h-48 hidden md:block">
+          <svg viewBox="0 0 100 100" width="192" height="192">
             <defs>
               <path id="circle-path" d="M 50,50 m -34,0 a 34,34 0 1,1 68,0 a 34,34 0 1,1 -68,0" />
               <filter id="text-shadow" x="-20%" y="-20%" width="140%" height="140%">
