@@ -8,12 +8,11 @@ import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { CheckCircle, Mail, ArrowRight, Star, TrendingUp, Shield, Clock } from "lucide-react";
 import truckHeroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
-import recruitImg1 from "@assets/recruit_slide_01.png";
-import recruitImg2 from "@assets/recruit_slide_02.png";
-import recruitImg3 from "@assets/recruit_slide_03.png";
-import recruitImg4 from "@assets/recruit_slide_04.png";
-import recruitImg5 from "@assets/recruit_slide_05.png";
-import recruitImg6 from "@assets/recruit_slide_06.png";
+import recruitImg1 from "@assets/1F4EB5CB-29A3-47D1-9277-E1E76987A7B8_1779460775107.PNG";
+import recruitImg2 from "@assets/0A6767E5-1451-438C-B486-1782B1297F10_1779460775108.PNG";
+import recruitImg3 from "@assets/3A3C76C0-4233-44A3-B457-22FF64E8AF06_1779460775109.PNG";
+import recruitImg4 from "@assets/BC6D7FFA-B15E-457A-8DC2-C1E0FA25B943_1779460775109.PNG";
+import recruitImg5 from "@assets/B30768FD-5A67-43D6-A365-9C50F0948EAC_1779460775109.PNG";
 
 function useCountUp(target: number, duration = 1400) {
   const [count, setCount] = useState(0);
@@ -164,7 +163,7 @@ const faqs = [
   { q: "選考はどのくらいかかりますか？", a: "最短で応募から内定まで1週間以内を目指しています。面接は原則1回のみです。" },
 ];
 
-const recruitImgs = [recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5, recruitImg6];
+const recruitImgs = [recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5];
 
 export default function Recruit() {
   useEffect(() => {
