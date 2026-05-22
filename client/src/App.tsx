@@ -11,6 +11,11 @@ import { SplashScreen } from "@/components/splash-screen";
 // LP（ホーム）は静的インポート — 即座に表示
 import Home from "@/pages/home";
 
+// ヒーロー画像（スプラッシュ中に先読みするため先行インポート）
+import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_1779426563754.PNG";
+import heroCold from "@assets/hero_warehouse_cold.png";
+import heroInterior from "@assets/hero_warehouse_interior.png";
+
 import { SplashContext } from "@/lib/splash-context";
 
 // 公開ページ — 遅延読み込み
@@ -39,23 +44,26 @@ const AdminLogs          = lazy(() => import("@/pages/admin/logs"));
 const AdminSettings      = lazy(() => import("@/pages/admin/settings"));
 const AdminAutoPublish   = lazy(() => import("@/pages/admin/auto-publish"));
 
-// LPを見ている間に公開ページをバックグラウンドでプリフェッチ
+// ヒーロー画像をブラウザにプリロードさせる（スプラッシュ中に裏読み）
+function preloadImage(src: string) {
+  const img = new window.Image();
+  img.src = src;
+}
+
+// LPを見ている間に公開ページをバックグラウンドでプリフェッチ（遅延なし）
 function usePrefetch() {
   const [location] = useLocation();
   useEffect(() => {
     if (location !== "/") return;
-    const timer = setTimeout(() => {
-      import("@/pages/recruit");
-      import("@/pages/partner");
-      import("@/pages/blog");
-      import("@/pages/company");
-      import("@/pages/about");
-      import("@/pages/services");
-      import("@/pages/contact");
-      import("@/pages/privacy");
-      import("@/pages/blog-post");
-    }, 2000);
-    return () => clearTimeout(timer);
+    import("@/pages/recruit");
+    import("@/pages/partner");
+    import("@/pages/blog");
+    import("@/pages/company");
+    import("@/pages/about");
+    import("@/pages/services");
+    import("@/pages/contact");
+    import("@/pages/privacy");
+    import("@/pages/blog-post");
   }, [location]);
 }
 
@@ -134,6 +142,10 @@ function AppInner() {
 
   useEffect(() => {
     loadAnalytics();
+    // スプラッシュ中にヒーロー画像を先読み → LP表示時に即座に描画
+    preloadImage(heroTruck);
+    preloadImage(heroCold);
+    preloadImage(heroInterior);
   }, []);
 
   return (
