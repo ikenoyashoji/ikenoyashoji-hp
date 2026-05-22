@@ -234,6 +234,62 @@ async function callOpenAI(messages: any[], systemPrompt: string) {
   return data.choices[0].message.content as string;
 }
 
+// DALL-E 3 でファッション誌風ヒーロー画像を生成して public/uploads に保存
+async function generateArticleImage(title: string, keyword: string, category?: string): Promise<string> {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) throw new Error("OPENAI_API_KEY not configured");
+
+  const subjectMap: Record<string, string> = {
+    "採用情報": "confident Japanese professional driver standing beside a modern sleek truck, editorial portrait, stylish industrial workwear, strong heroic pose, golden hour",
+    "協力会社情報": "aerial cinematic view of a modern Japanese logistics hub at golden hour, abstract geometric cargo containers, premium editorial composition, navy and copper tones",
+    "物流コラム": "sleek modern Japanese warehouse interior, high-end architectural photography, dramatic shadows and geometric lines, editorial minimalism, deep navy palette",
+    "お知らせ": "clean Japanese corporate visual, minimalist flat lay of premium business elements and modern logistics motifs, marble surface",
+    "事例紹介": "dynamic split composition, before-after logistics optimization visualization, magazine double-page spread style, cinematic wide shot",
+  };
+
+  const subject = (category && subjectMap[category]) || subjectMap["物流コラム"];
+  const prompt = [
+    `High-end Japanese fashion magazine editorial photography. Vogue Japan, Wallpaper*, Monocle magazine aesthetic.`,
+    `Dramatic studio lighting, bold graphic composition. ${subject}.`,
+    `Article context: "${title}".`,
+    `Luxury premium feel, deep navy and steel blue palette with crisp white accents,`,
+    `cinematic depth of field, ultra-sharp professional photography, aspirational lifestyle feel.`,
+    `No text, no typography, no logos. Photorealistic, ultra-wide 16:9 magazine spread format.`,
+  ].join(" ");
+
+  const res = await fetch("https://api.openai.com/v1/images/generations", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model: "dall-e-3",
+      prompt,
+      n: 1,
+      size: "1792x1024",
+      quality: "hd",
+      response_format: "url",
+    }),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`DALL-E error: ${err}`);
+  }
+
+  const data = (await res.json()) as any;
+  const imageUrl: string = data.data[0].url;
+
+  // 画像をダウンロードして public/uploads に保存
+  const imgRes = await fetch(imageUrl);
+  if (!imgRes.ok) throw new Error("Failed to download generated image");
+  const buffer = Buffer.from(await imgRes.arrayBuffer());
+
+  const filename = `ai-gen-${Date.now()}.jpg`;
+  const savePath = path.join(uploadsDir, filename);
+  fs.writeFileSync(savePath, buffer);
+
+  return `/uploads/${filename}`;
+}
+
 export async function registerRoutes(httpServer: Server, app: Express): Promise<Server> {
   // Serve uploaded images as static files
   app.use("/uploads", express.static(uploadsDir));
@@ -523,6 +579,14 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       if (!jsonMatch) throw new Error("Invalid AI response format");
       const parsed = JSON.parse(jsonMatch[0]);
 
+      // DALL-E 3 でヒーロー画像を生成（失敗しても記事は保存する）
+      let imageUrl = "";
+      try {
+        imageUrl = await generateArticleImage(parsed.title, keyword, parsed.category);
+      } catch (imgErr: any) {
+        console.error("[ImageGen] 画像生成失敗（記事は保存）:", imgErr.message);
+      }
+
       const article = await storage.createArticle({
         title: parsed.title,
         slug: parsed.slug,
@@ -535,7 +599,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         faqData: JSON.stringify(parsed.faqData || []),
         internalLinks: JSON.stringify(parsed.internalLinks || []),
         authorNote: parsed.authorNote,
-        imageUrl: "",
+        imageUrl,
       });
 
       res.json(article);
