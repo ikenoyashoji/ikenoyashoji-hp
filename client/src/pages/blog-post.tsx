@@ -103,32 +103,35 @@ export default function BlogPost() {
 
       <main className="flex-1 mt-[100px]">
         {/* Article hero */}
-        <div
-          className="relative py-16 px-8"
-          style={article.imageUrl ? { backgroundImage: `url(${article.imageUrl})`, backgroundSize: "cover", backgroundPosition: "center" } : { backgroundColor: "#0f2044" }}
-        >
-          <div className="absolute inset-0 bg-[#0f2044]/80" />
-          <div className="relative max-w-3xl mx-auto">
-            <Link href="/blog" className="text-gray-400 text-xs flex items-center gap-1 mb-6 hover:text-white transition-colors tracking-widest">
-              <ArrowLeft className="w-3.5 h-3.5" /> お知らせ一覧
-            </Link>
-            <div className="flex flex-wrap gap-2 mb-5">
-              <span className="bg-white/10 text-white text-[10px] px-3 py-1 tracking-widest">{article.category}</span>
-              {article.tags?.map((t: string) => (
-                <span key={t} className="flex items-center gap-1 text-gray-400 text-[10px] tracking-widest">
-                  <Tag className="w-3 h-3" />{t}
-                </span>
-              ))}
-            </div>
-            <h1 className="text-2xl md:text-3xl font-light text-white leading-snug tracking-wide mb-5">{article.title}</h1>
-            <div className="flex items-center gap-4 text-gray-400 text-xs tracking-widest">
-              {article.publishedAt && (
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {format(new Date(article.publishedAt), "yyyy年M月d日", { locale: ja })}
-                </span>
-              )}
-              {article.authorNote && <span>{article.authorNote}</span>}
+        <div className="relative">
+          {article.imageUrl ? (
+            <img src={article.imageUrl} alt="" className="w-full block" />
+          ) : (
+            <div className="h-52 bg-[#0f2044]" />
+          )}
+          <div className="absolute inset-0 bg-[#0f2044]/75 flex items-center px-8">
+            <div className="max-w-3xl w-full mx-auto">
+              <Link href="/blog" className="text-gray-400 text-xs flex items-center gap-1 mb-6 hover:text-white transition-colors tracking-widest">
+                <ArrowLeft className="w-3.5 h-3.5" /> お知らせ一覧
+              </Link>
+              <div className="flex flex-wrap gap-2 mb-5">
+                <span className="bg-white/10 text-white text-[10px] px-3 py-1 tracking-widest">{article.category}</span>
+                {article.tags?.map((t: string) => (
+                  <span key={t} className="flex items-center gap-1 text-gray-400 text-[10px] tracking-widest">
+                    <Tag className="w-3 h-3" />{t}
+                  </span>
+                ))}
+              </div>
+              <h1 className="text-2xl md:text-3xl font-light text-white leading-snug tracking-wide mb-5">{article.title}</h1>
+              <div className="flex items-center gap-4 text-gray-400 text-xs tracking-widest">
+                {article.publishedAt && (
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {format(new Date(article.publishedAt), "yyyy年M月d日", { locale: ja })}
+                  </span>
+                )}
+                {article.authorNote && <span>{article.authorNote}</span>}
+              </div>
             </div>
           </div>
         </div>
