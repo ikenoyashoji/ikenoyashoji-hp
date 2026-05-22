@@ -56,8 +56,7 @@ const siteStructure = [
       { label: "ブログトップ", href: "/blog", desc: "物流・採用に関する最新コラム" },
       { label: "物流コラム", href: "/blog?category=物流コラム", desc: "荷主向け物流改善のヒント" },
       { label: "採用情報", href: "/blog?category=採用情報", desc: "ドライバー求人・働き方" },
-      { label: "協力会社情報", href: "/blog?category=協力会社情報", desc: "協力会社向けの最新情報" },
-      { label: "会社ニュース", href: "/blog?category=会社ニュース", desc: "池ノ谷商事からのお知らせ" },
+      { label: "お知らせ", href: "/blog?category=お知らせ", desc: "池ノ谷商事からのお知らせ" },
     ],
   },
   {
