@@ -101,7 +101,7 @@ export default function About() {
           <AnimateIn>
             <div className="grid md:grid-cols-3 gap-px bg-gray-100">
               {[
-                { title: "Mission", sub: "使命", body: "すべての人の人生を豊かにするために、物流を通じて日常を支え、想いを運び、届けた一つひとつが誰かの幸せへとつながる連鎖を生み出し続ける。" },
+                { title: "Mission", sub: "使命", body: "すべての人の人生を\n豊かにするために\n物流を通じて日常を支え\n想いを運び、届けた\n一つひとつが誰かの\n幸せへとつながる連鎖を\n生み出し続ける。" },
                 { title: "Vision", sub: "ビジョン", body: "すべての物流を、再現性ある仕組みで。誰がやっても成果が出る「非属人的で自走する物流の未来」を構造からつくる。" },
                 { title: "Value", sub: "価値観", body: "誰もが公平に力を発揮できる環境の中で、感謝・礼儀・誠実さを軸に人として誠実に生きる。小さな成功体験を積み重ね、仲間と共に豊かな未来を築く。" },
               ].map((item) => (
@@ -109,7 +109,7 @@ export default function About() {
                   <p className="text-[#1d4ed8] text-[10px] tracking-[0.5em] uppercase mb-3">{item.title}</p>
                   <p className="text-gray-800 font-semibold text-lg mb-4">{item.sub}</p>
                   <div className="w-6 h-0.5 bg-[#1d4ed8] mx-auto mb-5" />
-                  <p className="text-gray-500 text-sm leading-[2] text-center">{item.body}</p>
+                  <p className="text-gray-500 text-sm leading-[2] text-center whitespace-pre-line">{item.body}</p>
                 </div>
               ))}
             </div>
