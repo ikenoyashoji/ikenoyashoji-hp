@@ -19,7 +19,7 @@ import serviceImg03 from "@assets/0878E4B7-4446-434F-9882-22577A67DDBD_177942677
 import serviceImg04 from "@assets/32441AFB-7881-4D18-AC34-2DBF80A87B7F_1779426843675.PNG";
 import serviceImg05 from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.PNG";
 import serviceImg06 from "@assets/3EF77FFF-E87F-4925-A5AD-B58610F4588C_1779426911532.PNG";
-import serviceImg07 from "@assets/service_07_vehicle_sales.png";
+import serviceImg07 from "@assets/4EDD08B8-A65F-40A7-93F3-7F0D21C63C92_1779427089063.PNG";
 import serviceImg08 from "@assets/service_08_maintenance.png";
 import recruitImg1 from "@assets/recruit_01_driver_cab.png";
 import recruitImg2 from "@assets/recruit_02_coordinator_warehouse.png";
