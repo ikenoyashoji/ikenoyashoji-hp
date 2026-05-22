@@ -13,55 +13,8 @@ import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 
 import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
-import topicImg1 from "@assets/スクリーンショット_2026-05-13_2.44.31_1778607953004.png";
-import topicImg2 from "@assets/スクリーンショット_2026-05-13_2.44.44_1778607963000.png";
-import topicImg3 from "@assets/スクリーンショット_2026-05-13_2.44.54_1778607966295.png";
-import topicImg4 from "@assets/スクリーンショット_2026-05-13_2.45.03_1778607970643.png";
 
 const categories = ["すべて", "物流コラム", "採用情報", "協力会社情報", "お知らせ", "事例紹介"];
-
-const staticTopics = [
-  {
-    id: "s1",
-    imageUrl: topicImg1,
-    category: "採用情報",
-    date: "2026.05.12",
-    title: "WORK STYLE｜ドライバーのリアルな働き方と想いをお届けします。",
-    excerpt: "現場で働くドライバーたちの声、仕事への誇り、日々の工夫をリアルにお伝えします。",
-    href: "/recruit",
-    isStatic: true,
-  },
-  {
-    id: "s2",
-    imageUrl: topicImg2,
-    category: "物流コラム",
-    date: "2026.05.10",
-    title: "物流の裏側｜現場の工夫や課題解決の取り組みを発信します。",
-    excerpt: "物流現場で生まれる知恵と改善の取り組みを、わかりやすくお伝えするコラムシリーズ。",
-    href: "/blog",
-    isStatic: true,
-  },
-  {
-    id: "s3",
-    imageUrl: topicImg3,
-    category: "採用情報",
-    date: "2026.05.08",
-    title: "人を大切にする会社 池ノ谷商事の魅力｜女性スタッフも多数活躍中！",
-    excerpt: "育児と両立しながら活躍する女性スタッフや、未経験から成長したドライバーの声を紹介。",
-    href: "/recruit",
-    isStatic: true,
-  },
-  {
-    id: "s4",
-    imageUrl: topicImg4,
-    category: "お知らせ",
-    date: "2026.05.06",
-    title: "MOVE THE CITY｜街をつなぎ、未来を支える。現場から見える物流の今とこれから。",
-    excerpt: "物流が支える街の暮らし、そして変化する物流業界の現在地についてお届けします。",
-    href: "/blog",
-    isStatic: true,
-  },
-];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("すべて");
@@ -87,9 +40,7 @@ export default function Blog() {
     isStatic: false,
   }));
 
-  const allArticles = [...staticTopics, ...dbArticles];
-
-  const filtered = allArticles.filter((a) => {
+  const filtered = dbArticles.filter((a) => {
     const matchCat = selectedCategory === "すべて" || a.category === selectedCategory;
     const matchSearch = !search || a.title.includes(search) || (a.excerpt || "").includes(search);
     return matchCat && matchSearch;
