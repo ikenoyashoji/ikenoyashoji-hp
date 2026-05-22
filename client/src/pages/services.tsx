@@ -173,15 +173,6 @@ export default function Services() {
         </div></div>
       </section>
 
-      {/* Stats Bar */}
-      <section className="bg-[#0f2044] py-8 px-8">
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/10">
-          <StatItem num={8}   unit="事業" label="SERVICES"   delay={0} />
-          <StatItem num={120} unit="台"   label="VEHICLES"   delay={80} />
-          <StatItem num={128} unit="名"   label="EMPLOYEES"  delay={160} />
-          <StatItem num={6}   unit="拠点" label="LOCATIONS"  delay={240} />
-        </div>
-      </section>
 
 
       {/* Intro */}

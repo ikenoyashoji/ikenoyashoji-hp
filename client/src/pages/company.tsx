@@ -151,15 +151,6 @@ export default function Company() {
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <section className="bg-[#0f2044] py-8 px-8">
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/10">
-          <StatItem num={15}  unit="名"  label="EMPLOYEES"  delay={0} />
-          <StatItem num={12}  unit="台"  label="VEHICLES"   delay={80} />
-          <StatItem num={7}   unit="拠点" label="LOCATIONS"  delay={160} />
-          <StatItem num={4}   unit="年目" label="SINCE 2023"  delay={240} />
-        </div>
-      </section>
 
       {/* Company info */}
       <section className="py-24 bg-white px-8">
