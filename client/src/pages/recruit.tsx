@@ -117,22 +117,22 @@ const careerPath = [
 ];
 
 const applicationFlow = [
-  { step: "01", title: "エントリー", desc: "お問い合わせフォームまたはお電話でご応募ください。履歴書不要でOK。" },
-  { step: "02", title: "書類選考", desc: "ご応募後3営業日以内にご連絡します。書類選考は簡単な内容のみ。" },
-  { step: "03", title: "面接（1回）", desc: "担当者との気軽な面談。会社見学も同時に行います。" },
-  { step: "04", title: "内定・条件確認", desc: "面接後、最短即日で結果をお伝えします。条件面は丁寧に説明します。" },
-  { step: "05", title: "入社・研修開始", desc: "ご都合に合わせて入社日を調整します。研修から無理なくスタート。" },
+  { step: "01", title: "エントリー", desc: "お問い合わせフォームまたはお電話（046-212-2766）でご応募ください。まずはお気軽にどうぞ。" },
+  { step: "02", title: "ご連絡・日程調整", desc: "応募後、担当者よりご連絡します。面接日程をご都合に合わせて調整します。" },
+  { step: "03", title: "面接（1回のみ）", desc: "担当者との気軽な面談。会社・職場の見学も同時に行います。即日勤務も相談可能です。" },
+  { step: "04", title: "内定・条件確認", desc: "面接後、速やかに結果をご連絡します。給与・条件面は丁寧にご説明します。" },
+  { step: "05", title: "入社・サポート開始", desc: "入社日はご都合に合わせて調整。先輩スタッフが丁寧にサポートしながらスタートします。" },
 ];
 
 const faqs = [
-  { q: "未経験でも応募できますか？", a: "はい、大歓迎です！先輩スタッフが丁寧にサポートしますので、未経験の方も安心してスタートできます。配送経験がある方は優遇します。" },
-  { q: "免許がないと応募できませんか？", a: "普通免許をお持ちであればご応募いただけます。大型・中型・準中型免許をお持ちの方は優遇いたします。各種資格の取得費用は会社が補助します。" },
-  { q: "勤務時間を教えてください。", a: "正社員の定時は9:00〜18:00（休憩1時間）です。配送状況によって変動する場合があります。土日祝休み・シフト制（週休2日）で、希望休の相談も可能です。" },
-  { q: "勤務地はどこですか？", a: "神奈川県愛甲郡愛川町中津7287が拠点です。陸運支局前バス停（徒歩約3分）、下溝駅から車で約10分。マイカー・自転車通勤も可能で、駐車場・駐輪場を完備しています。" },
-  { q: "転職・中途採用も歓迎していますか？", a: "もちろんです。他業種からの転職者も多く活躍しています。20代〜50代まで幅広い年齢層のスタッフがいるアットホームな職場です。" },
-  { q: "女性でも働けますか？", a: "はい、現在も女性スタッフが活躍しています。軽貨物ドライバー・配車担当・倉庫スタッフなど女性が活躍できるポジションが多数あります。" },
+  { q: "未経験でも応募できますか？", a: "はい、大歓迎です。先輩スタッフが丁寧にサポートしますので安心してスタートできます。配送ドライバー経験が1年以上ある方は優遇いたします。" },
+  { q: "どんな免許が必要ですか？", a: "普通免許（AT限定可）があればご応募いただけます。大型・中型・準中型免許をお持ちの方は優遇いたします。資格取得費用は会社が補助します。" },
+  { q: "どんな仕事内容ですか？", a: "神奈川県内を中心とした近距離ルート配送が主な業務です。軽貨物または1t〜4tトラックでお客様先へ納品を行います。長距離運転はありません。" },
+  { q: "勤務時間・休日を教えてください。", a: "定時は9:00〜18:00（休憩1時間）です。配送状況により変動する場合があります。シフト制・週休2日で、土日祝休み。希望休の相談も柔軟に対応します。" },
+  { q: "勤務地・アクセスは？", a: "神奈川県愛甲郡愛川町中津7287が拠点です。陸運支局前バス停（徒歩約3分）、下溝駅から車で約10分。マイカー・自転車通勤可、駐車場・駐輪場完備。" },
   { q: "試用期間はありますか？", a: "試用期間は3ヶ月です。試用期間中も本採用と同条件での勤務となります。" },
-  { q: "選考はどのくらいかかりますか？", a: "最短で応募から内定まで1週間以内を目指しています。面接は原則1回のみです。即日勤務も可能ですのでお気軽にご相談ください。" },
+  { q: "女性でも働けますか？", a: "はい、現在も女性スタッフが活躍しています。軽貨物ドライバーや配車オペレーターなど、女性が活躍できるポジションがあります。" },
+  { q: "即日勤務は可能ですか？", a: "はい、即日勤務OK・週2・3日からのスタートも可能です。まずはお気軽にご相談ください。面接は1回のみ、TEL: 046-212-2766 まで。" },
 ];
 
 const recruitImgs = [recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5];
@@ -449,20 +449,32 @@ export default function Recruit() {
       <section className="py-24 bg-[#0f2044] text-center px-8">
         <AnimateIn>
           <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">APPLY NOW</p>
-          <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-4">一緒に働きましょう</h2>
-          <p className="text-gray-400 text-sm mb-10 max-w-xl mx-auto leading-relaxed">
-            ご応募・ご質問はお気軽にどうぞ。履歴書不要、まずはお気軽にご連絡ください。<br />
-            <span className="text-[#7eb3ff]">TEL: 046-212-2766</span>（平日 9:00〜21:00）
+          <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-4">時間も、収入も、人生に彩りを</h2>
+          <p className="text-gray-400 text-sm mb-3 max-w-xl mx-auto leading-relaxed">
+            即日勤務OK・週2〜3日からスタートOK。まずはお気軽にご連絡ください。
           </p>
-          <Link href="/contact?type=recruit">
-            <button
-              className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-12 py-4 text-sm tracking-widest transition-colors"
-              onClick={() => trackEvent("cta_contact_click", { location: "recruit_cta" })}
-              data-testid="button-recruit-cta"
+          <p className="text-[#7eb3ff] text-base font-light tracking-widest mb-10">
+            TEL: 046-212-2766
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/contact?type=recruit">
+              <button
+                className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-12 py-4 text-sm tracking-widest transition-colors"
+                onClick={() => trackEvent("cta_contact_click", { location: "recruit_cta" })}
+                data-testid="button-recruit-cta"
+              >
+                応募フォームはこちら
+              </button>
+            </Link>
+            <a
+              href="tel:046-212-2766"
+              className="border border-[#1d4ed8] text-[#7eb3ff] hover:bg-[#1d4ed8] hover:text-white px-12 py-4 text-sm tracking-widest transition-colors"
+              onClick={() => trackEvent("cta_tel_click", { location: "recruit_cta" })}
+              data-testid="link-recruit-tel"
             >
-              お問い合わせはこちら
-            </button>
-          </Link>
+              電話で問い合わせる
+            </a>
+          </div>
         </AnimateIn>
       </section>
 
