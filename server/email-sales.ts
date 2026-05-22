@@ -131,8 +131,10 @@ export async function crawlLeads(): Promise<number> {
 }
 
 // ── AI email generation ───────────────────────────────────────────────────────
-export async function generateEmailForLead(lead: any): Promise<{ subject: string; body: string }> {
+export async function generateEmailForLead(lead: any): Promise<{ subject: string; body: string; unsubscribeToken: string }> {
   const categoryLabel = CATEGORY_LABEL[lead.category] || "荷主";
+  const { randomBytes } = await import("crypto");
+  const unsubscribeToken: string = lead.unsubscribeToken || randomBytes(32).toString("hex");
 
   const raw = await callOpenAI(
     [{ role: "user", content: `会社名：${lead.company}\nサイト：${lead.website}\nターゲット区分：${categoryLabel}` }],
@@ -147,16 +149,16 @@ export async function generateEmailForLead(lead: any): Promise<{ subject: string
 ルール：
 - 件名は30〜50文字
 - 本文は200〜300文字（短く、読みやすく）
-- 最後に署名を入れる（池ノ谷商事 営業部、TEL:046-212-2766、Email:sales@ikenoyashoji.fun）
+- 最後に署名を入れる（池ノ谷商事 営業部、TEL:046-212-2766、Email:info@ikenoyashoji.co.jp）
 - 特定の数値や名前は記載しない（相手の詳細が不明なため）
 
 JSON形式のみで出力：{"subject": "...", "body": "..."}`
   );
 
   const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) return { subject: "【池ノ谷商事】物流サービスのご案内", body: "お世話になっております。株式会社池ノ谷商事の営業担当です。" };
+  if (!match) return { subject: "【池ノ谷商事】物流サービスのご案内", body: "お世話になっております。株式会社池ノ谷商事の営業担当です。", unsubscribeToken };
   const parsed = JSON.parse(match[0]);
-  return { subject: parsed.subject || "", body: parsed.body || "" };
+  return { subject: parsed.subject || "", body: parsed.body || "", unsubscribeToken };
 }
 
 // ── SMTP sender ───────────────────────────────────────────────────────────────
@@ -169,68 +171,101 @@ export function createTransporter() {
   return nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });
 }
 
-function buildHtmlEmail(body: string): string {
+function buildHtmlEmail(body: string, unsubscribeToken?: string): string {
+  const siteUrl = process.env.SITE_URL || "https://ikenoyashoji.jp";
+  const unsubscribeUrl = unsubscribeToken ? `${siteUrl}/api/unsubscribe?token=${unsubscribeToken}` : "";
+
   const paragraphs = body
     .split(/\n+/)
     .map((line) => line.trim())
     .filter(Boolean)
-    .map((line) => `  <p style="margin:0 0 16px 0;line-height:1.8;color:#333333;">${line}</p>`)
+    .map((line) => `<p style="margin:0 0 16px 0;line-height:1.8;color:#1e293b;font-size:14px;">${line}</p>`)
     .join("\n");
 
   return `<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <style>
+    @keyframes logoPulse {
+      0%,100% { box-shadow:0 0 0 0 rgba(147,197,253,0.55); }
+      50% { box-shadow:0 0 0 14px rgba(147,197,253,0); }
+    }
+    @keyframes fadeSlideDown {
+      from { opacity:0;transform:translateY(-10px); }
+      to { opacity:1;transform:translateY(0); }
+    }
+    @keyframes accentShimmer {
+      0% { background-position:0% 50%; }
+      50% { background-position:100% 50%; }
+      100% { background-position:0% 50%; }
+    }
+    .logo-ring { animation:logoPulse 2.5s ease-in-out infinite; }
+    .hd-title { animation:fadeSlideDown 0.7s ease forwards; }
+    .hd-sub { animation:fadeSlideDown 0.7s 0.18s ease both; }
+    .accent-bar {
+      background:linear-gradient(90deg,#1a4b99,#3b82f6,#60a5fa,#3b82f6,#1a4b99);
+      background-size:200% 200%;
+      animation:accentShimmer 3s ease infinite;
+    }
+  </style>
 </head>
-<body style="margin:0;padding:0;background-color:#f4f6f9;font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:32px 16px;">
+<body style="margin:0;padding:0;background:#dce7f5;font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#dce7f5;padding:32px 16px;">
     <tr>
       <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:4px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;border-radius:8px;overflow:hidden;box-shadow:0 6px 32px rgba(15,32,68,0.18);">
 
-          <!-- Header -->
+          <!-- HEADER -->
           <tr>
-            <td style="background:linear-gradient(135deg,#0f2044 0%,#1a4b99 100%);padding:32px 40px;">
-              <p style="margin:0 0 4px 0;font-size:11px;letter-spacing:0.25em;color:#7eb3ff;font-weight:400;">IKENOYASHOJI CO., LTD.</p>
-              <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.05em;">株式会社池ノ谷商事</p>
-              <p style="margin:6px 0 0 0;font-size:11px;color:rgba(255,255,255,0.6);letter-spacing:0.1em;">物流・運送サービスのご案内</p>
+            <td style="background:linear-gradient(160deg,#050e1f 0%,#0f2044 28%,#1a4b99 68%,#2563eb 100%);padding:44px 44px 40px 44px;text-align:center;">
+              <div class="logo-ring" style="display:inline-block;width:72px;height:72px;border-radius:50%;border:2.5px solid rgba(147,197,253,0.65);background:rgba(255,255,255,0.05);margin:0 auto 22px auto;line-height:72px;text-align:center;vertical-align:middle;">
+                <span style="font-size:30px;font-weight:900;color:#ffffff;font-family:serif;vertical-align:middle;line-height:72px;">池</span>
+              </div>
+              <p class="hd-title" style="margin:0 0 6px 0;font-size:11px;letter-spacing:0.38em;color:#93c5fd;font-weight:400;text-transform:uppercase;">Ikenoyashoji Co., Ltd.</p>
+              <p class="hd-title" style="margin:0 0 10px 0;font-size:26px;font-weight:800;color:#ffffff;letter-spacing:0.06em;">株式会社池ノ谷商事</p>
+              <p class="hd-sub" style="margin:0;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.14em;">物流・運送サービスのご案内</p>
             </td>
           </tr>
 
-          <!-- Body -->
+          <!-- ACCENT LINE -->
+          <tr><td class="accent-bar" style="height:4px;"></td></tr>
+
+          <!-- BODY -->
           <tr>
-            <td style="padding:36px 40px 24px 40px;">
+            <td style="padding:40px 44px 28px 44px;background:#ffffff;">
               ${paragraphs}
             </td>
           </tr>
 
           <!-- CTA -->
           <tr>
-            <td style="padding:0 40px 36px 40px;">
-              <table cellpadding="0" cellspacing="0">
-                <tr>
-                  <td style="background:linear-gradient(135deg,#1a4b99,#1d4ed8);border-radius:2px;">
-                    <a href="https://ikenoyashoji.jp/contact" style="display:inline-block;padding:14px 32px;color:#ffffff;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.08em;">お問い合わせ・ご相談はこちら →</a>
-                  </td>
-                </tr>
-              </table>
+            <td style="padding:4px 44px 40px 44px;background:#ffffff;">
+              <table cellpadding="0" cellspacing="0"><tr>
+                <td style="background:linear-gradient(135deg,#1a4b99 0%,#2563eb 100%);border-radius:4px;box-shadow:0 4px 14px rgba(37,99,235,0.35);">
+                  <a href="https://ikenoyashoji.jp/contact" style="display:inline-block;padding:15px 36px;color:#ffffff;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.1em;">お問い合わせ・ご相談はこちら →</a>
+                </td>
+              </tr></table>
             </td>
           </tr>
 
-          <!-- Divider -->
-          <tr>
-            <td style="padding:0 40px;"><hr style="border:none;border-top:1px solid #e8ecf0;margin:0;" /></td>
-          </tr>
+          <!-- DIVIDER -->
+          <tr><td style="padding:0 44px;background:#ffffff;"><hr style="border:none;border-top:1px solid #e2e8f0;margin:0;"/></td></tr>
 
-          <!-- Footer -->
+          <!-- FOOTER -->
           <tr>
-            <td style="padding:24px 40px 32px 40px;background:#fafbfc;">
-              <p style="margin:0 0 6px 0;font-size:13px;font-weight:700;color:#0f2044;">株式会社池ノ谷商事　営業部</p>
-              <p style="margin:0 0 4px 0;font-size:12px;color:#666666;">〒243-0303　神奈川県愛甲郡愛川町中津7287</p>
-              <p style="margin:0 0 4px 0;font-size:12px;color:#666666;">TEL: 046-212-2766　／　Email: <a href="mailto:sales@ikenoyashoji.fun" style="color:#1a4b99;text-decoration:none;">sales@ikenoyashoji.fun</a></p>
-              <p style="margin:8px 0 0 0;font-size:12px;color:#666666;">URL: <a href="https://ikenoyashoji.jp" style="color:#1a4b99;text-decoration:none;">https://ikenoyashoji.jp</a></p>
-              <p style="margin:20px 0 0 0;font-size:10px;color:#aaaaaa;line-height:1.6;">このメールは池ノ谷商事 営業部より送信されています。配信停止をご希望の場合は、このメールへの返信にてお知らせください。</p>
+            <td style="padding:26px 44px 30px 44px;background:#f8fafc;">
+              <p style="margin:0 0 3px 0;font-size:13px;font-weight:800;color:#0f2044;">株式会社池ノ谷商事　営業部</p>
+              <p style="margin:0 0 3px 0;font-size:11px;color:#64748b;">〒243-0303　神奈川県愛甲郡愛川町中津7287</p>
+              <p style="margin:0 0 3px 0;font-size:11px;color:#64748b;">TEL: <a href="tel:046-212-2766" style="color:#1a4b99;text-decoration:none;">046-212-2766</a>　／　Email: <a href="mailto:info@ikenoyashoji.co.jp" style="color:#1a4b99;text-decoration:none;">info@ikenoyashoji.co.jp</a></p>
+              <p style="margin:4px 0 0 0;font-size:11px;color:#64748b;">URL: <a href="https://ikenoyashoji.jp" style="color:#1a4b99;text-decoration:none;">https://ikenoyashoji.jp</a></p>
+              ${unsubscribeUrl ? `
+              <p style="margin:20px 0 0 0;padding-top:14px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8;line-height:1.7;">
+                このメールは株式会社池ノ谷商事 営業部よりお送りしております。<br/>
+                今後このようなメールの受信を希望されない場合は<a href="${unsubscribeUrl}" style="color:#94a3b8;text-decoration:underline;">こちらをクリックして配信停止</a>してください。
+              </p>` : `
+              <p style="margin:20px 0 0 0;padding-top:14px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8;line-height:1.7;">このメールは株式会社池ノ谷商事 営業部よりお送りしております。</p>`}
             </td>
           </tr>
 
@@ -247,7 +282,7 @@ export async function sendLeadEmail(lead: any): Promise<boolean> {
   if (!transporter) throw new Error("SMTP not configured");
   if (!lead.email) throw new Error("No email address");
 
-  const html = buildHtmlEmail(lead.emailBody || "");
+  const html = buildHtmlEmail(lead.emailBody || "", lead.unsubscribeToken || "");
 
   await transporter.sendMail({
     from: `"株式会社池ノ谷商事 営業部" <sales@ikenoyashoji.fun>`,

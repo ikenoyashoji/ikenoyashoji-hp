@@ -1021,9 +1021,36 @@ CTR：${(ctr * 100).toFixed(1)}%
     const target = lead.find((l) => l.id === Number(req.params.id));
     if (!target) return res.status(404).json({ error: "Not found" });
     const { generateEmailForLead } = await import("./email-sales");
-    const { subject, body } = await generateEmailForLead(target);
-    const updated = await storage.updateEmailLead(target.id, { emailSubject: subject, emailBody: body });
+    const { subject, body, unsubscribeToken } = await generateEmailForLead(target);
+    const updated = await storage.updateEmailLead(target.id, { emailSubject: subject, emailBody: body, unsubscribeToken });
     res.json(updated);
+  });
+
+  app.get("/api/admin/email-templates", requireAdmin, async (_req, res) => {
+    const templates = await storage.getEmailTemplates();
+    res.json(templates);
+  });
+
+  app.post("/api/admin/email-templates", requireAdmin, async (req, res) => {
+    const { name, subject, body, category } = req.body;
+    if (!name) return res.status(400).json({ error: "name required" });
+    const tpl = await storage.createEmailTemplate({ name, subject: subject || "", body: body || "", category: category || "shipper" });
+    res.json(tpl);
+  });
+
+  app.delete("/api/admin/email-templates/:id", requireAdmin, async (req, res) => {
+    await storage.deleteEmailTemplate(Number(req.params.id));
+    res.json({ ok: true });
+  });
+
+  app.get("/api/unsubscribe", async (req, res) => {
+    const token = req.query.token as string;
+    if (!token) return res.status(400).send("<h2>無効なリクエストです</h2>");
+    const leads = await storage.getEmailLeads();
+    const lead = leads.find((l) => l.unsubscribeToken === token);
+    if (!lead) return res.status(404).send("<h2>リンクが無効または期限切れです</h2>");
+    await storage.updateEmailLead(lead.id, { status: "skipped" });
+    res.send(`<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"/><title>配信停止完了</title><style>body{margin:0;font-family:'Helvetica Neue',Arial,sans-serif;background:#e8eef8;display:flex;align-items:center;justify-content:center;min-height:100vh;}div{background:#fff;border-radius:8px;padding:48px 40px;text-align:center;box-shadow:0 4px 24px rgba(15,32,68,.1);max-width:480px;}h1{color:#0f2044;font-size:20px;margin:0 0 12px;}p{color:#64748b;font-size:14px;line-height:1.7;margin:0 0 24px;}a{display:inline-block;padding:12px 28px;background:linear-gradient(135deg,#1a4b99,#2563eb);color:#fff;border-radius:4px;text-decoration:none;font-size:13px;font-weight:700;}</style></head><body><div><h1>✅ 配信停止が完了しました</h1><p>今後、株式会社池ノ谷商事からの<br/>営業メールは送信されません。</p><a href="https://ikenoyashoji.jp">サイトへ戻る</a></div></body></html>`);
   });
 
   app.post("/api/admin/email-leads/:id/send", requireAdmin, async (req, res) => {

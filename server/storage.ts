@@ -1,7 +1,7 @@
 import { eq, desc, gte } from "drizzle-orm";
 import { db } from "./db";
 import {
-  users, articles, keywords, contacts, pageViews, events, searchConsoleData, adminUsers, emailLeads,
+  users, articles, keywords, contacts, pageViews, events, searchConsoleData, adminUsers, emailLeads, emailTemplates,
   type User, type InsertUser,
   type Article, type InsertArticle,
   type Keyword, type InsertKeyword,
@@ -11,6 +11,7 @@ import {
   type SearchConsoleData, type InsertSearchConsoleData,
   type AdminUser,
   type EmailLead, type InsertEmailLead,
+  type EmailTemplate, type InsertEmailTemplate,
 } from "@shared/schema";
 
 export interface IStorage {
@@ -53,6 +54,10 @@ export interface IStorage {
   createEmailLead(lead: InsertEmailLead): Promise<EmailLead>;
   updateEmailLead(id: number, data: Partial<InsertEmailLead> & { sentAt?: Date | null }): Promise<EmailLead>;
   deleteEmailLead(id: number): Promise<void>;
+
+  getEmailTemplates(): Promise<EmailTemplate[]>;
+  createEmailTemplate(data: InsertEmailTemplate): Promise<EmailTemplate>;
+  deleteEmailTemplate(id: number): Promise<void>;
 
   clearPageViews(): Promise<number>;
   clearEvents(): Promise<number>;
@@ -223,6 +228,19 @@ export class DrizzleStorage implements IStorage {
 
   async deleteEmailLead(id: number) {
     await db.delete(emailLeads).where(eq(emailLeads.id, id));
+  }
+
+  async getEmailTemplates() {
+    return db.select().from(emailTemplates).orderBy(desc(emailTemplates.createdAt));
+  }
+
+  async createEmailTemplate(data: InsertEmailTemplate) {
+    const [created] = await db.insert(emailTemplates).values(data).returning();
+    return created;
+  }
+
+  async deleteEmailTemplate(id: number) {
+    await db.delete(emailTemplates).where(eq(emailTemplates.id, id));
   }
 
   async clearPageViews() {

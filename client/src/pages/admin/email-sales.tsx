@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import {
   Mail, Send, Search, Trash2, RefreshCw, Play,
   Globe, CheckCircle, AlertCircle, Clock, Wand2, Plus,
+  BookmarkPlus, FolderOpen,
 } from "lucide-react";
 import { format, parseISO } from "date-fns";
 import { ja } from "date-fns/locale";
@@ -33,36 +34,96 @@ function buildHtmlEmailPreview(body: string): string {
     .split(/\n+/)
     .map((l) => l.trim())
     .filter(Boolean)
-    .map((l) => `<p style="margin:0 0 16px 0;line-height:1.8;color:#333333;">${l}</p>`)
+    .map((l) => `<p style="margin:0 0 16px 0;line-height:1.8;color:#1e293b;font-size:14px;">${l}</p>`)
     .join("\n");
-  return `<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"/></head>
-<body style="margin:0;padding:0;background:#f4f6f9;font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:24px 16px;">
-<tr><td align="center">
-<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-  <tr><td style="background:linear-gradient(135deg,#0f2044 0%,#1a4b99 100%);padding:28px 36px;">
-    <p style="margin:0 0 4px 0;font-size:10px;letter-spacing:0.25em;color:#7eb3ff;">IKENOYASHOJI CO., LTD.</p>
-    <p style="margin:0;font-size:18px;font-weight:700;color:#fff;letter-spacing:0.05em;">株式会社池ノ谷商事</p>
-    <p style="margin:5px 0 0 0;font-size:10px;color:rgba(255,255,255,0.6);letter-spacing:0.1em;">物流・運送サービスのご案内</p>
-  </td></tr>
-  <tr><td style="padding:32px 36px 20px 36px;">${paragraphs}</td></tr>
-  <tr><td style="padding:0 36px 32px 36px;">
-    <table cellpadding="0" cellspacing="0"><tr>
-      <td style="background:linear-gradient(135deg,#1a4b99,#1d4ed8);border-radius:2px;">
-        <a href="https://ikenoyashoji.jp/contact" style="display:inline-block;padding:12px 28px;color:#fff;font-size:12px;font-weight:600;text-decoration:none;letter-spacing:0.08em;">お問い合わせ・ご相談はこちら →</a>
-      </td>
-    </tr></table>
-  </td></tr>
-  <tr><td style="padding:0 36px;"><hr style="border:none;border-top:1px solid #e8ecf0;margin:0;"/></td></tr>
-  <tr><td style="padding:20px 36px 28px 36px;background:#fafbfc;">
-    <p style="margin:0 0 5px 0;font-size:12px;font-weight:700;color:#0f2044;">株式会社池ノ谷商事　営業部</p>
-    <p style="margin:0 0 3px 0;font-size:11px;color:#666;">〒243-0303　神奈川県愛甲郡愛川町中津7287</p>
-    <p style="margin:0 0 3px 0;font-size:11px;color:#666;">TEL: 046-212-2766　／　Email: <a href="mailto:sales@ikenoyashoji.fun" style="color:#1a4b99;text-decoration:none;">sales@ikenoyashoji.fun</a></p>
-    <p style="margin:6px 0 0 0;font-size:11px;color:#666;">URL: <a href="https://ikenoyashoji.jp" style="color:#1a4b99;text-decoration:none;">https://ikenoyashoji.jp</a></p>
-    <p style="margin:16px 0 0 0;font-size:10px;color:#aaa;line-height:1.6;">このメールは池ノ谷商事 営業部より送信されています。配信停止をご希望の場合は返信にてお知らせください。</p>
+
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <style>
+    @keyframes logoPulse {
+      0%,100% { box-shadow:0 0 0 0 rgba(147,197,253,0.55); }
+      50% { box-shadow:0 0 0 14px rgba(147,197,253,0); }
+    }
+    @keyframes fadeSlideDown {
+      from { opacity:0;transform:translateY(-10px); }
+      to { opacity:1;transform:translateY(0); }
+    }
+    @keyframes accentShimmer {
+      0% { background-position:0% 50%; }
+      50% { background-position:100% 50%; }
+      100% { background-position:0% 50%; }
+    }
+    .logo-ring { animation:logoPulse 2.5s ease-in-out infinite; }
+    .hd-title { animation:fadeSlideDown 0.7s ease forwards; }
+    .hd-sub { animation:fadeSlideDown 0.7s 0.18s ease both; }
+    .accent-bar {
+      background:linear-gradient(90deg,#1a4b99,#3b82f6,#60a5fa,#3b82f6,#1a4b99);
+      background-size:200% 200%;
+      animation:accentShimmer 3s ease infinite;
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#dce7f5;font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#dce7f5;padding:28px 16px;">
+  <tr><td align="center">
+    <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;border-radius:8px;overflow:hidden;box-shadow:0 6px 32px rgba(15,32,68,0.18);">
+
+      <!-- HEADER -->
+      <tr>
+        <td style="background:linear-gradient(160deg,#050e1f 0%,#0f2044 28%,#1a4b99 68%,#2563eb 100%);padding:40px 40px 36px 40px;text-align:center;">
+          <div class="logo-ring" style="display:inline-block;width:70px;height:70px;border-radius:50%;border:2.5px solid rgba(147,197,253,0.65);background:rgba(255,255,255,0.05);margin:0 auto 20px auto;line-height:70px;text-align:center;vertical-align:middle;">
+            <span style="font-size:28px;font-weight:900;color:#ffffff;font-family:serif;vertical-align:middle;line-height:70px;">池</span>
+          </div>
+          <p class="hd-title" style="margin:0 0 6px 0;font-size:11px;letter-spacing:0.38em;color:#93c5fd;font-weight:400;text-transform:uppercase;">Ikenoyashoji Co., Ltd.</p>
+          <p class="hd-title" style="margin:0 0 10px 0;font-size:24px;font-weight:800;color:#ffffff;letter-spacing:0.06em;">株式会社池ノ谷商事</p>
+          <p class="hd-sub" style="margin:0;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.14em;">物流・運送サービスのご案内</p>
+        </td>
+      </tr>
+
+      <!-- ACCENT LINE -->
+      <tr><td class="accent-bar" style="height:4px;"></td></tr>
+
+      <!-- BODY -->
+      <tr>
+        <td style="padding:36px 40px 24px 40px;background:#ffffff;">
+          ${paragraphs}
+        </td>
+      </tr>
+
+      <!-- CTA -->
+      <tr>
+        <td style="padding:4px 40px 36px 40px;background:#ffffff;">
+          <table cellpadding="0" cellspacing="0"><tr>
+            <td style="background:linear-gradient(135deg,#1a4b99 0%,#2563eb 100%);border-radius:4px;box-shadow:0 4px 14px rgba(37,99,235,0.35);">
+              <a href="https://ikenoyashoji.jp/contact" style="display:inline-block;padding:14px 32px;color:#ffffff;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.1em;">お問い合わせ・ご相談はこちら →</a>
+            </td>
+          </tr></table>
+        </td>
+      </tr>
+
+      <!-- DIVIDER -->
+      <tr><td style="padding:0 40px;background:#ffffff;"><hr style="border:none;border-top:1px solid #e2e8f0;margin:0;"/></td></tr>
+
+      <!-- FOOTER -->
+      <tr>
+        <td style="padding:24px 40px 28px 40px;background:#f8fafc;">
+          <p style="margin:0 0 3px 0;font-size:13px;font-weight:800;color:#0f2044;">株式会社池ノ谷商事　営業部</p>
+          <p style="margin:0 0 3px 0;font-size:11px;color:#64748b;">〒243-0303　神奈川県愛甲郡愛川町中津7287</p>
+          <p style="margin:0 0 3px 0;font-size:11px;color:#64748b;">TEL: <a href="tel:046-212-2766" style="color:#1a4b99;text-decoration:none;">046-212-2766</a>　／　Email: <a href="mailto:info@ikenoyashoji.co.jp" style="color:#1a4b99;text-decoration:none;">info@ikenoyashoji.co.jp</a></p>
+          <p style="margin:4px 0 0 0;font-size:11px;color:#64748b;">URL: <a href="https://ikenoyashoji.jp" style="color:#1a4b99;text-decoration:none;">https://ikenoyashoji.jp</a></p>
+          <p style="margin:18px 0 0 0;padding-top:14px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8;line-height:1.7;">
+            このメールは株式会社池ノ谷商事 営業部よりお送りしております。<br/>
+            今後このようなメールの受信を希望されない場合は<span style="color:#94a3b8;text-decoration:underline;">こちらをクリックして配信停止</span>してください。
+          </p>
+        </td>
+      </tr>
+
+    </table>
   </td></tr>
 </table>
-</td></tr></table>
 </body></html>`;
 }
 
@@ -84,9 +145,12 @@ export default function AdminEmailSales() {
   const [editSubject, setEditSubject] = useState("");
   const [editBody, setEditBody] = useState("");
   const [editMode, setEditMode] = useState(false);
+  const [templateSaveOpen, setTemplateSaveOpen] = useState(false);
+  const [templateName, setTemplateName] = useState("");
 
   const { data: leads = [], isLoading } = useQuery<any[]>({ queryKey: ["/api/admin/email-leads"] });
   const { data: smtpStatus } = useQuery<any>({ queryKey: ["/api/admin/settings/status"] });
+  const { data: templates = [] } = useQuery<any[]>({ queryKey: ["/api/admin/email-templates"] });
   const smtpOk = smtpStatus?.smtp;
 
   const filtered = (leads as any[]).filter((l) => {
@@ -157,6 +221,29 @@ export default function AdminEmailSales() {
     },
   });
 
+  const saveTemplateMutation = useMutation({
+    mutationFn: () => apiRequest("POST", "/api/admin/email-templates", {
+      name: templateName,
+      subject: editSubject,
+      body: editBody,
+      category: selected?.category || "shipper",
+    }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/email-templates"] });
+      setTemplateSaveOpen(false);
+      setTemplateName("");
+      toast({ title: "テンプレートを保存しました" });
+    },
+  });
+
+  const deleteTemplateMutation = useMutation({
+    mutationFn: (id: number) => apiRequest("DELETE", `/api/admin/email-templates/${id}`, {}),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/email-templates"] });
+      toast({ title: "テンプレートを削除しました" });
+    },
+  });
+
   const handleCrawl = async () => {
     setCrawling(true);
     try {
@@ -184,6 +271,12 @@ export default function AdminEmailSales() {
     setEditSubject(lead.emailSubject || "");
     setEditBody(lead.emailBody || "");
     setEditMode(false);
+  };
+
+  const handleLoadTemplate = (tpl: any) => {
+    setEditSubject(tpl.subject);
+    setEditBody(tpl.body);
+    toast({ title: `テンプレート「${tpl.name}」を読み込みました` });
   };
 
   return (
@@ -259,6 +352,7 @@ export default function AdminEmailSales() {
                     <SelectItem value="pending">未送信</SelectItem>
                     <SelectItem value="sent">送信済</SelectItem>
                     <SelectItem value="failed">失敗</SelectItem>
+                    <SelectItem value="skipped">停止</SelectItem>
                   </SelectContent>
                 </Select>
                 <Select value={filterCat} onValueChange={setFilterCat}>
@@ -369,13 +463,18 @@ export default function AdminEmailSales() {
                     </button>
                     {editMode ? (
                       <>
+                        <button className="flex items-center gap-1.5 px-2.5 py-1.5 border border-blue-200 text-blue-600 text-xs hover:border-blue-500"
+                          onClick={() => setTemplateSaveOpen(true)}
+                          data-testid="button-save-template">
+                          <BookmarkPlus className="w-3 h-3" /> 保存
+                        </button>
                         <button className="px-2.5 py-1.5 border border-gray-200 text-gray-600 text-xs hover:border-black"
                           onClick={() => { setEditMode(false); setEditSubject(selected.emailSubject || ""); setEditBody(selected.emailBody || ""); }}>
                           キャンセル
                         </button>
                         <button className="px-2.5 py-1.5 bg-gray-800 text-white text-xs hover:bg-black"
                           onClick={() => saveMutation.mutate(selected.id)} disabled={saveMutation.isPending}>
-                          保存
+                          このリードに保存
                         </button>
                       </>
                     ) : (
@@ -420,6 +519,33 @@ export default function AdminEmailSales() {
                     </div>
                   ) : editMode ? (
                     <div className="bg-white border border-gray-200 p-5 space-y-4">
+                      {/* Template loader */}
+                      {(templates as any[]).length > 0 && (
+                        <div className="flex items-center gap-2 pb-3 border-b border-gray-100">
+                          <FolderOpen className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
+                          <span className="text-xs text-gray-400 flex-shrink-0">テンプレート:</span>
+                          <div className="flex flex-wrap gap-1.5">
+                            {(templates as any[]).map((tpl: any) => (
+                              <div key={tpl.id} className="flex items-center gap-0">
+                                <button
+                                  className="px-2 py-0.5 border border-blue-200 text-blue-600 text-[10px] hover:bg-blue-50 transition-colors"
+                                  onClick={() => handleLoadTemplate(tpl)}
+                                  data-testid={`button-load-template-${tpl.id}`}
+                                >
+                                  {tpl.name}
+                                </button>
+                                <button
+                                  className="px-1 py-0.5 border border-l-0 border-gray-200 text-gray-300 text-[10px] hover:text-red-400 hover:border-red-200 transition-colors"
+                                  onClick={() => deleteTemplateMutation.mutate(tpl.id)}
+                                  title="削除"
+                                >
+                                  ×
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                       <div>
                         <label className="text-xs text-gray-500 mb-1 block">件名</label>
                         <Input
@@ -457,7 +583,7 @@ export default function AdminEmailSales() {
                         <iframe
                           srcDoc={buildHtmlEmailPreview(selected.emailBody)}
                           className="w-full border-0"
-                          style={{ height: "520px" }}
+                          style={{ height: "560px" }}
                           sandbox="allow-same-origin"
                           title="email-preview"
                         />
@@ -530,6 +656,37 @@ export default function AdminEmailSales() {
             <button className="px-4 py-2 bg-black text-white text-sm disabled:opacity-40"
               onClick={() => addMutation.mutate()} disabled={!addForm.company || addMutation.isPending}>
               追加
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Save Template Dialog */}
+      <Dialog open={templateSaveOpen} onOpenChange={setTemplateSaveOpen}>
+        <DialogContent className="bg-white border-gray-200 rounded-none max-w-sm">
+          <DialogHeader><DialogTitle className="text-gray-900">テンプレートとして保存</DialogTitle></DialogHeader>
+          <div className="space-y-3">
+            <div>
+              <label className="text-xs text-gray-500 mb-1 block">テンプレート名</label>
+              <Input
+                className="border-gray-200 rounded-none text-sm"
+                placeholder="例：荷主向け標準文"
+                value={templateName}
+                onChange={(e) => setTemplateName(e.target.value)}
+                data-testid="input-template-name"
+              />
+            </div>
+            <p className="text-[11px] text-gray-400">現在の件名・本文をテンプレートとして保存します。後でどのリードにも読み込んで使えます。</p>
+          </div>
+          <DialogFooter className="gap-2">
+            <button className="px-4 py-2 border border-gray-300 text-gray-600 text-sm" onClick={() => setTemplateSaveOpen(false)}>キャンセル</button>
+            <button
+              className="px-4 py-2 bg-black text-white text-sm disabled:opacity-40"
+              onClick={() => saveTemplateMutation.mutate()}
+              disabled={!templateName.trim() || saveTemplateMutation.isPending}
+              data-testid="button-confirm-save-template"
+            >
+              保存
             </button>
           </DialogFooter>
         </DialogContent>

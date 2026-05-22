@@ -114,12 +114,25 @@ export const emailLeads = pgTable("email_leads", {
   emailBody: text("email_body").default(""),
   crawlQuery: text("crawl_query").default(""),
   errorMsg: text("error_msg").default(""),
+  unsubscribeToken: text("unsubscribe_token").default(""),
   sentAt: timestamp("sent_at"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 export const insertEmailLeadSchema = createInsertSchema(emailLeads).omit({ id: true, createdAt: true, sentAt: true });
 export type InsertEmailLead = z.infer<typeof insertEmailLeadSchema>;
 export type EmailLead = typeof emailLeads.$inferSelect;
+
+export const emailTemplates = pgTable("email_templates", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  subject: text("subject").notNull().default(""),
+  body: text("body").notNull().default(""),
+  category: text("category").default("shipper"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+export const insertEmailTemplateSchema = createInsertSchema(emailTemplates).omit({ id: true, createdAt: true });
+export type InsertEmailTemplate = z.infer<typeof insertEmailTemplateSchema>;
+export type EmailTemplate = typeof emailTemplates.$inferSelect;
 
 export const searchConsoleData = pgTable("search_console_data", {
   id: serial("id").primaryKey(),
