@@ -106,7 +106,7 @@ export default function BlogPost() {
         {/* Article hero */}
         <div
           className="relative py-16 px-8"
-          style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}
+          style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "contain", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundColor: "#0f2044" }}
         >
           <div className="absolute inset-0 bg-[#0f2044]/80" />
           <div className="relative max-w-3xl mx-auto">
