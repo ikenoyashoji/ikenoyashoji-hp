@@ -189,7 +189,7 @@ export default function Home() {
               style={{
                 animationDelay: "260ms",
                 fontFamily: "'Noto Serif JP', serif",
-                fontSize: "clamp(2.6rem, 6vw, 5.8rem)",
+                fontSize: "clamp(1.8rem, 7vw, 5.8rem)",
               }}
             >
               <TypewriterHeading lines={["運ぶ信頼", "届ける真心"]} active={splashDone} startDelay={300} speed={140} />

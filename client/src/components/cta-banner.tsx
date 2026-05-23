@@ -18,14 +18,14 @@ export function CtaBanner({
   quoteType = "shipper",
 }: CtaBannerProps) {
   return (
-    <section className="relative py-20 px-4 bg-gray-50 overflow-hidden">
+    <section className="relative py-10 md:py-20 px-4 bg-gray-50 overflow-hidden">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">{title}</h2>
-        <p className="text-gray-500 mb-8 text-sm md:text-base leading-relaxed max-w-xl mx-auto">{subtitle}</p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-3 md:mb-4">{title}</h2>
+        <p className="text-gray-500 mb-6 md:mb-8 text-xs md:text-base leading-relaxed max-w-xl mx-auto">{subtitle}</p>
+        <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center">
           <a
             href="tel:0312345678"
-            className="flex items-center gap-2 text-[#1d4ed8] font-bold text-xl hover:text-[#1e3a8a] transition-colors"
+            className="flex items-center gap-2 text-[#1d4ed8] font-bold text-base md:text-xl hover:text-[#1e3a8a] transition-colors"
             onClick={() => trackEvent("tel_click", { location: "cta_banner" })}
             data-testid="link-cta-tel"
           >
