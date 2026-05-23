@@ -159,7 +159,7 @@ export default function Recruit() {
           <div className="text-center">
             <AnimateIn>
               <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] mb-6">Ikenoyashoji Co.,Ltd.</p>
-              <h1 className="hero-title text-4xl sm:text-6xl font-extralight text-white tracking-[0.15em] mb-6">採用情報</h1>
+              <h1 className="hero-title text-2xl sm:text-4xl md:text-6xl font-extralight text-white tracking-[0.08em] sm:tracking-[0.15em] mb-6">採用情報</h1>
               <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
             </AnimateIn>
           </div>

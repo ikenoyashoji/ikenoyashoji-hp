@@ -50,7 +50,7 @@ export default function Partner() {
         <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-8">
           <div className="text-center">
             <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-6">PARTNER PROGRAM</p>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-light text-white tracking-[0.2em] mb-6">協力会社募集</h1>
+            <h1 className="text-2xl sm:text-4xl md:text-6xl font-light text-white tracking-[0.08em] sm:tracking-[0.2em] mb-6">協力会社募集</h1>
             <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-8" />
             <p className="text-gray-300 text-sm leading-relaxed max-w-xl mx-auto">
               一緒に成長する物流パートナーを募集しています。

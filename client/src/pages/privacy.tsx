@@ -227,7 +227,7 @@ export default function Privacy() {
         <div className="absolute inset-0 flex items-center justify-center text-center px-8">
           <AnimateIn>
             <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] mb-6">Ikenoyashoji Co.,Ltd.</p>
-            <h1 className="hero-title text-5xl md:text-6xl font-extralight text-white tracking-[0.15em] mb-6">個人情報保護方針</h1>
+            <h1 className="hero-title text-2xl sm:text-4xl md:text-6xl font-extralight text-white tracking-[0.08em] sm:tracking-[0.15em] mb-6">個人情報保護方針</h1>
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
             <p className="text-gray-300 text-sm tracking-widest">お客様の個人情報を、誠実かつ適切に管理します。</p>
           </AnimateIn>

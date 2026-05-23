@@ -37,7 +37,7 @@ export default function About() {
         <div className="absolute inset-0 flex items-center justify-center text-center px-8">
           <AnimateIn>
             <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] mb-4">Ikenoyashoji Co.,Ltd.</p>
-            <h1 className="hero-title text-5xl md:text-6xl font-extralight text-white tracking-[0.15em] mb-6">池ノ谷商事について</h1>
+            <h1 className="hero-title text-2xl sm:text-4xl md:text-6xl font-extralight text-white tracking-[0.08em] sm:tracking-[0.15em] mb-6">池ノ谷商事について</h1>
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
           </AnimateIn>
         </div>
@@ -55,7 +55,7 @@ export default function About() {
           </AnimateIn>
           <AnimateIn>
             <div className="mb-16 text-center">
-              <h3 className="text-3xl md:text-4xl font-light text-gray-900 mb-10 leading-relaxed">
+              <h3 className="text-xl sm:text-3xl md:text-4xl font-light text-gray-900 mb-10 leading-relaxed">
                 「すべての人の人生を豊かに。」
               </h3>
               <div className="space-y-6 text-gray-600 text-sm leading-[2.2] max-w-2xl mx-auto text-center">

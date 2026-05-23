@@ -167,7 +167,7 @@ export default function Services() {
         <div className="absolute inset-0 flex items-center justify-center"><div className="max-w-5xl mx-auto w-full text-center px-8">
           <AnimateIn>
             <p className="text-[#7eb3ff] text-[10px] tracking-[0.6em] mb-4">Ikenoyashoji Co.,Ltd.</p>
-            <h1 className="hero-title text-5xl md:text-6xl font-extralight text-white tracking-[0.15em] mb-6">事業紹介</h1>
+            <h1 className="hero-title text-2xl sm:text-4xl md:text-6xl font-extralight text-white tracking-[0.08em] sm:tracking-[0.15em] mb-6">事業紹介</h1>
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent mx-auto mb-6" />
           </AnimateIn>
         </div></div>
