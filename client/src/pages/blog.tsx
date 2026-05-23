@@ -16,6 +16,86 @@ import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_177
 
 const categories = ["すべて", "物流コラム", "採用情報", "お知らせ"];
 
+const enHeadlines: Record<string, string[]> = {
+  "物流コラム": ["MOVE THE CITY", "LOGISTICS"],
+  "採用情報": ["WORK STYLE", "JOIN US"],
+  "協力会社情報": ["PARTNER", "TOGETHER"],
+  "お知らせ": ["NEWS", "INFO"],
+  "事例紹介": ["CASE STUDY", "RESULTS"],
+};
+
+const badgeColors: Record<string, string> = {
+  "物流コラム": "#e87ea1",
+  "採用情報": "#e87ea1",
+  "協力会社情報": "#6b9fe4",
+  "お知らせ": "#6dcca0",
+  "事例紹介": "#f0a050",
+};
+
+function ArticleCard({ article }: { article: any }) {
+  const headline = enHeadlines[article.category]?.[0] ?? "ARTICLE";
+  const subLabel = enHeadlines[article.category]?.[1] ?? "";
+  const badge = badgeColors[article.category] ?? "#e87ea1";
+  const hasImage = !!article.imageUrl;
+
+  return (
+    <div className="group cursor-pointer" data-testid={`card-article-${article.id}`}>
+      {/* Magazine thumbnail card */}
+      <div className="aspect-[16/9] overflow-hidden relative">
+        {/* Background photo or fallback */}
+        {hasImage ? (
+          <img
+            src={article.imageUrl}
+            alt={article.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0f2044] via-[#1a4b99] to-[#0a1628]" />
+        )}
+
+        {/* Gradient overlay: dark on left side where text goes */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/10" />
+        {/* Additional bottom gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+        {/* Content overlay */}
+        <div className="absolute inset-0 flex flex-col justify-between p-4 sm:p-5">
+          {/* Top: category badge */}
+          <div className="flex items-start justify-between">
+            <div className="flex flex-col gap-1">
+              <span
+                className="text-white text-[9px] sm:text-[10px] px-2 py-0.5 font-medium tracking-wider inline-block"
+                style={{ backgroundColor: badge }}
+              >
+                {article.category}
+              </span>
+              <span className="text-white/60 text-[8px] tracking-[0.2em] font-light">
+                IKENOHA SHOJI {subLabel && `• ${subLabel}`}
+              </span>
+            </div>
+            <span className="text-white/50 text-[9px] tracking-widest">{article.date}</span>
+          </div>
+
+          {/* Bottom: headline + title */}
+          <div>
+            <p className="text-white font-black text-xl sm:text-2xl leading-none tracking-wider mb-1.5 drop-shadow-lg">
+              {headline}
+            </p>
+            <h2 className="text-white/90 text-[11px] sm:text-xs font-medium leading-snug line-clamp-2 drop-shadow">
+              {article.title}
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      {/* Below card: date + excerpt */}
+      <div className="pt-3 pb-1">
+        <p className="text-gray-400 text-xs leading-relaxed line-clamp-2">{article.excerpt}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("すべて");
   const [search, setSearch] = useState("");
@@ -111,31 +191,11 @@ export default function Blog() {
               <p className="text-gray-400 text-sm">記事が見つかりませんでした</p>
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {filtered.map((article: any, i: number) => (
                 <AnimateIn key={article.id} delay={i * 60}>
                   <Link href={article.href}>
-                    <div className="group cursor-pointer" data-testid={`card-article-${article.id}`}>
-                      <div className="aspect-[16/9] bg-gray-100 overflow-hidden relative mb-4">
-                        {article.imageUrl ? (
-                          typeof article.imageUrl === "string" && article.imageUrl.startsWith("http") ? (
-                            <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                          ) : (
-                            <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" />
-                          )
-                        ) : (
-                          <div className="absolute inset-0 bg-[#0f2044] flex items-end p-5">
-                            <span className="text-white/15 text-5xl font-black italic">{article.category}</span>
-                          </div>
-                        )}
-                        <div className="absolute top-3 left-3">
-                          <span className="bg-white text-[#0f2044] text-[10px] px-2 py-1 font-medium tracking-wider">{article.category}</span>
-                        </div>
-                      </div>
-                      <p className="text-gray-400 text-[11px] tracking-widest mb-2">{article.date}</p>
-                      <h2 className="font-medium text-gray-900 text-sm leading-snug group-hover:text-[#1d4ed8] transition-colors line-clamp-2">{article.title}</h2>
-                      <p className="text-gray-400 text-xs leading-relaxed line-clamp-2 mt-2">{article.excerpt}</p>
-                    </div>
+                    <ArticleCard article={article} />
                   </Link>
                 </AnimateIn>
               ))}

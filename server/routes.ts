@@ -239,21 +239,30 @@ async function generateArticleImage(title: string, keyword: string, category?: s
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY not configured");
 
-  const prompts: Record<string, string> = {
-    "採用情報": `A single massive Isuzu Giga semi-truck with a gleaming white cab sits alone on a rain-soaked midnight expressway. Headlights blaze toward camera. Vivid orange and cobalt highway signs reflect off the wet black asphalt in long mirror streaks. Ultra-low camera angle at bumper height. No people. No driver. No human figures whatsoever.`,
-    "協力会社情報": `Drone aerial view at twilight of a Tokyo Bay container port. Hundreds of giant ISO shipping containers in navy, rust-orange and white arranged in perfect grid formation across the entire frame. Three towering gantry cranes silhouetted against deep cobalt sky. Dark harbor water reflects the crane lights. No people, no figures visible.`,
-    "物流コラム": `Inside a massive automated fulfillment center: rows of gleaming silver conveyor belts extend from foreground to the far vanishing point, lit by rows of brilliant white LED panels above. Small brown packages slide silently in perfect procession. Perfectly symmetrical, infinitely receding geometry. No people. No human figures. Shot straight down the center aisle.`,
-    "お知らせ": `Macro close-up still life on a brushed steel desk: a Japanese hanko seal, an open shipping ledger showing handwritten columns of kanji numerals, and a silver mechanical pencil. One beam of warm afternoon window light cuts diagonally across the scene. Deep shadows. Shallow depth of field. No people. No faces.`,
-    "事例紹介": `Long exposure aerial photograph over Tokyo's Tomei Expressway at 2am: total darkness except for white and red light trails from trucks forming luminous ribbons that curve through the frame. Highway signs glow amber and green. No people visible anywhere, just light trails against black. Extremely graphically striking.`,
+  const cat = category || "物流コラム";
+
+  const photoPrompts: Record<string, string> = {
+    "物流コラム": `A cinematic wide-angle photograph of a vast modern automated Japanese warehouse fulfillment center. Rows of illuminated conveyor belts receding to infinity, packages moving through the system, brilliant cool-white LED ceiling panels, deep navy structural steel. Dramatic perspective. No people. No text.`,
+    "採用情報": `A warm professional photograph of a smiling, confident young Japanese logistics worker in a clean navy uniform, photographed outdoors near modern delivery trucks. Bright natural afternoon light. Friendly expression. Bokeh background of a logistics facility. No text.`,
+    "協力会社情報": `Dramatic low-angle photograph of a fleet of three gleaming white semi-trucks lined up in formation at a modern Japanese logistics depot. Golden-hour light. Deep blue twilight sky. No people. No text.`,
+    "お知らせ": `A clean modern Japanese corporate office interior, polished concrete floors, minimalist design, large windows with city view, professional atmosphere. Bright natural light. No people. No text.`,
+    "事例紹介": `Aerial photograph of a major Japanese expressway interchange at blue hour. Sweeping curves of highway with truck light trails, city glow on the horizon. Dramatic and graphic. No people visible. No text.`,
   };
 
-  const prompt = (category && prompts[category]) || prompts["物流コラム"];
-  const fullPrompt = [
-    `IMPORTANT CONSTRAINT: This image must show zero human beings. No people, no faces, no silhouettes, no hands, no bodies. Completely unpopulated scene.`,
-    `SUBJECT: ${prompt}`,
-    `STYLE: High-end commercial photography. Navy blue and cobalt color palette dominant. Dramatic lighting. Cinematic 16:9 landscape format.`,
-    `RESTRICTIONS: No text, no letters, no numbers, no logos in image.`,
-  ].join("\n");
+  const photoDesc = photoPrompts[cat] || photoPrompts["物流コラム"];
+
+  const fullPrompt = `High-quality commercial background photograph for a Japanese logistics company blog article thumbnail.
+
+SCENE: ${photoDesc}
+
+REQUIREMENTS:
+- Cinematic 16:9 landscape format
+- Rich dark navy and cobalt blue color palette with dramatic lighting
+- High production value, sharp focus, professional photography
+- The left portion of the image should be slightly darker (will have text overlay applied)
+- NO text, NO typography, NO numbers, NO logos anywhere in the image
+- NO human faces or identifiable people (exception: 採用情報 category may show a smiling worker)
+- Photorealistic, ultra-high resolution quality`;
 
   const res = await fetch("https://api.openai.com/v1/images/generations", {
     method: "POST",
