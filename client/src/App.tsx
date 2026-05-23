@@ -97,10 +97,18 @@ function usePageTracking() {
   }, [location]);
 }
 
+function useScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [location]);
+}
+
 function Router() {
   usePageTracking();
   usePrefetch();
   usePrefetchAdmin();
+  useScrollToTop();
 
   return (
     <Suspense fallback={null}>
