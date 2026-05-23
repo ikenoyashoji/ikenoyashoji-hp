@@ -261,12 +261,11 @@ async function generateArticleImage(title: string, keyword: string, category?: s
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
     body: JSON.stringify({
-      model: "dall-e-3",
+      model: "gpt-image-1",
       prompt,
       n: 1,
-      size: "1792x1024",
-      quality: "hd",
-      response_format: "url",
+      size: "1536x1024",
+      quality: "high",
     }),
   });
 
@@ -276,14 +275,10 @@ async function generateArticleImage(title: string, keyword: string, category?: s
   }
 
   const data = (await res.json()) as any;
-  const imageUrl: string = data.data[0].url;
+  const b64 = data.data[0].b64_json as string;
+  const buffer = Buffer.from(b64, "base64");
 
-  // 画像をダウンロードして public/uploads に保存
-  const imgRes = await fetch(imageUrl);
-  if (!imgRes.ok) throw new Error("Failed to download generated image");
-  const buffer = Buffer.from(await imgRes.arrayBuffer());
-
-  const filename = `ai-gen-${Date.now()}.jpg`;
+  const filename = `ai-gen-${Date.now()}.png`;
   const savePath = path.join(uploadsDir, filename);
   fs.writeFileSync(savePath, buffer);
 
