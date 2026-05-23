@@ -187,7 +187,7 @@ export default function Recruit() {
           <AnimateIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">WHY JOIN US</p>
-              <h2 className="text-3xl sm:text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">時間も、収入も、人生に彩りを</h2>
+              <h2 className="text-xl sm:text-4xl font-light text-gray-900 tracking-[0.05em] sm:tracking-[0.2em] mb-4">時間も、収入も、人生に彩りを</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -227,7 +227,7 @@ export default function Recruit() {
           <AnimateIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">POSITIONS</p>
-              <h2 className="text-3xl sm:text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">募集職種</h2>
+              <h2 className="text-3xl sm:text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">募集職種</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -268,7 +268,7 @@ export default function Recruit() {
           <AnimateIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">BENEFITS</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">待遇・福利厚生</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">待遇・福利厚生</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -305,7 +305,7 @@ export default function Recruit() {
           <AnimateIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">CAREER PATH</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">キャリアパス</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">キャリアパス</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-4" />
               <p className="text-gray-500 text-sm">未経験からでも、ステップアップできる環境があります。</p>
             </div>
@@ -339,7 +339,7 @@ export default function Recruit() {
           <AnimateIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">EMPLOYEE VOICES</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">社員の声</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">社員の声</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -370,7 +370,7 @@ export default function Recruit() {
           <AnimateIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">A DAY IN THE LIFE</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">1日の仕事の流れ</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">1日の仕事の流れ</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-4" />
               <p className="text-gray-500 text-sm">ドライバー職（早番）の一例です。</p>
             </div>
@@ -401,7 +401,7 @@ export default function Recruit() {
           <AnimateIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">HOW TO APPLY</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">応募の流れ</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">応募の流れ</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-4" />
               <p className="text-gray-500 text-sm">最短1週間以内での内定を目指しています。</p>
             </div>
@@ -430,7 +430,7 @@ export default function Recruit() {
           <AnimateIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">FAQ</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">よくある質問</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">よくある質問</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>

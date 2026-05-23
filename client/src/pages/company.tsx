@@ -158,7 +158,7 @@ export default function Company() {
           <AnimateIn>
             <div className="text-center mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">OVERVIEW</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">会社概要</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">会社概要</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -197,7 +197,7 @@ export default function Company() {
           <AnimateIn>
             <div className="text-center mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">LOCATIONS</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">拠点情報</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">拠点情報</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -256,7 +256,7 @@ export default function Company() {
           <AnimateIn>
             <div className="text-center mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">HISTORY</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">沿革</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">沿革</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -316,7 +316,7 @@ export default function Company() {
           <AnimateIn>
             <div className="text-center mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">TERMS & CONDITIONS</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">各種約款</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">各種約款</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>

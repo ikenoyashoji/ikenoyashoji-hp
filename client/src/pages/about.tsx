@@ -49,7 +49,7 @@ export default function About() {
           <AnimateIn>
             <div className="text-center mb-20">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">PHILOSOPHY</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">企業理念</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">企業理念</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -93,7 +93,7 @@ export default function About() {
           <AnimateIn>
             <div className="text-center mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">VALUES</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">大切にしていること</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">大切にしていること</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
@@ -123,7 +123,7 @@ export default function About() {
           <AnimateIn>
             <div className="text-center mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">MESSAGE</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">代表メッセージ</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">代表メッセージ</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>

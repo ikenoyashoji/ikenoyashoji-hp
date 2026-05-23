@@ -180,7 +180,7 @@ export default function Services() {
         <div className="max-w-3xl mx-auto text-center">
           <AnimateIn>
             <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">OUR BUSINESS</p>
-            <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">事業紹介</h2>
+            <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">事業紹介</h2>
             <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-8" />
             <p className="text-gray-500 text-sm leading-relaxed">
               株式会社池ノ谷商事は、一般貨物運送を核として、倉庫管理・物流コンサルティング・保険・車両販売整備まで、<br className="hidden md:inline" />
@@ -247,7 +247,7 @@ export default function Services() {
           <AnimateIn>
             <div className="text-center mb-16">
               <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">FLOW</p>
-              <h2 className="text-4xl font-light text-gray-900 tracking-[0.2em] mb-4">サービスの流れ</h2>
+              <h2 className="text-2xl sm:text-4xl font-light text-gray-900 tracking-[0.1em] sm:tracking-[0.2em] mb-4">サービスの流れ</h2>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>

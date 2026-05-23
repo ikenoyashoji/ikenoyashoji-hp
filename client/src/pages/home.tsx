@@ -259,7 +259,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
             <div className="text-center mb-10">
-              <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">TOPICS</p>
+              <p className="text-gray-900 font-light text-2xl sm:text-4xl tracking-[0.1em] sm:tracking-[0.2em] mb-1">TOPICS</p>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
               <p className="text-gray-400 text-xs tracking-widest">最新トピックス</p>
             </div>
@@ -333,7 +333,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <AnimateIn direction="up">
             <div className="text-center mb-10">
-              <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">COMPANY</p>
+              <p className="text-gray-900 font-light text-2xl sm:text-4xl tracking-[0.1em] sm:tracking-[0.2em] mb-1">COMPANY</p>
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
               <p className="text-gray-400 text-xs tracking-widest">企業・拠点情報</p>
             </div>
@@ -387,7 +387,7 @@ export default function Home() {
       <section className="pt-2 pb-16 bg-white px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">BUSINESS</p>
+            <p className="text-gray-900 font-light text-2xl sm:text-4xl tracking-[0.1em] sm:tracking-[0.2em] mb-1">BUSINESS</p>
             <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
             <p className="text-gray-400 text-xs tracking-widest">事業紹介</p>
           </div>
@@ -433,7 +433,7 @@ export default function Home() {
       <section className="pt-6 pb-0 bg-white">
         {/* Heading */}
         <div className="text-center mb-8 px-4">
-          <p className="text-gray-900 font-light text-4xl tracking-[0.2em] mb-1">RECRUIT</p>
+          <p className="text-gray-900 font-light text-2xl sm:text-4xl tracking-[0.1em] sm:tracking-[0.2em] mb-1">RECRUIT</p>
           <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto mb-1" />
           <p className="text-gray-400 text-xs tracking-widest">採用情報</p>
         </div>
