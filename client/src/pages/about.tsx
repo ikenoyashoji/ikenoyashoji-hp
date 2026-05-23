@@ -118,7 +118,7 @@ export default function About() {
       </section>
 
       {/* CEO Message */}
-      <section className="py-24 bg-white px-8">
+      <section className="py-24 bg-white px-4 sm:px-8">
         <div className="max-w-4xl mx-auto">
           <AnimateIn>
             <div className="text-center mb-16">
@@ -130,7 +130,7 @@ export default function About() {
           <AnimateIn>
             <div className="max-w-2xl mx-auto text-center">
               <h3 className="text-xl sm:text-3xl font-bold text-gray-900 mb-8 leading-relaxed" style={{ fontFamily: "'Noto Serif JP', serif" }}>「運ぶ信頼、届ける真心」</h3>
-              <div className="space-y-5 text-gray-600 text-sm leading-[2] text-left sm:text-center">
+              <div className="space-y-5 text-gray-600 text-sm leading-[2] text-center">
                 <p>物流という仕事は、決して目立つ仕事ではありません。</p>
                 <p>ですが、必要な物が必要な時に届くという"当たり前の日常"を支えている、社会に欠かすことのできない仕事だと私は考えています。</p>
                 <p>荷物を運ぶということは、単にモノを動かしているのではなく、その先にある人の生活や仕事、そして"想い"をつないでいるということです。</p>
