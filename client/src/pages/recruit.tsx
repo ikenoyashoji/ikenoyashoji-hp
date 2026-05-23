@@ -170,9 +170,9 @@ export default function Recruit() {
       {/* Photo slider */}
       <section className="bg-white py-12">
         <div className="overflow-hidden w-full">
-          <div className="flex gap-3 animate-recruit-slide" style={{ width: "max-content" }}>
+          <div className="flex animate-recruit-slide" style={{ width: "max-content" }}>
             {[...recruitImgs, ...recruitImgs].map((img, i) => (
-              <div key={i} className="flex-shrink-0 h-64 w-44 overflow-hidden">
+              <div key={i} className="flex-shrink-0 h-64 w-44 overflow-hidden mr-3">
                 <img src={img} alt={`スタッフ写真 ${(i % recruitImgs.length) + 1}`} className="w-full h-full object-cover object-top" />
               </div>
             ))}

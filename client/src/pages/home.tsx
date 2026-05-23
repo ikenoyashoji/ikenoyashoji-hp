@@ -440,10 +440,10 @@ export default function Home() {
 
         {/* Image slider strip */}
         <div className="overflow-hidden w-full mb-8">
-          <div className="flex gap-3 animate-recruit-slide" style={{ width: "max-content" }}>
+          <div className="flex animate-recruit-slide" style={{ width: "max-content" }}>
             {[recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5,
               recruitImg1, recruitImg2, recruitImg3, recruitImg4, recruitImg5].map((img, i) => (
-              <div key={i} className="flex-shrink-0 h-64 w-44 overflow-hidden">
+              <div key={i} className="flex-shrink-0 h-64 w-44 overflow-hidden mr-3">
                 <img src={img} alt={`recruit-${i}`} loading="lazy" className="w-full h-full object-cover object-top" />
               </div>
             ))}
