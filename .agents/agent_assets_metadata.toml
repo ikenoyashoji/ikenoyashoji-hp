@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "5H4Y7cE8-ifTZ9jANtuZx"
@@ -228,3 +227,9 @@ id = "qMUB21PYp-cwOXkgpkufJ"
 uri = "file://attached_assets/hero_aerial_logistics.png"
 type = "image"
 title = "aerial logistics hub expressway"
+
+[[outputs]]
+id = "0KEIMgoxM6TqCSFgJvJpP"
+uri = "file://public/uploads/ai-gen-1779534086977.png"
+type = "image"
+title = "AI生成画像（物流の2024年問題）"
