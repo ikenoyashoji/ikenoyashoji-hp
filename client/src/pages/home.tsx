@@ -142,51 +142,16 @@ export default function Home() {
         className="relative overflow-hidden mt-[100px]"
         style={{ height: "calc(100vh - 100px)", minHeight: 560 }}
       >
-        {/* ── Mobile: single background image ── */}
+        {/* ── Full-bleed background image ── */}
         <img
           src={heroTruck}
           alt="イスズトラック 高速道路"
-          className="md:hidden hero-img-in absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "center center" }}
+          className="hero-img-in absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: "center center", animationDelay: "0ms" }}
           fetchpriority="high"
           loading="eager"
           decoding="async"
         />
-
-        {/* ── Desktop: 3-panel stacked image grid (full bleed) ── */}
-        <div className="hidden md:flex absolute inset-0 flex-col hero-img-in" style={{ animationDelay: "0ms" }}>
-          <div className="flex-1 overflow-hidden">
-            <img
-              src={heroTruck}
-              alt="イスズトラック 高速道路"
-              className="w-full h-full object-cover"
-              style={{ objectPosition: "center center" }}
-              fetchpriority="high"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-          <div className="flex-1 overflow-hidden">
-            <img
-              src={heroCold}
-              alt="倉庫外観"
-              className="w-full h-full object-cover"
-              style={{ objectPosition: "center center" }}
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-          <div className="flex-1 overflow-hidden">
-            <img
-              src={heroInterior}
-              alt="倉庫内部・ドライバー"
-              className="w-full h-full object-cover"
-              style={{ objectPosition: "center center" }}
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-        </div>
 
         {/* ── White diagonal mask (desktop) ── */}
         <div
