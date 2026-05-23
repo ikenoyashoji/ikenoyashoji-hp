@@ -5,8 +5,8 @@ export function SplashScreen({ onFinish }: { onFinish: () => void }) {
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase("hold"), 180);
-    const t2 = setTimeout(() => setPhase("out"), 880);
-    const t3 = setTimeout(() => onFinish(), 1380);
+    const t2 = setTimeout(() => setPhase("out"), 1400);
+    const t3 = setTimeout(() => onFinish(), 2050);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [onFinish]);
 

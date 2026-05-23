@@ -148,6 +148,9 @@ export default function Home() {
           alt="イスズトラック 高速道路"
           className="hero-img-in absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: "center center", animationDelay: "0ms" }}
+          fetchpriority="high"
+          loading="eager"
+          decoding="async"
         />
 
         {/* ── White diagonal mask (desktop) ── */}
