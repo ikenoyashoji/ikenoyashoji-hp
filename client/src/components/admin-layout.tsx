@@ -2,6 +2,7 @@ import { Link, useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { LayoutDashboard, FileText, LogOut, Users, ExternalLink, UserCog, Mail, ClipboardList, Settings, Bot } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useEffect } from "react";
 
 const navItems = [
   { href: "/admin", label: "ダッシュボード", icon: LayoutDashboard, exact: true },
@@ -17,30 +18,26 @@ const navItems = [
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
 
-  const { data: me, isLoading } = useQuery({
+  // キャッシュにデータがあれば isLoading は即 false になる
+  const { data: me, isPending } = useQuery({
     queryKey: ["/api/admin/me"],
     staleTime: 5 * 60 * 1000,
-    gcTime: 10 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+    retry: false,
   });
+
+  // 未認証ならログインへ（レンダリングは継続してチカチカを防ぐ）
+  useEffect(() => {
+    if (!isPending && !(me as any)?.isAdmin) {
+      window.location.href = "/admin/login";
+    }
+  }, [me, isPending]);
 
   const handleLogout = async () => {
     await apiRequest("POST", "/api/admin/logout", {});
-    queryClient.invalidateQueries({ queryKey: ["/api/admin/me"] });
+    queryClient.clear();
     window.location.href = "/admin/login";
   };
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-white">
-        <div className="text-gray-400 text-sm">読み込み中...</div>
-      </div>
-    );
-  }
-
-  if (!(me as any)?.isAdmin) {
-    window.location.href = "/admin/login";
-    return null;
-  }
 
   return (
     <div className="flex h-screen w-full bg-gray-50 overflow-hidden">
@@ -103,7 +100,11 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           </span>
         </header>
         <main className="flex-1 overflow-auto p-6">
-          {children}
+          {isPending ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-gray-400 text-sm">読み込み中...</div>
+            </div>
+          ) : (me as any)?.isAdmin ? children : null}
         </main>
       </div>
     </div>
