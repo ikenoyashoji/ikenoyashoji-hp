@@ -241,28 +241,27 @@ async function generateArticleImage(title: string, keyword: string, category?: s
 
   const cat = category || "物流コラム";
 
-  const photoPrompts: Record<string, string> = {
-    "物流コラム": `A cinematic wide-angle photograph of a vast modern automated Japanese warehouse fulfillment center. Rows of illuminated conveyor belts receding to infinity, packages moving through the system, brilliant cool-white LED ceiling panels, deep navy structural steel. Dramatic perspective. No people. No text.`,
-    "採用情報": `A warm professional photograph of a smiling, confident young Japanese logistics worker in a clean navy uniform, photographed outdoors near modern delivery trucks. Bright natural afternoon light. Friendly expression. Bokeh background of a logistics facility. No text.`,
-    "協力会社情報": `Dramatic low-angle photograph of a fleet of three gleaming white semi-trucks lined up in formation at a modern Japanese logistics depot. Golden-hour light. Deep blue twilight sky. No people. No text.`,
-    "お知らせ": `A clean modern Japanese corporate office interior, polished concrete floors, minimalist design, large windows with city view, professional atmosphere. Bright natural light. No people. No text.`,
-    "事例紹介": `Aerial photograph of a major Japanese expressway interchange at blue hour. Sweeping curves of highway with truck light trails, city glow on the horizon. Dramatic and graphic. No people visible. No text.`,
-  };
+  const fullPrompt = `高級感のある企業採用サイト向けの雑誌風ビジュアルデザイン。
 
-  const photoDesc = photoPrompts[cat] || photoPrompts["物流コラム"];
+シネマティックで洗練された構図。
+プロカメラマンが撮影したような高品質な広告写真。
 
-  const fullPrompt = `High-quality commercial background photograph for a Japanese logistics company blog article thumbnail.
+自然光、明るい昼間、透明感のある空気感。
+スタイリッシュで清潔感のある物流現場。
 
-SCENE: ${photoDesc}
+モデルは20代〜30代の日本人。
+爽やかで好印象、清潔感、自然な笑顔。
+作業服はネイビー系でスタイリッシュ、現代的。
 
-REQUIREMENTS:
-- Cinematic 16:9 landscape format
-- Bright, vibrant, well-lit scene — avoid dark or underexposed images
-- Rich colors: blues, whites, warm yellows/oranges — NOT moody or dim
-- High production value, sharp focus, professional photography
-- NO text, NO typography, NO numbers, NO logos anywhere in the image
-- NO human faces or identifiable people (exception: 採用情報 category may show a smiling worker)
-- Photorealistic, ultra-high resolution quality`;
+カメラワークはファッション雑誌風。
+ローアングル、斜め構図、被写界深度、背景ぼかし。
+シネマティックライティング。
+余白を意識したレイアウト。
+
+高級企業の採用LPのような世界観。
+「働きたくなる会社」の空気感。
+
+超高解像度、photorealistic、premium quality、luxury corporate branding、editorial magazine style、commercial photography、soft natural light、clean composition、cinematic atmosphere、ultra detailed、8k`;
 
   const res = await fetch("https://api.openai.com/v1/images/generations", {
     method: "POST",
