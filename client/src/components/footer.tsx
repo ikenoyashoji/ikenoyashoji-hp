@@ -4,7 +4,7 @@ import footerBg from "@assets/スクリーンショット_2026-05-22_14.34.44_17
 export function Footer() {
   return (
     <footer className="relative text-white overflow-hidden">
-      <img src={footerBg} alt="" className="w-full h-[220px] md:h-auto object-cover md:object-fill block" />
+      <img src={footerBg} alt="" className="w-full h-[220px] md:h-auto object-cover md:object-fill block [object-position:30%_center] md:[object-position:center_center]" />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(15,32,68,0.35) 0%, rgba(15,32,68,0.80) 60%, rgba(15,32,68,0.95) 100%)" }} />
 
       <div className="absolute inset-x-0 bottom-0 z-10 px-5 md:px-10 pb-2 pt-4">
