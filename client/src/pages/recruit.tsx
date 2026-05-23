@@ -446,20 +446,20 @@ export default function Recruit() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 sm:py-24 bg-[#0f2044] text-center px-4 sm:px-8">
+      <section className="py-10 sm:py-24 bg-[#0f2044] text-center px-4 sm:px-8">
         <AnimateIn>
-          <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">APPLY NOW</p>
-          <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-4">時間も、収入も、人生に彩りを</h2>
-          <p className="text-gray-400 text-sm mb-3 max-w-xl mx-auto leading-relaxed">
+          <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-3">APPLY NOW</p>
+          <h2 className="text-xl sm:text-3xl font-light text-white tracking-[0.05em] sm:tracking-[0.2em] mb-3">時間も、収入も、人生に彩りを</h2>
+          <p className="text-gray-400 text-xs sm:text-sm mb-3 max-w-xl mx-auto leading-relaxed">
             即日勤務OK・週2〜3日からスタートOK。まずはお気軽にご連絡ください。
           </p>
-          <p className="text-[#7eb3ff] text-base font-light tracking-widest mb-10">
+          <p className="text-[#7eb3ff] text-sm sm:text-base font-light tracking-widest mb-6 sm:mb-10">
             TEL: 046-212-2766
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
             <Link href="/contact?type=recruit">
               <button
-                className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-12 py-4 text-sm tracking-widest transition-colors"
+                className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-8 py-3 sm:px-12 sm:py-4 text-sm tracking-widest transition-colors"
                 onClick={() => trackEvent("cta_contact_click", { location: "recruit_cta" })}
                 data-testid="button-recruit-cta"
               >
@@ -468,7 +468,7 @@ export default function Recruit() {
             </Link>
             <a
               href="tel:046-212-2766"
-              className="border border-[#1d4ed8] text-[#7eb3ff] hover:bg-[#1d4ed8] hover:text-white px-12 py-4 text-sm tracking-widest transition-colors"
+              className="border border-[#1d4ed8] text-[#7eb3ff] hover:bg-[#1d4ed8] hover:text-white px-8 py-3 sm:px-12 sm:py-4 text-sm tracking-widest transition-colors"
               onClick={() => trackEvent("cta_tel_click", { location: "recruit_cta" })}
               data-testid="link-recruit-tel"
             >
