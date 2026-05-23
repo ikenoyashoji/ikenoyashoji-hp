@@ -146,8 +146,8 @@ export default function Home() {
         <img
           src={heroTruck}
           alt="イスズトラック 高速道路"
-          className="hero-img-in absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "center center", animationDelay: "0ms" }}
+          className="hero-img-in absolute inset-0 w-full h-full object-cover hero-truck-img"
+          style={{ animationDelay: "0ms" }}
           fetchpriority="high"
           loading="eager"
           decoding="async"

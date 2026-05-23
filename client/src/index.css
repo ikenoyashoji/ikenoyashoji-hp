@@ -325,6 +325,14 @@
   opacity: 0;
   animation: heroImgIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
+.hero-truck-img {
+  object-position: 20% center;
+}
+@media (min-width: 768px) {
+  .hero-truck-img {
+    object-position: center center;
+  }
+}
 
 @keyframes twBlink {
   0%, 100% { opacity: 1; }
