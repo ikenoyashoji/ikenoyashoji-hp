@@ -257,9 +257,9 @@ SCENE: ${photoDesc}
 
 REQUIREMENTS:
 - Cinematic 16:9 landscape format
-- Rich dark navy and cobalt blue color palette with dramatic lighting
+- Bright, vibrant, well-lit scene — avoid dark or underexposed images
+- Rich colors: blues, whites, warm yellows/oranges — NOT moody or dim
 - High production value, sharp focus, professional photography
-- The left portion of the image should be slightly darker (will have text overlay applied)
 - NO text, NO typography, NO numbers, NO logos anywhere in the image
 - NO human faces or identifiable people (exception: 採用情報 category may show a smiling worker)
 - Photorealistic, ultra-high resolution quality`;

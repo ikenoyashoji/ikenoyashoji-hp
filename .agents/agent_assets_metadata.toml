@@ -233,3 +233,9 @@ id = "0KEIMgoxM6TqCSFgJvJpP"
 uri = "file://public/uploads/ai-gen-1779534086977.png"
 type = "image"
 title = "AI生成画像（物流の2024年問題）"
+
+[[outputs]]
+id = "IdGDUgiwcpZEFzE5R0dRV"
+uri = "file://public/uploads/ai-gen-1779534371104.png"
+type = "image"
+title = "新しいAI生成画像（明るめ）"

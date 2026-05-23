@@ -53,10 +53,10 @@ function ArticleCard({ article }: { article: any }) {
           <div className="absolute inset-0 bg-gradient-to-br from-[#0f2044] via-[#1a4b99] to-[#0a1628]" />
         )}
 
-        {/* Gradient overlay: dark on left side where text goes */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/10" />
+        {/* Gradient overlay: subtle dark on left side where text goes */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/5" />
         {/* Additional bottom gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
         {/* Content overlay */}
         <div className="absolute inset-0 flex flex-col justify-between p-4 sm:p-5">
