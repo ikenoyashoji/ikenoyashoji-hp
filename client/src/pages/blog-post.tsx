@@ -225,8 +225,7 @@ export default function BlogPost() {
               <button onClick={() => share("twitter")} className="bg-[#000000] text-white text-xs px-3 py-1.5 hover:opacity-80 transition-opacity" data-testid="button-share-twitter">X</button>
               <button onClick={() => share("facebook")} className="bg-[#1877F2] text-white text-xs px-3 py-1.5 hover:opacity-80 transition-opacity" data-testid="button-share-facebook">Facebook</button>
               <button onClick={() => share("line")} className="bg-[#06C755] text-white text-xs px-3 py-1.5 hover:opacity-80 transition-opacity" data-testid="button-share-line">LINE</button>
-              <button onClick={() => share("hatena")} className="bg-[#00A4DE] text-white text-xs px-3 py-1.5 hover:opacity-80 transition-opacity" data-testid="button-share-hatena">はてブ</button>
-              <button onClick={() => share("pocket")} className="bg-[#EF4056] text-white text-xs px-3 py-1.5 hover:opacity-80 transition-opacity" data-testid="button-share-pocket">Pocket</button>
+
               <button onClick={() => share("copy")} className="bg-gray-100 text-gray-600 text-xs px-3 py-1.5 hover:bg-gray-200 transition-colors border border-gray-200" data-testid="button-share-copy">URLコピー</button>
             </div>
           </div>
