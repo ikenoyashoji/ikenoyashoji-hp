@@ -129,21 +129,21 @@ export default function About() {
           </AnimateIn>
           <AnimateIn>
             <div className="max-w-2xl mx-auto text-center">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 leading-relaxed" style={{ fontFamily: "'Noto Serif JP', serif" }}>「運ぶ信頼、届ける真心」</h3>
-              <div className="space-y-5 text-gray-600 text-sm leading-[2] text-center">
+              <h3 className="text-xl sm:text-3xl font-bold text-gray-900 mb-8 leading-relaxed" style={{ fontFamily: "'Noto Serif JP', serif" }}>「運ぶ信頼、届ける真心」</h3>
+              <div className="space-y-5 text-gray-600 text-sm leading-[2] text-left sm:text-center">
                 <p>物流という仕事は、決して目立つ仕事ではありません。</p>
-                <p>ですが、必要な物が必要な時に届くという"当たり前の日常"を支えている、<br />社会に欠かすことのできない仕事だと私は考えています。</p>
-                <p>荷物を運ぶということは、単にモノを動かしているのではなく、<br />その先にある人の生活や仕事、そして"想い"をつないでいるということです。</p>
+                <p>ですが、必要な物が必要な時に届くという"当たり前の日常"を支えている、社会に欠かすことのできない仕事だと私は考えています。</p>
+                <p>荷物を運ぶということは、単にモノを動かしているのではなく、その先にある人の生活や仕事、そして"想い"をつないでいるということです。</p>
                 <p>だからこそ私は、物流という仕事に誇りを持っています。</p>
                 <p>株式会社池ノ谷商事は、まだ若い会社です。</p>
                 <p>しかし、「物流業界をもっと良くしたい」という想いは、どこにも負けません。</p>
                 <p>私はこれまで、物流業界には"人に依存しすぎる構造"が多くあると感じてきました。</p>
-                <p>だからこそ私たちは、AI・IT活用や仕組み化を進め、<br />「誰がやっても品質を維持できる物流」を本気で目指しています。</p>
-                <p>それは、人を軽視するためではありません。<br />"人を大切にしたいからこそ、仕組みが必要"だと考えているからです。</p>
+                <p>だからこそ私たちは、AI・IT活用や仕組み化を進め、「誰がやっても品質を維持できる物流」を本気で目指しています。</p>
+                <p>それは、人を軽視するためではありません。"人を大切にしたいからこそ、仕組みが必要"だと考えているからです。</p>
                 <p>安心して働ける環境をつくること。努力した人が正当に評価されること。未経験でも成長できること。</p>
                 <p>そして、感謝・礼儀・誠実さを忘れず、当たり前のことを誰よりも徹底すること。</p>
                 <p>その積み重ねが、信頼され続ける会社につながると信じています。</p>
-                <p>これからも池ノ谷商事は、当たり前の日常を支える責任と誇りを持ち、<br />より良い物流、より良い会社づくりを追求し続けてまいります。</p>
+                <p>これからも池ノ谷商事は、当たり前の日常を支える責任と誇りを持ち、より良い物流、より良い会社づくりを追求し続けてまいります。</p>
               </div>
               <div className="mt-10 pt-8 border-t border-gray-100 text-right">
                 <p className="text-gray-400 text-xs mb-2">代表取締役社長</p>
@@ -155,13 +155,13 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-[#0f2044] text-center px-8">
+      <section className="py-10 sm:py-20 bg-[#0f2044] text-center px-4 sm:px-8">
         <AnimateIn>
-          <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">CONTACT</p>
-          <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-8">お気軽にお問い合わせください</h2>
+          <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-3">CONTACT</p>
+          <h2 className="text-xl sm:text-3xl font-light text-white tracking-[0.05em] sm:tracking-[0.2em] mb-6 sm:mb-8">お気軽にお問い合わせください</h2>
           <div className="flex justify-center">
             <Link href="/contact">
-              <button className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-10 py-4 text-sm tracking-widest transition-colors" data-testid="button-about-contact">
+              <button className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-8 py-3 sm:px-10 sm:py-4 text-sm tracking-widest transition-colors" data-testid="button-about-contact">
                 お問い合わせ
               </button>
             </Link>

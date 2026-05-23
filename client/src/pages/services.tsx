@@ -275,14 +275,14 @@ export default function Services() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-[#0f2044] text-center px-8">
+      <section className="py-10 sm:py-20 bg-[#0f2044] text-center px-4 sm:px-8">
         <AnimateIn>
-          <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">CONTACT</p>
-          <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-4">まずはお気軽にご相談ください</h2>
-          <p className="text-gray-400 text-sm mb-10">物流に関するご質問・お見積もりは無料です。専任担当がご対応します。</p>
+          <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-3">CONTACT</p>
+          <h2 className="text-xl sm:text-3xl font-light text-white tracking-[0.05em] sm:tracking-[0.2em] mb-3 sm:mb-4">まずはお気軽にご相談ください</h2>
+          <p className="text-gray-400 text-xs sm:text-sm mb-6 sm:mb-10">物流に関するご質問・お見積もりは無料です。専任担当がご対応します。</p>
           <Link href="/contact">
             <button
-              className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-12 py-4 text-sm tracking-widest transition-colors"
+              className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-8 py-3 sm:px-12 sm:py-4 text-sm tracking-widest transition-colors"
               data-testid="button-services-cta"
             >
               お問い合わせはこちら

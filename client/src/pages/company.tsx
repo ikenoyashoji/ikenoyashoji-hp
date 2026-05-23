@@ -362,11 +362,11 @@ export default function Company() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-[#0f2044] text-center px-8">
-        <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">CONTACT</p>
-        <h2 className="text-3xl font-light text-white tracking-[0.2em] mb-8">お問い合わせ</h2>
+      <section className="py-10 sm:py-20 bg-[#0f2044] text-center px-4 sm:px-8">
+        <p className="text-gray-400 text-xs tracking-[0.4em] uppercase mb-3">CONTACT</p>
+        <h2 className="text-xl sm:text-3xl font-light text-white tracking-[0.05em] sm:tracking-[0.2em] mb-6 sm:mb-8">お問い合わせ</h2>
         <Link href="/contact">
-          <button className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-10 py-4 text-sm tracking-widest transition-colors" data-testid="button-company-contact">
+          <button className="border border-white text-white hover:bg-white hover:text-[#0f2044] px-8 py-3 sm:px-10 sm:py-4 text-sm tracking-widest transition-colors" data-testid="button-company-contact">
             お問い合わせはこちら
           </button>
         </Link>
