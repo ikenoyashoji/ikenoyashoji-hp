@@ -354,7 +354,7 @@ export default function Home() {
 
             {/* Right: text + buttons */}
             <AnimateIn direction="right">
-              <div className="pl-0 md:pl-8 mt-2 md:mt-0">
+              <div className="pl-0 md:pl-8 mt-2 md:mt-0 text-center">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-snug">
                   全国へ広がる輸送ネットワーク
                 </h2>
@@ -363,7 +363,7 @@ export default function Home() {
                   全国の幹線輸送ネットワークと連携しながら<br />
                   物流サービスを提供する総合物流企業です。
                 </p>
-                <div className="flex gap-4 flex-wrap">
+                <div className="flex gap-4 flex-wrap justify-center">
                   <Link href="/company">
                     <button className="flex items-center gap-4 border border-gray-300 text-gray-700 hover:border-[#1a4b99] hover:text-[#1a4b99] px-6 py-3 text-sm transition-colors" data-testid="button-company-info">
                       企業情報
