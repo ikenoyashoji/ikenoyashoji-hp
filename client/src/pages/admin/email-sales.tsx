@@ -169,7 +169,7 @@ export default function AdminEmailSales() {
 
   const cronPauseMutation = useMutation({
     mutationFn: (paused: boolean) => apiRequest("POST", "/api/admin/email-sales/cron-pause", { paused }),
-    onSuccess: () => { refetchCron(); },
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["/api/admin/email-sales/cron-status"] }); },
   });
   const smtpOk = smtpStatus?.smtp;
 
