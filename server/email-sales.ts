@@ -360,7 +360,7 @@ JSON形式のみで出力：{"subject": "...", "body": "..."}`
   const match = raw.match(/\{[\s\S]*\}/);
   if (!match) return { subject: "【池ノ谷商事】物流サービスのご案内", body: baseBody, unsubscribeToken };
   const parsed = JSON.parse(match[0]);
-  return { subject: parsed.subject || "", body: parsed.body || "", unsubscribeToken };
+  return { subject: parsed.subject || "", body: baseBody, unsubscribeToken };
 }
 
 // ── SMTP sender ───────────────────────────────────────────────────────────────
