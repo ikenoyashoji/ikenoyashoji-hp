@@ -23,7 +23,8 @@ const CATEGORY_LABEL: Record<string, string> = {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 async function callOpenAI(messages: any[], systemPrompt: string): Promise<string> {
-  const apiKey = (process.env.OPENAI_API_KEY || "").trim();
+  const rawKey = (process.env.OPENAI_API_KEY || "").trim();
+  const apiKey = rawKey.match(/(sk-[A-Za-z0-9_\-]+)/)?.[1] || rawKey.replace(/[^\x20-\x7E]/g, "").trim();
   if (!apiKey) throw new Error("OPENAI_API_KEY not configured");
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",

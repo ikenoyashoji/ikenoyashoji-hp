@@ -210,7 +210,8 @@ async function seedData() {
 }
 
 async function callOpenAI(messages: any[], systemPrompt: string) {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const rawKey = (process.env.OPENAI_API_KEY || "").trim();
+  const apiKey = rawKey.match(/(sk-[A-Za-z0-9_\-]+)/)?.[1] || rawKey.replace(/[^\x20-\x7E]/g, "").trim();
   if (!apiKey) throw new Error("OPENAI_API_KEY not configured");
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
