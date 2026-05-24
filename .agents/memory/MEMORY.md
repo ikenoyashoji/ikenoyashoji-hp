@@ -1,1 +1,2 @@
 - [Nginx session cookie](nginx-session-cookie.md) — X-Forwarded-Proto required in nginx for express-session Secure cookies to persist through proxy
+- [VPS PM2 env cache](vps-pm2-env-cache.md) — PM2 caches env vars; `--update-env` alone is not enough, must `pm2 delete` + `pm2 start` to clear
