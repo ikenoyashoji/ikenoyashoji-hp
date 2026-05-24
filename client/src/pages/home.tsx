@@ -123,9 +123,10 @@ export default function Home() {
   useEffect(() => {
     trackPageView("/");
     setSeo({
-      title: "神奈川・関東の物流・運送・倉庫会社",
+      title: "株式会社池ノ谷商事｜神奈川・関東の物流・運送・倉庫会社",
       description: "株式会社池ノ谷商事は神奈川県愛川町を拠点に、一般貨物運送・倉庫管理・3PLを提供する総合物流企業です。荷主様の輸送コスト削減・物流効率化をワンストップで支援します。",
       path: "/",
+      skipSuffix: true,
     });
   }, []);
 

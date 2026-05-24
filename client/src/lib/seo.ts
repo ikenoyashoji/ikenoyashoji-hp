@@ -7,6 +7,7 @@ interface SeoOptions {
   description: string;
   path?: string;
   ogImage?: string;
+  skipSuffix?: boolean;
 }
 
 function setMeta(name: string, content: string, useProperty = false) {
@@ -30,8 +31,8 @@ function setLink(rel: string, href: string) {
   el.setAttribute("href", href);
 }
 
-export function setSeo({ title, description, path = "/", ogImage = DEFAULT_OG_IMAGE }: SeoOptions) {
-  const fullTitle = `${title}｜${SITE_NAME}`;
+export function setSeo({ title, description, path = "/", ogImage = DEFAULT_OG_IMAGE, skipSuffix = false }: SeoOptions) {
+  const fullTitle = skipSuffix ? title : `${title}｜${SITE_NAME}`;
   const url = `${BASE_URL}${path}`;
 
   document.title = fullTitle;
