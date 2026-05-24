@@ -1187,6 +1187,7 @@ CTR：${(ctr * 100).toFixed(1)}%
   let crawlStatus: { running: boolean; added: number; finishedAt: string | null } = {
     running: false, added: 0, finishedAt: null,
   };
+  let cronPausedLocal = false;
 
   app.get("/api/admin/email-sales/crawl-status", requireAdmin, (_req, res) => {
     res.json(crawlStatus);
@@ -1209,16 +1210,16 @@ CTR：${(ctr * 100).toFixed(1)}%
     res.json(result);
   });
 
-  app.get("/api/admin/email-sales/cron-status", requireAdmin, async (_req, res) => {
-    const { getCronPaused } = await import("./email-sales");
-    res.json({ paused: getCronPaused(), cronTime: process.env.EMAIL_SALES_CRON || "0 9 * * *" });
+  app.get("/api/admin/email-sales/cron-status", requireAdmin, (_req, res) => {
+    res.json({ paused: cronPausedLocal, cronTime: process.env.EMAIL_SALES_CRON || "0 9 * * *" });
   });
 
   app.post("/api/admin/email-sales/cron-pause", requireAdmin, async (req, res) => {
     const { setCronPaused } = await import("./email-sales");
     const { paused } = req.body;
+    cronPausedLocal = !!paused;
     setCronPaused(!!paused);
-    res.json({ paused: !!paused });
+    res.json({ paused: cronPausedLocal });
   });
 
   // Email send
