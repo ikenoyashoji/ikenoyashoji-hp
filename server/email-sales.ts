@@ -5,12 +5,14 @@ import { storage } from "./storage";
 
 // ── Search queries ────────────────────────────────────────────────────────────
 const SEARCH_QUERIES = [
-  { q: "荷主 物流 委託 問い合わせ 関東 会社", category: "shipper" },
-  { q: "EC事業者 配送 物流 アウトソーシング 神奈川", category: "shipper" },
-  { q: "製造業 定期配送 委託 運送会社 募集", category: "shipper" },
-  { q: "運送会社 協力会社 業務委託 関東 募集", category: "partner" },
-  { q: "軽貨物 個人事業主 業務委託 ドライバー 関東", category: "partner" },
-  { q: "ドライバー 求人 神奈川 正社員 大型", category: "recruit" },
+  { q: "神奈川 製造業 株式会社 物流 お問い合わせ", category: "shipper" },
+  { q: "関東 食品メーカー 株式会社 配送 会社概要", category: "shipper" },
+  { q: "神奈川 卸売業 株式会社 運送 委託 会社概要", category: "shipper" },
+  { q: "埼玉 千葉 製造業 株式会社 物流 委託 お問い合わせ", category: "shipper" },
+  { q: "東京 小売業 EC 株式会社 配送 倉庫 お問い合わせ", category: "shipper" },
+  { q: "神奈川 建設資材 部品メーカー 株式会社 運送 お問い合わせ", category: "shipper" },
+  { q: "運送会社 協力会社 業務委託 関東 募集 軽貨物", category: "partner" },
+  { q: "軽貨物 個人事業主 業務委託 ドライバー 神奈川 お問い合わせ", category: "partner" },
 ];
 
 const CATEGORY_LABEL: Record<string, string> = {
@@ -68,8 +70,9 @@ const SKIP_DOMAINS = [
   "google.", "youtube.", "facebook.", "twitter.", "x.com", "instagram.", "linkedin.",
   "amazon.co.jp", "rakuten.co.jp", "yahoo.co.jp", "nikkei.com", "nhk.or.jp",
   "wikipedia.org", "wikimedia.org", "note.com", "zenn.dev", "qiita.com",
-  // Government
-  ".go.jp", "e-gov.go.jp", "mlit.go.jp", "mhlw.go.jp", "meti.go.jp", "pref.",
+  "ameblo.jp", "livedoor.", "excite.co.jp", "fc2.com", "seesaa.net",
+  // Government / org
+  ".go.jp", "e-gov.go.jp", "mlit.go.jp", "mhlw.go.jp", "meti.go.jp", "pref.", ".or.jp", ".ed.jp",
   // Job boards & recruitment
   "recruit.co.jp", "mynavi.jp", "doda.jp", "indeed.com", "rikunabi.com",
   "hellowork", "stanby.com", "townwork.net", "baitoru.com", "en-gage.net",
@@ -78,16 +81,26 @@ const SKIP_DOMAINS = [
   "engage.jp", "jobmedley.", "type.jp", "dip-net.jp", "yumenavi.",
   "r-agent.com", "tempstaff.", "staffservice.", "pasona.", "adecco.",
   "manpower.", "persol.", "ricrute.", "int-info.", "an.r.recruit.",
-  // SaaS/media/blog
+  // SaaS/media/blog/news
   "freee.co.jp", "moneyforward.", "zaim.net", "yayoi-kk.", "freenance.",
-  "help.", "support.", "lycbiz.com", "lycorp.co.jp", "smarthr.",
-  "chatwork.", "slack.com", "notion.so", "hubspot.", "salesforce.",
-  // Large corporations
+  "lycbiz.com", "lycorp.co.jp", "smarthr.", "chatwork.", "slack.com",
+  "notion.so", "hubspot.", "salesforce.", "boxil.jp", "itreview.jp",
+  "prtimes.jp", "atpress.ne.jp", "dreamnews.jp", "newscast.jp",
+  "itmedia.co.jp", "ascii.jp", "impress.co.jp", "toyo-keizai.net",
+  "diamond.jp", "president.jp", "businessinsider.jp", "forbesjapan.com",
+  "logi-today.com", "logistics.jp", "e-logit.com", "miraiebutsuryu",
+  "logisticsnews.", "butsuryu.", "cargo-news.", "lnews.jp",
+  // Comparison / ranking / portal
+  "kakaku.com", "価格.com", "kuchikomi.", "ranking", "hikaku",
+  "shopify.com", "makeshop.", "base.ec", "stores.jp", "shop-pro.jp",
+  "wix.com", "jimdo.com", "amebaownd.", "studio.site",
+  // Large logistics/corporations
   "jreast.co.jp", "jr-central.co.jp", "jr-west.co.jp", "jtb.co.jp",
   "toyota.co.jp", "honda.co.jp", "sony.co.jp", "panasonic.com",
   "softbank.jp", "ntt.co.jp", "docomo.co.jp", "au.com",
   "yamato-hd.co.jp", "sagawa-exp.co.jp", "nittsu.co.jp", "seino.co.jp",
   "fujifilm.com", "canon.jp", "epson.jp", "toshiba.", "hitachi.",
+  "askul.co.jp", "monotaro.com", "misumi-ec.com",
 ];
 
 // ── Pages to probe for email on a site ────────────────────────────────────────
@@ -144,16 +157,32 @@ function parseYahooResults(html: string): Array<{ title: string; url: string }> 
     if (href.includes("mlit.go.jp") || href.includes("pref.") || href.includes(".go.jp")) return;
 
     let rootUrl = "";
+    let host = "";
     try {
       const u = new URL(href);
       rootUrl = `${u.protocol}//${u.host}`;
+      host = u.host;
     } catch { return; }
 
     if (seen.has(rootUrl)) return;
     seen.add(rootUrl);
 
+    // Prefer .co.jp / .jp company domains; skip obvious non-company TLDs
+    const isCompanyDomain = host.endsWith(".co.jp") || host.endsWith(".jp") || host.endsWith(".com");
+    if (!isCompanyDomain) return;
+
+    // Skip domains that look like blogs, EC platforms, or media
+    if (/\.(info|biz|net|org)$/.test(host) && !host.endsWith(".co.jp")) return;
+
     const title = $(el).text().trim().replace(/[\|｜→▶\n]+/g, " ").trim();
     if (title && rootUrl) results.push({ title: title.substring(0, 80), url: rootUrl });
+  });
+
+  // Prioritize .co.jp domains (most likely Japanese companies)
+  results.sort((a, b) => {
+    const aScore = a.url.includes(".co.jp") ? 2 : a.url.includes(".jp") ? 1 : 0;
+    const bScore = b.url.includes(".co.jp") ? 2 : b.url.includes(".jp") ? 1 : 0;
+    return bScore - aScore;
   });
 
   return results;
