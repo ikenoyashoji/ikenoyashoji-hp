@@ -1179,10 +1179,23 @@ CTR：${(ctr * 100).toFixed(1)}%
     }
   });
 
-  app.post("/api/admin/email-sales/crawl", requireAdmin, async (req, res) => {
-    const { crawlLeads } = await import("./email-sales");
-    const count = await crawlLeads();
-    res.json({ added: count });
+  let crawlStatus: { running: boolean; added: number; finishedAt: string | null } = {
+    running: false, added: 0, finishedAt: null,
+  };
+
+  app.get("/api/admin/email-sales/crawl-status", requireAdmin, (_req, res) => {
+    res.json(crawlStatus);
+  });
+
+  app.post("/api/admin/email-sales/crawl", requireAdmin, async (_req, res) => {
+    if (crawlStatus.running) return res.json({ started: false, reason: "already running" });
+    crawlStatus = { running: true, added: 0, finishedAt: null };
+    res.json({ started: true });
+    import("./email-sales").then(({ crawlLeads }) =>
+      crawlLeads()
+        .then((count) => { crawlStatus = { running: false, added: count, finishedAt: new Date().toISOString() }; })
+        .catch(() => { crawlStatus = { running: false, added: 0, finishedAt: new Date().toISOString() }; })
+    );
   });
 
   app.post("/api/admin/email-sales/pipeline", requireAdmin, async (req, res) => {

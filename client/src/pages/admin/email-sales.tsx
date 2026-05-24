@@ -252,14 +252,33 @@ export default function AdminEmailSales() {
   });
 
   const handleCrawl = async () => {
+    if (crawling) return;
     setCrawling(true);
     try {
       const res = await apiRequest("POST", "/api/admin/email-sales/crawl", {});
       const data = await res.json();
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
-      toast({ title: `クロール完了：${data.added}件追加` });
-    } catch { toast({ title: "クロール失敗", variant: "destructive" }); }
-    finally { setCrawling(false); }
+      if (!data.started) {
+        toast({ title: "すでに実行中です" });
+        setCrawling(false);
+        return;
+      }
+      toast({ title: "クロール開始 — バックグラウンドで実行中..." });
+      const poll = setInterval(async () => {
+        try {
+          const sr = await apiRequest("GET", "/api/admin/email-sales/crawl-status", undefined);
+          const status = await sr.json();
+          if (!status.running) {
+            clearInterval(poll);
+            setCrawling(false);
+            queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
+            toast({ title: `クロール完了：${status.added}件追加` });
+          }
+        } catch { clearInterval(poll); setCrawling(false); }
+      }, 5000);
+    } catch {
+      toast({ title: "クロール失敗", variant: "destructive" });
+      setCrawling(false);
+    }
   };
 
   const handlePipeline = async () => {
