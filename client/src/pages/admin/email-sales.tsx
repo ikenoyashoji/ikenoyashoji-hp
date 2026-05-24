@@ -163,6 +163,14 @@ export default function AdminEmailSales() {
   const { data: leads = [], isLoading } = useQuery<any[]>({ queryKey: ["/api/admin/email-leads"] });
   const { data: smtpStatus } = useQuery<any>({ queryKey: ["/api/admin/settings/status"] });
   const { data: templates = [] } = useQuery<any[]>({ queryKey: ["/api/admin/email-templates"] });
+  const { data: cronStatus, refetch: refetchCron } = useQuery<{ paused: boolean; cronTime: string }>({
+    queryKey: ["/api/admin/email-sales/cron-status"],
+  });
+
+  const cronPauseMutation = useMutation({
+    mutationFn: (paused: boolean) => apiRequest("POST", "/api/admin/email-sales/cron-pause", { paused }),
+    onSuccess: () => { refetchCron(); },
+  });
   const smtpOk = smtpStatus?.smtp;
 
   const filtered = (leads as any[]).filter((l) => {
@@ -334,6 +342,23 @@ export default function AdminEmailSales() {
                 <AlertCircle className="w-3 h-3" /> SMTP未設定
               </span>
             )}
+
+            {/* Cron pause toggle */}
+            <button
+              onClick={() => cronPauseMutation.mutate(!cronStatus?.paused)}
+              disabled={cronPauseMutation.isPending}
+              title={cronStatus?.paused ? `自動送信停止中 (${cronStatus.cronTime})` : `自動送信稼働中 (${cronStatus?.cronTime})`}
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs border transition-colors ${
+                cronStatus?.paused
+                  ? "border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
+                  : "border-green-200 bg-green-50 text-green-700 hover:bg-green-100"
+              }`}
+              data-testid="button-cron-toggle"
+            >
+              <span className={`w-2 h-2 rounded-full ${cronStatus?.paused ? "bg-red-400" : "bg-green-500"}`} />
+              {cronStatus?.paused ? "自動送信: 停止中" : "自動送信: 稼働中"}
+            </button>
+
             <button
               className="flex items-center gap-1.5 px-2.5 py-1.5 border border-gray-200 text-gray-600 text-xs hover:border-black transition-colors"
               onClick={() => setAddOpen(true)}

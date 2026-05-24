@@ -527,10 +527,15 @@ export async function runEmailSalesPipeline(): Promise<{ crawled: number; genera
 
 // ── Cron ──────────────────────────────────────────────────────────────────────
 let cronTask: ReturnType<typeof cron.schedule> | null = null;
+let cronPaused = false;
+
+export function getCronPaused() { return cronPaused; }
+export function setCronPaused(v: boolean) { cronPaused = v; console.log(`[EmailSales] Cron ${v ? "paused" : "resumed"}`); }
 
 export function startEmailSalesCron(cronTime = "0 10 * * *") {
   if (cronTask) { cronTask.stop(); cronTask = null; }
   cronTask = cron.schedule(cronTime, async () => {
+    if (cronPaused) { console.log("[EmailSales] Cron skipped (paused)"); return; }
     console.log("[EmailSales] Cron triggered!");
     await runEmailSalesPipeline();
   }, { timezone: "Asia/Tokyo" });

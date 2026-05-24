@@ -1209,6 +1209,18 @@ CTR：${(ctr * 100).toFixed(1)}%
     res.json(result);
   });
 
+  app.get("/api/admin/email-sales/cron-status", requireAdmin, async (_req, res) => {
+    const { getCronPaused } = await import("./email-sales");
+    res.json({ paused: getCronPaused(), cronTime: process.env.EMAIL_SALES_CRON || "0 9 * * *" });
+  });
+
+  app.post("/api/admin/email-sales/cron-pause", requireAdmin, async (req, res) => {
+    const { setCronPaused } = await import("./email-sales");
+    const { paused } = req.body;
+    setCronPaused(!!paused);
+    res.json({ paused: !!paused });
+  });
+
   // Email send
   app.post("/api/admin/email/send", requireAdmin, async (req, res) => {
     const { to, subject, body } = req.body;
