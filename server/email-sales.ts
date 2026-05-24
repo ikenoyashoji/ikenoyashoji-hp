@@ -326,7 +326,7 @@ export async function generateEmailForLead(lead: any): Promise<{ subject: string
   const { randomBytes } = await import("crypto");
   const unsubscribeToken: string = lead.unsubscribeToken || randomBytes(32).toString("hex");
 
-  const baseBody = `${lead.company}
+  const baseBody = `${lead.company} 様
 
 平素よりお世話になっております。株式会社池ノ谷商事です。
 

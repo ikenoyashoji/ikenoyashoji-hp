@@ -132,7 +132,7 @@ function fmtDate(s: string | null) {
 const DEFAULT_SUBJECT = "【池ノ谷商事】物流サービスのご提案";
 
 function defaultBody(company?: string) {
-  const header = company ? `${company}\n\n` : "";
+  const header = company ? `${company} 様\n\n` : "";
   return `${header}平素よりお世話になっております。株式会社池ノ谷商事です。
 
 貴社の物流業務のコスト削減と輸送品質の向上をお手伝いできればと考えております。当社では、貴社の現在の物流状況を無料で診断し、最適な物流ソリューションをご提案いたします。
@@ -517,7 +517,7 @@ export default function AdminEmailSales() {
                     <button
                       className="flex items-center gap-1.5 px-2.5 py-1.5 bg-black text-white text-xs hover:bg-gray-800 disabled:opacity-40 transition-colors"
                       onClick={() => sendMutation.mutate(selected.id)}
-                      disabled={!smtpOk || !selected.email || !selected.emailSubject || sendMutation.isPending || selected.status === "sent"}
+                      disabled={!smtpOk || !selected.email || !editSubject || sendMutation.isPending || selected.status === "sent"}
                       data-testid="button-send-lead-email"
                     >
                       {sendMutation.isPending ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Send className="w-3 h-3" />}
@@ -535,20 +535,7 @@ export default function AdminEmailSales() {
 
                 {/* Email preview / edit */}
                 <div className="flex-1 overflow-y-auto p-5">
-                  {!selected.emailSubject && !editMode ? (
-                    <div className="flex flex-col items-center justify-center h-40 text-gray-300 border border-dashed border-gray-200 bg-white">
-                      <Wand2 className="w-8 h-8 mb-2 opacity-30" />
-                      <p className="text-sm">メールがまだ生成されていません</p>
-                      <button
-                        className="mt-3 flex items-center gap-1.5 px-3 py-1.5 bg-black text-white text-xs"
-                        onClick={() => generateMutation.mutate(selected.id)}
-                        disabled={generateMutation.isPending}
-                      >
-                        <Wand2 className="w-3 h-3" />
-                        {generateMutation.isPending ? "生成中..." : "AIでメールを生成"}
-                      </button>
-                    </div>
-                  ) : editMode ? (
+                  {editMode ? (
                     <div className="bg-white border border-gray-200 p-5 space-y-4">
                       {/* Template loader */}
                       {(templates as any[]).length > 0 && (
@@ -607,12 +594,12 @@ export default function AdminEmailSales() {
                           <span>From: 株式会社池ノ谷商事 &lt;sales@ikenoyashoji.fun&gt;</span>
                         </div>
                         <div className="text-xs text-gray-500 mb-2">To: {selected.email || "（メールなし）"}</div>
-                        <div className="text-sm font-semibold text-gray-900">{selected.emailSubject}</div>
+                        <div className="text-sm font-semibold text-gray-900">{editSubject}</div>
                       </div>
                       {/* Email body – HTML preview */}
-                      {selected.emailBody ? (
+                      {editBody ? (
                         <iframe
-                          srcDoc={buildHtmlEmailPreview(selected.emailBody)}
+                          srcDoc={buildHtmlEmailPreview(editBody)}
                           className="w-full border-0"
                           style={{ height: "560px" }}
                           sandbox="allow-same-origin"
