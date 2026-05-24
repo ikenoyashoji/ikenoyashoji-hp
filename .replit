@@ -47,3 +47,5 @@ waitForPort = 5000
 [userenv.shared]
 ADMIN_USER = "info@ikenoyashoji.co.jp"
 ADMIN_PASS = "@iny7287"
+EMAIL_SALES_ENABLED = "true"
+EMAIL_SALES_CRON = "0 9 * * *"
