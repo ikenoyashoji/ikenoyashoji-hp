@@ -326,27 +326,39 @@ export async function generateEmailForLead(lead: any): Promise<{ subject: string
   const { randomBytes } = await import("crypto");
   const unsubscribeToken: string = lead.unsubscribeToken || randomBytes(32).toString("hex");
 
+  const baseBody = `${lead.company}
+
+平素よりお世話になっております。株式会社池ノ谷商事です。
+
+貴社の物流業務のコスト削減と輸送品質の向上をお手伝いできればと考えております。当社では、貴社の現在の物流状況を無料で診断し、最適な物流ソリューションをご提案いたします。
+
+ぜひ一度お話を伺う機会をいただければ幸いです。
+
+ご都合の良い日時をご教示ください。
+
+何卒よろしくお願い申し上げます。`;
+
   const raw = await callOpenAI(
     [{ role: "user", content: `会社名：${lead.company}\nサイト：${lead.website}\nターゲット区分：${categoryLabel}` }],
     `あなたは株式会社池ノ谷商事（神奈川県愛川町の物流・運送会社）の営業担当です。
-相手の会社の状況に合わせた、簡潔で礼儀正しいビジネスメールを日本語で作成してください。
+以下のメール本文テンプレートをそのまま使い、件名だけを会社・業種に合わせて生成してください。
+本文は一切変更しないでください。
 
-ターゲット別メッセージ方針：
-- 荷主（shipper）：物流コスト削減・輸送品質向上・無料物流診断の提案
-- 協力会社（partner）：安定した仕事量・適正運賃・迅速支払の協力会社募集
-- 採用（recruit）：待遇・職場環境・成長機会の求人案内
+テンプレート本文：
+---
+${baseBody}
+---
 
 ルール：
-- 件名は30〜50文字
-- 本文は200〜300文字（短く、読みやすく）
-- 最後に署名を入れる（池ノ谷商事 営業部、TEL:046-212-2766、Email:info@ikenoyashoji.co.jp）
-- 特定の数値や名前は記載しない（相手の詳細が不明なため）
+- 件名は20〜40文字、具体的で読みやすく
+- 本文はテンプレートをそのまま使用（変更不可）
+- 「拝啓」「敬具」などの頭語・結語は使わない
 
 JSON形式のみで出力：{"subject": "...", "body": "..."}`
   );
 
   const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) return { subject: "【池ノ谷商事】物流サービスのご案内", body: "お世話になっております。株式会社池ノ谷商事の営業担当です。", unsubscribeToken };
+  if (!match) return { subject: "【池ノ谷商事】物流サービスのご案内", body: baseBody, unsubscribeToken };
   const parsed = JSON.parse(match[0]);
   return { subject: parsed.subject || "", body: parsed.body || "", unsubscribeToken };
 }
