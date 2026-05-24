@@ -1,0 +1,61 @@
+Last login: Sun May 24 06:22:24 on console
+kazuyaotani@kazuya-MacBook-Air ~ % ssh root@187.77.150.224
+The authenticity of host '187.77.150.224 (187.77.150.224)' can't be established.
+ED25519 key fingerprint is SHA256:xNwXudZ/xC2KU0HBg/ltrA1aR3/AksKWxmEIpMvI+Ik.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+Please type 'yes', 'no' or the fingerprint: yes
+Warning: Permanently added '187.77.150.224' (ED25519) to the list of known hosts.
+root@187.77.150.224's password: 
+Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.8.0-111-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sun May 24 01:40:05 UTC 2026
+
+  System load:  0.0               Processes:             100
+  Usage of /:   4.6% of 47.39GB   Users logged in:       0
+  Memory usage: 8%                IPv4 address for eth0: 187.77.150.224
+  Swap usage:   0%                IPv6 address for eth0: 2a02:4780:5e:b359::1
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+1 update can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+1 updates could not be installed automatically. For more details,
+see /var/log/unattended-upgrades/unattended-upgrades.log
+
+*** System restart required ***
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+root@srv1684288:~# pm2 list
+Command 'pm2' not found, did you mean:
+  command 'gm2' from deb gm2 (4:13.2.0-2ubuntu1)
+  command 'pmc' from deb linuxptp (4.0-1ubuntu1.1)
+  command 'tpm2' from deb tpm2-tools (5.4-1)
+  command 'wm2' from deb wm2 (4+svn20090216-4build1)
+  command 'pm' from deb powerman (2.3.27-4)
+  command 'pom2' from deb libpod-pom-perl (2.01-4)
+  command 'pmw' from deb pmw (1:5.22-1)
+  command 'pmg' from deb python3-pymatgen (2023.06.23+dfsg1-2build1)
+  command 'pms' from deb pms (0.42-1.1)
+Try: apt install <deb name>
+root@srv1684288:~# 
