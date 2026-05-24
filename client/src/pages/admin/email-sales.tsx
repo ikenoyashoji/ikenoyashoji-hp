@@ -129,6 +129,16 @@ function fmtDate(s: string | null) {
   try { return format(parseISO(s), "M/d HH:mm", { locale: ja }); } catch { return s; }
 }
 
+const DEFAULT_BODY = `平素よりお世話になっております。株式会社池ノ谷商事です。
+
+貴社の物流業務のコスト削減と輸送品質の向上をお手伝いできればと考えております。当社では、貴社の現在の物流状況を無料で診断し、最適な物流ソリューションをご提案いたします。
+
+ぜひ一度お話を伺う機会をいただければ幸いです。
+
+ご都合の良い日時をご教示ください。
+
+何卒よろしくお願い申し上げます。`;
+
 export default function AdminEmailSales() {
   const { toast } = useToast();
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -181,7 +191,7 @@ export default function AdminEmailSales() {
       const data = await res.json();
       await queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
       setEditSubject(data.emailSubject || "");
-      setEditBody(data.emailBody || "");
+      setEditBody(data.emailBody || DEFAULT_BODY);
       setEditMode(false);
       toast({ title: "メールを生成しました" });
     },
@@ -266,7 +276,7 @@ export default function AdminEmailSales() {
   const handleSelectLead = (lead: any) => {
     setSelectedId(lead.id);
     setEditSubject(lead.emailSubject || "");
-    setEditBody(lead.emailBody || "");
+    setEditBody(lead.emailBody || DEFAULT_BODY);
     setEditMode(false);
   };
 
@@ -466,7 +476,7 @@ export default function AdminEmailSales() {
                           <BookmarkPlus className="w-3 h-3" /> 保存
                         </button>
                         <button className="px-2.5 py-1.5 border border-gray-200 text-gray-600 text-xs hover:border-black"
-                          onClick={() => { setEditMode(false); setEditSubject(selected.emailSubject || ""); setEditBody(selected.emailBody || ""); }}>
+                          onClick={() => { setEditMode(false); setEditSubject(selected.emailSubject || ""); setEditBody(selected.emailBody || DEFAULT_BODY); }}>
                           キャンセル
                         </button>
                         <button className="px-2.5 py-1.5 bg-gray-800 text-white text-xs hover:bg-black"
