@@ -1165,11 +1165,16 @@ CTR：${(ctr * 100).toFixed(1)}%
   });
 
   app.post("/api/admin/email-leads/:id/send", requireAdmin, async (req, res) => {
-    const target = await storage.getEmailLeadById(Number(req.params.id));
+    let target = await storage.getEmailLeadById(Number(req.params.id));
     if (!target) return res.status(404).json({ error: "Not found" });
     if (!target.email) return res.status(400).json({ error: "No email address" });
     try {
-      const { sendLeadEmail } = await import("./email-sales");
+      const { sendLeadEmail, generateEmailForLead } = await import("./email-sales");
+      // Auto-generate subject/body if missing
+      if (!target.emailSubject || !target.emailBody) {
+        const { subject, body, unsubscribeToken } = await generateEmailForLead(target);
+        target = await storage.updateEmailLead(target.id, { emailSubject: subject, emailBody: body, unsubscribeToken }) as any;
+      }
       await sendLeadEmail(target);
       const updated = await storage.updateEmailLead(target.id, { status: "sent", sentAt: new Date() });
       res.json(updated);
