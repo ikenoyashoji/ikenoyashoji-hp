@@ -1,0 +1,8 @@
+{
+  "enabled": false,
+  "cronTime": "0 9 * * *",
+  "autoPublish": true,
+  "lastRun": null,
+  "lastArticleId": null,
+  "log": []
+}
