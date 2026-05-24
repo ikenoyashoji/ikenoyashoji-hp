@@ -74,8 +74,8 @@ function buildHtmlEmailPreview(body: string): string {
       <!-- HEADER -->
       <tr>
         <td style="background:linear-gradient(160deg,#1d4ed8 0%,#2563eb 30%,#3b82f6 65%,#60a5fa 100%);padding:40px 40px 36px 40px;text-align:center;">
-          <p class="hd-title" style="margin:0 0 6px 0;font-size:11px;letter-spacing:0.38em;color:rgba(255,255,255,0.85);font-weight:400;text-transform:uppercase;">Ikenoyashoji Co., Ltd.</p>
-          <p class="hd-title" style="margin:0 0 10px 0;font-size:24px;font-weight:800;color:#ffffff;letter-spacing:0.06em;">株式会社池ノ谷商事</p>
+          <p class="hd-title" style="margin:0 0 6px 0;font-size:11px;letter-spacing:0.38em;color:rgba(255,255,255,0.85);font-weight:400;">Ikenoyashoji Co., Ltd.</p>
+          <p class="hd-title" style="margin:0 0 10px 0;font-size:24px;font-weight:800;color:#ffffff;letter-spacing:0.06em;font-family:'Hiragino Mincho ProN','Yu Mincho','游明朝',Georgia,serif;">株式会社池ノ谷商事</p>
           <p class="hd-sub" style="margin:0;font-size:11px;color:rgba(255,255,255,0.75);letter-spacing:0.14em;">物流・運送サービスのご案内</p>
         </td>
       </tr>
