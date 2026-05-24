@@ -1,5 +1,5 @@
 const SITE_NAME = "株式会社池ノ谷商事";
-const DEFAULT_OG_IMAGE = "/og-image.png";
+const DEFAULT_OG_IMAGE = "/og-image.jpg";
 const BASE_URL = "https://ikenoyashoji.jp";
 
 interface SeoOptions {
