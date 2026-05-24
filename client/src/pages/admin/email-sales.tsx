@@ -107,12 +107,12 @@ function buildHtmlEmailPreview(body: string): string {
       <!-- FOOTER -->
       <tr>
         <td style="padding:24px 40px 28px 40px;background:#f8fafc;">
-          <p style="margin:0 0 3px 0;font-size:13px;font-weight:800;color:#0f2044;">株式会社池ノ谷商事　営業部</p>
+          <p style="margin:0 0 3px 0;font-size:13px;font-weight:800;color:#0f2044;">株式会社池ノ谷商事</p>
           <p style="margin:0 0 3px 0;font-size:11px;color:#64748b;">〒243-0303　神奈川県愛甲郡愛川町中津7287</p>
           <p style="margin:0 0 3px 0;font-size:11px;color:#64748b;">TEL: <a href="tel:046-212-2766" style="color:#1a4b99;text-decoration:none;">046-212-2766</a>　／　Email: <a href="mailto:info@ikenoyashoji.co.jp" style="color:#1a4b99;text-decoration:none;">info@ikenoyashoji.co.jp</a></p>
           <p style="margin:4px 0 0 0;font-size:11px;color:#64748b;">URL: <a href="https://ikenoyashoji.jp" style="color:#1a4b99;text-decoration:none;">https://ikenoyashoji.jp</a></p>
           <p style="margin:18px 0 0 0;padding-top:14px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8;line-height:1.7;">
-            このメールは株式会社池ノ谷商事 営業部よりお送りしております。<br/>
+            このメールは株式会社池ノ谷商事よりお送りしております。<br/>
             今後このようなメールの受信を希望されない場合は<span style="color:#94a3b8;text-decoration:underline;">こちらをクリックして配信停止</span>してください。
           </p>
         </td>
@@ -570,7 +570,7 @@ export default function AdminEmailSales() {
                       <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">
                         <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
                           <Mail className="w-3.5 h-3.5" />
-                          <span>From: 株式会社池ノ谷商事 営業部 &lt;info@ikenoyashoji.jp&gt;　Reply-To: sales@ikenoyashoji.fun</span>
+                          <span>From: 株式会社池ノ谷商事 &lt;info@ikenoyashoji.jp&gt;　Reply-To: sales@ikenoyashoji.fun</span>
                         </div>
                         <div className="text-xs text-gray-500 mb-2">To: {selected.email || "（メールなし）"}</div>
                         <div className="text-sm font-semibold text-gray-900">{selected.emailSubject}</div>
