@@ -511,26 +511,92 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     const smtpFrom = process.env.SMTP_FROM || smtpUser;
     if (smtpHost && smtpUser && smtpPass) {
       const typeLabel = contact.type === "shipper" ? "荷主・輸送" : contact.type === "recruit" ? "採用" : "協力会社";
-      const bodyLines = [
+      const typeColor = contact.type === "shipper" ? "#1a4b99" : contact.type === "recruit" ? "#0f7a4a" : "#7a5c0f";
+      const sentAt = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+      const plainText = [
         `【お問い合わせ通知】${typeLabel}のお問い合わせが届きました`,
-        `─────────────────────────────`,
         `種別　: ${typeLabel}`,
         `お名前: ${contact.name}`,
         `メール: ${contact.email}`,
         `電話　: ${contact.phone || "未記入"}`,
         `会社名: ${contact.company || "未記入"}`,
         `メッセージ:\n${contact.message || "未記入"}`,
-        `─────────────────────────────`,
         `管理画面: https://ikenoyashoji.jp/admin`,
-        `送信日時: ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}`,
-      ];
+        `送信日時: ${sentAt}`,
+      ].join("\n");
+      const htmlBody = `<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f4f6f9;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:32px 16px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+        <!-- ヘッダー -->
+        <tr>
+          <td style="background:linear-gradient(135deg,#0f2044 0%,#1a4b99 100%);padding:32px 40px;">
+            <p style="margin:0 0 4px 0;color:rgba(255,255,255,0.7);font-size:12px;letter-spacing:2px;text-transform:uppercase;">IKENOYA SHOJI Co.,Ltd.</p>
+            <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;letter-spacing:0.5px;">お問い合わせ通知</h1>
+          </td>
+        </tr>
+        <!-- 種別バッジ -->
+        <tr>
+          <td style="padding:28px 40px 0;">
+            <span style="display:inline-block;background:${typeColor};color:#fff;font-size:13px;font-weight:700;padding:6px 16px;border-radius:20px;letter-spacing:1px;">${typeLabel}</span>
+            <p style="margin:12px 0 0;color:#555;font-size:14px;">${sentAt} に新しいお問い合わせが届きました。</p>
+          </td>
+        </tr>
+        <!-- 内容テーブル -->
+        <tr>
+          <td style="padding:24px 40px;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+              <tr style="border-bottom:1px solid #edf0f5;">
+                <td style="padding:12px 0;color:#888;font-size:13px;font-weight:600;width:100px;">お名前</td>
+                <td style="padding:12px 0;color:#1a1a2e;font-size:15px;font-weight:600;">${contact.name} 様</td>
+              </tr>
+              <tr style="border-bottom:1px solid #edf0f5;">
+                <td style="padding:12px 0;color:#888;font-size:13px;font-weight:600;">メール</td>
+                <td style="padding:12px 0;"><a href="mailto:${contact.email}" style="color:#1a4b99;font-size:15px;text-decoration:none;">${contact.email}</a></td>
+              </tr>
+              <tr style="border-bottom:1px solid #edf0f5;">
+                <td style="padding:12px 0;color:#888;font-size:13px;font-weight:600;">電話番号</td>
+                <td style="padding:12px 0;color:#1a1a2e;font-size:15px;">${contact.phone || '<span style="color:#bbb;">未記入</span>'}</td>
+              </tr>
+              <tr style="border-bottom:1px solid #edf0f5;">
+                <td style="padding:12px 0;color:#888;font-size:13px;font-weight:600;">会社名</td>
+                <td style="padding:12px 0;color:#1a1a2e;font-size:15px;">${contact.company || '<span style="color:#bbb;">未記入</span>'}</td>
+              </tr>
+              <tr>
+                <td style="padding:16px 0 8px;color:#888;font-size:13px;font-weight:600;vertical-align:top;">メッセージ</td>
+                <td style="padding:16px 0 8px;color:#1a1a2e;font-size:14px;line-height:1.7;white-space:pre-wrap;">${(contact.message || "未記入").replace(/</g,"&lt;").replace(/>/g,"&gt;")}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- CTAボタン -->
+        <tr>
+          <td style="padding:8px 40px 36px;">
+            <a href="https://ikenoyashoji.jp/admin/contacts" style="display:inline-block;background:linear-gradient(135deg,#1a4b99,#1d4ed8);color:#ffffff;font-size:14px;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;letter-spacing:0.5px;">管理画面で確認する →</a>
+          </td>
+        </tr>
+        <!-- フッター -->
+        <tr>
+          <td style="background:#f4f6f9;padding:20px 40px;border-top:1px solid #edf0f5;">
+            <p style="margin:0;color:#aaa;font-size:12px;line-height:1.6;">このメールは <strong>ikenoyashoji.jp</strong> のお問い合わせフォームから自動送信されました。<br>株式会社池ノ谷商事 / 〒243-0303 神奈川県愛甲郡愛川町中津7287</p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
       import("nodemailer").then(({ createTransport }) => {
         const transporter = createTransport({ host: smtpHost, port: smtpPort, secure: smtpPort === 465, auth: { user: smtpUser, pass: smtpPass } });
         transporter.sendMail({
           from: `株式会社池ノ谷商事 <${smtpFrom}>`,
           to: "info@ikenoyashoji.co.jp",
           subject: `【お問い合わせ】${typeLabel} - ${contact.name}様`,
-          text: bodyLines.join("\n"),
+          text: plainText,
+          html: htmlBody,
         }).catch((e: Error) => console.error("[ContactNotify] メール送信失敗:", e.message));
       });
     }
