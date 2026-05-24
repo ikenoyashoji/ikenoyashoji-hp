@@ -232,10 +232,10 @@ export default function Recruit() {
               <div className="w-8 h-0.5 bg-[#1d4ed8] mx-auto" />
             </div>
           </AnimateIn>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 items-stretch">
             {positions.map((p, i) => (
-              <AnimateIn key={p.title} delay={i * 60}>
-                <div className="bg-white border border-gray-100 p-8 hover:border-[#1d4ed8] transition-colors group" data-testid={`card-position-${i}`}>
+              <AnimateIn key={p.title} delay={i * 60} className="h-full">
+                <div className="bg-white border border-gray-100 p-8 hover:border-[#1d4ed8] transition-colors group h-full flex flex-col" data-testid={`card-position-${i}`}>
                   <div className="flex items-start justify-between mb-4">
                     <h3 className="font-semibold text-gray-900 text-sm leading-tight flex-1">{p.title}</h3>
                     <span className={`ml-3 text-xs px-2 py-0.5 flex-shrink-0 ${p.badge === "正社員" ? "bg-[#0f2044] text-white" : "bg-gray-100 text-gray-600"}`}>{p.badge}</span>
@@ -247,15 +247,17 @@ export default function Recruit() {
                       <span key={f} className="border border-gray-200 text-gray-500 text-xs px-2 py-0.5">{f}</span>
                     ))}
                   </div>
-                  <Link href="/contact?type=recruit">
-                    <button
-                      className="flex items-center gap-2 border border-[#1d4ed8] text-[#1d4ed8] hover:bg-[#1d4ed8] hover:text-white text-xs px-5 py-2 transition-colors"
-                      onClick={() => trackEvent("cta_contact_click", { location: "recruit_position" })}
-                      data-testid={`button-apply-${i}`}
-                    >
-                      <Mail className="w-3 h-3" /> 応募する
-                    </button>
-                  </Link>
+                  <div className="mt-auto">
+                    <Link href="/contact?type=recruit">
+                      <button
+                        className="flex items-center gap-2 border border-[#1d4ed8] text-[#1d4ed8] hover:bg-[#1d4ed8] hover:text-white text-xs px-5 py-2 transition-colors"
+                        onClick={() => trackEvent("cta_contact_click", { location: "recruit_position" })}
+                        data-testid={`button-apply-${i}`}
+                      >
+                        <Mail className="w-3 h-3" /> 応募する
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </AnimateIn>
             ))}
@@ -310,16 +312,16 @@ export default function Recruit() {
               <p className="text-gray-500 text-sm">未経験からでも、ステップアップできる環境があります。</p>
             </div>
           </AnimateIn>
-          <div className="grid md:grid-cols-4 gap-0 relative">
+          <div className="grid md:grid-cols-4 gap-0 relative items-stretch">
             {careerPath.map((c, i) => (
-              <AnimateIn key={c.stage} delay={i * 100}>
-                <div className="relative">
+              <AnimateIn key={c.stage} delay={i * 100} className="h-full">
+                <div className="relative h-full">
                   {i < careerPath.length - 1 && (
                     <div className="hidden md:block absolute right-0 top-8 translate-x-1/2 z-10">
                       <ArrowRight className="w-4 h-4 text-[#1d4ed8]" />
                     </div>
                   )}
-                  <div className={`border ${c.color} p-6 mx-1 h-full`}>
+                  <div className={`border ${c.color} p-6 mx-1 h-full flex flex-col`}>
                     <div className={`text-xs tracking-[0.3em] mb-1 ${c.stage === "5年目〜" ? "text-blue-300" : "text-[#1d4ed8]"}`}>{c.period}</div>
                     <div className={`text-lg font-bold mb-2 ${c.stage === "5年目〜" ? "text-white" : "text-gray-900"}`}>{c.stage}</div>
                     <div className="w-6 h-0.5 bg-[#1d4ed8] mb-3" />
@@ -406,10 +408,10 @@ export default function Recruit() {
               <p className="text-gray-500 text-sm">最短1週間以内での内定を目指しています。</p>
             </div>
           </AnimateIn>
-          <div className="grid md:grid-cols-5 gap-0">
+          <div className="grid md:grid-cols-5 gap-0 items-stretch">
             {applicationFlow.map((f, i) => (
-              <AnimateIn key={f.step} delay={i * 80}>
-                <div className="relative bg-gray-50 border border-gray-100 p-6 mx-1 text-center hover:border-[#1d4ed8] transition-colors">
+              <AnimateIn key={f.step} delay={i * 80} className="h-full">
+                <div className="relative bg-gray-50 border border-gray-100 p-6 mx-1 text-center hover:border-[#1d4ed8] transition-colors h-full flex flex-col">
                   {i < applicationFlow.length - 1 && (
                     <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-3 h-3 border-t border-r border-gray-300 rotate-45 bg-gray-50" />
                   )}
