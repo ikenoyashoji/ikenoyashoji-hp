@@ -222,7 +222,7 @@ export default function AdminAutoPublish() {
                         <span className="text-gray-700 truncate block">{entry.title}</span>
                       </div>
                       <div className="flex items-center gap-1.5 flex-shrink-0">
-                        {entry.imageGenerated && <Image className="w-3 h-3 text-blue-400" title="画像あり" />}
+                        {entry.imageGenerated && <span title="画像あり"><Image className="w-3 h-3 text-blue-400" /></span>}
                         <span className={`px-1.5 py-0.5 text-[10px] ${entry.status === "published" ? "bg-black text-white" : "bg-gray-100 text-gray-500"}`}>
                           {entry.status === "published" ? "公開" : "下書き"}
                         </span>

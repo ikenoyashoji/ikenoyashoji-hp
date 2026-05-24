@@ -61,7 +61,7 @@ async function migrateArticleImages() {
     const allArticles = await storage.getArticles();
     const noImageArticles = allArticles.filter(a => !a.imageUrl || a.imageUrl === "");
     for (const article of noImageArticles) {
-      const img = CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES["default"];
+      const img = CATEGORY_IMAGES[article.category ?? ""] || CATEGORY_IMAGES["default"];
       await storage.updateArticle(article.id, { imageUrl: img });
     }
     if (noImageArticles.length > 0) {
@@ -319,7 +319,7 @@ function rateLimit(opts: { windowMs: number; max: number; keyFn?: (req: Request)
 // Clean up expired entries every 10 minutes
 setInterval(() => {
   const now = Date.now();
-  for (const [k, v] of rateLimitStore) {
+  for (const [k, v] of Array.from(rateLimitStore)) {
     if (now > v.resetAt) rateLimitStore.delete(k);
   }
 }, 600_000).unref();
@@ -443,7 +443,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   app.post("/api/admin/articles/:id/unpublish", requireAdmin, async (req, res) => {
-    const article = await storage.updateArticle(Number(req.params.id), { status: "draft", publishedAt: null as any });
+    const article = await storage.updateArticle(Number(req.params.id), { status: "draft", publishedAt: null } as any);
     res.json(article);
   });
 
@@ -1034,7 +1034,7 @@ CTR：${(ctr * 100).toFixed(1)}%
   app.post("/api/admin/settings/test-openai", requireAdmin, async (_req, res) => {
     if (!process.env.OPENAI_API_KEY) return res.status(503).json({ error: "OPENAI_API_KEYが設定されていません" });
     try {
-      const { default: OpenAI } = await import("openai");
+      const { default: OpenAI } = await import("openai" as any);
       const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       const r = await client.chat.completions.create({ model: "gpt-4o", messages: [{ role: "user", content: "ping" }], max_tokens: 5 });
       res.json({ success: true, model: r.model, message: "OpenAI APIへの接続が確認できました" });

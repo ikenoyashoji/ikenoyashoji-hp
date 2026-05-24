@@ -154,7 +154,7 @@ export default function Recruit() {
 
       {/* Hero */}
       <section className="relative mt-[100px]">
-        <img src={truckHeroImg} alt="採用情報" className="w-full h-auto block" fetchpriority="high" loading="eager" decoding="async" />
+        <img src={truckHeroImg} alt="採用情報" className="w-full h-auto block" fetchPriority="high" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
         <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-8">
           <div className="text-center">

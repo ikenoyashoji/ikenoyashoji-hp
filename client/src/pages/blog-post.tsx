@@ -44,7 +44,7 @@ export default function BlogPost() {
   })();
 
   const extractHeadings = (html: string) => {
-    const matches = [...html.matchAll(/<h([23])[^>]*>(.*?)<\/h[23]>/gi)];
+    const matches = Array.from(html.matchAll(/<h([23])[^>]*>(.*?)<\/h[23]>/gi));
     return matches.map((m) => ({
       level: parseInt(m[1]),
       text: m[2].replace(/<[^>]+>/g, ""),

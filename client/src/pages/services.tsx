@@ -161,7 +161,7 @@ export default function Services() {
 
       {/* Hero */}
       <section className="mt-[100px] relative overflow-hidden">
-        <img src={heroImg} alt="事業紹介" className="w-full h-auto block" fetchpriority="high" loading="eager" decoding="async" />
+        <img src={heroImg} alt="事業紹介" className="w-full h-auto block" fetchPriority="high" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)", backgroundSize: "60px 60px" }} />
         <div className="absolute inset-0 flex items-center justify-center"><div className="max-w-5xl mx-auto w-full text-center px-8">

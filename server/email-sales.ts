@@ -42,7 +42,7 @@ async function callOpenAI(messages: any[], systemPrompt: string): Promise<string
 function extractEmails(html: string): string[] {
   const pattern = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/g;
   const found = html.match(pattern) || [];
-  return [...new Set(found)].filter(
+  return Array.from(new Set(found)).filter(
     (e) => !e.includes("example") && !e.includes("sentry") && !e.includes("wpcf7") && !e.includes("jquery")
   );
 }
@@ -209,9 +209,7 @@ async function findEmailOnSite(rootUrl: string): Promise<string> {
   });
 
   // 3. Combine heuristic paths + discovered internal links (unique, first 8)
-  const pathsToTry = [
-    ...new Set([...internalLinks, ...CONTACT_PATHS]),
-  ].slice(0, 8);
+  const pathsToTry = Array.from(new Set([...internalLinks, ...CONTACT_PATHS])).slice(0, 8);
 
   for (const path of pathsToTry) {
     await new Promise((r) => setTimeout(r, 400));
@@ -537,7 +535,7 @@ export async function runEmailSalesPipeline(): Promise<{ crawled: number; genera
 }
 
 // ── Cron ──────────────────────────────────────────────────────────────────────
-let cronTask: cron.ScheduledTask | null = null;
+let cronTask: ReturnType<typeof cron.schedule> | null = null;
 
 export function startEmailSalesCron(cronTime = "0 10 * * *") {
   if (cronTask) { cronTask.stop(); cronTask = null; }

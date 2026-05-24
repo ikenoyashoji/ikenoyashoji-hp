@@ -216,7 +216,7 @@ JSON形式のみで出力（説明・コメント不要）：
   }
 }
 
-let cronTask: cron.ScheduledTask | null = null;
+let cronTask: ReturnType<typeof cron.schedule> | null = null;
 
 export function startCron(cronTime: string) {
   if (cronTask) { cronTask.stop(); cronTask = null; }
