@@ -7,12 +7,12 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { CheckCircle, Mail, ArrowRight, Star, TrendingUp, Shield, Clock } from "lucide-react";
-import truckHeroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
-import recruitImg1 from "@assets/1F4EB5CB-29A3-47D1-9277-E1E76987A7B8_1779460775107.PNG";
-import recruitImg2 from "@assets/0A6767E5-1451-438C-B486-1782B1297F10_1779460775108.PNG";
-import recruitImg3 from "@assets/3A3C76C0-4233-44A3-B457-22FF64E8AF06_1779460775109.PNG";
-import recruitImg4 from "@assets/BC6D7FFA-B15E-457A-8DC2-C1E0FA25B943_1779460775109.PNG";
-import recruitImg5 from "@assets/B30768FD-5A67-43D6-A365-9C50F0948EAC_1779460775109.PNG";
+import truckHeroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.webp";
+import recruitImg1 from "@assets/1F4EB5CB-29A3-47D1-9277-E1E76987A7B8_1779460775107.webp";
+import recruitImg2 from "@assets/0A6767E5-1451-438C-B486-1782B1297F10_1779460775108.webp";
+import recruitImg3 from "@assets/3A3C76C0-4233-44A3-B457-22FF64E8AF06_1779460775109.webp";
+import recruitImg4 from "@assets/BC6D7FFA-B15E-457A-8DC2-C1E0FA25B943_1779460775109.webp";
+import recruitImg5 from "@assets/B30768FD-5A67-43D6-A365-9C50F0948EAC_1779460775109.webp";
 
 function useCountUp(target: number, duration = 1400) {
   const [count, setCount] = useState(0);
@@ -154,7 +154,7 @@ export default function Recruit() {
 
       {/* Hero */}
       <section className="relative mt-[100px]">
-        <img src={truckHeroImg} alt="採用情報" className="w-full h-auto block" />
+        <img src={truckHeroImg} alt="採用情報" className="w-full h-auto block" fetchpriority="high" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
         <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-8">
           <div className="text-center">
@@ -174,7 +174,7 @@ export default function Recruit() {
           <div className="flex animate-recruit-slide" style={{ width: "max-content" }}>
             {[...recruitImgs, ...recruitImgs].map((img, i) => (
               <div key={i} className="flex-shrink-0 h-64 w-44 overflow-hidden mr-3">
-                <img src={img} alt={`スタッフ写真 ${(i % recruitImgs.length) + 1}`} className="w-full h-full object-cover object-top" />
+                <img src={img} alt={`スタッフ写真 ${(i % recruitImgs.length) + 1}`} className="w-full h-full object-cover object-top" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>

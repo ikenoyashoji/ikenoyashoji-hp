@@ -12,9 +12,9 @@ import { SplashScreen } from "@/components/splash-screen";
 import Home from "@/pages/home";
 
 // ヒーロー画像（スプラッシュ中に先読みするため先行インポート）
-import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_1779426563754.PNG";
-import heroCold from "@assets/hero_warehouse_cold.png";
-import heroInterior from "@assets/hero_warehouse_interior.png";
+import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_1779426563754.webp";
+import heroCold from "@assets/hero_warehouse_cold.webp";
+import heroInterior from "@assets/hero_warehouse_interior.webp";
 
 import { SplashContext } from "@/lib/splash-context";
 

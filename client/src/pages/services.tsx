@@ -6,15 +6,15 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { ArrowRight, Truck, Warehouse, Network, BarChart3, Shield, Wrench } from "lucide-react";
-import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
-import serviceImg01 from "@assets/4A8E31BC-A53B-4581-BFDB-808A56C9285B_1779426681105.PNG";
-import serviceImg02 from "@assets/CD5B5D20-9501-48AD-AD3B-EDD91D28BA1F_1779426738532.PNG";
-import serviceImg03 from "@assets/0878E4B7-4446-434F-9882-22577A67DDBD_1779426777782.PNG";
-import serviceImg04 from "@assets/32441AFB-7881-4D18-AC34-2DBF80A87B7F_1779426843675.PNG";
-import serviceImg05 from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.PNG";
-import serviceImg06 from "@assets/3EF77FFF-E87F-4925-A5AD-B58610F4588C_1779426911532.PNG";
-import serviceImg07 from "@assets/4EDD08B8-A65F-40A7-93F3-7F0D21C63C92_1779427089063.PNG";
-import serviceImg08 from "@assets/スクリーンショット_2026-05-22_14.19.00_1779427152403.png";
+import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.webp";
+import serviceImg01 from "@assets/4A8E31BC-A53B-4581-BFDB-808A56C9285B_1779426681105.webp";
+import serviceImg02 from "@assets/CD5B5D20-9501-48AD-AD3B-EDD91D28BA1F_1779426738532.webp";
+import serviceImg03 from "@assets/0878E4B7-4446-434F-9882-22577A67DDBD_1779426777782.webp";
+import serviceImg04 from "@assets/32441AFB-7881-4D18-AC34-2DBF80A87B7F_1779426843675.webp";
+import serviceImg05 from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.webp";
+import serviceImg06 from "@assets/3EF77FFF-E87F-4925-A5AD-B58610F4588C_1779426911532.webp";
+import serviceImg07 from "@assets/4EDD08B8-A65F-40A7-93F3-7F0D21C63C92_1779427089063.webp";
+import serviceImg08 from "@assets/スクリーンショット_2026-05-22_14.19.00_1779427152403.webp";
 
 const services = [
   {
@@ -161,7 +161,7 @@ export default function Services() {
 
       {/* Hero */}
       <section className="mt-[100px] relative overflow-hidden">
-        <img src={heroImg} alt="事業紹介" className="w-full h-auto block" />
+        <img src={heroImg} alt="事業紹介" className="w-full h-auto block" fetchpriority="high" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f2044]/80 via-[#0f2044]/60 to-[#0f2044]/90" />
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%)", backgroundSize: "60px 60px" }} />
         <div className="absolute inset-0 flex items-center justify-center"><div className="max-w-5xl mx-auto w-full text-center px-8">
@@ -205,6 +205,8 @@ export default function Services() {
                       src={s.img}
                       alt={s.title}
                       className="w-full h-auto block group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   {/* Text */}

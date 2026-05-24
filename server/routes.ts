@@ -284,9 +284,12 @@ async function generateArticleImage(title: string, keyword: string, category?: s
   const b64 = data.data[0].b64_json as string;
   const buffer = Buffer.from(b64, "base64");
 
-  const filename = `ai-gen-${Date.now()}.png`;
+  const filename = `ai-gen-${Date.now()}.webp`;
   const savePath = path.join(uploadsDir, filename);
-  fs.writeFileSync(savePath, buffer);
+  // Convert to WebP for smaller file size
+  const sharp = await import("sharp");
+  const webpBuffer = await sharp.default(buffer).webp({ quality: 85 }).toBuffer();
+  fs.writeFileSync(savePath, webpBuffer);
 
   return `/uploads/${filename}`;
 }

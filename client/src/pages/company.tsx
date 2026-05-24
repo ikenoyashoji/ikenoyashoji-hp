@@ -6,7 +6,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { CheckCircle } from "lucide-react";
-import buildingImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
+import buildingImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.webp";
 
 function useCountUp(target: number, duration = 2800) {
   const [count, setCount] = useState(0);

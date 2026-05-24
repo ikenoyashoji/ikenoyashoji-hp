@@ -5,7 +5,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { Shield, Lock, Eye, UserCheck, Trash2, Mail, FileText, Cookie, Server, AlertCircle } from "lucide-react";
-import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
+import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.webp";
 
 const sections = [
   {

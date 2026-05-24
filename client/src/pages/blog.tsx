@@ -12,7 +12,7 @@ import { Search } from "lucide-react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 
-import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
+import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.webp";
 
 const categories = ["すべて", "物流コラム", "採用情報", "お知らせ"];
 

@@ -5,7 +5,7 @@ import { AnimateIn } from "@/components/animate-in";
 import { useEffect } from "react";
 import { trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
-import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.png";
+import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.webp";
 
 const values = [
   { num: "01", title: "人間らしさ", sub: "Humanity", desc: "感謝、礼儀、誠実さを忘れずに、人として胸を張れる生き方を積み重ねる。「ありがとう」の連鎖が仕事の価値を生み、仲間との絆を深めます。" },
