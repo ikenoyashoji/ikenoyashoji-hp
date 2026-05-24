@@ -129,6 +129,8 @@ function fmtDate(s: string | null) {
   try { return format(parseISO(s), "M/d HH:mm", { locale: ja }); } catch { return s; }
 }
 
+const DEFAULT_SUBJECT = "【池ノ谷商事】物流サービスのご提案";
+
 function defaultBody(company?: string) {
   const header = company ? `${company}\n\n` : "";
   return `${header}平素よりお世話になっております。株式会社池ノ谷商事です。
@@ -193,7 +195,7 @@ export default function AdminEmailSales() {
     onSuccess: async (res) => {
       const data = await res.json();
       await queryClient.invalidateQueries({ queryKey: ["/api/admin/email-leads"] });
-      setEditSubject(data.emailSubject || "");
+      setEditSubject(data.emailSubject || DEFAULT_SUBJECT);
       setEditBody(data.emailBody || defaultBody(selected?.company));
       setEditMode(false);
       toast({ title: "メールを生成しました" });
@@ -297,7 +299,7 @@ export default function AdminEmailSales() {
 
   const handleSelectLead = (lead: any) => {
     setSelectedId(lead.id);
-    setEditSubject(lead.emailSubject || "");
+    setEditSubject(lead.emailSubject || DEFAULT_SUBJECT);
     setEditBody(lead.emailBody || defaultBody(lead.company));
     setEditMode(false);
   };
@@ -498,7 +500,7 @@ export default function AdminEmailSales() {
                           <BookmarkPlus className="w-3 h-3" /> 保存
                         </button>
                         <button className="px-2.5 py-1.5 border border-gray-200 text-gray-600 text-xs hover:border-black"
-                          onClick={() => { setEditMode(false); setEditSubject(selected.emailSubject || ""); setEditBody(selected.emailBody || defaultBody(selected.company)); }}>
+                          onClick={() => { setEditMode(false); setEditSubject(selected.emailSubject || DEFAULT_SUBJECT); setEditBody(selected.emailBody || defaultBody(selected.company)); }}>
                           キャンセル
                         </button>
                         <button className="px-2.5 py-1.5 bg-gray-800 text-white text-xs hover:bg-black"
