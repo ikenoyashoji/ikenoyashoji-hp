@@ -23,18 +23,21 @@ const CATEGORY_LABEL: Record<string, string> = {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 async function callOpenAI(messages: any[], systemPrompt: string): Promise<string> {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = (process.env.OPENAI_API_KEY || "").trim();
   if (!apiKey) throw new Error("OPENAI_API_KEY not configured");
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
     body: JSON.stringify({
-      model: "gpt-4o",
+      model: "gpt-4o-mini",
       messages: [{ role: "system", content: systemPrompt }, ...messages],
       temperature: 0.7,
     }),
   });
-  if (!res.ok) throw new Error(`OpenAI error: ${res.status}`);
+  if (!res.ok) {
+    const errText = await res.text().catch(() => "");
+    throw new Error(`OpenAI error: ${res.status} ${errText}`);
+  }
   const data = (await res.json()) as any;
   return data.choices[0].message.content as string;
 }
@@ -527,7 +530,7 @@ export async function runEmailSalesPipeline(): Promise<{ crawled: number; genera
 
 // ── Cron ──────────────────────────────────────────────────────────────────────
 let cronTask: ReturnType<typeof cron.schedule> | null = null;
-let cronPaused = false;
+let cronPaused = true;
 
 export function getCronPaused() { return cronPaused; }
 export function setCronPaused(v: boolean) { cronPaused = v; console.log(`[EmailSales] Cron ${v ? "paused" : "resumed"}`); }

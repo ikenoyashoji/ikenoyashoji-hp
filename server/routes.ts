@@ -1187,7 +1187,7 @@ CTR：${(ctr * 100).toFixed(1)}%
   let crawlStatus: { running: boolean; added: number; finishedAt: string | null } = {
     running: false, added: 0, finishedAt: null,
   };
-  let cronPausedLocal = false;
+  let cronPausedLocal = true;
 
   app.get("/api/admin/email-sales/crawl-status", requireAdmin, (_req, res) => {
     res.json(crawlStatus);
