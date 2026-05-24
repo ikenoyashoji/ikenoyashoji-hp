@@ -570,7 +570,7 @@ export default function AdminEmailSales() {
                       <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">
                         <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
                           <Mail className="w-3.5 h-3.5" />
-                          <span>From: 株式会社池ノ谷商事 &lt;info@ikenoyashoji.jp&gt;　Reply-To: sales@ikenoyashoji.fun</span>
+                          <span>From: 株式会社池ノ谷商事 &lt;sales@ikenoyashoji.fun&gt;</span>
                         </div>
                         <div className="text-xs text-gray-500 mb-2">To: {selected.email || "（メールなし）"}</div>
                         <div className="text-sm font-semibold text-gray-900">{selected.emailSubject}</div>
