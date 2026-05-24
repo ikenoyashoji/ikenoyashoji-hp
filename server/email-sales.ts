@@ -388,10 +388,6 @@ function buildHtmlEmail(body: string, unsubscribeToken?: string): string {
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <style>
-    @keyframes logoPulse {
-      0%,100% { box-shadow:0 0 0 0 rgba(147,197,253,0.55); }
-      50% { box-shadow:0 0 0 14px rgba(147,197,253,0); }
-    }
     @keyframes fadeSlideDown {
       from { opacity:0;transform:translateY(-10px); }
       to { opacity:1;transform:translateY(0); }
@@ -401,9 +397,7 @@ function buildHtmlEmail(body: string, unsubscribeToken?: string): string {
       50% { background-position:100% 50%; }
       100% { background-position:0% 50%; }
     }
-    .logo-ring { animation:logoPulse 2.5s ease-in-out infinite; }
     .hd-title { animation:fadeSlideDown 0.7s ease forwards; }
-    .hd-sub { animation:fadeSlideDown 0.7s 0.18s ease both; }
     .accent-bar {
       background:linear-gradient(90deg,#1a4b99,#3b82f6,#60a5fa,#3b82f6,#1a4b99);
       background-size:200% 200%;
@@ -412,17 +406,16 @@ function buildHtmlEmail(body: string, unsubscribeToken?: string): string {
   </style>
 </head>
 <body style="margin:0;padding:0;background:#dce7f5;font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#dce7f5;padding:32px 16px;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#dce7f5;padding:28px 16px;">
     <tr>
       <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;border-radius:8px;overflow:hidden;box-shadow:0 6px 32px rgba(15,32,68,0.18);">
+        <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;border-radius:8px;overflow:hidden;box-shadow:0 6px 32px rgba(15,32,68,0.18);">
 
           <!-- HEADER -->
           <tr>
-            <td style="background:linear-gradient(160deg,#050e1f 0%,#0f2044 28%,#1a4b99 68%,#2563eb 100%);padding:44px 44px 40px 44px;text-align:center;">
-              <p class="hd-title" style="margin:0 0 6px 0;font-size:11px;letter-spacing:0.38em;color:#93c5fd;font-weight:400;text-transform:uppercase;">Ikenoyashoji Co., Ltd.</p>
-              <p class="hd-title" style="margin:0 0 10px 0;font-size:26px;font-weight:800;color:#ffffff;letter-spacing:0.06em;">株式会社池ノ谷商事</p>
-              <p class="hd-sub" style="margin:0;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.14em;">物流・運送サービスのご案内</p>
+            <td style="background:linear-gradient(160deg,#1d4ed8 0%,#2563eb 30%,#3b82f6 65%,#60a5fa 100%);padding:40px 40px 36px 40px;text-align:center;">
+              <p class="hd-title" style="margin:0 0 6px 0;font-size:11px;letter-spacing:0.38em;color:rgba(255,255,255,0.85);font-weight:400;">Ikenoyashoji Co., Ltd.</p>
+              <p class="hd-title" style="margin:0 0 10px 0;font-size:24px;font-weight:800;color:#ffffff;letter-spacing:0.06em;font-family:'Hiragino Mincho ProN','Yu Mincho','游明朝',Georgia,serif;">株式会社池ノ谷商事</p>
             </td>
           </tr>
 
@@ -431,38 +424,36 @@ function buildHtmlEmail(body: string, unsubscribeToken?: string): string {
 
           <!-- BODY -->
           <tr>
-            <td style="padding:40px 44px 28px 44px;background:#ffffff;">
+            <td style="padding:36px 40px 24px 40px;background:#ffffff;">
               ${paragraphs}
             </td>
           </tr>
 
           <!-- CTA -->
           <tr>
-            <td style="padding:4px 44px 40px 44px;background:#ffffff;">
+            <td style="padding:4px 40px 36px 40px;background:#ffffff;">
               <table cellpadding="0" cellspacing="0"><tr>
                 <td style="background:linear-gradient(135deg,#1a4b99 0%,#2563eb 100%);border-radius:4px;box-shadow:0 4px 14px rgba(37,99,235,0.35);">
-                  <a href="mailto:info@ikenoyashoji.co.jp" style="display:inline-block;padding:15px 36px;color:#ffffff;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.1em;">メールでお問い合わせ →</a>
+                  <a href="mailto:info@ikenoyashoji.co.jp" style="display:inline-block;padding:14px 32px;color:#ffffff;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.1em;">メールでお問い合わせ →</a>
                 </td>
               </tr></table>
             </td>
           </tr>
 
           <!-- DIVIDER -->
-          <tr><td style="padding:0 44px;background:#ffffff;"><hr style="border:none;border-top:1px solid #e2e8f0;margin:0;"/></td></tr>
+          <tr><td style="padding:0 40px;background:#ffffff;"><hr style="border:none;border-top:1px solid #e2e8f0;margin:0;"/></td></tr>
 
           <!-- FOOTER -->
           <tr>
-            <td style="padding:26px 44px 30px 44px;background:#f8fafc;">
-              <p style="margin:0 0 3px 0;font-size:13px;font-weight:800;color:#0f2044;">株式会社池ノ谷商事　営業部</p>
+            <td style="padding:24px 40px 28px 40px;background:#f8fafc;">
+              <p style="margin:0 0 3px 0;font-size:13px;font-weight:800;color:#0f2044;">株式会社池ノ谷商事</p>
               <p style="margin:0 0 3px 0;font-size:11px;color:#64748b;">〒243-0303　神奈川県愛甲郡愛川町中津7287</p>
               <p style="margin:0 0 3px 0;font-size:11px;color:#64748b;">TEL: <a href="tel:046-212-2766" style="color:#1a4b99;text-decoration:none;">046-212-2766</a>　／　Email: <a href="mailto:info@ikenoyashoji.co.jp" style="color:#1a4b99;text-decoration:none;">info@ikenoyashoji.co.jp</a></p>
               <p style="margin:4px 0 0 0;font-size:11px;color:#64748b;">URL: <a href="https://ikenoyashoji.jp" style="color:#1a4b99;text-decoration:none;">https://ikenoyashoji.jp</a></p>
-              ${unsubscribeUrl ? `
-              <p style="margin:20px 0 0 0;padding-top:14px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8;line-height:1.7;">
-                このメールは株式会社池ノ谷商事 営業部よりお送りしております。<br/>
-                今後このようなメールの受信を希望されない場合は<a href="${unsubscribeUrl}" style="color:#94a3b8;text-decoration:underline;">こちらをクリックして配信停止</a>してください。
-              </p>` : `
-              <p style="margin:20px 0 0 0;padding-top:14px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8;line-height:1.7;">このメールは株式会社池ノ谷商事 営業部よりお送りしております。</p>`}
+              <p style="margin:18px 0 0 0;padding-top:14px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8;line-height:1.7;">
+                このメールは株式会社池ノ谷商事よりお送りしております。<br/>
+                ${unsubscribeUrl ? `今後このようなメールの受信を希望されない場合は<a href="${unsubscribeUrl}" style="color:#94a3b8;text-decoration:underline;">こちらをクリックして配信停止</a>してください。` : ""}
+              </p>
             </td>
           </tr>
 
