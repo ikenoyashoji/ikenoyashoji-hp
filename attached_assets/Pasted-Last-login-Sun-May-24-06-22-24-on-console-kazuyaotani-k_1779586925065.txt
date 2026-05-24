@@ -1,0 +1,364 @@
+Last login: Sun May 24 06:22:24 on console
+kazuyaotani@kazuya-MacBook-Air ~ % ssh root@187.77.150.224
+The authenticity of host '187.77.150.224 (187.77.150.224)' can't be established.
+ED25519 key fingerprint is SHA256:xNwXudZ/xC2KU0HBg/ltrA1aR3/AksKWxmEIpMvI+Ik.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+Please type 'yes', 'no' or the fingerprint: yes
+Warning: Permanently added '187.77.150.224' (ED25519) to the list of known hosts.
+root@187.77.150.224's password: 
+Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.8.0-111-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sun May 24 01:40:05 UTC 2026
+
+  System load:  0.0               Processes:             100
+  Usage of /:   4.6% of 47.39GB   Users logged in:       0
+  Memory usage: 8%                IPv4 address for eth0: 187.77.150.224
+  Swap usage:   0%                IPv6 address for eth0: 2a02:4780:5e:b359::1
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+1 update can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+1 updates could not be installed automatically. For more details,
+see /var/log/unattended-upgrades/unattended-upgrades.log
+
+*** System restart required ***
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+root@srv1684288:~# pm2 list
+Command 'pm2' not found, did you mean:
+  command 'gm2' from deb gm2 (4:13.2.0-2ubuntu1)
+  command 'pmc' from deb linuxptp (4.0-1ubuntu1.1)
+  command 'tpm2' from deb tpm2-tools (5.4-1)
+  command 'wm2' from deb wm2 (4+svn20090216-4build1)
+  command 'pm' from deb powerman (2.3.27-4)
+  command 'pom2' from deb libpod-pom-perl (2.01-4)
+  command 'pmw' from deb pmw (1:5.22-1)
+  command 'pmg' from deb python3-pymatgen (2023.06.23+dfsg1-2build1)
+  command 'pms' from deb pms (0.42-1.1)
+Try: apt install <deb name>
+root@srv1684288:~# apt update && apt upgrade -y && apt install -y git curl nginx certbot python3-certbot-nginx
+Hit:1 https://repository.monarx.com/repository/ubuntu-noble noble InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease                   
+Get:3 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:4 http://security.ubuntu.com/ubuntu noble-security/main amd64 Components [42.4 kB]
+Get:5 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:6 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Components [74.3 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]   
+Get:8 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2007 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [177 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1690 kB]
+Get:11 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [386 kB]
+Get:12 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+Get:13 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [5744 B]
+Get:14 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [10.6 kB]
+Fetched 4773 kB in 2s (2515 kB/s)                                  
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+2 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+The following packages have been kept back:
+  cloud-init
+The following packages will be upgraded:
+  snapd
+1 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
+Need to get 35.1 MB of archives.
+After this operation, 291 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 snapd amd64 2.75.2+ubuntu24.04 [35.1 MB]
+Fetched 35.1 MB in 0s (99.6 MB/s)
+(Reading database ... 106761 files and directories currently installed.)
+Preparing to unpack .../snapd_2.75.2+ubuntu24.04_amd64.deb ...
+Unpacking snapd (2.75.2+ubuntu24.04) over (2.74.1+ubuntu24.04.4) ...
+Setting up snapd (2.75.2+ubuntu24.04) ...
+Installing new version of config file /etc/apparmor.d/usr.lib.snapd.snap-confine.real ...
+snapd.failure.service is a disabled or a static unit not running, not starting it.
+snapd.gpio-chardev-setup.target is a disabled or a static unit not running, not starting it.
+snapd.snap-repair.service is a disabled or a static unit not running, not starting it.
+Processing triggers for dbus (1.14.10-4ubuntu4.1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Scanning processes...                                                           
+Scanning linux images...                                                        
+
+Pending kernel upgrade!
+Running kernel version:
+  6.8.0-111-generic
+Diagnostics:
+  The currently running kernel version is not the expected kernel version
+6.8.0-117-generic.
+
+Restarting the system to load the new kernel will not be handled automatically,
+so you should consider rebooting.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+git is already the newest version (1:2.43.0-1ubuntu7.3).
+git set to manually installed.
+curl is already the newest version (8.5.0-2ubuntu10.9).
+curl set to manually installed.
+The following additional packages will be installed:
+  nginx-common python3-acme python3-certbot python3-configargparse python3-icu
+  python3-josepy python3-parsedatetime python3-rfc3339
+Suggested packages:
+  python-certbot-doc python3-certbot-apache fcgiwrap nginx-doc ssl-cert
+  python-acme-doc python-certbot-nginx-doc
+The following NEW packages will be installed:
+  certbot nginx nginx-common python3-acme python3-certbot
+  python3-certbot-nginx python3-configargparse python3-icu python3-josepy
+  python3-parsedatetime python3-rfc3339
+0 upgraded, 11 newly installed, 0 to remove and 1 not upgraded.
+Need to get 1663 kB of archives.
+After this operation, 7297 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 nginx-common all 1.24.0-2ubuntu7.8 [43.9 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 nginx amd64 1.24.0-2ubuntu7.8 [522 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-josepy all 1.14.0-1 [22.1 kB]
+Get:4 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-rfc3339 all 1.1-4 [6744 B]
+Get:5 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-acme all 2.9.0-1 [48.5 kB]
+Get:6 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-configargparse all 1.7-1 [31.7 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-parsedatetime all 2.6-3 [32.8 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-certbot all 2.9.0-1 [267 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble/universe amd64 certbot all 2.9.0-1 [89.2 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-certbot-nginx all 2.9.0-1 [66.0 kB]
+Get:11 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-icu amd64 2.12-1build2 [534 kB]
+Fetched 1663 kB in 0s (12.0 MB/s)      
+Preconfiguring packages ...
+Selecting previously unselected package nginx-common.
+(Reading database ... 106763 files and directories currently installed.)
+Preparing to unpack .../00-nginx-common_1.24.0-2ubuntu7.8_all.deb ...
+Unpacking nginx-common (1.24.0-2ubuntu7.8) ...
+Selecting previously unselected package nginx.
+Preparing to unpack .../01-nginx_1.24.0-2ubuntu7.8_amd64.deb ...
+Unpacking nginx (1.24.0-2ubuntu7.8) ...
+Selecting previously unselected package python3-josepy.
+Preparing to unpack .../02-python3-josepy_1.14.0-1_all.deb ...
+Unpacking python3-josepy (1.14.0-1) ...
+Selecting previously unselected package python3-rfc3339.
+Preparing to unpack .../03-python3-rfc3339_1.1-4_all.deb ...
+Unpacking python3-rfc3339 (1.1-4) ...
+Selecting previously unselected package python3-acme.
+Preparing to unpack .../04-python3-acme_2.9.0-1_all.deb ...
+Unpacking python3-acme (2.9.0-1) ...
+Selecting previously unselected package python3-configargparse.
+Preparing to unpack .../05-python3-configargparse_1.7-1_all.deb ...
+Unpacking python3-configargparse (1.7-1) ...
+Selecting previously unselected package python3-parsedatetime.
+Preparing to unpack .../06-python3-parsedatetime_2.6-3_all.deb ...
+Unpacking python3-parsedatetime (2.6-3) ...
+Selecting previously unselected package python3-certbot.
+Preparing to unpack .../07-python3-certbot_2.9.0-1_all.deb ...
+Unpacking python3-certbot (2.9.0-1) ...
+Selecting previously unselected package certbot.
+Preparing to unpack .../08-certbot_2.9.0-1_all.deb ...
+Unpacking certbot (2.9.0-1) ...
+Selecting previously unselected package python3-certbot-nginx.
+Preparing to unpack .../09-python3-certbot-nginx_2.9.0-1_all.deb ...
+Unpacking python3-certbot-nginx (2.9.0-1) ...
+Selecting previously unselected package python3-icu.
+Preparing to unpack .../10-python3-icu_2.12-1build2_amd64.deb ...
+Unpacking python3-icu (2.12-1build2) ...
+Setting up python3-configargparse (1.7-1) ...
+Setting up python3-parsedatetime (2.6-3) ...
+Setting up python3-icu (2.12-1build2) ...
+Setting up nginx-common (1.24.0-2ubuntu7.8) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/nginx.service → /usr/lib/systemd/system/nginx.service.
+Setting up python3-josepy (1.14.0-1) ...
+Setting up python3-rfc3339 (1.1-4) ...
+Setting up nginx (1.24.0-2ubuntu7.8) ...
+ * Upgrading binary nginx                                                [ OK ] 
+Setting up python3-acme (2.9.0-1) ...
+Setting up python3-certbot (2.9.0-1) ...
+Setting up certbot (2.9.0-1) ...
+Created symlink /etc/systemd/system/timers.target.wants/certbot.timer → /usr/lib/systemd/system/certbot.timer.
+Setting up python3-certbot-nginx (2.9.0-1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for ufw (0.36.2-6) ...
+Scanning processes...                                                           
+Scanning linux images...                                                        
+
+Pending kernel upgrade!
+Running kernel version:
+  6.8.0-111-generic
+Diagnostics:
+  The currently running kernel version is not the expected kernel version
+6.8.0-117-generic.
+
+Restarting the system to load the new kernel will not be handled automatically,
+so you should consider rebooting.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+root@srv1684288:~# curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt install -y nodejs
+2026-05-24 01:40:56 - Installing pre-requisites
+Hit:1 https://repository.monarx.com/repository/ubuntu-noble noble InRelease
+Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+1 package can be upgraded. Run 'apt list --upgradable' to see it.
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+ca-certificates is already the newest version (20240203).
+ca-certificates set to manually installed.
+curl is already the newest version (8.5.0-2ubuntu10.9).
+gnupg is already the newest version (2.4.4-2ubuntu17.4).
+The following NEW packages will be installed:
+  apt-transport-https
+0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+Need to get 3970 B of archives.
+After this operation, 36.9 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 apt-transport-https all 2.8.3 [3970 B]
+Fetched 3970 B in 0s (125 kB/s)         
+Selecting previously unselected package apt-transport-https.
+(Reading database ... 107208 files and directories currently installed.)
+Preparing to unpack .../apt-transport-https_2.8.3_all.deb ...
+Unpacking apt-transport-https (2.8.3) ...
+Setting up apt-transport-https (2.8.3) ...
+Scanning processes...                                                           
+Scanning linux images...                                                        
+
+Pending kernel upgrade!
+Running kernel version:
+  6.8.0-111-generic
+Diagnostics:
+  The currently running kernel version is not the expected kernel version
+6.8.0-117-generic.
+
+Restarting the system to load the new kernel will not be handled automatically,
+so you should consider rebooting.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+Hit:1 https://repository.monarx.com/repository/ubuntu-noble noble InRelease
+Get:2 https://deb.nodesource.com/node_20.x nodistro InRelease [12.1 kB]        
+Hit:3 http://security.ubuntu.com/ubuntu noble-security InRelease               
+Get:4 https://deb.nodesource.com/node_20.x nodistro/main amd64 Packages [14.4 kB]
+Hit:5 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:6 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:7 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Fetched 26.6 kB in 1s (25.0 kB/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+1 package can be upgraded. Run 'apt list --upgradable' to see it.
+2026-05-24 01:41:03 - Repository configured successfully.
+2026-05-24 01:41:03 - To install Node.js, run: apt install nodejs -y
+2026-05-24 01:41:03 - You can use N|solid Runtime as a node.js alternative
+2026-05-24 01:41:03 - To install N|solid Runtime, run: apt install nsolid -y 
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  nodejs
+0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+Need to get 32.2 MB of archives.
+After this operation, 196 MB of additional disk space will be used.
+Get:1 https://deb.nodesource.com/node_20.x nodistro/main amd64 nodejs amd64 20.20.2-1nodesource1 [32.2 MB]
+Fetched 32.2 MB in 0s (77.9 MB/s)
+Selecting previously unselected package nodejs.
+(Reading database ... 107212 files and directories currently installed.)
+Preparing to unpack .../nodejs_20.20.2-1nodesource1_amd64.deb ...
+Unpacking nodejs (20.20.2-1nodesource1) ...
+Setting up nodejs (20.20.2-1nodesource1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Scanning processes...                                                           
+Scanning linux images...                                                        
+
+Pending kernel upgrade!
+Running kernel version:
+  6.8.0-111-generic
+Diagnostics:
+  The currently running kernel version is not the expected kernel version
+6.8.0-117-generic.
+
+Restarting the system to load the new kernel will not be handled automatically,
+so you should consider rebooting.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+root@srv1684288:~# npm install -g pm2
+
+added 90 packages in 7s
+
+8 packages are looking for funding
+  run `npm fund` for details
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 11.15.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.15.0
+npm notice To update run: npm install -g npm@11.15.0
+npm notice
+root@srv1684288:~# mkdir -p /var/www && cd /var/www && git clone https://github.com/ikenoyashoji/ikenoyashoji-hp.git app && cd app && npm install
+Cloning into 'app'...
+remote: Enumerating objects: 4176, done.
+remote: Total 4176 (delta 0), reused 0 (delta 0), pack-reused 4176 (from 1)
+Receiving objects: 100% (4176/4176), 302.87 MiB | 18.63 MiB/s, done.
+Resolving deltas: 100% (3235/3235), done.
+Updating files: 100% (483/483), done.
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+
+added 555 packages, and audited 556 packages in 17s
+
+106 packages are looking for funding
+  run `npm fund` for details
+
+12 vulnerabilities (5 moderate, 7 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+root@srv1684288:/var/www/app# 
