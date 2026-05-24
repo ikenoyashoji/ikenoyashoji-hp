@@ -117,9 +117,9 @@ const companyInfo: { label: string; value: string | string[] }[] = [
     "他（順不同）",
   ]},
   { label: "主要取引銀行", value: [
-    "相愛信用組合 本店",
+    "相愛信用組合",
     "三井住友銀行",
-    "きらぼし銀行 厚木支店",
+    "きらぼし銀行",
   ]},
 ];
 
