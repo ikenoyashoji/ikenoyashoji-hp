@@ -442,9 +442,8 @@ export async function sendLeadEmail(lead: any): Promise<boolean> {
 
   const html = buildHtmlEmail(lead.emailBody || "", lead.unsubscribeToken || "");
 
-  const fromAddr = process.env.SMTP_FROM || process.env.SMTP_USER || "info@ikenoyashoji.jp";
   await transporter.sendMail({
-    from: `"株式会社池ノ谷商事 営業部" <${fromAddr}>`,
+    from: `"株式会社池ノ谷商事" <sales@ikenoyashoji.fun>`,
     replyTo: "sales@ikenoyashoji.fun",
     to: lead.email,
     subject: lead.emailSubject,
