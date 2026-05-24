@@ -25,8 +25,8 @@ const enHeadlines: Record<string, string[]> = {
 };
 
 const badgeColors: Record<string, string> = {
-  "物流コラム": "#e87ea1",
-  "採用情報": "#e87ea1",
+  "物流コラム": "#1d4ed8",
+  "採用情報": "#1d4ed8",
   "協力会社情報": "#6b9fe4",
   "お知らせ": "#6dcca0",
   "事例紹介": "#f0a050",
@@ -64,7 +64,7 @@ function ArticleCard({ article }: { article: any }) {
           <div className="flex items-start justify-between">
             <div className="flex flex-col gap-1">
               <span
-                className="text-white text-[9px] sm:text-[10px] px-2 py-0.5 font-medium tracking-wider inline-block"
+                className="text-white text-[9px] sm:text-[10px] px-2 py-0.5 font-medium tracking-wider self-start w-fit"
                 style={{ backgroundColor: badge }}
               >
                 {article.category}
