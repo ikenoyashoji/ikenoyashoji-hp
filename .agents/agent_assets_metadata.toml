@@ -239,3 +239,9 @@ id = "IdGDUgiwcpZEFzE5R0dRV"
 uri = "file://public/uploads/ai-gen-1779534371104.png"
 type = "image"
 title = "新しいAI生成画像（明るめ）"
+
+[[outputs]]
+id = "tgD0zIw8j0m__qSqk4BzI"
+uri = "file://ikenoyashoji-company-profile-2026.pdf"
+type = "pdf"
+title = "会社案内 2026 - 株式会社池ノ谷商事"
