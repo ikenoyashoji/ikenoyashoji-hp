@@ -146,7 +146,7 @@ export default function About() {
                 <p>これからも池ノ谷商事は、当たり前の日常を支える責任と誇りを持ち、より良い物流、より良い会社づくりを追求し続けてまいります。</p>
               </div>
               <div className="mt-10 pt-8 border-t border-gray-100 text-right">
-                <p className="text-gray-400 text-xs mb-2">代表取締役社長</p>
+                <p className="text-gray-400 text-xs mb-2">代表取締役</p>
                 <img src="/signature.png" alt="池ノ谷 翔" className="h-10 inline-block" />
               </div>
             </div>
