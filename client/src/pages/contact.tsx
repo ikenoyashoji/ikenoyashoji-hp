@@ -207,7 +207,7 @@ export default function Contact() {
                   <FormField control={form.control} name="name" render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-xs text-gray-500 tracking-widest uppercase">お名前 <span className="text-red-500">*</span></FormLabel>
-                      <FormControl><Input {...field} placeholder="山田 太郎" className="border-gray-200 text-sm rounded-none mt-1" data-testid="input-name" /></FormControl>
+                      <FormControl><Input {...field} placeholder="池ノ谷 太郎" className="border-gray-200 text-sm rounded-none mt-1" data-testid="input-name" /></FormControl>
                       <FormMessage className="text-xs" />
                     </FormItem>
                   )} />
