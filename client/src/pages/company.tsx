@@ -209,7 +209,7 @@ export default function Company() {
               { type: "愛川倉庫",     zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津250-1\n（有）青木商事 内", tel: "", fax: "", mapQuery: "神奈川県愛甲郡愛川町中津250-1" },
               { type: "厚木倉庫",     zip: "〒243-0127", address: "神奈川県厚木市森の里紅葉台3-4",      tel: "", fax: "", mapQuery: "神奈川県厚木市森の里紅葉台3-4" },
               { type: "愛川第一車庫", zip: "〒243-0303", address: "神奈川県愛甲郡愛川町中津7294",       tel: "", fax: "", mapQuery: "神奈川県愛甲郡愛川町中津7294" },
-              { type: "相模原車庫",   zip: "〒252-0244", address: "神奈川県相模原市中央区田名4905",     tel: "", fax: "", mapQuery: "神奈川県相模原市中央区田名4905" },
+              { type: "相模原車庫",   zip: "〒252-0244", address: "神奈川県相模原市中央区田名4905-1",     tel: "", fax: "", mapQuery: "神奈川県相模原市中央区田名4905-1" },
             ];
             const card = (loc: typeof locs[0], i: number) => (
               <AnimateIn key={i} delay={i * 60} className="h-full">
@@ -284,7 +284,7 @@ export default function Company() {
                 { year: "2026年2月", event: "愛川倉庫（神奈川県愛甲郡愛川町中津250-1）を開設。倉庫事業へ進出" },
                 { year: "2026年3月", event: "一般社団法人神奈川県トラック協会 加盟" },
                 { year: "2026年5月", event: "愛川第一車庫（神奈川県愛甲郡愛川町中津7294）を開設" },
-                { year: "2026年5月", event: "相模原車庫（神奈川県相模原市中央区田名4905）を開設" },
+                { year: "2026年5月", event: "相模原車庫（神奈川県相模原市中央区田名4905-1）を開設" },
                 { year: "2026年5月", event: "厚木営業所・厚木倉庫（神奈川県厚木市森の里紅葉台3-4）を開設" },
               ].map((item, i) => (
                 <AnimateIn key={i} delay={i * 50}>
