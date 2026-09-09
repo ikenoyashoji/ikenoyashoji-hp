@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { AnimateIn } from "@/components/animate-in";
-import { Footer } from "@/components/footer";
 import { Phone, ArrowRight, Clock3, MapPin, Truck, Warehouse, ChevronDown } from "lucide-react";
 import { trackEvent, trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
@@ -165,6 +164,20 @@ export default function Lp() {
             </div>
           </div>
           <div className="absolute bottom-0 right-0 hidden h-24 w-[42%] bg-[#0f2044] [clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)] md:block" />
+        </section>
+
+        <section className="bg-[#1655b3] px-5 py-5 text-white sm:px-8 sm:py-7">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-[10px] font-semibold tracking-[0.34em] text-white/70">荷主様向け・全国対応</p>
+              <p className="mt-1 text-sm font-medium tracking-wide">今日、トラックが必要になった方へ</p>
+            </div>
+            <PhoneButton
+              location="hero_band"
+              label="今すぐ電話で相談する"
+              className="w-full bg-white px-5 py-3 text-[#0f2044] shadow-lg shadow-[#0f2044]/10 hover:bg-[#eef5fc] sm:w-auto sm:px-7"
+            />
+          </div>
         </section>
 
         <section className="bg-[#0f2044] px-5 py-12 text-white sm:px-8 sm:py-16">
@@ -333,17 +346,20 @@ export default function Lp() {
           </div>
         </section>
 
-        <section className="border-t border-gray-100 px-5 py-12 sm:px-8">
-          <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-5 sm:flex-row">
-            <p className="text-xs leading-6 text-gray-500">株式会社池ノ谷商事の事業内容や会社情報はこちら</p>
-            <Link href="/services" className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-[#1a4b99] hover:text-[#1d4ed8]">
-              事業紹介を見る <ArrowRight className="h-4 w-4" />
-            </Link>
+        <section className="border-t border-gray-100 bg-[#f7fbff] px-5 py-9 sm:px-8">
+          <div className="mx-auto flex max-w-5xl flex-col gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+            <div>
+              <p className="text-sm font-semibold tracking-wide text-[#0f2044]">株式会社池ノ谷商事</p>
+              <p className="mt-1 text-[11px] text-gray-500">緊急のトラック手配・全国の輸送相談</p>
+            </div>
+            <div className="flex items-center justify-center gap-3 text-[11px] text-gray-500 sm:justify-end">
+              <Link href="/privacy" className="hover:text-[#1d4ed8]">個人情報保護方針</Link>
+              <span className="text-gray-300">／</span>
+              <Link href="/" className="hover:text-[#1d4ed8]">コーポレートサイト</Link>
+            </div>
           </div>
         </section>
       </main>
-
-      <Footer />
 
       <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-white/20 bg-[#0f2044] px-3 py-2.5 shadow-[0_-4px_20px_rgba(15,32,68,0.18)] md:hidden">
         <PhoneButton location="mobile_fixed" compact className="w-full text-white" />
