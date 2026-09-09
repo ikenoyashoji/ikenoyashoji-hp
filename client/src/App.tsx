@@ -27,6 +27,7 @@ const Company       = lazy(() => import("@/pages/company"));
 const About         = lazy(() => import("@/pages/about"));
 const Services      = lazy(() => import("@/pages/services"));
 const Contact       = lazy(() => import("@/pages/contact"));
+const Lp            = lazy(() => import("@/pages/lp"));
 const Privacy       = lazy(() => import("@/pages/privacy"));
 const SitemapPage   = lazy(() => import("@/pages/sitemap"));
 
@@ -62,6 +63,7 @@ function usePrefetch() {
     import("@/pages/about");
     import("@/pages/services");
     import("@/pages/contact");
+    import("@/pages/lp");
     import("@/pages/privacy");
     import("@/pages/blog-post");
   }, [location]);
@@ -123,6 +125,7 @@ function Router() {
         <Route path="/services" component={Services} />
         <Route path="/sitemap" component={SitemapPage} />
         <Route path="/contact" component={Contact} />
+        <Route path="/lp" component={Lp} />
         <Route path="/privacy" component={Privacy} />
 
         <Route path="/admin/login" component={AdminLogin} />
