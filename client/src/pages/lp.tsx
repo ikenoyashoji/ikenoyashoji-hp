@@ -289,7 +289,10 @@ export default function Lp() {
           <div className="relative mx-auto max-w-4xl text-center">
             <p className="mb-4 text-[10px] font-semibold tracking-[0.42em] text-[#1d4ed8]">CONTACT US</p>
             <h2 className="font-serif text-3xl font-bold leading-[1.45] text-[#0f2044] sm:text-5xl">緊急のトラック手配は、<br />まずはお電話ください。</h2>
-            <p className="mx-auto mt-6 max-w-xl text-sm leading-7 text-gray-600">急な配送、スポット便、定期輸送。まだ内容が固まっていない段階でも、お気軽にご相談ください。</p>
+            <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-gray-600">
+              <span className="block">急な配送、スポット便、定期輸送。</span>
+              <span className="block">まだ内容が固まっていない段階でも、お気軽にご相談ください。</span>
+            </p>
             <PhoneButton
               location="bottom"
               className="mt-9 bg-[#164da3] px-6 py-5 text-white shadow-lg shadow-[#164da3]/20 hover:bg-[#0f2044] sm:px-10 sm:py-6"
