@@ -103,7 +103,6 @@ export default function Lp() {
             src={heroTruck}
             alt="高速道路を走るトラック"
             className="absolute inset-0 h-full w-full object-cover object-[62%_center] md:object-center"
-            fetchPriority="high"
             loading="eager"
             decoding="async"
           />
@@ -114,9 +113,9 @@ export default function Lp() {
               <AnimateIn>
                 <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.48em] text-[#1a4b99] sm:text-xs">Ikenoyashoji logistics service</p>
                 <div className="mb-5 h-px w-12 bg-[#1d4ed8]" />
-                <h1 className="font-serif text-[2.55rem] font-bold leading-[1.12] tracking-[0.02em] text-[#0f2044] sm:text-6xl lg:text-[5.15rem]">
-                  緊急のトラック手配。
-                  <span className="mt-2 block text-[#164da3]">まずはお電話ください。</span>
+                <h1 className="max-w-3xl font-serif text-[2.05rem] font-bold leading-[1.18] tracking-[0.02em] text-[#0f2044] sm:text-6xl lg:text-[3.5rem] xl:text-[4.15rem]">
+                  <span className="block sm:whitespace-nowrap">緊急のトラック手配。</span>
+                  <span className="mt-2 block sm:whitespace-nowrap text-[#164da3]">まずはお電話ください。</span>
                 </h1>
                 <p className="mt-7 max-w-md text-sm leading-8 text-gray-600 sm:text-base">
                   急な配送、車両不足、当日・翌日の輸送相談に。<br className="hidden sm:block" />
