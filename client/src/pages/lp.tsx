@@ -64,7 +64,7 @@ function PhoneButton({ location, className = "", compact = false }: { location: 
 export default function Lp() {
   useEffect(() => {
     trackPageView("/lp");
-    const description = "緊急のトラック手配なら池ノ谷商事。急な配送・当日配送・スポット便・チャーター便・定期輸送まで、2t・4t・大型車両で神奈川・東京・関東の輸送相談に対応します。";
+    const description = "緊急のトラック手配なら池ノ谷商事。急な配送・当日配送・スポット便・チャーター便・定期輸送まで、2t・4t・大型車両で全国の輸送相談に対応します。";
     setSeo({
       title: "緊急のトラック手配｜急な配送・スポット便は池ノ谷商事",
       description,
@@ -79,9 +79,9 @@ export default function Lp() {
         "@type": "LocalBusiness",
         name: "株式会社池ノ谷商事",
         telephone: phoneNumber,
-        areaServed: ["神奈川県", "東京都", "関東"],
+        areaServed: "全国",
       },
-      areaServed: "神奈川県・東京都・関東",
+      areaServed: "全国",
       description,
       serviceType: ["緊急配送", "スポット便", "チャーター便", "定期輸送"],
     };
@@ -119,7 +119,7 @@ export default function Lp() {
                 </h1>
                 <p className="mt-7 max-w-md text-sm leading-8 text-gray-600 sm:text-base">
                   急な配送、車両不足、当日・翌日の輸送相談に。<br className="hidden sm:block" />
-                  2t・4t・大型車両のスポット便・チャーター便・定期輸送まで、神奈川・東京・関東圏の物流を支えます。
+                  2t・4t・大型車両のスポット便・チャーター便・定期輸送まで、全国の物流を支えます。
                 </p>
               </AnimateIn>
 
@@ -171,7 +171,7 @@ export default function Lp() {
                 急なスポット配送から継続的な定期輸送まで、荷主様の状況に合わせて輸送方法をご提案します。
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                {["神奈川・東京・関東", "2t・4t・大型", "スポット・定期"].map((item) => (
+                {["全国対応", "2t・4t・大型", "スポット・定期"].map((item) => (
                   <span key={item} className="border border-[#c8d8ef] bg-white px-4 py-2 text-xs font-medium tracking-wide text-[#1a4b99]">{item}</span>
                 ))}
               </div>
@@ -297,7 +297,7 @@ export default function Lp() {
               location="bottom"
               className="mt-9 bg-[#164da3] px-6 py-5 text-white shadow-lg shadow-[#164da3]/20 hover:bg-[#0f2044] sm:px-10 sm:py-6"
             />
-            <p className="mt-4 flex items-center justify-center gap-2 text-[11px] text-gray-500"><MapPin className="h-3.5 w-3.5 text-[#1d4ed8]" />神奈川・東京・関東圏の輸送相談</p>
+            <p className="mt-4 flex items-center justify-center gap-2 text-[11px] text-gray-500"><MapPin className="h-3.5 w-3.5 text-[#1d4ed8]" />全国の輸送相談</p>
           </div>
         </section>
 
