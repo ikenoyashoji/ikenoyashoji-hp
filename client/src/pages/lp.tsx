@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { AnimateIn } from "@/components/animate-in";
-import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { Phone, ArrowRight, Check, Clock3, MapPin, Truck, Warehouse, ChevronDown } from "lucide-react";
+import { Phone, ArrowRight, Clock3, MapPin, Truck, Warehouse, ChevronDown } from "lucide-react";
 import { trackEvent, trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_1779426563754.webp";
@@ -17,6 +16,33 @@ const phoneHref = "tel:0462122766";
 const phoneCta = (location: string) => {
   trackEvent("cta_phone_click", { location, phone: phoneNumber });
 };
+
+function LpHeader() {
+  return (
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur">
+      <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-4 sm:px-8 lg:px-12">
+        <Link href="/" className="flex items-center" aria-label="池ノ谷商事ホーム">
+          <img src="/logo-full.jpg" alt="株式会社池ノ谷商事" className="h-10 w-auto object-contain sm:h-12" />
+        </Link>
+        <div className="flex items-center gap-3 sm:gap-6">
+          <span className="hidden text-xs font-medium tracking-[0.12em] text-gray-500 sm:block">荷主様向け・全国対応</span>
+          <a
+            href={phoneHref}
+            onClick={() => phoneCta("lp_header")}
+            className="flex items-center gap-2 bg-[#0f2044] px-3 py-2 text-white transition-colors hover:bg-[#164da3] sm:gap-3 sm:px-5 sm:py-2.5"
+            data-testid="link-lp-phone-header"
+          >
+            <Phone className="h-4 w-4" strokeWidth={1.8} />
+            <span className="text-left">
+              <span className="hidden text-[9px] tracking-[0.12em] text-white/70 sm:block">まずは電話で相談する</span>
+              <span className="text-sm font-semibold tracking-wide sm:text-base">{phoneNumber}</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </header>
+  );
+}
 
 const concerns = [
   { number: "01", title: "急な配送に\n対応できる車両がない", detail: "急な案件や納期変更で、車両の手配にお困りではありませんか？" },
@@ -43,7 +69,7 @@ const faqs = [
   { q: "見積もりだけでも相談できますか？", a: "可能です。配送内容をお伺いしたうえで、条件に合わせてご案内します。お気軽にご相談ください。" },
 ];
 
-function PhoneButton({ location, className = "", compact = false }: { location: string; className?: string; compact?: boolean }) {
+function PhoneButton({ location, className = "", compact = false, label = "まずは電話で相談する" }: { location: string; className?: string; compact?: boolean; label?: string }) {
   return (
     <a
       href={phoneHref}
@@ -53,7 +79,7 @@ function PhoneButton({ location, className = "", compact = false }: { location: 
     >
       <Phone className={compact ? "h-4 w-4" : "h-5 w-5"} strokeWidth={1.8} />
       <span className="text-left">
-        {!compact && <span className="block text-[10px] font-medium tracking-[0.16em] opacity-75">緊急のトラック手配・輸送相談</span>}
+        {!compact && <span className="block text-[10px] font-medium tracking-[0.16em] opacity-75">{label}</span>}
         <span className={`block font-semibold tracking-[0.06em] ${compact ? "text-base" : "text-2xl sm:text-3xl"}`}>{phoneNumber}</span>
       </span>
       {!compact && <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />}
@@ -95,10 +121,10 @@ export default function Lp() {
 
   return (
     <div className="min-h-screen bg-white text-[#111827] pb-16 md:pb-0">
-      <Header />
+      <LpHeader />
 
       <main>
-        <section className="relative mt-[100px] min-h-[650px] overflow-hidden bg-[#eef5fc] sm:min-h-[720px]">
+        <section className="relative mt-[74px] min-h-[650px] overflow-hidden bg-[#eef5fc] sm:min-h-[720px]">
           <img
             src={heroTruck}
             alt="高速道路を走るトラック"
@@ -113,13 +139,16 @@ export default function Lp() {
               <AnimateIn>
                 <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.48em] text-[#1a4b99] sm:text-xs">Ikenoyashoji logistics service</p>
                 <div className="mb-5 h-px w-12 bg-[#1d4ed8]" />
-                <h1 className="max-w-3xl font-serif text-[clamp(1.7rem,5.5vw,4.15rem)] font-bold leading-[1.18] tracking-[0.02em] text-[#0f2044]">
-                  <span className="block" style={{ whiteSpace: "nowrap" }}>緊急のトラック手配。</span>
-                  <span className="mt-2 block text-[#164da3]" style={{ whiteSpace: "nowrap" }}>まずはお電話ください。</span>
+                <h1 className="max-w-3xl font-serif text-[clamp(1.45rem,5.5vw,4.15rem)] font-bold leading-[1.18] tracking-[0.02em] text-[#0f2044]">
+                  <span className="block" style={{ whiteSpace: "nowrap" }}>緊急のトラック手配なら</span>
+                  <span className="mt-2 block text-[0.82em] text-[#164da3]" style={{ whiteSpace: "nowrap" }}>
+                    <span className="hidden sm:inline">今日、トラックが必要になった方へ。</span>
+                    <span className="sm:hidden">今日、必要になった方へ。</span>
+                  </span>
                 </h1>
                 <p className="mt-7 max-w-md text-sm leading-8 text-gray-600 sm:text-base">
-                  急な配送、車両不足、当日・翌日の輸送相談に。<br className="hidden sm:block" />
-                  2t・4t・大型車両のスポット便・チャーター便・定期輸送まで、全国の物流を支えます。
+                  急な配送、車両不足、当日・翌日の輸送相談に。<br />
+                  荷物や納期がまだ整理できていなくても、わかる範囲でお聞かせください。
                 </p>
               </AnimateIn>
 
@@ -128,7 +157,10 @@ export default function Lp() {
                   location="hero"
                   className="mt-8 bg-[#0f2044] px-5 py-4 text-white shadow-xl shadow-[#0f2044]/15 hover:bg-[#164da3] sm:px-7 sm:py-5"
                 />
-                <p className="mt-3 text-[11px] tracking-[0.08em] text-gray-500">配送内容・納期・車両のご希望をお聞かせください</p>
+                <p className="mt-3 text-[11px] leading-5 tracking-[0.04em] text-gray-500">
+                  荷物・納期・配送先がわかる範囲で大丈夫です。<br />
+                  「今日運べるかだけ聞きたい」というご相談もOKです。
+                </p>
               </AnimateIn>
             </div>
           </div>
