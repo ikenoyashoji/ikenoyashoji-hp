@@ -8,6 +8,7 @@ import heroAerial from "@assets/hero_aerial_logistics.webp";
 import transportImg from "@assets/BE3582A6-2E5C-49C7-8922-B23D966DDB2B_1779581062877.webp";
 import warehouseImg from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.webp";
 import heroWoman from "@assets/woman_hero_enhanced.png";
+import heroTruck from "@assets/hero_truck_clean.png";
 
 const phoneNumber = "046-212-2766";
 const phoneHref = "tel:0462122766";
@@ -89,10 +90,15 @@ function MobileHero() {
         <p className="mt-2 text-[10px] tracking-[0.14em] text-white/70">NATIONWIDE LOGISTICS</p>
       </div>
 
-      <p className="absolute left-[5%] top-[210px] z-10 font-black leading-[0.92] tracking-[-0.08em] text-white">
-        <span className="block whitespace-nowrap text-[13.5vw]">急な配車も、</span>
-        <span className="mt-2 block whitespace-nowrap text-[19vw]">電話一本。</span>
+      <p className="absolute left-[53%] top-[226px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[42vw] font-black leading-none tracking-[-0.08em] text-white">
+        運ぶ。
       </p>
+
+      <img
+        src={heroTruck}
+        alt="緊急配送に対応するトラック"
+        className="absolute bottom-[64px] right-[-38%] z-20 w-[145%] max-w-none drop-shadow-[0_18px_28px_rgba(0,22,70,0.28)]"
+      />
 
       <img
         src={heroWoman}
@@ -115,10 +121,15 @@ function DesktopHero() {
         <p className="mt-3 text-xs tracking-[0.14em] text-white/70">IKENOYASHOJI LOGISTICS SERVICE</p>
       </div>
 
-      <p className="absolute left-[5%] top-[180px] z-10 font-black leading-[0.9] tracking-[-0.08em] text-white">
-        <span className="block whitespace-nowrap text-[clamp(4.5rem,8.5vw,8rem)]">急な配車も、</span>
-        <span className="mt-3 block whitespace-nowrap text-[clamp(6rem,11vw,10rem)]">電話一本。</span>
+      <p className="absolute left-[55%] top-[190px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[clamp(14rem,28vw,26rem)] font-black leading-none tracking-[-0.08em] text-white">
+        運ぶ。
       </p>
+
+      <img
+        src={heroTruck}
+        alt="緊急配送に対応するトラック"
+        className="absolute bottom-[-20px] right-[2%] z-20 w-[59%] max-w-none drop-shadow-[0_22px_34px_rgba(0,22,70,0.28)]"
+      />
 
       <img
         src={heroWoman}
