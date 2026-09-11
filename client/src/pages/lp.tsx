@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import "@fontsource/noto-sans-jp/400.css";
+import "@fontsource/noto-sans-jp/700.css";
+import "@fontsource/noto-sans-jp/900.css";
 import { AnimateIn } from "@/components/animate-in";
 import { Phone, ArrowRight, Clock3, MapPin, Truck, Warehouse, ChevronDown } from "lucide-react";
 import { trackEvent, trackPageView } from "@/lib/analytics";
@@ -125,7 +128,74 @@ export default function Lp() {
       <LpHeader />
 
       <main>
-        <section className="relative mt-[74px] min-h-[650px] overflow-hidden bg-[#eef5fc] sm:min-h-[720px]">
+        <section
+          className="relative mt-[74px] h-[720px] overflow-hidden bg-white md:hidden"
+          style={{ fontFamily: '"Noto Sans JP", sans-serif' }}
+        >
+          <div className="absolute -right-24 top-0 h-[350px] w-[340px] rotate-[12deg] bg-[#eef4ff]" />
+          <div className="absolute -left-24 top-[286px] h-[235px] w-[540px] -rotate-[8deg] bg-[#1a4b99] [clip-path:polygon(0_8%,100%_0,88%_100%,5%_88%)]" />
+          <div className="absolute -right-20 top-[354px] h-[250px] w-[310px] rotate-[8deg] bg-[#1d4ed8] [clip-path:polygon(15%_0,100%_8%,88%_100%,0_84%)]" />
+          <div className="absolute left-0 top-0 z-30 w-full px-5 pt-7">
+            <p className="text-[9px] font-bold uppercase tracking-[0.32em] text-[#1a4b99]">
+              Ikenoyashoji logistics service
+            </p>
+            <div className="mt-3 h-0.5 w-10 bg-[#1d4ed8]" />
+            <h1 className="mt-4 text-[#0f2044]">
+              <span className="block text-[10px] font-bold tracking-[0.14em] text-[#1a4b99]">
+                緊急のトラック手配なら池ノ谷商事
+              </span>
+              <span className="mt-2 block text-[52px] font-black leading-[0.88] tracking-[-0.075em]">
+                トラック、
+              </span>
+              <span className="mt-1 block text-[52px] font-black leading-[0.88] tracking-[-0.075em] text-[#1d4ed8]">
+                足りてますか？
+              </span>
+            </h1>
+            <p className="mt-4 inline-block -rotate-1 bg-[#1a4b99] px-3.5 py-2 text-[15px] font-black tracking-[0.04em] text-white shadow-lg shadow-[#0f2044]/15">
+              急な配車、電話一本。
+            </p>
+          </div>
+
+          <img
+            src="/assets/truck-lp/truck.png"
+            alt="白い4tウイングトラック"
+            className="pointer-events-none absolute -left-[112px] top-[255px] z-10 w-[520px] max-w-none -rotate-[2deg] object-contain"
+            loading="eager"
+            decoding="async"
+          />
+          <img
+            src="/assets/truck-lp/woman.png"
+            alt="黒いスーツを着た女性"
+            className="pointer-events-none absolute -right-[135px] top-[210px] z-20 h-[455px] w-auto max-w-none object-contain"
+            loading="eager"
+            decoding="async"
+          />
+
+          <div className="absolute inset-x-4 bottom-[74px] z-40 bg-[#0f2044] p-3.5 shadow-[0_18px_45px_rgba(15,32,68,0.28)]">
+            <a
+              href={phoneHref}
+              onClick={() => phoneCta("hero_mobile")}
+              className="flex items-center justify-between gap-3 text-white"
+              data-testid="link-lp-phone-hero-mobile"
+            >
+              <span className="flex items-center gap-2.5">
+                <Phone className="h-5 w-5 flex-none" strokeWidth={2} />
+                <span>
+                  <span className="block text-[8px] font-bold tracking-[0.18em] text-white/65">全国の輸送相談</span>
+                  <span className="block text-[22px] font-black tracking-[0.04em]">{phoneNumber}</span>
+                </span>
+              </span>
+              <span className="bg-[#1d4ed8] px-3 py-3 text-center text-[11px] font-black leading-tight">
+                今すぐ<br />電話する
+              </span>
+            </a>
+          </div>
+          <p className="absolute inset-x-5 bottom-[49px] z-40 text-center text-[9px] font-medium tracking-[0.04em] text-[#0f2044]/65">
+            荷物・納期・配送先がわかる範囲で大丈夫です
+          </p>
+        </section>
+
+        <section className="relative mt-[74px] hidden min-h-[650px] overflow-hidden bg-[#eef5fc] sm:min-h-[720px] md:block">
           <img
             src={heroTruck}
             alt="高速道路を走るトラック"
@@ -185,7 +255,7 @@ export default function Lp() {
           <div className="absolute bottom-0 right-0 hidden h-24 w-[42%] bg-[#0f2044] [clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)] md:block" />
         </section>
 
-        <section className="bg-[#1655b3] px-5 py-5 text-white sm:px-8 sm:py-7">
+        <section className="hidden bg-[#1655b3] px-5 py-5 text-white sm:px-8 sm:py-7 md:block">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-[10px] font-semibold tracking-[0.34em] text-white/70">荷主様向け・全国対応</p>

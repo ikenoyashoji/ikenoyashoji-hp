@@ -233,27 +233,46 @@ id = "0KEIMgoxM6TqCSFgJvJpP"
 uri = "file://public/uploads/ai-gen-1779534086977.png"
 type = "image"
 title = "AI生成画像（物流の2024年問題）"
+logical_id = "90b9818a-91a8-43b1-b020-c5ab39e1785e"
 
 [[outputs]]
 id = "IdGDUgiwcpZEFzE5R0dRV"
 uri = "file://public/uploads/ai-gen-1779534371104.png"
 type = "image"
 title = "新しいAI生成画像（明るめ）"
+logical_id = "4601b1fb-ad20-4270-8c33-3b2ba4d5f6d1"
 
 [[outputs]]
 id = "tgD0zIw8j0m__qSqk4BzI"
 uri = "file://ikenoyashoji-company-profile-2026.pdf"
 type = "pdf"
 title = "会社案内 2026 - 株式会社池ノ谷商事"
+logical_id = "34635d7b-53c1-4420-a5fb-8fba3e142152"
 
 [[outputs]]
 id = "1wD74kxaqhYKWk5Jskk19"
 uri = "file://ikenoyashoji-premium-2026.pdf"
 type = "pdf"
 title = "会社案内 2026 プレミアム版 - 株式会社池ノ谷商事"
+logical_id = "d7d1988c-f674-4258-a042-a3b5c1f1c9a4"
 
 [[outputs]]
 id = "KEOTil7ZoqNxdx_z95Dl8"
 uri = "file://ikenoyashoji-landscape-2026.pdf"
 type = "pdf"
 title = "会社案内 2026 横向専用版 - 株式会社池ノ谷商事"
+logical_id = "e7d4cee5-2a09-4a19-9de6-0918feeaca59"
+
+[[outputs]]
+id = "WKgB6XrITgikMTT5x5WdS"
+uri = "file://screenshots/lp-mobile-390-final.png"
+type = "image"
+title = "LPヒーロー 390px最終確認"
+description = "生成した透過PNGの女性と4tウイングトラックをHTML/CSSで重ねたスマホ用ヒーローです。"
+logical_id = "d8b6f6f1-2173-48b9-ba9a-f6642256efeb"
+content_hash = "sha256:b830398f874dc41e663eae3a8d4843a682d13730ba5967c2eadb34e20623ce6c"
+size = 192525
+mtime_ms = 1789132441280
+storage_uri = "gcs://replit-rams-assets-pike/rams/assets/repl:7c469e98-6e40-47c3-95cc-46d4a9098860/d8b6f6f1-2173-48b9-ba9a-f6642256efeb/d849e6ca-fda5-44f0-ac33-26e9068df2c5"
+storage_version_token = "1789132492633359"
+content_type = "image/png"
