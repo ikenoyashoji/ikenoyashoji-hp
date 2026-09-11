@@ -8,7 +8,6 @@ import heroAerial from "@assets/hero_aerial_logistics.webp";
 import transportImg from "@assets/BE3582A6-2E5C-49C7-8922-B23D966DDB2B_1779581062877.webp";
 import warehouseImg from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.webp";
 import heroWoman from "@assets/woman_hero_enhanced.png";
-import heroTruck from "@assets/hero_truck_clean.png";
 
 const phoneNumber = "046-212-2766";
 const phoneHref = "tel:0462122766";
@@ -96,12 +95,6 @@ function MobileHero() {
       </p>
 
       <img
-        src={heroTruck}
-        alt="緊急配送に対応するトラック"
-        className="absolute bottom-[64px] right-[-38%] z-20 w-[145%] max-w-none drop-shadow-[0_18px_28px_rgba(0,22,70,0.28)]"
-      />
-
-      <img
         src={heroWoman}
         alt="物流手配を担当するスタッフ"
         loading="eager"
@@ -126,12 +119,6 @@ function DesktopHero() {
         <span className="block whitespace-nowrap text-[clamp(4.5rem,8.5vw,8rem)]">急な配車も、</span>
         <span className="mt-3 block whitespace-nowrap text-[clamp(6rem,11vw,10rem)]">電話一本。</span>
       </p>
-
-      <img
-        src={heroTruck}
-        alt="緊急配送に対応するトラック"
-        className="absolute bottom-[-20px] right-[2%] z-20 w-[59%] max-w-none drop-shadow-[0_22px_34px_rgba(0,22,70,0.28)]"
-      />
 
       <img
         src={heroWoman}
