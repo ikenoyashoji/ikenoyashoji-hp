@@ -90,8 +90,9 @@ function MobileHero() {
         <p className="mt-2 text-[10px] tracking-[0.14em] text-white/70">NATIONWIDE LOGISTICS</p>
       </div>
 
-      <p className="absolute left-[53%] top-[226px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[38vw] font-black leading-none tracking-[-0.08em] text-white">
-        運ぶ。
+      <p className="absolute left-1/2 top-[142px] z-10 w-max -translate-x-1/2 text-center text-[17vw] font-black leading-[1.08] tracking-[-0.06em] text-white">
+        <span className="block">運ぶ信頼</span>
+        <span className="block">届ける真心</span>
       </p>
 
       <img
@@ -119,8 +120,9 @@ function DesktopHero() {
         <p className="mt-3 text-xs tracking-[0.14em] text-white/70">IKENOYASHOJI LOGISTICS SERVICE</p>
       </div>
 
-      <p className="absolute left-[55%] top-[190px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[clamp(13rem,26vw,24rem)] font-black leading-none tracking-[-0.08em] text-white">
-        運ぶ。
+      <p className="absolute left-1/2 top-[92px] z-10 w-max -translate-x-1/2 text-center text-[clamp(5.5rem,10vw,9.5rem)] font-black leading-[1.02] tracking-[-0.055em] text-white">
+        <span className="block">運ぶ信頼</span>
+        <span className="block">届ける真心</span>
       </p>
 
       <img
