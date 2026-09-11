@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { AnimateIn } from "@/components/animate-in";
-import { Phone, ArrowRight, Clock3, MapPin, Truck, Warehouse, ChevronDown, Check, ShieldCheck, ArrowUpRight } from "lucide-react";
+import { Phone, ArrowRight, Clock3, MapPin, Truck, Warehouse, ChevronDown, Check, ArrowUpRight } from "lucide-react";
 import { trackEvent, trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import heroAerial from "@assets/hero_aerial_logistics.webp";
@@ -170,90 +170,33 @@ export default function Lp() {
         <MobileHero />
         <DesktopHero />
 
-        <section className="bg-[#0f2044] px-5 py-14 text-white sm:px-8 sm:py-20">
-          <div className="relative mx-auto max-w-7xl">
-            <AnimateIn>
-              <div className="flex flex-col gap-5 border-l border-white/40 pl-5 sm:flex-row sm:items-end sm:justify-between sm:pl-7">
-                <div>
-                  <p className="text-[10px] font-bold tracking-[0.42em] text-[#b7d5f7]">WHEN TIME MATTERS</p>
-                  <h2 className="mt-3 text-2xl font-bold leading-tight sm:text-4xl">その「困った」を、<br className="sm:hidden" />今日の輸送に変える。</h2>
-                </div>
-                <p className="max-w-xs text-xs leading-7 text-white/65">急な配送、納期変更、車両不足。状況が整理できていなくても大丈夫です。</p>
-              </div>
-            </AnimateIn>
-            <div className="mt-12 grid gap-3 md:grid-cols-3">
-              {concerns.map((item, index) => (
-                <AnimateIn key={item.number} delay={index * 90}>
-                  <article className="group min-h-[210px] border-t border-white/25 p-6 transition-colors hover:bg-white/[0.06] sm:p-8">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-sm text-[#b7d5f7]">{item.number} / 03</span>
-                      <ArrowUpRight className="h-5 w-5 text-white/35 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-                    </div>
-                    <h3 className="mt-9 whitespace-pre-line text-lg font-bold leading-[1.55]">{item.title}</h3>
-                    <p className="mt-4 text-xs leading-6 text-white/55">{item.detail}</p>
-                  </article>
-                </AnimateIn>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-[#f4f8fd] px-5 py-20 sm:px-8 sm:py-28">
-          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-            <AnimateIn direction="left">
-              <p className="text-[10px] font-bold tracking-[0.42em] text-[#1763c7]">THE IKENOYASHOJI STANDARD</p>
-              <h2 className="mt-5 text-4xl font-black leading-[1.25] tracking-tight text-[#0f2044] sm:text-6xl">必要な車両を、<br /><span className="text-[#0758c8]">必要なときに。</span></h2>
-              <div className="mt-8 h-px w-20 bg-[#0758c8]" />
-              <p className="mt-8 max-w-md text-sm leading-8 text-[#52657f]">池ノ谷商事は、神奈川県愛川町を拠点に、一般貨物運送・貨物利用運送・倉庫管理を行う物流会社です。急なスポット配送から継続的な定期輸送まで、荷主様の状況に合わせて輸送方法をご提案します。</p>
-              <div className="mt-8 grid grid-cols-2 gap-y-3 text-xs font-bold text-[#0f2044] sm:grid-cols-3">
-                {["全国対応", "2t・4t・大型", "スポット・定期"].map((item) => <span key={item} className="flex items-center gap-2"><Check className="h-4 w-4 text-[#0758c8]" />{item}</span>)}
-              </div>
-            </AnimateIn>
-            <AnimateIn delay={120} direction="right">
-              <div className="relative ml-auto max-w-2xl">
-                <img src={transportImg} alt="輸送車両と配送現場" className="relative aspect-[4/3] w-full object-cover" loading="lazy" />
-                <div className="absolute bottom-0 right-0 bg-[#0758c8] px-5 py-4 text-white sm:px-8 sm:py-6">
-                  <p className="font-mono text-[10px] tracking-[0.2em] text-white/65">TRUST IN MOTION</p>
-                  <p className="mt-1 text-lg font-bold">運ぶ信頼、届ける真心</p>
-                </div>
-              </div>
-            </AnimateIn>
-          </div>
-        </section>
-
-        <section className="bg-white px-5 py-20 sm:px-8 sm:py-28">
+        <section className="bg-white px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24">
           <div className="mx-auto max-w-7xl">
-            <AnimateIn>
-              <div className="flex flex-col justify-between gap-5 border-b border-[#dbe8f5] pb-8 sm:flex-row sm:items-end">
-                <div><p className="text-[10px] font-bold tracking-[0.42em] text-[#0758c8]">ONE CALL, MANY SOLUTIONS</p><h2 className="mt-4 text-3xl font-black text-[#0f2044] sm:text-5xl">緊急配送から定期輸送まで</h2></div>
-                <p className="max-w-xs text-xs leading-6 text-[#687b94]">荷物と納期を確認し、最適な輸送方法を一緒に考えます。</p>
-              </div>
-            </AnimateIn>
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
-              {services.map((item, index) => { const Icon = item.icon; return <AnimateIn key={item.number} delay={index * 100}><article className="group h-full border-t border-[#9bbfe6] p-7 transition-colors duration-300 hover:bg-[#f4f8fd] sm:p-9"><div className="flex items-start justify-between"><span className="font-mono text-sm text-[#0758c8]">{item.number}</span><Icon className="h-7 w-7 text-[#0758c8]" strokeWidth={1.5} /></div><h3 className="mt-10 text-xl font-bold text-[#0f2044]">{item.title}</h3><p className="mt-4 text-sm leading-7 text-[#5b6f89]">{item.text}</p><div className="mt-8 h-px w-10 bg-[#0758c8] transition-all group-hover:w-16" /></article></AnimateIn> })}
+            <AnimateIn><p className="text-[10px] font-bold tracking-[0.48em] text-[#0758c8]">WHEN TIME MATTERS</p><h2 className="mt-7 max-w-5xl text-[clamp(3.1rem,10vw,8.5rem)] font-black leading-[.92] tracking-[-.08em] text-[#0f2044]">その「困った」を、<br /><span className="text-[#0758c8]">今日の輸送に。</span></h2><p className="mt-9 max-w-sm text-sm leading-8 text-[#52657f]">急な配送、納期変更、車両不足。状況が整理できていなくても、まずはご相談ください。</p></AnimateIn>
+            <div className="mt-16 grid border-t border-[#dbe8f5] md:grid-cols-3">
+              {concerns.map((item, index) => <AnimateIn key={item.number} delay={index * 90}><article className="border-b border-[#dbe8f5] py-7 md:border-b-0 md:border-r md:px-8 md:first:pl-0 md:last:border-r-0"><div className="flex justify-between"><span className="font-mono text-xs text-[#0758c8]">{item.number}</span><ArrowUpRight className="h-4 w-4 text-[#0758c8]" /></div><h3 className="mt-8 whitespace-pre-line text-lg font-bold leading-[1.55] text-[#0f2044]">{item.title}</h3><p className="mt-4 text-xs leading-6 text-[#63758d]">{item.detail}</p></article></AnimateIn>)}
             </div>
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-[#0f2044] px-5 py-20 text-white sm:px-8 sm:py-28">
-          <img src={heroAerial} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-20" loading="lazy" />
-          <div className="absolute inset-0 bg-[#0f2044]/85" />
-          <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-center">
-            <AnimateIn direction="left"><p className="text-[10px] font-bold tracking-[0.42em] text-[#b7d5f7]">THE RIGHT TRUCK FOR THE JOB</p><h2 className="mt-5 text-3xl font-black leading-[1.35] sm:text-5xl">車両の選定まで、<br />こちらで引き受けます。</h2><p className="mt-6 max-w-xl text-sm leading-8 text-white/65">荷物の大きさ・納品先の条件・納期を確認して、2t・4t・大型車両を中心に適した輸送方法をご案内します。</p><div className="mt-9 grid max-w-xl grid-cols-3 border-y border-white/20">{vehicles.map((vehicle) => <div key={vehicle.title} className="px-3 py-5 sm:px-5"><p className="text-xl font-bold text-[#b7d5f7] sm:text-2xl">{vehicle.title}</p><p className="mt-2 text-[10px] leading-5 text-white/55">{vehicle.text}</p></div>)}</div></AnimateIn>
-            <AnimateIn delay={120} direction="right"><div className="relative"><img src={warehouseImg} alt="池ノ谷商事の物流現場" className="aspect-[4/3] w-full object-cover" loading="lazy" /><div className="absolute bottom-0 left-0 bg-[#0758c8] px-4 py-3 text-xs font-bold sm:px-6">全国の輸送相談に対応</div></div></AnimateIn>
+        <section className="bg-[#f4f8fd] px-5 py-20 sm:px-8 sm:py-32">
+          <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.72fr_1.28fr] lg:items-start">
+            <AnimateIn direction="left"><p className="text-[10px] font-bold tracking-[0.48em] text-[#0758c8]">THE IKENOYASHOJI STANDARD</p><h2 className="mt-6 text-5xl font-black leading-[1.05] tracking-[-.06em] text-[#0f2044] sm:text-7xl">必要な車両を、<br /><span className="text-[#0758c8]">必要なときに。</span></h2><p className="mt-8 max-w-sm text-sm leading-8 text-[#52657f]">池ノ谷商事は、神奈川県愛川町を拠点に、一般貨物運送・貨物利用運送・倉庫管理を行う物流会社です。急なスポット配送から継続的な定期輸送まで、荷主様の状況に合わせて輸送方法をご提案します。</p><div className="mt-9 space-y-3 text-xs font-bold text-[#0f2044]">{["全国対応", "2t・4t・大型", "スポット・定期"].map((item) => <p key={item} className="flex items-center gap-2"><Check className="h-4 w-4 text-[#0758c8]" />{item}</p>)}</div></AnimateIn>
+            <AnimateIn delay={120} direction="right"><div className="relative"><img src={transportImg} alt="輸送車両と配送現場" className="aspect-[4/3] w-full object-cover" loading="lazy" /><p className="mt-4 text-[10px] font-bold tracking-[0.3em] text-[#0758c8]">TRUST IN MOTION / 運ぶ信頼、届ける真心</p></div></AnimateIn>
           </div>
         </section>
 
-        <section className="bg-[#f4f8fd] px-5 py-20 sm:px-8 sm:py-28">
-          <div className="mx-auto max-w-6xl">
-            <AnimateIn><div className="text-center"><p className="text-[10px] font-bold tracking-[0.42em] text-[#0758c8]">FOUR SIMPLE STEPS</p><h2 className="mt-4 text-3xl font-black text-[#0f2044] sm:text-5xl">電話相談の流れ</h2></div></AnimateIn>
-            <div className="mt-12 grid gap-4 md:grid-cols-4">{[["01","お電話","配送内容や納期をお聞かせください。"],["02","内容確認","荷物・配送先・車両の希望を確認します。"],["03","車両調整","条件に合う輸送方法を検討します。"],["04","ご案内","対応可否とお見積もりをご案内します。"]].map(([number,title,text], index) => <AnimateIn key={number} delay={index * 90}><div className="relative border-t border-[#0758c8] p-6 sm:p-7"><span className="font-mono text-sm font-bold text-[#0758c8]">{number}</span><h3 className="mt-5 font-bold text-[#0f2044]">{title}</h3><p className="mt-3 text-xs leading-6 text-[#63758d]">{text}</p>{index < 3 && <ArrowRight className="absolute -right-3 top-8 hidden h-5 w-5 text-[#0758c8] md:block" />}</div></AnimateIn>)}</div>
-          </div>
-        </section>
+        <section className="bg-white px-5 py-20 sm:px-8 sm:py-32"><div className="mx-auto max-w-7xl"><AnimateIn><p className="text-[10px] font-bold tracking-[0.48em] text-[#0758c8]">ONE CALL, MANY SOLUTIONS</p><h2 className="mt-6 max-w-4xl text-5xl font-black leading-[1.02] tracking-[-.06em] text-[#0f2044] sm:text-7xl">緊急配送から<br />定期輸送まで。</h2><p className="mt-7 max-w-sm text-sm leading-8 text-[#63758d]">荷物と納期を確認し、最適な輸送方法を一緒に考えます。</p></AnimateIn>
+          <div className="mt-16 border-t border-[#dbe8f5]">{services.map((item, index) => { const Icon = item.icon; return <AnimateIn key={item.number} delay={index * 90}><article className="group grid gap-5 border-b border-[#dbe8f5] py-8 md:grid-cols-[.18fr_.42fr_1fr] md:items-start"><span className="font-mono text-sm text-[#0758c8]">{item.number}</span><h3 className="text-2xl font-bold text-[#0f2044]">{item.title}</h3><div className="flex gap-4"><Icon className="mt-1 h-5 w-5 flex-none text-[#0758c8]" strokeWidth={1.5} /><p className="max-w-xl text-sm leading-8 text-[#63758d]">{item.text}</p></div></article></AnimateIn> })}</div>
+        </div></section>
 
-        <section className="bg-white px-5 py-20 sm:px-8 sm:py-28"><div className="mx-auto max-w-3xl"><AnimateIn><div className="mb-10"><p className="text-[10px] font-bold tracking-[0.42em] text-[#0758c8]">QUESTIONS, ANSWERED</p><h2 className="mt-4 text-3xl font-black text-[#0f2044] sm:text-5xl">よくあるご質問</h2></div></AnimateIn><div className="divide-y divide-[#dbe8f5] border-y border-[#dbe8f5]">{faqs.map((faq) => <details key={faq.q} className="group py-6"><summary className="flex cursor-pointer list-none items-center justify-between gap-5 text-sm font-bold leading-6 text-[#0f2044] [&::-webkit-details-marker]:hidden"><span><span className="mr-3 font-mono text-[#0758c8]">Q.</span>{faq.q}</span><ChevronDown className="h-5 w-5 flex-shrink-0 text-[#0758c8] transition-transform group-open:rotate-180" /></summary><p className="mt-5 pl-5 text-sm leading-7 text-[#61758e]"><span className="mr-2 font-mono font-bold text-[#0758c8]">A.</span>{faq.a}</p></details>)}</div></div></section>
+        <section className="bg-[#0f2044] px-5 py-20 text-white sm:px-8 sm:py-32"><div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-end"><AnimateIn direction="left"><p className="text-[10px] font-bold tracking-[0.48em] text-[#b7d5f7]">THE RIGHT TRUCK FOR THE JOB</p><h2 className="mt-6 text-5xl font-black leading-[1.03] tracking-[-.06em] sm:text-7xl">車両の選定まで、<br />こちらで引き受けます。</h2><p className="mt-8 max-w-md text-sm leading-8 text-white/65">荷物の大きさ・納品先の条件・納期を確認して、2t・4t・大型車両を中心に適した輸送方法をご案内します。</p><div className="mt-10 flex flex-wrap gap-x-8 gap-y-5 border-t border-white/20 pt-6">{vehicles.map((vehicle) => <div key={vehicle.title}><p className="text-2xl font-bold text-[#b7d5f7]">{vehicle.title}</p><p className="mt-1 text-xs text-white/55">{vehicle.text}</p></div>)}</div></AnimateIn><AnimateIn delay={120} direction="right"><div><img src={warehouseImg} alt="池ノ谷商事の物流現場" className="aspect-[4/3] w-full object-cover" loading="lazy" /><p className="mt-4 text-[10px] tracking-[0.3em] text-white/55">NATIONWIDE LOGISTICS / 全国の輸送相談に対応</p></div></AnimateIn></div></section>
 
-        <section className="bg-[#0758c8] px-5 py-20 text-white sm:px-8 sm:py-28"><div className="relative mx-auto max-w-5xl text-center"><AnimateIn><ShieldCheck className="mx-auto h-10 w-10 text-[#dbeeff]" strokeWidth={1.4} /><p className="mt-6 text-[10px] font-bold tracking-[0.42em] text-[#dbeeff]">READY WHEN YOU ARE</p><h2 className="mt-5 text-3xl font-black leading-[1.4] sm:text-6xl">緊急のトラック手配は、<br />まずはお電話ください。</h2><p className="mx-auto mt-6 max-w-xl text-sm leading-7 text-white/75">急な配送、スポット便、定期輸送。まだ内容が固まっていない段階でも、お気軽にご相談ください。</p><PhoneButton location="bottom" className="mt-9 bg-white px-6 py-5 text-[#0758c8] hover:bg-[#f4f8fd] sm:px-10 sm:py-6" /><p className="mt-4 flex items-center justify-center gap-2 text-[11px] text-white/65"><MapPin className="h-3.5 w-3.5" />全国の輸送相談</p></AnimateIn></div></section>
+        <section className="bg-[#f4f8fd] px-5 py-20 sm:px-8 sm:py-32"><div className="mx-auto max-w-7xl"><AnimateIn><p className="text-[10px] font-bold tracking-[0.48em] text-[#0758c8]">FOUR SIMPLE STEPS</p><h2 className="mt-6 text-5xl font-black leading-[1.02] tracking-[-.06em] text-[#0f2044] sm:text-7xl">電話相談の流れ。</h2></AnimateIn><div className="mt-16 grid border-t border-[#9bbfe6] md:grid-cols-4">{[["01","お電話","配送内容や納期をお聞かせください。"],["02","内容確認","荷物・配送先・車両の希望を確認します。"],["03","車両調整","条件に合う輸送方法を検討します。"],["04","ご案内","対応可否とお見積もりをご案内します。"]].map(([number,title,text], index) => <AnimateIn key={number} delay={index * 90}><div className="border-b border-[#9bbfe6] py-7 md:border-b-0 md:border-r md:px-7 md:first:pl-0 md:last:border-r-0"><span className="font-mono text-sm text-[#0758c8]">{number}</span><h3 className="mt-7 text-lg font-bold text-[#0f2044]">{title}</h3><p className="mt-3 text-xs leading-6 text-[#63758d]">{text}</p></div></AnimateIn>)}</div></div></section>
+
+        <section className="bg-white px-5 py-20 sm:px-8 sm:py-32"><div className="mx-auto max-w-5xl"><AnimateIn><p className="text-[10px] font-bold tracking-[0.48em] text-[#0758c8]">QUESTIONS, ANSWERED</p><h2 className="mt-6 text-5xl font-black leading-[1.02] tracking-[-.06em] text-[#0f2044] sm:text-7xl">よくあるご質問。</h2></AnimateIn><div className="mt-16 divide-y divide-[#dbe8f5] border-y border-[#dbe8f5]">{faqs.map((faq) => <details key={faq.q} className="group py-6"><summary className="flex cursor-pointer list-none items-center justify-between gap-5 text-sm font-bold leading-6 text-[#0f2044] [&::-webkit-details-marker]:hidden"><span><span className="mr-3 font-mono text-[#0758c8]">Q.</span>{faq.q}</span><ChevronDown className="h-5 w-5 flex-shrink-0 text-[#0758c8] transition-transform group-open:rotate-180" /></summary><p className="mt-5 max-w-3xl pl-7 text-sm leading-7 text-[#63758d]"><span className="mr-2 font-mono font-bold text-[#0758c8]">A.</span>{faq.a}</p></details>)}</div></div></section>
+
+        <section className="bg-[#0758c8] px-5 py-20 text-white sm:px-8 sm:py-32"><div className="mx-auto max-w-7xl"><AnimateIn><p className="text-[10px] font-bold tracking-[0.48em] text-[#dbeeff]">READY WHEN YOU ARE</p><h2 className="mt-7 max-w-5xl text-5xl font-black leading-[.98] tracking-[-.07em] sm:text-8xl">緊急のトラック手配は、<br />まずはお電話ください。</h2><p className="mt-8 max-w-md text-sm leading-8 text-white/75">急な配送、スポット便、定期輸送。まだ内容が固まっていない段階でも、お気軽にご相談ください。</p><PhoneButton location="bottom" className="mt-9 bg-white px-6 py-5 text-[#0758c8] hover:bg-[#f4f8fd] sm:px-10 sm:py-6" /><p className="mt-4 flex items-center gap-2 text-[11px] text-white/65"><MapPin className="h-3.5 w-3.5" />全国の輸送相談</p></AnimateIn></div></section>
 
         <footer className="bg-[#0f2044] px-5 py-10 text-white sm:px-8"><div className="mx-auto flex max-w-7xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-sm font-bold tracking-wide">株式会社池ノ谷商事</p><p className="mt-2 text-[11px] text-white/50">緊急のトラック手配・全国の輸送相談</p></div><div className="flex items-center gap-3 text-[11px] text-white/55"><Link href="/privacy" className="transition-colors hover:text-white">個人情報保護方針</Link><span className="text-white/20">／</span><Link href="/" className="transition-colors hover:text-white">コーポレートサイト</Link></div></div></footer>
       </main>
