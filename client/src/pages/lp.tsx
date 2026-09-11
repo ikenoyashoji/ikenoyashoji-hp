@@ -7,7 +7,6 @@ import { setSeo } from "@/lib/seo";
 import heroAerial from "@assets/hero_aerial_logistics.webp";
 import transportImg from "@assets/BE3582A6-2E5C-49C7-8922-B23D966DDB2B_1779581062877.webp";
 import warehouseImg from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.webp";
-import heroCutoutTruck from "@assets/truck_1789132871898.png";
 import heroWoman from "@assets/woman_1789132871899.png";
 
 const phoneNumber = "046-212-2766";
@@ -118,19 +117,14 @@ function MobileHero() {
         <p className="mt-1 text-[8px] tracking-[0.15em] text-white/65">NATIONWIDE LOGISTICS</p>
       </div>
 
-      <p className="absolute inset-x-0 top-[96px] z-10 whitespace-nowrap text-center text-[38vw] font-black leading-none tracking-[-0.13em] text-white">
+      <p className="absolute left-[58%] top-[156px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[38vw] font-black leading-none tracking-[-0.08em] text-white">
         運ぶ。
       </p>
 
       <img
-        src={heroCutoutTruck}
-        alt="手配可能なウイングトラック"
-        className="absolute bottom-[88px] right-[-48%] z-20 w-[132%] max-w-none drop-shadow-[0_18px_25px_rgba(0,22,70,0.25)]"
-      />
-      <img
         src={heroWoman}
         alt="物流手配を担当するスタッフ"
-        className="absolute bottom-[72px] left-[10%] z-30 w-[73%] max-w-none drop-shadow-[0_18px_25px_rgba(0,22,70,0.3)]"
+        className="absolute bottom-[72px] left-[2%] z-30 w-[82%] max-w-none drop-shadow-[0_18px_25px_rgba(0,22,70,0.3)]"
       />
 
       <HeroPhoneBar location="hero_mobile" />
@@ -146,19 +140,14 @@ function DesktopHero() {
         <p className="mt-2 text-[9px] tracking-[0.16em] text-white/65">IKENOYASHOJI LOGISTICS SERVICE</p>
       </div>
 
-      <p className="absolute inset-x-0 top-[20px] z-10 whitespace-nowrap text-center text-[clamp(13rem,26vw,24rem)] font-black leading-none tracking-[-0.13em] text-white">
+      <p className="absolute left-[61%] top-[120px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[clamp(13rem,26vw,24rem)] font-black leading-none tracking-[-0.08em] text-white">
         運ぶ。
       </p>
 
       <img
-        src={heroCutoutTruck}
-        alt="手配可能なウイングトラック"
-        className="absolute bottom-0 right-[-5%] z-20 w-[57%] max-w-none drop-shadow-[0_20px_30px_rgba(0,22,70,0.25)]"
-      />
-      <img
         src={heroWoman}
         alt="物流手配を担当するスタッフ"
-        className="absolute bottom-0 left-[42%] z-30 w-[29%] max-w-[350px] drop-shadow-[0_20px_30px_rgba(0,22,70,0.3)]"
+        className="absolute bottom-0 left-[34%] z-30 w-[34%] max-w-[420px] drop-shadow-[0_20px_30px_rgba(0,22,70,0.3)]"
       />
 
       <div className="absolute bottom-[150px] right-[4%] z-40 text-right text-xs font-semibold leading-6 tracking-[0.1em] text-white/90">
