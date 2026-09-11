@@ -4,10 +4,11 @@ import { AnimateIn } from "@/components/animate-in";
 import { Phone, ArrowRight, Clock3, MapPin, Truck, Warehouse, ChevronDown } from "lucide-react";
 import { trackEvent, trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
-import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_1779426563754.webp";
 import heroAerial from "@assets/hero_aerial_logistics.webp";
 import transportImg from "@assets/BE3582A6-2E5C-49C7-8922-B23D966DDB2B_1779581062877.webp";
 import warehouseImg from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.webp";
+import heroCutoutTruck from "@assets/truck_1789132871898.png";
+import heroWoman from "@assets/woman_1789132871899.png";
 
 const phoneNumber = "046-212-2766";
 const phoneHref = "tel:0462122766";
@@ -123,60 +124,94 @@ export default function Lp() {
       <LpHeader />
 
       <main>
-        <section className="relative mt-[74px] min-h-[650px] overflow-hidden bg-[#eef5fc] sm:min-h-[720px]">
+        <section className="relative mt-[74px] h-[760px] overflow-hidden bg-[#edf6ff] sm:h-[820px] md:h-[calc(100svh-74px)] md:min-h-[620px] md:max-h-[760px]">
           <img
-            src={heroTruck}
-            alt="高速道路を走るトラック"
-            className="absolute inset-0 h-full w-full object-cover object-[62%_center] md:object-center"
+            src={heroAerial}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover opacity-25"
             loading="eager"
             decoding="async"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/15 md:from-white md:via-white/90 md:to-white/5" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f2044]/20 via-transparent to-transparent" />
-          <div className="relative mx-auto flex min-h-[650px] max-w-7xl items-center px-6 py-16 sm:min-h-[720px] sm:px-10 lg:px-16">
-            <div className="max-w-xl">
-              <AnimateIn>
-                <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.48em] text-[#1a4b99] sm:text-xs">Ikenoyashoji logistics service</p>
-                <div className="mb-5 h-px w-12 bg-[#1d4ed8]" />
-                <h1 className="max-w-3xl font-serif text-[clamp(1.45rem,5.5vw,4.15rem)] font-bold leading-[1.18] tracking-[0.02em] text-[#0f2044]">
-                  <span className="block" style={{ whiteSpace: "nowrap" }}>緊急のトラック手配なら</span>
-                  <span className="mt-2 block text-[0.82em] text-[#164da3]" style={{ whiteSpace: "nowrap" }}>
-                    <span className="hidden sm:inline">今日、トラックが必要になった方へ。</span>
-                    <span className="sm:hidden">今日、必要になった方へ。</span>
-                  </span>
-                </h1>
-                <p className="mt-7 max-w-md text-sm leading-8 text-gray-600 sm:text-base">
-                  急な配送、車両不足、当日・翌日の輸送相談に。<br />
-                  荷物や納期がまだ整理できていなくても、わかる範囲でお聞かせください。
-                </p>
-              </AnimateIn>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/45 via-white/10 to-[#dbeaf9]/75 md:bg-gradient-to-r md:from-white/75 md:via-white/25 md:to-[#dbeaf9]/40" />
+          <div
+            className="absolute -left-[18%] top-[205px] z-10 h-[135px] w-[86%] -rotate-[8deg] bg-[#1661d5] md:left-[2%] md:top-[250px] md:h-[170px] md:w-[40%]"
+            style={{ clipPath: "polygon(0 20%, 88% 0, 100% 78%, 8% 100%)" }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute -right-[22%] bottom-[94px] z-10 h-[150px] w-[86%] -rotate-[9deg] bg-[#1260d4] md:-right-[6%] md:bottom-[104px] md:h-[210px] md:w-[43%]"
+            style={{ clipPath: "polygon(8% 8%, 100% 0, 91% 100%, 0 86%)" }}
+            aria-hidden="true"
+          />
+          <div className="absolute inset-x-0 top-0 z-[5] overflow-hidden px-3 pt-3 md:left-[2%] md:right-auto md:top-[-36px] md:px-0">
+            <p
+              className="select-none whitespace-nowrap text-[28vw] font-black leading-[0.82] tracking-[-0.11em] text-[#061d4c] md:text-[19vw] xl:text-[17rem]"
+              style={{ fontFamily: "'Noto Sans JP', sans-serif" }}
+              aria-hidden="true"
+            >
+              運ぶ。
+            </p>
+          </div>
 
-              <AnimateIn delay={120}>
-                <PhoneButton
-                  location="hero"
-                  className="mt-8 bg-[#0f2044] px-5 py-4 text-white shadow-xl shadow-[#0f2044]/15 hover:bg-[#164da3] sm:px-7 sm:py-5"
-                />
-                <p className="mt-3 text-[11px] leading-5 tracking-[0.04em] text-gray-500">
-                  荷物・納期・配送先がわかる範囲で大丈夫です。<br />
-                  「今日運べるかだけ聞きたい」というご相談もOKです。
-                </p>
-              </AnimateIn>
+          <div className="absolute right-4 top-[145px] z-20 text-right md:right-[5%] md:top-[145px]">
+            <p className="font-serif text-[10px] italic leading-4 tracking-[0.12em] text-[#164da3] md:text-sm">
+              TRUCK<br />ARRANGEMENT
+            </p>
+            <div className="ml-auto mt-2 h-0.5 w-12 bg-[#1661d5]" />
+          </div>
+
+          <div className="absolute left-5 top-[200px] z-20 -rotate-[8deg] text-white md:left-[6%] md:top-[268px]">
+            <p className="font-serif text-xl font-semibold italic leading-[1.35] sm:text-2xl md:text-3xl">
+              その一台を、<br /><span className="text-3xl md:text-5xl">今すぐ。</span>
+            </p>
+          </div>
+
+          <img
+            src={heroCutoutTruck}
+            alt="手配可能なウイングトラック"
+            className="absolute right-[-34%] top-[270px] z-20 w-[116%] max-w-none drop-shadow-[0_18px_22px_rgba(8,31,75,0.2)] sm:right-[-20%] sm:w-[95%] md:right-[-2%] md:top-[155px] md:w-[61%] lg:w-[57%]"
+            loading="eager"
+            decoding="async"
+          />
+
+          <img
+            src={heroWoman}
+            alt="物流手配を担当するスタッフ"
+            className="absolute bottom-[94px] left-[13%] z-30 w-[69%] max-w-none drop-shadow-[0_16px_18px_rgba(8,31,75,0.22)] sm:left-[20%] sm:w-[57%] md:bottom-[104px] md:left-auto md:right-[31%] md:w-[28%] lg:right-[32%] lg:w-[26%]"
+            loading="eager"
+            decoding="async"
+          />
+
+          <div className="absolute left-4 top-[350px] z-40 w-[158px] border-l-4 border-[#1661d5] bg-white/88 px-3 py-3 shadow-sm backdrop-blur-[2px] sm:left-8 sm:top-[380px] sm:w-[190px] md:left-[5%] md:top-[390px] md:w-[285px] md:px-5 md:py-4">
+            <h1 className="text-lg font-black leading-[1.35] tracking-[0.01em] text-[#071f4d] sm:text-xl md:text-3xl">
+              緊急の<br className="md:hidden" />トラック手配なら
+            </h1>
+            <p className="mt-2 text-[11px] font-bold leading-5 text-[#164da3] md:text-sm">
+              急な配車、電話一本。
+            </p>
+            <div className="mt-3 space-y-1 text-[10px] font-semibold leading-4 text-[#0f2044] md:text-xs">
+              <p>当日手配もまずはご相談</p>
+              <p>全国対応／2t・4t・大型</p>
+              <p>スポット・チャーター・定期便</p>
             </div>
           </div>
-          <div className="absolute bottom-0 right-0 hidden h-24 w-[42%] bg-[#0f2044] [clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)] md:block" />
-        </section>
 
-        <section className="bg-[#1655b3] px-5 py-5 text-white sm:px-8 sm:py-7">
-          <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-[10px] font-semibold tracking-[0.34em] text-white/70">荷主様向け・全国対応</p>
-              <p className="mt-1 text-sm font-medium tracking-wide">今日、トラックが必要になった方へ</p>
-            </div>
-            <PhoneButton
-              location="hero_band"
-              label="今すぐ電話で相談する"
-              className="w-full bg-white px-5 py-3 text-[#0f2044] shadow-lg shadow-[#0f2044]/10 hover:bg-[#eef5fc] sm:w-auto sm:px-7"
-            />
+          <div className="absolute inset-x-0 bottom-0 z-50 bg-gradient-to-r from-[#075ed8] via-[#0754c3] to-[#053f96] text-white shadow-[0_-10px_30px_rgba(6,36,86,0.2)]">
+            <a
+              href={phoneHref}
+              onClick={() => phoneCta("hero_primary")}
+              className="group mx-auto flex h-[94px] max-w-7xl items-center justify-center gap-3 px-4 sm:h-[106px] sm:gap-6 md:h-[116px]"
+              data-testid="link-lp-phone-hero-primary"
+            >
+              <Phone className="h-10 w-10 flex-shrink-0 fill-white stroke-white sm:h-12 sm:w-12 md:h-14 md:w-14" strokeWidth={1.5} />
+              <span className="h-12 w-px bg-white/55 sm:h-16" />
+              <span className="text-left">
+                <span className="block whitespace-nowrap text-[clamp(1.9rem,8vw,4rem)] font-black leading-none tracking-[-0.04em]">{phoneNumber}</span>
+                <span className="mt-2 block text-center text-xs font-bold tracking-[0.13em] sm:text-sm">今すぐ電話で相談する</span>
+              </span>
+              <ArrowRight className="hidden h-7 w-7 transition-transform group-hover:translate-x-1 sm:block" />
+            </a>
           </div>
         </section>
 
