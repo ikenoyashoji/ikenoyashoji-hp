@@ -8,6 +8,7 @@ import heroAerial from "@assets/hero_aerial_logistics.webp";
 import transportImg from "@assets/BE3582A6-2E5C-49C7-8922-B23D966DDB2B_1779581062877.webp";
 import warehouseImg from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.webp";
 import heroWoman from "@assets/woman_1789132871899.png";
+import heroTruck from "@assets/hero_truck_clean.png";
 
 const phoneNumber = "046-212-2766";
 const phoneHref = "tel:0462122766";
@@ -94,6 +95,12 @@ function MobileHero() {
       </p>
 
       <img
+        src={heroTruck}
+        alt="緊急配送に対応するトラック"
+        className="absolute bottom-[82px] right-[-44%] z-[5] w-[145%] max-w-none drop-shadow-[0_18px_28px_rgba(0,22,70,0.28)]"
+      />
+
+      <img
         src={heroWoman}
         alt="物流手配を担当するスタッフ"
         className="absolute bottom-[72px] left-[-6%] z-30 w-[95%] max-w-none drop-shadow-[0_18px_25px_rgba(0,22,70,0.3)]"
@@ -115,6 +122,12 @@ function DesktopHero() {
       <p className="absolute left-[55%] top-[190px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[clamp(13rem,26vw,24rem)] font-black leading-none tracking-[-0.08em] text-white">
         運ぶ。
       </p>
+
+      <img
+        src={heroTruck}
+        alt="緊急配送に対応するトラック"
+        className="absolute bottom-0 right-[-2%] z-[5] w-[59%] max-w-none drop-shadow-[0_22px_34px_rgba(0,22,70,0.28)]"
+      />
 
       <img
         src={heroWoman}
