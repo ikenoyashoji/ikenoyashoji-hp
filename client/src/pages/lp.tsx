@@ -16,34 +16,6 @@ const phoneCta = (location: string) => {
   trackEvent("cta_phone_click", { location, phone: phoneNumber });
 };
 
-function LpHeader() {
-  return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/15 bg-[#0758c8] text-white">
-      <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-4 sm:px-8 lg:px-12">
-        <Link href="/" className="flex items-end gap-2" aria-label="池ノ谷商事ホーム">
-          <span className="text-[10px] font-medium leading-none tracking-[0.12em] text-white/75">株式会社</span>
-          <span className="text-lg font-bold leading-none tracking-[0.08em] sm:text-xl">池ノ谷商事</span>
-        </Link>
-        <div className="flex items-center gap-3 sm:gap-6">
-          <span className="hidden text-xs font-medium tracking-[0.12em] text-white/75 sm:block">荷主様向け・全国対応</span>
-          <a
-            href={phoneHref}
-            onClick={() => phoneCta("lp_header")}
-            className="flex items-center gap-2 bg-white px-3 py-2 text-[#0758c8] transition-colors hover:bg-[#edf5ff] sm:gap-3 sm:px-5 sm:py-2.5"
-            data-testid="link-lp-phone-header"
-          >
-            <Phone className="h-4 w-4" strokeWidth={1.8} />
-            <span className="text-left">
-              <span className="hidden text-[9px] tracking-[0.12em] text-[#0758c8]/65 sm:block">まずは電話で相談する</span>
-              <span className="text-sm font-semibold tracking-wide sm:text-base">{phoneNumber}</span>
-            </span>
-          </a>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 const concerns = [
   { number: "01", title: "急な配送に\n対応できる車両がない", detail: "急な案件や納期変更で、車両の手配にお困りではありませんか？" },
   { number: "02", title: "今日・明日の\nトラックを手配したい", detail: "スポット便やチャーター便など、まずは荷物と納期をお聞かせください。" },
@@ -111,7 +83,7 @@ function HeroPhoneBar({ location }: { location: string }) {
 
 function MobileHero() {
   return (
-    <section className="relative mt-[74px] h-[760px] overflow-hidden bg-[#0758c8] text-white md:hidden">
+    <section className="relative h-[760px] overflow-hidden bg-[#0758c8] text-white md:hidden">
       <div className="absolute left-5 top-6 z-20 border-l border-white/70 pl-3">
         <p className="text-[9px] font-bold tracking-[0.18em]">緊急トラック手配</p>
         <p className="mt-1 text-[8px] tracking-[0.15em] text-white/65">NATIONWIDE LOGISTICS</p>
@@ -134,7 +106,7 @@ function MobileHero() {
 
 function DesktopHero() {
   return (
-    <section className="relative mt-[74px] hidden h-[calc(100svh-74px)] min-h-[620px] max-h-[760px] overflow-hidden bg-[#0758c8] text-white md:block">
+    <section className="relative hidden h-[100svh] min-h-[620px] max-h-[760px] overflow-hidden bg-[#0758c8] text-white md:block">
       <div className="absolute left-[4%] top-8 z-20 border-l border-white/70 pl-4">
         <p className="text-[10px] font-bold tracking-[0.18em]">緊急トラック手配・全国対応</p>
         <p className="mt-2 text-[9px] tracking-[0.16em] text-white/65">IKENOYASHOJI LOGISTICS SERVICE</p>
@@ -194,8 +166,6 @@ export default function Lp() {
 
   return (
     <div className="min-h-screen bg-white text-[#111827] pb-16 md:pb-0">
-      <LpHeader />
-
       <main>
         <h1 className="sr-only">緊急のトラック手配なら池ノ谷商事｜全国対応</h1>
         <MobileHero />
