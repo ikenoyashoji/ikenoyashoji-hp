@@ -97,7 +97,7 @@ function MobileHero() {
       <img
         src={heroTruck}
         alt="緊急配送に対応するトラック"
-        className="absolute bottom-[82px] right-[-38%] z-20 w-[145%] max-w-none drop-shadow-[0_18px_28px_rgba(0,22,70,0.28)]"
+        className="absolute bottom-[64px] right-[-38%] z-20 w-[145%] max-w-none drop-shadow-[0_18px_28px_rgba(0,22,70,0.28)]"
       />
 
       <img
@@ -128,7 +128,7 @@ function DesktopHero() {
       <img
         src={heroTruck}
         alt="緊急配送に対応するトラック"
-        className="absolute bottom-0 right-[2%] z-20 w-[59%] max-w-none drop-shadow-[0_22px_34px_rgba(0,22,70,0.28)]"
+        className="absolute bottom-[-20px] right-[2%] z-20 w-[59%] max-w-none drop-shadow-[0_22px_34px_rgba(0,22,70,0.28)]"
       />
 
       <img
