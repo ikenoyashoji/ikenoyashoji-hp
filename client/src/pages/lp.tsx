@@ -83,7 +83,7 @@ function HeroPhoneBar({ location }: { location: string }) {
 
 function MobileHero() {
   return (
-    <section className="relative h-[760px] overflow-hidden bg-[#0758c8] text-white md:hidden">
+    <section className="relative h-[100svh] min-h-[700px] w-full overflow-hidden bg-[#0758c8] text-white md:hidden">
       <div className="absolute left-5 top-6 z-20 border-l border-white/70 pl-3">
         <p className="text-[9px] font-bold tracking-[0.18em]">緊急トラック手配</p>
         <p className="mt-1 text-[8px] tracking-[0.15em] text-white/65">NATIONWIDE LOGISTICS</p>
@@ -106,7 +106,7 @@ function MobileHero() {
 
 function DesktopHero() {
   return (
-    <section className="relative hidden h-[100svh] min-h-[620px] max-h-[760px] overflow-hidden bg-[#0758c8] text-white md:block">
+    <section className="relative hidden h-[100svh] min-h-[100svh] w-full overflow-hidden bg-[#0758c8] text-white md:block">
       <div className="absolute left-[4%] top-8 z-20 border-l border-white/70 pl-4">
         <p className="text-[10px] font-bold tracking-[0.18em]">緊急トラック手配・全国対応</p>
         <p className="mt-2 text-[9px] tracking-[0.16em] text-white/65">IKENOYASHOJI LOGISTICS SERVICE</p>
