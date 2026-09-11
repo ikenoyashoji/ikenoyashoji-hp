@@ -85,18 +85,18 @@ function MobileHero() {
   return (
     <section className="relative h-[100svh] min-h-[700px] w-full overflow-hidden bg-[#0758c8] text-white md:hidden">
       <div className="absolute left-5 top-6 z-20 border-l border-white/70 pl-3">
-        <p className="text-[9px] font-bold tracking-[0.18em]">緊急トラック手配</p>
-        <p className="mt-1 text-[8px] tracking-[0.15em] text-white/65">NATIONWIDE LOGISTICS</p>
+        <p className="text-[13px] font-bold tracking-[0.15em]">緊急トラック手配</p>
+        <p className="mt-2 text-[10px] tracking-[0.14em] text-white/70">NATIONWIDE LOGISTICS</p>
       </div>
 
-      <p className="absolute left-[58%] top-[156px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[38vw] font-black leading-none tracking-[-0.08em] text-white">
+      <p className="absolute left-[58%] top-[196px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[38vw] font-black leading-none tracking-[-0.08em] text-white">
         運ぶ。
       </p>
 
       <img
         src={heroWoman}
         alt="物流手配を担当するスタッフ"
-        className="absolute bottom-[72px] left-[2%] z-30 w-[82%] max-w-none drop-shadow-[0_18px_25px_rgba(0,22,70,0.3)]"
+        className="absolute bottom-[72px] left-[-6%] z-30 w-[95%] max-w-none drop-shadow-[0_18px_25px_rgba(0,22,70,0.3)]"
       />
 
       <HeroPhoneBar location="hero_mobile" />
@@ -108,24 +108,19 @@ function DesktopHero() {
   return (
     <section className="relative hidden h-[100svh] min-h-[100svh] w-full overflow-hidden bg-[#0758c8] text-white md:block">
       <div className="absolute left-[4%] top-8 z-20 border-l border-white/70 pl-4">
-        <p className="text-[10px] font-bold tracking-[0.18em]">緊急トラック手配・全国対応</p>
-        <p className="mt-2 text-[9px] tracking-[0.16em] text-white/65">IKENOYASHOJI LOGISTICS SERVICE</p>
+        <p className="text-base font-bold tracking-[0.15em]">緊急トラック手配・全国対応</p>
+        <p className="mt-3 text-xs tracking-[0.14em] text-white/70">IKENOYASHOJI LOGISTICS SERVICE</p>
       </div>
 
-      <p className="absolute left-[61%] top-[120px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[clamp(13rem,26vw,24rem)] font-black leading-none tracking-[-0.08em] text-white">
+      <p className="absolute left-[61%] top-[160px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[clamp(13rem,26vw,24rem)] font-black leading-none tracking-[-0.08em] text-white">
         運ぶ。
       </p>
 
       <img
         src={heroWoman}
         alt="物流手配を担当するスタッフ"
-        className="absolute bottom-0 left-[34%] z-30 w-[34%] max-w-[420px] drop-shadow-[0_20px_30px_rgba(0,22,70,0.3)]"
+        className="absolute bottom-0 left-[30%] z-30 w-[40%] max-w-[460px] drop-shadow-[0_20px_30px_rgba(0,22,70,0.3)]"
       />
-
-      <div className="absolute bottom-[150px] right-[4%] z-40 text-right text-xs font-semibold leading-6 tracking-[0.1em] text-white/90">
-        <p>当日手配もまずはご相談</p>
-        <p>2t・4t・大型／全国対応</p>
-      </div>
 
       <HeroPhoneBar location="hero_desktop" />
     </section>
