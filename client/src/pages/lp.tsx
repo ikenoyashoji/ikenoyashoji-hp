@@ -8,6 +8,8 @@ import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_177942656375
 import heroAerial from "@assets/hero_aerial_logistics.webp";
 import transportImg from "@assets/BE3582A6-2E5C-49C7-8922-B23D966DDB2B_1779581062877.webp";
 import warehouseImg from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.webp";
+import driverImg from "@assets/recruit_06_senior_outdoor.png";
+import deliveryImg from "@assets/recruit_03_delivery_street.png";
 
 const phoneNumber = "046-212-2766";
 const phoneHref = "tel:0462122766";
@@ -44,9 +46,9 @@ function LpHeader() {
 }
 
 const concerns = [
-  { number: "01", title: "急な配送に\n対応できる車両がない", detail: "急な案件や納期変更で、車両の手配にお困りではありませんか？" },
-  { number: "02", title: "今日・明日の\nトラックを手配したい", detail: "スポット便やチャーター便など、まずは荷物と納期をお聞かせください。" },
-  { number: "03", title: "繁忙期だけ\n輸送力を増やしたい", detail: "定期便から一時的な増車まで、物量に合わせてご相談いただけます。" },
+  { number: "01", title: "急な配送に\n対応できる車両がない", detail: "急な案件や納期変更で、車両の手配にお困りではありませんか？", image: transportImg },
+  { number: "02", title: "今日・明日の\nトラックを手配したい", detail: "スポット便やチャーター便など、まずは荷物と納期をお聞かせください。", image: deliveryImg },
+  { number: "03", title: "繁忙期だけ\n輸送力を増やしたい", detail: "定期便から一時的な増車まで、物量に合わせてご相談いただけます。", image: heroAerial },
 ];
 
 const services = [
@@ -133,6 +135,16 @@ export default function Lp() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/15 md:from-white md:via-white/90 md:to-white/5" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0f2044]/20 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute bottom-0 right-0 z-10 hidden h-[76%] w-[52%] md:block">
+            <img
+              src={driverImg}
+              alt="物流現場のスタッフ"
+              className="h-full w-full object-cover object-[52%_center] mix-blend-multiply opacity-90"
+              loading="eager"
+              decoding="async"
+            />
+            <div className="absolute bottom-0 right-0 h-12 w-[72%] bg-[#0f2044]/95 [clip-path:polygon(17%_0,100%_0,100%_100%,0_100%)]" />
+          </div>
           <div className="relative mx-auto flex min-h-[650px] max-w-7xl items-center px-6 py-16 sm:min-h-[720px] sm:px-10 lg:px-16">
             <div className="max-w-xl">
               <AnimateIn>
@@ -191,10 +203,14 @@ export default function Lp() {
             </div>
             <div className="grid gap-px overflow-hidden border border-white/15 bg-white/15 md:grid-cols-3">
               {concerns.map((item) => (
-                <div key={item.number} className="bg-[#0f2044] px-6 py-7 sm:px-8 sm:py-9">
-                  <span className="text-4xl font-light tracking-tight text-[#4d8ee8]">{item.number}</span>
-                  <h3 className="mt-5 whitespace-pre-line text-lg font-semibold leading-[1.55] tracking-wide text-white">{item.title}</h3>
-                  <p className="mt-4 text-xs leading-6 text-white/55">{item.detail}</p>
+                <div key={item.number} className="relative min-h-[220px] overflow-hidden bg-[#0f2044] px-6 py-7 sm:px-8 sm:py-9">
+                  <img src={item.image} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-30" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#07152f] via-[#0f2044]/80 to-[#0f2044]/55" />
+                  <div className="relative">
+                    <span className="text-4xl font-light tracking-tight text-[#4d8ee8]">{item.number}</span>
+                    <h3 className="mt-5 whitespace-pre-line text-lg font-semibold leading-[1.55] tracking-wide text-white">{item.title}</h3>
+                    <p className="mt-4 text-xs leading-6 text-white/70">{item.detail}</p>
+                  </div>
                 </div>
               ))}
             </div>
