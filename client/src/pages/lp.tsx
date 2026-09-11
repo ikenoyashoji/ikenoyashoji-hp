@@ -7,7 +7,7 @@ import { setSeo } from "@/lib/seo";
 import heroAerial from "@assets/hero_aerial_logistics.webp";
 import transportImg from "@assets/BE3582A6-2E5C-49C7-8922-B23D966DDB2B_1779581062877.webp";
 import warehouseImg from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.webp";
-import heroWoman from "@assets/woman_1789132871899.png";
+import heroWoman from "@assets/woman_hero_enhanced.png";
 import heroTruck from "@assets/hero_truck_clean.png";
 
 const phoneNumber = "046-212-2766";
@@ -103,7 +103,9 @@ function MobileHero() {
       <img
         src={heroWoman}
         alt="物流手配を担当するスタッフ"
-        className="absolute bottom-[72px] left-[-6%] z-30 w-[95%] max-w-none drop-shadow-[0_18px_25px_rgba(0,22,70,0.3)]"
+        loading="eager"
+        decoding="async"
+        className="absolute bottom-[72px] left-[-10%] z-30 w-[102%] max-w-none object-contain drop-shadow-[0_14px_18px_rgba(0,22,70,0.24)]"
       />
 
       <HeroPhoneBar location="hero_mobile" />
@@ -132,7 +134,9 @@ function DesktopHero() {
       <img
         src={heroWoman}
         alt="物流手配を担当するスタッフ"
-        className="absolute bottom-0 left-[30%] z-30 w-[40%] max-w-[460px] drop-shadow-[0_20px_30px_rgba(0,22,70,0.3)]"
+        loading="eager"
+        decoding="async"
+        className="absolute bottom-0 left-[29%] z-30 w-[42%] max-w-[480px] object-contain drop-shadow-[0_16px_22px_rgba(0,22,70,0.24)]"
       />
 
       <HeroPhoneBar location="hero_desktop" />
