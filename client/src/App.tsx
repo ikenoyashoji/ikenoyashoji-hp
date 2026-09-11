@@ -148,7 +148,7 @@ function Router() {
 }
 
 function AppInner() {
-  const [splashDone, setSplashDone] = useState(false);
+  const [splashDone, setSplashDone] = useState(() => window.location.pathname === "/lp");
   const handleFinish = useCallback(() => setSplashDone(true), []);
 
   useEffect(() => {

@@ -8,8 +8,8 @@ import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_177942656375
 import heroAerial from "@assets/hero_aerial_logistics.webp";
 import transportImg from "@assets/BE3582A6-2E5C-49C7-8922-B23D966DDB2B_1779581062877.webp";
 import warehouseImg from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.webp";
-import driverImg from "@assets/recruit_06_senior_outdoor.png";
-import deliveryImg from "@assets/recruit_03_delivery_street.png";
+import driverImg from "@assets/recruit_06_senior_outdoor_no_bg.webp";
+import deliveryImg from "@assets/recruit_03_delivery_street_lp.webp";
 
 const phoneNumber = "046-212-2766";
 const phoneHref = "tel:0462122766";
@@ -135,29 +135,36 @@ export default function Lp() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/15 md:from-white md:via-white/90 md:to-white/5" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0f2044]/20 via-transparent to-transparent" />
-          <div className="pointer-events-none absolute bottom-0 right-0 z-10 hidden h-[76%] w-[52%] md:block">
+          <div className="pointer-events-none absolute bottom-0 right-[-4%] z-10 hidden h-[72%] w-[38%] overflow-visible md:block">
             <img
               src={driverImg}
               alt="物流現場のスタッフ"
-              className="h-full w-full object-cover object-[52%_center] mix-blend-multiply opacity-90"
+              className="absolute bottom-0 left-1/2 h-[108%] w-auto max-w-none -translate-x-1/2 object-contain"
               loading="eager"
               decoding="async"
             />
             <div className="absolute bottom-0 right-0 h-12 w-[72%] bg-[#0f2044]/95 [clip-path:polygon(17%_0,100%_0,100%_100%,0_100%)]" />
           </div>
-          <div className="relative mx-auto flex min-h-[650px] max-w-7xl items-center px-6 py-16 sm:min-h-[720px] sm:px-10 lg:px-16">
+          <div className="relative z-20 mx-auto flex min-h-[650px] max-w-7xl items-center px-6 py-16 sm:min-h-[720px] sm:px-10 lg:px-16">
             <div className="max-w-xl">
               <AnimateIn>
                 <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.48em] text-[#1a4b99] sm:text-xs">Ikenoyashoji logistics service</p>
                 <div className="mb-5 h-px w-12 bg-[#1d4ed8]" />
-                <h1 className="max-w-3xl font-serif text-[clamp(1.45rem,5.5vw,4.15rem)] font-bold leading-[1.18] tracking-[0.02em] text-[#0f2044]">
-                  <span className="block" style={{ whiteSpace: "nowrap" }}>緊急のトラック手配なら</span>
-                  <span className="mt-2 block text-[0.82em] text-[#164da3]" style={{ whiteSpace: "nowrap" }}>
-                    <span className="hidden sm:inline">今日、トラックが必要になった方へ。</span>
-                    <span className="sm:hidden">今日、必要になった方へ。</span>
+                <h1 className="max-w-3xl text-[#0f2044]">
+                  <span className="mb-3 block text-xs font-bold tracking-[0.16em] text-[#164da3] sm:text-sm">
+                    緊急のトラック手配なら池ノ谷商事
+                  </span>
+                  <span className="block font-sans text-[clamp(3rem,7vw,7rem)] font-black leading-[0.9] tracking-[-0.07em]" style={{ whiteSpace: "nowrap" }}>
+                    トラック、
+                  </span>
+                  <span className="mt-1 block font-sans text-[clamp(3rem,7vw,7rem)] font-black leading-[0.9] tracking-[-0.07em] text-[#1655b3]" style={{ whiteSpace: "nowrap" }}>
+                    足りますか？
                   </span>
                 </h1>
-                <p className="mt-7 max-w-md text-sm leading-8 text-gray-600 sm:text-base">
+                <p className="mt-6 inline-block -rotate-1 bg-[#1655b3] px-4 py-2 text-base font-black tracking-wide text-white sm:text-xl">
+                  急な配車、電話一本。
+                </p>
+                <p className="mt-5 max-w-md text-sm leading-7 text-gray-600 sm:text-base">
                   急な配送、車両不足、当日・翌日の輸送相談に。<br />
                   荷物や納期がまだ整理できていなくても、わかる範囲でお聞かせください。
                 </p>
