@@ -106,7 +106,7 @@ export default function Lp() {
     return () => document.getElementById("lp-service-schema")?.remove();
   }, []);
   return <div className="bg-[#0758c8] text-white">
-    <main className="relative" style={{ height: "800vh" }}>
+    <main className="relative" style={{ height: "900vh" }}>
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0 bg-[#0758c8]" />
         <motion.div style={{ color: hudColor }} className="pointer-events-none absolute inset-0 z-30">
