@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, ChevronDown, Info, Phone, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Phone, X } from "lucide-react";
 import { trackEvent, trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 
@@ -71,9 +71,8 @@ export default function Lp() {
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0 bg-[#0758c8]" />
         <motion.div style={{ color: hudColor }} className="pointer-events-none absolute inset-0 z-30">
-          <header className="absolute left-0 right-0 top-0 flex justify-between px-5 py-6 sm:px-12 sm:py-8"><div className="border-l border-current pl-3"><p className="font-serif text-sm tracking-[-.02em] sm:text-base">株式会社池ノ谷商事</p></div><button onClick={() => setInfoOpen(true)} className="pointer-events-auto flex items-center gap-2 font-mono text-[9px] tracking-[.2em] focus-visible:outline focus-visible:outline-2"><Info className="h-4 w-4" /> INFO</button></header>
-          <div className="absolute bottom-5 right-5 font-mono text-[9px] tracking-[.16em] sm:right-12">SCROLL / TIMELINE</div>
-          <div className="fixed bottom-5 left-1/2 -translate-x-1/2 md:hidden"><PhoneAction location="mobile_fixed" /></div>
+          <header className="absolute left-0 right-0 top-0 flex justify-between px-5 py-6 sm:px-12 sm:py-8"><div className="border-l border-current pl-3"><p className="font-serif text-sm tracking-[-.02em] sm:text-base">株式会社池ノ谷商事</p></div><button onClick={() => setInfoOpen(true)} className="pointer-events-auto border-b border-current pb-1 font-serif text-sm tracking-[-.02em] focus-visible:outline focus-visible:outline-2 sm:text-base">サービス情報</button></header>
+          <div className="fixed bottom-6 left-5 right-5 [&>a]:flex [&>a]:w-full [&>a]:justify-between md:hidden"><PhoneAction location="mobile_fixed" /></div>
           <div className="fixed bottom-8 right-8 hidden md:block"><PhoneAction location="desktop_fixed" /></div>
         </motion.div>
         <Scene opacity={s1} className="items-center px-5 pt-20 sm:px-[6vw]"><div className="w-full -translate-y-[4vh]"><p className="font-mono text-[9px] tracking-[.3em]">01 / MOVE</p><h1 className="-ml-8 mt-10 max-w-6xl font-serif text-[clamp(5rem,16vw,16rem)] leading-[.82] tracking-[-.12em] sm:-ml-[4vw]">運ぶ。</h1></div></Scene>
