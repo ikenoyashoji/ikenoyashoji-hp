@@ -40,9 +40,9 @@ function CinematicCopy({ children, y, scale, filter, className = "" }: { childre
 }
 
 function ScrollCue({ blue = false }: { blue?: boolean }) {
-  return <div aria-hidden="true" className={`absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 items-start gap-3 sm:bottom-9 ${blue ? "text-[#0758c8]" : "text-white"}`}>
-    <span className="relative block h-14 w-px overflow-hidden bg-current opacity-25"><span className="absolute left-0 top-0 h-5 w-px animate-bounce bg-current opacity-100" /></span>
-    <span className="pt-0.5 font-mono text-[8px] tracking-[.28em] opacity-65 [writing-mode:vertical-rl]">SCROLL</span>
+  return <div aria-hidden="true" className={`absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 items-start gap-3 drop-shadow-[0_0_7px_currentColor] motion-safe:animate-pulse sm:bottom-9 ${blue ? "text-[#0758c8]" : "text-white"}`}>
+    <span className="relative block h-14 w-px overflow-hidden bg-current opacity-35"><span className="absolute left-0 top-0 h-5 w-px animate-bounce bg-current opacity-100 [box-shadow:0_0_10px_2px_currentColor]" /></span>
+    <span className="pt-0.5 font-mono text-[8px] tracking-[.28em] opacity-80 [text-shadow:0_0_8px_currentColor] [writing-mode:vertical-rl]">SCROLL</span>
   </div>;
 }
 
