@@ -18,7 +18,7 @@ function call(location: string) {
 }
 
 function PhoneAction({ location }: { location: string }) {
-  return <a href={phoneHref} onClick={() => call(location)} data-testid={`link-lp-phone-${location}`} className="group pointer-events-auto relative inline-grid grid-cols-[2rem_auto] items-end gap-x-2 pb-3 text-current transition-transform after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-current hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
+  return <a href={phoneHref} onClick={() => call(location)} data-testid={`link-lp-phone-${location}`} className="group pointer-events-auto inline-grid grid-cols-[2rem_auto] items-end gap-x-2 border border-current px-3 py-2 text-current transition-transform hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
     <span className="col-start-2 mb-1 font-mono text-[8px] tracking-[.18em] opacity-70">24H / 全国対応</span>
     <Phone className="mb-1 h-5 w-5" strokeWidth={1.25} />
     <strong className="font-mono text-[clamp(1.45rem,2.3vw,2rem)] leading-none tracking-[-.07em]">{phoneNumber}</strong>
