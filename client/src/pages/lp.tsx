@@ -55,8 +55,8 @@ export default function Lp() {
   const { scrollYProgress } = useScroll();
   const staticProgress = useMotionValue(0);
   const progress = reduced ? staticProgress : scrollYProgress;
-  const op = (a: number, b: number) => useTransform(progress, [a - .003, a, b, b + .003], [0, 1, 1, 0]);
-  const s1 = op(0, .19); const s2 = op(.19, .4); const s3 = op(.4, .64); const s4 = op(.64, .8); const s5 = op(.8, 1.02);
+  const op = (a: number, b: number) => useTransform(progress, [a - .035, a, b, b + .035], [0, 1, 1, 0]);
+  const s1 = op(0, .2); const s2 = op(.18, .41); const s3 = op(.39, .65); const s4 = op(.63, .81); const s5 = op(.79, 1.02);
   useEffect(() => {
     trackPageView("/lp");
     const description = "緊急のトラック手配なら池ノ谷商事。条件をお伺いし、車両の空き状況を確認して折り返しご案内します。24時間・全国対応。";
