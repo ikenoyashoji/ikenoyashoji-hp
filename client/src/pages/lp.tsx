@@ -55,7 +55,7 @@ function InfoPanel({ open, close }: { open: boolean; close: () => void }) {
     <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#0758c8]/20 bg-white/95 px-6 py-5 backdrop-blur sm:px-12"><p className="font-mono text-[9px] tracking-[.25em]">INFO / TRUCK ARRANGEMENT</p><button onClick={close} aria-label="情報を閉じる" className="p-1 focus-visible:outline focus-visible:outline-2"><X className="h-5 w-5" strokeWidth={1.25} /></button></div>
     <div className="px-6 pb-10 pt-12 sm:px-12 sm:pt-16">
       <p className="font-mono text-[9px] tracking-[.25em] text-[#0758c8]/60">24 HOURS / NATIONWIDE</p>
-      <h2 id="info-title" className="mt-5 font-serif text-[clamp(3.4rem,8vw,5rem)] leading-[.92] tracking-[-.09em]">急ぎの輸送を、<br />まず電話で。</h2>
+      <h2 id="info-title" className="mt-5 font-serif text-[clamp(3rem,7vw,4.25rem)] leading-[.95] tracking-[-.09em]">急ぎの輸送を、<br />まず電話で。</h2>
       <p className="mt-8 max-w-md text-sm leading-7 text-[#111]">当日・翌日のトラック手配も、まずはご相談ください。荷物と配送条件を伺い、対応可能な車両を確認します。</p>
       <a href={phoneHref} onClick={() => call("info_panel")} className="mt-8 grid grid-cols-[2rem_1fr] items-end gap-x-3 border border-[#0758c8] px-4 py-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
         <span className="col-start-2 font-mono text-[8px] tracking-[.2em] opacity-65">24H / 全国対応</span><Phone className="mb-1 h-5 w-5" strokeWidth={1.25} /><strong className="font-mono text-[clamp(1.7rem,5vw,2.3rem)] leading-none tracking-[-.07em]">{phoneNumber}</strong>
