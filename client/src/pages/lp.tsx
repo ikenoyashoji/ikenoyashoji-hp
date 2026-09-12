@@ -71,8 +71,7 @@ export default function Lp() {
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0 bg-[#0758c8]" />
         <motion.div style={{ color: hudColor }} className="pointer-events-none absolute inset-0 z-30">
-          <header className="absolute left-0 right-0 top-0 flex justify-between px-5 py-6 sm:px-12 sm:py-8"><div className="border-l border-current pl-3"><p className="text-xs font-semibold tracking-[.12em]">株式会社池ノ谷商事</p><p className="mt-1 font-mono text-[8px] tracking-[.2em]">TRUCK ARRANGEMENT / 24H</p></div><button onClick={() => setInfoOpen(true)} className="pointer-events-auto flex items-center gap-2 font-mono text-[9px] tracking-[.2em] focus-visible:outline focus-visible:outline-2"><Info className="h-4 w-4" /> INFO</button></header>
-          <div className="absolute bottom-5 left-5 font-mono text-[9px] tracking-[.18em] sm:left-12">IKENOYASHOJI / 2025</div>
+          <header className="absolute left-0 right-0 top-0 flex justify-between px-5 py-6 sm:px-12 sm:py-8"><div className="border-l border-current pl-3"><p className="text-xs font-semibold tracking-[.12em]">株式会社池ノ谷商事</p></div><button onClick={() => setInfoOpen(true)} className="pointer-events-auto flex items-center gap-2 font-mono text-[9px] tracking-[.2em] focus-visible:outline focus-visible:outline-2"><Info className="h-4 w-4" /> INFO</button></header>
           <div className="absolute bottom-5 right-5 font-mono text-[9px] tracking-[.16em] sm:right-12">SCROLL / TIMELINE</div>
           <div className="fixed bottom-5 left-1/2 -translate-x-1/2 md:hidden"><PhoneAction location="mobile_fixed" /></div>
           <div className="fixed bottom-8 right-8 hidden md:block"><PhoneAction location="desktop_fixed" /></div>
