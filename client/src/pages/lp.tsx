@@ -19,7 +19,7 @@ function call(location: string) {
 
 function PhoneAction({ location }: { location: string }) {
   return <a href={phoneHref} onClick={() => call(location)} data-testid={`link-lp-phone-${location}`} className="group pointer-events-auto inline-flex items-center gap-3 border-b-2 border-current pb-2 text-current transition-transform hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
-    <Phone className="h-5 w-5" strokeWidth={1.5} /><span><small className="block font-mono text-[9px] tracking-[.18em] opacity-65">24H / NATIONWIDE</small><strong className="block font-mono text-xl tracking-[-.06em]">{phoneNumber}</strong></span><ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+    <Phone className="h-5 w-5" strokeWidth={1.5} /><span><small className="block font-mono text-[9px] tracking-[.18em] opacity-65">24H / 全国対応</small><strong className="block font-mono text-xl tracking-[-.06em]">{phoneNumber}</strong></span><ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
   </a>;
 }
 
@@ -71,7 +71,7 @@ export default function Lp() {
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0 bg-[#0758c8]" />
         <motion.div style={{ color: hudColor }} className="pointer-events-none absolute inset-0 z-30">
-          <header className="absolute left-0 right-0 top-0 flex justify-between px-5 py-6 sm:px-12 sm:py-8"><div className="border-l border-current pl-3"><p className="font-serif text-sm tracking-[-.02em] sm:text-base">株式会社池ノ谷商事</p></div><button onClick={() => setInfoOpen(true)} className="pointer-events-auto border-b border-current pb-1 font-serif text-sm tracking-[-.02em] focus-visible:outline focus-visible:outline-2 sm:text-base">サービス情報</button></header>
+          <header className="absolute left-0 right-0 top-0 flex justify-between px-5 py-6 sm:px-12 sm:py-8"><div className="border-l border-current pl-3"><p className="font-serif text-sm tracking-[-.02em] sm:text-base">株式会社池ノ谷商事</p></div><button onClick={() => setInfoOpen(true)} className="pointer-events-auto border-b border-current pb-1 font-mono text-[10px] tracking-[.2em] focus-visible:outline focus-visible:outline-2">INFO</button></header>
           <div className="fixed bottom-6 left-5 right-5 [&>a]:flex [&>a]:w-full [&>a]:justify-between md:hidden"><PhoneAction location="mobile_fixed" /></div>
           <div className="fixed bottom-8 right-8 hidden md:block"><PhoneAction location="desktop_fixed" /></div>
         </motion.div>
