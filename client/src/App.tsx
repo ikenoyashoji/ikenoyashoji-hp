@@ -19,7 +19,6 @@ import lpWoman from "@assets/lp-woman.webp";
 import lpTruck from "@assets/lp-truck.webp";
 
 import { SplashContext } from "@/lib/splash-context";
-import { CookieBanner } from "@/components/cookie-banner";
 
 // 公開ページ — 遅延読み込み
 const Recruit       = lazy(() => import("@/pages/recruit"));
@@ -170,7 +169,6 @@ function AppInner() {
     <SplashContext.Provider value={splashDone}>
       {!splashDone && <SplashScreen onFinish={handleFinish} />}
       <Router />
-      <CookieBanner />
     </SplashContext.Provider>
   );
 }

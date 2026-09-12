@@ -1,10 +1,9 @@
 /**
  * Consent-aware analytics and attribution.
  *
- * First-party operational PV/event logging remains available without optional
- * cookie consent, but attribution is attached only after consent. Google and
- * Clarity are never loaded before consent. The Consent Mode v2 default is
- * installed synchronously, before a Google script can be appended.
+ * Visitors can opt out from the privacy page. Until they do, analytics and
+ * attribution remain enabled so advertising conversions can be measured
+ * without interrupting the LP with a consent banner.
  */
 const GA4_ID = import.meta.env.VITE_GA4_ID as string | undefined;
 const CLARITY_ID = import.meta.env.VITE_CLARITY_ID as string | undefined;
@@ -40,7 +39,7 @@ const ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
 let pendingAttribution: Attribution | null = null;
 
 function consentAccepted() {
-  return typeof localStorage !== "undefined" && localStorage.getItem("cookie_consent") === "accepted";
+  return typeof localStorage !== "undefined" && localStorage.getItem("cookie_consent") !== "declined";
 }
 
 function readJson<T>(storage: Storage, key: string, fallback: T): T {
@@ -126,11 +125,12 @@ if (typeof window !== "undefined") {
   const win = window as any;
   win.dataLayer = win.dataLayer || [];
   win.gtag = win.gtag || function (...args: unknown[]) { win.dataLayer.push(args); };
+  const consent = consentAccepted() ? "granted" : "denied";
   win.gtag("consent", "default", {
-    ad_storage: "denied",
-    analytics_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied",
+    ad_storage: consent,
+    analytics_storage: consent,
+    ad_user_data: consent,
+    ad_personalization: consent,
     wait_for_update: 500,
   });
 }
@@ -230,7 +230,7 @@ export function trackGoogleAdsConversion(kind: "phone" | "form", callback?: () =
 
 export function resetConsent() {
   if (typeof window === "undefined") return;
-  localStorage.removeItem("cookie_consent");
+  localStorage.setItem("cookie_consent", "declined");
   localStorage.removeItem(FIRST_TOUCH_KEY);
   localStorage.removeItem(LEGACY_ATTRIBUTION_KEY);
   sessionStorage.removeItem(SESSION_TOUCH_KEY);

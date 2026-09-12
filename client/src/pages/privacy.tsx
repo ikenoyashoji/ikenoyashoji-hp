@@ -106,11 +106,11 @@ const sections = [
     title: "Cookieおよびアクセス解析について",
     content: (
       <div className="text-sm text-gray-600 space-y-4">
-        <p className="leading-relaxed">当社のウェブサイトでは、以下のツールを利用してアクセス状況を分析しています。Google広告・GA4・Clarityは同意をいただいた場合のみ利用し、社内のアクセスログはサービス運用・問い合わせ対応のために同意にかかわらず最小限記録します。</p>
+        <p className="leading-relaxed">当社のウェブサイトでは、以下のツールを利用してアクセス状況や広告効果を分析しています。任意の計測はこのページから無効にできます。社内のアクセスログはサービス運用・問い合わせ対応のために最小限記録します。</p>
         <div className="space-y-3">
           {[
             { name: "Google Analytics 4（GA4）", desc: "Google LLCが提供するアクセス解析ツール。ページビュー・滞在時間・流入元などを分析します。収集データはGoogleのプライバシーポリシーに基づき管理されます。" },
-            { name: "Google広告", desc: "広告効果の測定と改善のため、広告経由のアクセス情報、広告クリック識別子、電話ボタンの利用や折り返し依頼などの成果情報を利用します。Googleへの送信はCookie同意設定に基づいて制御します。" },
+            { name: "Google広告", desc: "広告効果の測定と改善のため、広告経由のアクセス情報、広告クリック識別子、電話ボタンの利用や折り返し依頼などの成果情報を利用します。" },
             { name: "Microsoft Clarity", desc: "Microsoftが提供するヒートマップ・セッション録画ツール。ウェブサイトの利便性向上のために利用します。" },
             { name: "内部アナリティクス", desc: "当社独自のアクセスログ記録システム。ページビュー・問い合わせ動向・広告キャンペーン別の成果把握に利用します。" },
           ].map((tool) => (
@@ -120,8 +120,8 @@ const sections = [
             </div>
           ))}
         </div>
-        <p className="text-xs text-gray-400 leading-relaxed">Cookieの受け入れ設定はブラウザ側で変更可能です。ただし、一部機能が制限される場合があります。</p>
-        <button type="button" onClick={() => { resetConsent(); window.location.reload(); }} className="border border-gray-300 px-3 py-2 text-xs text-gray-600 hover:border-[#1d4ed8] hover:text-[#1d4ed8]">同意設定を撤回して再設定する</button>
+        <p className="text-xs text-gray-400 leading-relaxed">任意のアクセス解析を無効にしても、サイトの閲覧やお問い合わせ機能は利用できます。</p>
+        <button type="button" onClick={() => { resetConsent(); window.location.reload(); }} className="border border-gray-300 px-3 py-2 text-xs text-gray-600 hover:border-[#1d4ed8] hover:text-[#1d4ed8]">任意の計測を無効にする</button>
       </div>
     ),
   },
