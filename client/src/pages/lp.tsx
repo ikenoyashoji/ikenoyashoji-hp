@@ -42,7 +42,16 @@ function CinematicCopy({ children, y, scale, filter, className = "" }: { childre
 function ScrollCue({ blue = false }: { blue?: boolean }) {
   const reduced = useReducedMotion();
   return <div aria-hidden="true" className={`absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 items-start gap-3 sm:bottom-9 ${blue ? "text-[#0758c8]" : "text-white"}`}>
-    <span className="relative block h-14 w-px overflow-hidden bg-current opacity-25"><motion.span initial={{ y: "-100%" }} animate={reduced ? undefined : { y: ["-100%", "280%"] }} transition={{ duration: 1.35, ease: "linear", repeat: Infinity, repeatDelay: .45 }} style={{ background: "linear-gradient(to bottom, transparent, currentColor, transparent)" }} className="absolute left-0 top-0 h-5 w-px opacity-100" /></span>
+    <span className="relative block h-14 w-px overflow-hidden">
+      <span className="absolute inset-0 bg-current opacity-20" />
+      <motion.span
+        initial={{ y: "-100%" }}
+        animate={reduced ? undefined : { y: ["-100%", "175%"] }}
+        transition={{ duration: 1.2, ease: "linear", repeat: Infinity, repeatDelay: .35 }}
+        style={{ background: "linear-gradient(to bottom, transparent 0%, currentColor 42%, currentColor 58%, transparent 100%)" }}
+        className="absolute -left-px top-0 h-8 w-[3px]"
+      />
+    </span>
     <span className="pt-0.5 font-mono text-[8px] tracking-[.28em] opacity-65 [writing-mode:vertical-rl]">SCROLL</span>
   </div>;
 }
