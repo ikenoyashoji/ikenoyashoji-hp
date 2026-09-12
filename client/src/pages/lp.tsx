@@ -1,72 +1,62 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, ArrowUpRight, ChevronDown, Phone } from "lucide-react";
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight, ChevronDown, Info, Phone, X } from "lucide-react";
 import { trackEvent, trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 
 const phoneNumber = "046-212-2766";
 const phoneHref = "tel:0462122766";
-
-const faqs = [
+const details = [
   ["急なトラック手配でも相談できますか？", "はい、まずはお電話ください。荷物の内容・納期・配送先・必要な車両などを確認し、対応可能な方法を調整します。"],
   ["当日の配送にも対応できますか？", "車両の空き状況や距離、荷物の内容によって異なります。条件を確認し、対応可否を折り返しご案内します。"],
   ["どんな車両を手配できますか？", "2t・4t・大型車両を中心に、ご希望の車格と荷物・納品先の条件を確認して適した輸送方法を検討します。"],
-  ["見積もりだけでも相談できますか？", "可能です。配送内容をお伺いしたうえで、条件に合わせてご案内します。内容が固まっていない段階でもご相談ください。"],
 ];
 
-function phoneCta(location: string) {
+function call(location: string) {
   trackEvent("cta_phone_click", { location, phone: phoneNumber });
 }
 
-function PhoneLink({ location, inverse = false, compact = false }: { location: string; inverse?: boolean; compact?: boolean }) {
-  return (
-    <a href={phoneHref} onClick={() => phoneCta(location)} data-testid={`link-lp-phone-${location}`}
-      className={`group inline-flex items-center gap-3 border-b-2 pb-2 transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${inverse ? "border-white text-white" : "border-[#0758c8] text-[#0758c8]"} ${compact ? "text-sm" : "text-base sm:text-lg"}`}>
-      <Phone className={compact ? "h-4 w-4" : "h-5 w-5"} strokeWidth={1.5} />
-      <span><span className="block text-[9px] font-medium tracking-[.18em] opacity-65">24時間・全国対応</span><span className="block font-mono font-semibold tracking-[-.05em]">{phoneNumber}</span></span>
-      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-    </a>
-  );
+function PhoneAction({ location, inverse = false }: { location: string; inverse?: boolean }) {
+  return <a href={phoneHref} onClick={() => call(location)} data-testid={`link-lp-phone-${location}`} className={`group inline-flex items-center gap-3 border-b-2 pb-2 transition-transform hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${inverse ? "border-white text-white" : "border-[#0758c8] text-[#0758c8]"}`}>
+    <Phone className="h-5 w-5" strokeWidth={1.5} /><span><small className="block font-mono text-[9px] tracking-[.18em] opacity-65">24H / NATIONWIDE</small><strong className="block font-mono text-xl tracking-[-.06em]">{phoneNumber}</strong></span><ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+  </a>;
 }
 
-function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const reduced = useReducedMotion();
-  return <motion.div className={className} initial={reduced ? false : { opacity: 0, y: 26 }} whileInView={reduced ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, amount: .16 }} transition={{ duration: .7, delay, ease: [0.16, 1, .3, 1] }}>{children}</motion.div>;
+function Scene({ children, opacity, y = 0, scale = 1, className = "" }: { children: React.ReactNode; opacity: any; y?: any; scale?: any; className?: string }) {
+  return <motion.div style={{ opacity, y, scale }} className={`pointer-events-none absolute inset-0 flex ${className}`}>{children}</motion.div>;
 }
 
-function Hero() {
-  const reduced = useReducedMotion();
-  const { scrollY } = useScroll();
-  const titleY = useTransform(scrollY, [0, 900], [0, reduced ? 0 : -120]);
-  const markX = useTransform(scrollY, [0, 900], ["0%", reduced ? "0%" : "-24%"]);
-  return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-white text-[#0758c8]">
-      <header className="relative z-20 flex items-start justify-between px-5 py-6 sm:px-12 sm:py-8">
-        <div className="border-l border-[#0758c8] pl-3"><p className="text-xs font-semibold tracking-[.12em]">株式会社池ノ谷商事</p><p className="mt-1 font-mono text-[8px] tracking-[.2em]">TRUCK ARRANGEMENT / 24H</p></div>
-        <p className="hidden text-right font-mono text-[9px] leading-5 tracking-[.18em] sm:block">NATIONWIDE<br />KANAGAWA, JAPAN</p>
-      </header>
-      <motion.p
-        style={{ x: markX, color: "transparent", WebkitTextStroke: "clamp(1px, .16vw, 2px) rgba(7, 88, 200, .42)" }}
-        aria-hidden="true"
-        className="absolute -left-[6vw] top-[21vh] whitespace-nowrap font-serif text-[30vw] font-black leading-none tracking-[-.14em]"
-      >
-        MOVE
-      </motion.p>
-      <motion.div style={{ y: titleY }} className="relative z-10 flex min-h-[calc(100svh-90px)] flex-col justify-between px-5 pb-20 pt-[17vh] sm:px-12 sm:pt-[13vh]">
-        <div className="relative">
-          <p className="mb-8 font-mono text-[9px] tracking-[.3em]">NEED A TRUCK / TODAY OR TOMORROW?</p>
-          <h1 className="max-w-6xl font-serif text-[clamp(3.5rem,10vw,10.8rem)] font-medium leading-[.92] tracking-[-.1em]">電話一本。<br /><span className="ml-[12vw]">トラック手配。</span></h1>
-          <p className="mt-9 ml-[12vw] max-w-xs text-sm leading-8 text-[#111] sm:text-base">条件をお聞きして空き状況を確認。対応可否を、こちらから折り返しご連絡します。</p>
-        </div>
-        <div className="flex items-end justify-between"><PhoneLink location="hero" /><span className="hidden font-mono text-[9px] tracking-[.2em] sm:flex sm:items-center sm:gap-3"><ArrowDown className="h-4 w-4" /> SCROLL TO ARRANGE</span></div>
-      </motion.div>
-      <div className="absolute bottom-0 left-0 right-0 flex justify-between border-t border-[#0758c8]/35 px-5 py-3 font-mono text-[9px] tracking-[.14em] sm:px-12"><span>急な配送 / スポット便 / 定期輸送</span><span className="hidden sm:block">01—05</span></div>
-    </section>
-  );
+function InfoPanel({ open, close }: { open: boolean; close: () => void }) {
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (event: KeyboardEvent) => event.key === "Escape" && close();
+    window.addEventListener("keydown", onKey);
+    return () => { document.body.style.overflow = previous; window.removeEventListener("keydown", onKey); };
+  }, [open, close]);
+  return <AnimatePresence>{open && <motion.aside role="dialog" aria-modal="true" aria-labelledby="info-title" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ duration: .55, ease: [.16, 1, .3, 1] }} className="fixed inset-y-0 right-0 z-[100] w-full max-w-xl overflow-y-auto border-l border-[#0758c8]/30 bg-white px-6 py-7 text-[#0758c8] sm:px-12">
+    <div className="flex items-start justify-between border-b border-[#0758c8]/35 pb-5"><p className="font-mono text-[9px] tracking-[.25em]">INFO / SERVICE NOTES</p><button onClick={close} aria-label="情報を閉じる" className="focus-visible:outline focus-visible:outline-2"><X className="h-5 w-5" /></button></div>
+    <h2 id="info-title" className="mt-16 font-serif text-5xl leading-[.9] tracking-[-.08em] sm:text-7xl">輸送のこと。<br />電話のこと。</h2>
+    <div className="mt-12 space-y-10 text-sm leading-8 text-[#111]">
+      <p>株式会社池ノ谷商事は、神奈川県愛川町を拠点に一般貨物運送・貨物利用運送・倉庫管理を行っています。24時間、全国の輸送相談を受け付けています。</p>
+      <div className="border-y border-[#0758c8]/35 py-6"><p className="font-mono text-[9px] tracking-[.2em] text-[#0758c8]">ARRANGEMENT</p><p className="mt-4">お電話で荷物・納期・配送先・必要な車両などの条件を確認し、車両の空き状況を確認します。対応可否やお見積もりは、確認後に折り返しご案内します。空き状況によってはご希望に添えない場合があります。</p></div>
+      <div><p className="font-mono text-[9px] tracking-[.2em] text-[#0758c8]">VEHICLE TYPES</p><div className="mt-4 grid grid-cols-3 gap-3 border-t border-[#0758c8]/35 pt-4 text-[#0758c8]"><span>2t車<br /><small className="text-[#111]">小口配送</small></span><span>4t車<br /><small className="text-[#111]">中量輸送</small></span><span>大型車<br /><small className="text-[#111]">長距離</small></span></div></div>
+      <div><p className="font-mono text-[9px] tracking-[.2em] text-[#0758c8]">FAQ</p>{details.map(([q, a]) => <details key={q} className="group border-b border-[#0758c8]/25 py-4"><summary className="flex cursor-pointer list-none justify-between gap-4 font-semibold [&::-webkit-details-marker]:hidden">{q}<ChevronDown className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" /></summary><p className="pt-3">{a}</p></details>)}</div>
+    </div>
+    <div className="mt-14 flex flex-wrap gap-5 border-t border-[#0758c8]/35 pt-5 text-xs"><Link href="/privacy" onClick={close} className="underline underline-offset-4">個人情報保護方針</Link><Link href="/" onClick={close} className="underline underline-offset-4">コーポレートサイト</Link></div>
+  </motion.aside>}</AnimatePresence>;
 }
 
 export default function Lp() {
+  const [infoOpen, setInfoOpen] = useState(false);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const staticProgress = useMotionValue(0);
+  const progress = reduced ? staticProgress : scrollYProgress;
+  const op = (a: number, b: number) => useTransform(progress, [a - .04, a, b, b + .04], [0, 1, 1, 0]);
+  const s1 = op(0, .2); const s2 = op(.18, .4); const s3 = op(.38, .6); const s4 = op(.58, .79); const s5 = op(.77, 1.02);
   useEffect(() => {
     trackPageView("/lp");
     const description = "緊急のトラック手配なら池ノ谷商事。条件をお伺いし、車両の空き状況を確認して折り返しご案内します。24時間・全国対応。";
@@ -75,24 +65,22 @@ export default function Lp() {
     const script = document.createElement("script"); script.id = "lp-service-schema"; script.type = "application/ld+json"; script.textContent = JSON.stringify(data); document.head.appendChild(script);
     return () => document.getElementById("lp-service-schema")?.remove();
   }, []);
-
-  return (
-    <div className="min-h-screen bg-white pb-20 text-[#0758c8] md:pb-0">
-      <main>
-        <Hero />
-        <section className="px-5 py-32 sm:px-12 sm:py-52"><div className="mx-auto grid max-w-7xl gap-20 lg:grid-cols-[.7fr_1.3fr]"><Reveal><p className="font-mono text-[9px] tracking-[.3em]">01 / FIRST CALL</p><h2 className="mt-12 font-serif text-5xl leading-[1.02] tracking-[-.08em] sm:text-8xl">迷ったまま、<br /><span className="ml-10">電話していい。</span></h2></Reveal><Reveal delay={.12} className="lg:pt-28"><p className="max-w-lg text-lg leading-9 text-[#111]">荷物の大きさ、納品先、希望日。全部決まっていなくても大丈夫です。まず条件をお聞きし、空いている車両があるかを確認します。</p><div className="mt-20 flex items-start gap-10 border-t border-[#0758c8]/35 pt-5"><div><b className="font-mono text-4xl font-normal">24</b><p className="mt-2 text-[10px] tracking-[.12em]">HOURS / 受付</p></div><div><b className="font-mono text-4xl font-normal">47</b><p className="mt-2 text-[10px] tracking-[.12em]">都道府県 / 対応</p></div></div></Reveal></div></section>
-
-        <section className="bg-[#0758c8] text-white"><div className="flex min-h-[55svh] items-center justify-center overflow-hidden px-5 sm:min-h-[72svh] sm:px-12"><div className="grid w-full max-w-7xl grid-cols-[auto_1fr] gap-8"><p className="font-mono text-[9px] tracking-[.25em] [writing-mode:vertical-rl]">02 / THE ROUTE</p><Reveal><h2 className="font-serif text-[clamp(3.5rem,10vw,10rem)] leading-[.88] tracking-[-.1em]">条件を聞く。<br /><span className="ml-[10vw] text-white/55">空きを見る。</span></h2></Reveal></div></div><div className="border-t border-white/40">{[["01", "電話を受ける", "急ぎの配送でも、まだ内容が整理できていなくても大丈夫です。"], ["02", "条件を確認", "荷物・配送先・納期・必要な車両などをお聞きします。"], ["03", "空き状況を確認", "条件に合う車両と輸送方法があるかを確認します。"], ["04", "折り返しご連絡", "対応可否やお見積もりなど、確認した内容をご案内します。"]].map(([n, title, text]) => <div key={n} className="border-b border-white/30 px-5 py-10 sm:px-[15vw] sm:py-14"><div className="grid gap-5 sm:grid-cols-[80px_1fr_1fr] sm:items-baseline"><span className="font-mono text-xs text-white/60">{n}</span><h3 className="font-serif text-3xl tracking-[-.05em] sm:text-5xl">{title}</h3><p className="max-w-sm text-sm leading-7 text-white/72">{text}</p></div></div>)}</div></section>
-
-        <section className="px-5 py-32 sm:px-12 sm:py-52"><div className="mx-auto max-w-7xl"><Reveal><p className="font-mono text-[9px] tracking-[.3em]">03 / VEHICLE INDEX</p><div className="mt-12 flex items-start justify-between gap-8"><h2 className="font-serif text-5xl leading-[.95] tracking-[-.08em] sm:text-8xl">運ぶものに、<br />ちょうどいい車両を。</h2><span className="hidden font-serif text-8xl italic sm:block">3</span></div></Reveal><div className="mt-28 ml-auto max-w-5xl border-t border-[#0758c8]/35">{[["2t車", "小口配送・市街地配送に"], ["4t車", "定期便・中量の輸送に"], ["大型車", "まとまった荷物・長距離に"]].map(([title, text], i) => <Reveal key={title} delay={i * .08}><div className="grid grid-cols-[55px_1fr] items-baseline border-b border-[#0758c8]/35 py-9 sm:grid-cols-[90px_1fr_1fr]"><span className="font-mono text-xs">0{i + 1}</span><h3 className="font-serif text-3xl tracking-[-.06em] sm:text-5xl">{title}</h3><p className="col-start-2 mt-3 text-sm text-[#111] sm:col-start-auto">{text}</p></div></Reveal>)}</div><p className="mt-16 ml-auto max-w-xl text-sm leading-8 text-[#111]">一般貨物運送・貨物利用運送・倉庫管理を行う池ノ谷商事。急なスポット配送から継続的な定期輸送まで、荷主様の状況に合わせて輸送方法を検討します。</p></div></section>
-
-        <section className="bg-[#0758c8] px-5 py-32 text-white sm:px-12 sm:py-48"><div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[.8fr_1.2fr]"><Reveal><p className="font-mono text-[9px] tracking-[.3em] text-white/65">04 / QUESTIONS</p><h2 className="mt-12 font-serif text-6xl leading-[.9] tracking-[-.08em] sm:text-9xl">よくある<br />質問。</h2></Reveal><div className="divide-y divide-white/35 border-y border-white/35">{faqs.map(([q, a]) => <details key={q} className="group py-7"><summary className="flex cursor-pointer list-none items-center justify-between gap-5 font-serif text-lg [&::-webkit-details-marker]:hidden"><span>{q}</span><ChevronDown className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" /></summary><p className="max-w-xl pt-5 text-sm leading-8 text-white/75">{a}</p></details>)}</div></div></section>
-
-        <section className="px-5 py-36 sm:px-12 sm:py-56"><div className="mx-auto max-w-7xl"><Reveal><p className="font-mono text-[9px] tracking-[.3em]">05 / CALL NOW</p><h2 className="mt-12 max-w-5xl font-serif text-[clamp(4rem,11vw,11rem)] leading-[.85] tracking-[-.11em]">今日・明日の<br /><span className="ml-[12vw]">輸送なら。</span></h2><p className="mt-12 ml-[12vw] max-w-md text-sm leading-8 text-[#111]">空き状況は条件によって異なります。まずはお電話で、荷物と納期をお聞かせください。</p><div className="ml-[12vw] mt-10"><PhoneLink location="bottom" /></div></Reveal></div></section>
-        <footer className="bg-[#0758c8] px-5 py-8 text-white sm:px-12"><div className="mx-auto flex max-w-7xl flex-col gap-5 border-t border-white/35 pt-5 text-xs sm:flex-row sm:items-end sm:justify-between"><div><p className="font-semibold">株式会社池ノ谷商事</p><p className="mt-2 text-white/65">緊急のトラック手配・全国の輸送相談</p></div><nav className="flex gap-5 text-white/70"><Link href="/privacy" className="hover:text-white">個人情報保護方針</Link><Link href="/" className="hover:text-white">コーポレートサイト</Link></nav></div></footer>
-      </main>
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/25 bg-[#0758c8] px-4 py-3 md:hidden"><PhoneLink location="mobile_fixed" inverse compact /></div>
-      <div className="fixed bottom-8 right-8 z-50 hidden bg-white/95 px-4 py-3 md:block"><PhoneLink location="desktop_fixed" compact /></div>
-    </div>
-  );
+  return <div className="bg-white text-[#0758c8]">
+    <main className="relative" style={{ height: "500vh" }}>
+      <div className="sticky top-0 h-[100svh] overflow-hidden">
+        <div className="absolute inset-0 bg-white" />
+        <header className="absolute left-0 right-0 top-0 z-30 flex justify-between px-5 py-6 sm:px-12 sm:py-8"><div className="border-l border-[#0758c8] pl-3"><p className="text-xs font-semibold tracking-[.12em]">株式会社池ノ谷商事</p><p className="mt-1 font-mono text-[8px] tracking-[.2em]">TRUCK ARRANGEMENT / 24H</p></div><button onClick={() => setInfoOpen(true)} className="flex items-center gap-2 font-mono text-[9px] tracking-[.2em] focus-visible:outline focus-visible:outline-2"><Info className="h-4 w-4" /> INFO</button></header>
+        <div className="absolute bottom-5 left-5 z-30 font-mono text-[9px] tracking-[.18em] sm:left-12">IKENOYASHOJI / 2025</div>
+        <Scene opacity={s1} className="items-center px-5 pt-20 sm:px-12"><div className="mx-auto w-full max-w-7xl"><p className="font-mono text-[9px] tracking-[.3em]">01 / NEED A TRUCK?</p><h1 className="mt-10 max-w-6xl font-serif text-[clamp(4rem,13vw,13rem)] leading-[.82] tracking-[-.12em]">電話一本。</h1><p className="mt-10 ml-[10vw] max-w-xs text-sm leading-8 text-[#111]">今日、明日の輸送に困ったら。まずは一本。</p></div></Scene>
+        <Scene opacity={s2} y={useTransform(progress, [.18, .4], [40, -20])} className="items-center px-5 pt-20 sm:px-12"><div className="mx-auto w-full max-w-7xl"><p className="font-mono text-[9px] tracking-[.3em]">02 / ARRANGE</p><h2 className="mt-10 ml-[8vw] font-serif text-[clamp(3.7rem,12vw,12rem)] leading-[.82] tracking-[-.12em]">トラック<br /><span className="ml-[13vw]">手配。</span></h2><p className="mt-10 ml-[21vw] max-w-sm text-sm leading-8 text-[#111]">条件を聞いて、空き状況を確認。対応可否を折り返します。</p></div></Scene>
+        <Scene opacity={s3} scale={useTransform(progress, [.38, .6], [1.1, 1])} className="items-center bg-[#0758c8] px-5 text-white sm:px-12"><div className="mx-auto grid w-full max-w-7xl grid-cols-[auto_1fr] gap-8"><p className="font-mono text-[9px] tracking-[.25em] [writing-mode:vertical-rl]">03 / ALWAYS ON</p><div><p className="font-mono text-[10px] tracking-[.3em] text-white/65">24 HOURS / NATIONWIDE</p><p className="mt-8 font-serif text-[clamp(4rem,13vw,13rem)] leading-[.8] tracking-[-.12em]">24<br /><span className="ml-[12vw]">HOURS</span></p><p className="mt-10 ml-[12vw] text-sm tracking-[.16em]">全国対応 — 条件をお聞かせください</p></div></div></Scene>
+        <Scene opacity={s4} className="items-center px-5 sm:px-12"><div className="mx-auto w-full max-w-7xl"><p className="font-mono text-[9px] tracking-[.3em]">04 / THE CALL</p><div className="mt-14 max-w-3xl border-t border-[#0758c8]/40">{[["01", "条件を聞く"], ["02", "空き状況を確認"], ["03", "折り返す"]].map(([n, t]) => <div key={n} className="grid grid-cols-[60px_1fr] border-b border-[#0758c8]/40 py-6 sm:grid-cols-[90px_1fr]"><span className="font-mono text-xs">{n}</span><span className="font-serif text-4xl tracking-[-.07em] sm:text-6xl">{t}</span></div>)}</div></div></Scene>
+        <Scene opacity={s5} className="items-center px-5 sm:px-12"><div className="mx-auto w-full max-w-7xl"><p className="font-mono text-[9px] tracking-[.3em]">05 / CALL NOW</p><h2 className="mt-10 font-serif text-[clamp(3.5rem,10vw,10rem)] leading-[.82] tracking-[-.11em]">電話一本。<br /><span className="ml-[11vw]">トラック手配。</span></h2><p className="mt-10 ml-[11vw] max-w-sm text-sm leading-8 text-[#111]">受付は24時間。空き状況を確認して、折り返しご連絡します。</p><a href={phoneHref} onClick={() => call("final_scene")} data-testid="link-lp-phone-final_scene" className="pointer-events-auto ml-[11vw] mt-8 inline-flex items-end gap-3 border-b-2 border-[#0758c8] pb-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"><Phone className="mb-2 h-6 w-6" strokeWidth={1.4} /><span><small className="block font-mono text-[9px] tracking-[.22em]">24H / TAP TO CALL</small><strong className="block font-mono text-[clamp(2.2rem,6vw,5.5rem)] leading-none tracking-[-.08em]">{phoneNumber}</strong></span><ArrowUpRight className="mb-2 h-5 w-5" /></a></div></Scene>
+        <div className="pointer-events-none absolute bottom-5 right-5 z-30 font-mono text-[9px] tracking-[.16em] sm:right-12">SCROLL / TIMELINE</div>
+        <div className="fixed bottom-5 left-1/2 z-40 -translate-x-1/2 md:hidden"><PhoneAction location="mobile_fixed" inverse={false} /></div>
+        <div className="fixed bottom-8 right-8 z-40 hidden md:block"><PhoneAction location="desktop_fixed" /></div>
+      </div>
+    </main>
+    <InfoPanel open={infoOpen} close={() => setInfoOpen(false)} />
+  </div>;
 }
