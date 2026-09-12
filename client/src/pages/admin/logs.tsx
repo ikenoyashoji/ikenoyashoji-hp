@@ -131,6 +131,21 @@ function SessionRow({ session }: { session: any }) {
               <p className="text-gray-600 text-xs break-all">{session.referrer}</p>
             </div>
           )}
+          {session.attribution && Object.keys(session.attribution).length > 0 && (
+            <div className="pt-2">
+              <p className="text-gray-400 text-[10px] mb-0.5">広告・キャンペーン</p>
+              <p className="text-gray-600 text-xs break-all">
+                {[
+                  session.attribution.utm_campaign && `campaign=${session.attribution.utm_campaign}`,
+                  session.attribution.utm_source && `source=${session.attribution.utm_source}`,
+                  session.attribution.utm_term && `keyword=${session.attribution.utm_term}`,
+                  session.attribution.gclid && `gclid=${session.attribution.gclid}`,
+                  session.attribution.gbraid && `gbraid=${session.attribution.gbraid}`,
+                  session.attribution.wbraid && `wbraid=${session.attribution.wbraid}`,
+                ].filter(Boolean).join(" · ")}
+              </p>
+            </div>
+          )}
 
           <div>
             <p className="text-gray-400 text-[10px] mb-1 pt-2">ページ遷移</p>

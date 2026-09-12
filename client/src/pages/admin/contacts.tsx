@@ -11,6 +11,19 @@ const typeConfig: Record<string, { label: string }> = {
   partner: { label: "協力会社" },
 };
 
+function attributionSummary(value: string | undefined) {
+  try {
+    const touch = JSON.parse(value || "{}").currentTouch || {};
+    const campaign = touch.utm_campaign && `campaign: ${touch.utm_campaign}`;
+    const source = touch.utm_source && `source: ${touch.utm_source}`;
+    const keyword = touch.utm_term && `kw: ${touch.utm_term}`;
+    const click = (touch.gclid || touch.gbraid || touch.wbraid) && `click: ${touch.gclid || touch.gbraid || touch.wbraid}`;
+    return [campaign, source, keyword, click].filter(Boolean).join(" · ");
+  } catch {
+    return "";
+  }
+}
+
 export default function AdminContacts() {
   const { data: contacts, isLoading } = useQuery<any[]>({ queryKey: ["/api/admin/contacts"] });
 
@@ -63,6 +76,11 @@ export default function AdminContacts() {
                       <span className="text-gray-400 text-xs">メッセージ：</span>
                       <p className="text-gray-700 text-xs mt-0.5 leading-relaxed">{c.message}</p>
                     </div>
+                  )}
+                  {attributionSummary(c.attribution) && (
+                    <p className="mt-2 text-[10px] text-gray-400 truncate" title={attributionSummary(c.attribution)}>
+                      {attributionSummary(c.attribution)}
+                    </p>
                   )}
                 </div>
               );

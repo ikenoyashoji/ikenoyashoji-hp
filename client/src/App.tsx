@@ -4,7 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { loadAnalytics, trackPageView } from "@/lib/analytics";
+import { hasConsent, loadAnalytics, trackPageView } from "@/lib/analytics";
 import NotFound from "@/pages/not-found";
 import { SplashScreen } from "@/components/splash-screen";
 
@@ -15,10 +15,11 @@ import Home from "@/pages/home";
 import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_1779426563754.webp";
 import heroCold from "@assets/hero_warehouse_cold.webp";
 import heroInterior from "@assets/hero_warehouse_interior.webp";
-import lpWoman from "@assets/imｓage_1789218848333.png";
-import lpTruck from "@assets/imｓｓage_1789219300934.png";
+import lpWoman from "@assets/lp-woman.webp";
+import lpTruck from "@assets/lp-truck.webp";
 
 import { SplashContext } from "@/lib/splash-context";
+import { CookieBanner } from "@/components/cookie-banner";
 
 // 公開ページ — 遅延読み込み
 const Recruit       = lazy(() => import("@/pages/recruit"));
@@ -150,11 +151,13 @@ function Router() {
 }
 
 function AppInner() {
-  const [splashDone, setSplashDone] = useState(false);
+  const [splashDone, setSplashDone] = useState(() => {
+    if (hasConsent()) loadAnalytics();
+    return false;
+  });
   const handleFinish = useCallback(() => setSplashDone(true), []);
 
   useEffect(() => {
-    loadAnalytics();
     // スプラッシュ中にヒーロー画像を先読み → LP表示時に即座に描画
     preloadImage(heroTruck);
     preloadImage(heroCold);
@@ -167,6 +170,7 @@ function AppInner() {
     <SplashContext.Provider value={splashDone}>
       {!splashDone && <SplashScreen onFinish={handleFinish} />}
       <Router />
+      <CookieBanner />
     </SplashContext.Provider>
   );
 }

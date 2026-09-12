@@ -60,11 +60,29 @@ export const contacts = pgTable("contacts", {
   experience: text("experience").default(""),
   vehicleType: text("vehicle_type").default(""),
   vehicleCount: text("vehicle_count").default(""),
+  // JSON containing firstTouch/currentTouch attribution. Added without removing
+  // any of the legacy contact fields so existing submissions remain readable.
+  attribution: text("attribution").default("{}"),
+  firstTouchAt: timestamp("first_touch_at"),
+  currentTouchAt: timestamp("current_touch_at"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 export const insertContactSchema = createInsertSchema(contacts).omit({ id: true, createdAt: true });
 export type InsertContact = z.infer<typeof insertContactSchema>;
 export type Contact = typeof contacts.$inferSelect;
+
+/** Public LP callback form; persistence is normalized into the contacts table. */
+export const lpCallbackSchema = z.object({
+  name: z.string().trim().min(1, "お名前を入力してください").max(100),
+  phone: z.string().trim().min(7, "電話番号を入力してください").max(30),
+  pickup: z.string().trim().min(1, "集荷先を入力してください").max(200),
+  destination: z.string().trim().min(1, "お届け先を入力してください").max(200),
+  desiredTiming: z.string().trim().min(1, "希望時間帯を入力してください").max(200),
+  privacyAgreed: z.literal(true, { errorMap: () => ({ message: "プライバシーポリシーへの同意が必要です" }) }),
+  honeypot: z.string().max(100).optional().default(""),
+  attribution: z.string().max(5000).optional().default("{}"),
+});
+export type LpCallback = z.infer<typeof lpCallbackSchema>;
 
 export const pageViews = pgTable("page_views", {
   id: serial("id").primaryKey(),
@@ -73,6 +91,9 @@ export const pageViews = pgTable("page_views", {
   prefecture: text("prefecture").default(""),
   referrer: text("referrer").default(""),
   userAgent: text("user_agent").default(""),
+  attribution: text("attribution").default("{}"),
+  firstTouchAt: timestamp("first_touch_at"),
+  currentTouchAt: timestamp("current_touch_at"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 export const insertPageViewSchema = createInsertSchema(pageViews).omit({ id: true, createdAt: true });
@@ -85,6 +106,9 @@ export const events = pgTable("events", {
   path: text("path").default(""),
   sessionId: text("session_id").default(""),
   properties: text("properties").default("{}"),
+  attribution: text("attribution").default("{}"),
+  firstTouchAt: timestamp("first_touch_at"),
+  currentTouchAt: timestamp("current_touch_at"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 export const insertEventSchema = createInsertSchema(events).omit({ id: true, createdAt: true });

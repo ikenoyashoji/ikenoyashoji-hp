@@ -119,6 +119,38 @@ export default function AdminDashboard() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-4">
+          <div className="bg-white border border-gray-200 p-4">
+            <p className="text-gray-700 text-sm font-medium mb-3">LPコンバージョンファネル</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {[
+                ["電話クリック", analytics?.lpFunnel?.cta_phone_click ?? 0],
+                ["フォーム開始", analytics?.lpFunnel?.lp_callback_form_attempt ?? 0],
+                ["送信完了", analytics?.lpFunnel?.lp_callback_form_submit ?? 0],
+                ["有効通話", analytics?.lpFunnel?.qualified_call ?? 0],
+              ].map(([label, count]) => (
+                <div key={String(label)} className="border border-gray-100 p-2 text-center">
+                  <div className="text-lg font-bold text-gray-900">{Number(count).toLocaleString()}</div>
+                  <div className="text-[10px] text-gray-400">{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="bg-white border border-gray-200 p-4">
+            <p className="text-gray-700 text-sm font-medium mb-3">キャンペーン / 流入</p>
+            {(analytics?.attributionBreakdown || []).length ? (
+              <div className="space-y-1.5">
+                {analytics.attributionBreakdown.slice(0, 6).map((item: any) => (
+                  <div key={item.name} className="flex items-center gap-2 text-[11px]">
+                    <span className="truncate flex-1 text-gray-600">{item.name}</span>
+                    <span className="text-gray-900 font-medium">{item.count}</span>
+                  </div>
+                ))}
+              </div>
+            ) : <p className="text-gray-300 text-xs">計測データがありません</p>}
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-4">
           {/* Top pages */}
           <div className="bg-white border border-gray-200 p-4">
             <p className="text-gray-700 text-sm font-medium mb-4 flex items-center gap-2">

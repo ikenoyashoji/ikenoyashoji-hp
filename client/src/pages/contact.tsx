@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Header } from "@/components/header";
 import { AnimateIn } from "@/components/animate-in";
 import { Footer } from "@/components/footer";
-import { trackPageView, trackEvent } from "@/lib/analytics";
+import { getAttribution, trackPageView, trackEvent } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
@@ -77,7 +77,13 @@ export default function Contact() {
   const mutation = useMutation({
     mutationFn: async (data: ContactFormValues) => {
       const { privacyAgreed: _, ...contactData } = data;
-      return apiRequest("POST", "/api/contacts", contactData);
+      const attribution = getAttribution();
+      return apiRequest("POST", "/api/contacts", {
+        ...contactData,
+        attribution: JSON.stringify(attribution),
+        firstTouchAt: attribution.firstTouchAt,
+        currentTouchAt: attribution.currentTouchAt,
+      });
     },
     onSuccess: () => {
       trackEvent("contact_form_submit", { type: watchType });

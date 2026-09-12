@@ -32,9 +32,9 @@ export function CookieBanner() {
           <Cookie className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
           <div>
             <p className="text-white text-sm font-semibold mb-1">Cookie・計測ツールについて</p>
-            <p className="text-blue-300 text-xs leading-relaxed">
-              当サイトではGA4（Google Analytics）およびMicrosoft Clarityを使用して、サービス改善のためにアクセス情報を収集しています。
-            </p>
+             <p className="text-blue-300 text-xs leading-relaxed">
+               同意いただいた場合のみ、GA4・Google広告（成果計測）・Microsoft Clarityを利用します。社内のアクセスログは、同意にかかわらずサービス運用・問い合わせ対応のために最小限記録します。
+             </p>
           </div>
         </div>
         <div className="flex gap-2 justify-end">

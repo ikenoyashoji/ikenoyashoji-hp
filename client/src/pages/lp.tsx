@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, Phone, X } from "lucide-react";
-import { trackEvent, trackPageView } from "@/lib/analytics";
+import { getAttribution, trackEvent, trackGoogleAdsConversion } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
-import womanFigure from "@assets/imｓage_1789218848333.png";
-import truckFigure from "@assets/imｓｓage_1789219300934.png";
+import womanFigure from "@assets/lp-woman.webp";
+import truckFigure from "@assets/lp-truck.webp";
 
 const phoneNumber = "046-212-2766";
 const phoneHref = "tel:0462122766";
@@ -15,12 +15,25 @@ const details = [
   ["どんな車両を手配できますか？", "軽貨物・2t・4t・大型まで、荷物や納品先の条件に合う車両を検討します。"],
 ];
 
-function call(location: string) {
+function call(location: string, event?: React.MouseEvent<HTMLAnchorElement>) {
   trackEvent("cta_phone_click", { location, phone: phoneNumber });
+  let navigated = false;
+  const navigate = () => {
+    if (navigated) return;
+    navigated = true;
+    window.location.href = phoneHref;
+  };
+  const conversionConfigured = trackGoogleAdsConversion("phone", () => {
+    navigate();
+  });
+  if (conversionConfigured) {
+    event?.preventDefault();
+    window.setTimeout(navigate, 800);
+  }
 }
 
 function PhoneAction({ location }: { location: string }) {
-  return <a href={phoneHref} onClick={() => call(location)} data-testid={`link-lp-phone-${location}`} className="group pointer-events-auto inline-grid grid-cols-[2rem_auto] items-end gap-x-2 border border-current px-3 py-2 text-current transition-transform hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
+  return <a href={phoneHref} onClick={(event) => call(location, event)} data-testid={`link-lp-phone-${location}`} className="group pointer-events-auto inline-grid grid-cols-[2rem_auto] items-end gap-x-2 border border-current px-3 py-2 text-current transition-transform hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
     <span className="col-start-2 mb-1 font-mono text-[8px] tracking-[.18em] opacity-70">24H / 全国対応</span>
     <Phone className="mb-1 h-5 w-5" strokeWidth={1.25} />
     <strong className="font-mono text-[clamp(1.45rem,2.3vw,2rem)] leading-none tracking-[-.07em]">{phoneNumber}</strong>
@@ -59,6 +72,8 @@ function ScrollCue({ blue = false }: { blue?: boolean }) {
 }
 
 function InfoPanel({ open, close }: { open: boolean; close: () => void }) {
+  const [callback, setCallback] = useState({ name: "", phone: "", pickup: "", destination: "", timing: "", privacyAgreed: false });
+  const [callbackState, setCallbackState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   useEffect(() => {
     if (!open) return;
     const previous = document.body.style.overflow;
@@ -73,9 +88,87 @@ function InfoPanel({ open, close }: { open: boolean; close: () => void }) {
       <p className="font-mono text-[9px] tracking-[.25em] text-[#0758c8]/60">24 HOURS / NATIONWIDE</p>
       <h2 id="info-title" className="mt-5 whitespace-nowrap font-serif text-[clamp(1.5rem,5vw,2.5rem)] leading-none tracking-[-.09em]">急ぎの輸送を、まず電話で。</h2>
       <p className="mt-8 max-w-md text-sm leading-7 text-[#111]">当日・翌日のトラック手配も、まずはご相談ください。荷物と配送条件を伺い、対応可能な車両を確認します。</p>
-      <a href={phoneHref} onClick={() => call("info_panel")} className="relative left-1/2 mt-8 inline-grid -translate-x-1/2 grid-cols-[1.75rem_auto] items-end gap-x-2 border border-[#0758c8] px-3 py-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
+      <a href={phoneHref} onClick={(event) => call("info_panel", event)} className="relative left-1/2 mt-8 inline-grid -translate-x-1/2 grid-cols-[1.75rem_auto] items-end gap-x-2 border border-[#0758c8] px-3 py-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
         <span className="col-start-2 font-mono text-[8px] tracking-[.2em] opacity-65">24H / 全国対応</span><Phone className="mb-0.5 h-4 w-4" strokeWidth={1.25} /><strong className="font-mono text-[clamp(1.4rem,4vw,1.9rem)] leading-none tracking-[-.07em]">{phoneNumber}</strong>
       </a>
+
+      <section className="mt-12 border-y border-[#0758c8]/25 py-8">
+        <p className="font-mono text-[9px] tracking-[.2em]">CALLBACK REQUEST</p>
+        <h3 className="mt-3 font-serif text-2xl tracking-[-.05em]">折り返し電話を依頼する</h3>
+        <p className="mt-3 text-xs leading-6 text-[#111]/70">電話に出られる時間をお知らせください。担当者から確認のうえご連絡します。</p>
+        {callbackState === "sent" ? (
+          <p className="mt-5 border border-[#0758c8]/30 bg-[#0758c8]/5 p-4 text-sm text-[#111]">受付が完了しました。担当者から折り返しご連絡します。</p>
+        ) : (
+          <form
+            className="mt-5 space-y-3"
+            onSubmit={async (event) => {
+              event.preventDefault();
+              if (!callback.privacyAgreed) return;
+              if (callbackState === "sending") return;
+              setCallbackState("sending");
+              trackEvent("lp_callback_form_attempt", { path: "/lp" });
+              try {
+                const response = await fetch("/api/lp/callback", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    name: callback.name,
+                    phone: callback.phone,
+                    pickup: callback.pickup,
+                    destination: callback.destination,
+                    desiredTiming: callback.timing,
+                    privacyAgreed: callback.privacyAgreed,
+                    honeypot: "",
+                    attribution: JSON.stringify(getAttribution()),
+                  }),
+                });
+                if (!response.ok) throw new Error("callback request failed");
+                setCallbackState("sent");
+                trackEvent("lp_callback_form_submit", { path: "/lp" });
+                trackGoogleAdsConversion("form");
+              } catch {
+                setCallbackState("error");
+              }
+            }}
+          >
+            <input name="website" type="text" value="" onChange={() => undefined} tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute left-[-10000px] h-px w-px opacity-0" />
+            {[
+              ["name", "お名前", "例：池ノ谷 太郎"],
+              ["phone", "電話番号", "例：046-212-2766"],
+              ["pickup", "集荷先", "例：神奈川県愛甲郡"],
+              ["destination", "お届け先", "例：東京都"],
+              ["timing", "希望時間帯", "例：本日17時以降"],
+            ].map(([key, label, placeholder]) => (
+              <label key={key} className="block text-xs text-[#111]">
+                <span className="mb-1 block text-[10px] tracking-[.12em] text-[#0758c8]/70">{label} <span className="text-red-500">*</span></span>
+                <input
+                  required
+                  maxLength={200}
+                  type={key === "phone" ? "tel" : "text"}
+                  value={callback[key as keyof typeof callback] as string}
+                  onChange={(event) => setCallback((current) => ({ ...current, [key]: event.target.value }))}
+                  placeholder={placeholder}
+                  className="w-full border border-[#0758c8]/25 bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-[#111]/35 focus:border-[#0758c8]"
+                />
+              </label>
+            ))}
+            <label className="flex items-start gap-2 pt-1 text-xs text-[#111]">
+              <input
+                required
+                type="checkbox"
+                checked={callback.privacyAgreed}
+                onChange={(event) => setCallback((current) => ({ ...current, privacyAgreed: event.target.checked }))}
+                className="mt-0.5 accent-[#0758c8]"
+              />
+              <span><Link href="/privacy" onClick={close} className="underline">プライバシーポリシー</Link>に同意する</span>
+            </label>
+            {callbackState === "error" && <p className="text-xs text-red-600">送信に失敗しました。時間をおいて再度お試しください。</p>}
+            <button type="submit" disabled={callbackState === "sending"} className="w-full border border-[#0758c8] bg-[#0758c8] px-4 py-3 text-xs tracking-[.15em] text-white transition-opacity disabled:opacity-50">
+              {callbackState === "sending" ? "送信中…" : "折り返しを依頼する"}
+            </button>
+          </form>
+        )}
+      </section>
 
       <div className="mt-16 border-t border-[#0758c8]/25">
         <section className="grid grid-cols-[3rem_1fr] gap-4 border-b border-[#0758c8]/25 py-8"><p className="font-mono text-[9px] tracking-[.2em]">01</p><div><h3 className="font-serif text-2xl tracking-[-.05em]">対応内容</h3><p className="mt-4 text-sm leading-7 text-[#111]">一般貨物運送・貨物利用運送を通じ、全国の輸送をご相談いただけます。軽貨物から大型まで、条件に合う車両の手配を検討します。</p></div></section>
@@ -117,7 +210,6 @@ export default function Lp() {
   const finalCtaOpacity = useTransform(progress, [.82, .87], [0, 1]);
   const finalCtaY = useTransform(progress, [.82, .87], [50, 0]);
   useEffect(() => {
-    trackPageView("/lp");
     const description = "緊急のトラック手配なら池ノ谷商事。条件をお伺いし、車両の空き状況を確認して折り返しご案内します。24時間・全国対応。";
     setSeo({ title: "電話一本。トラック手配。｜緊急配送は池ノ谷商事", description, path: "/lp" });
     const data = { "@context": "https://schema.org", "@type": "Service", name: "緊急トラック手配・輸送サービス", provider: { "@type": "LocalBusiness", name: "株式会社池ノ谷商事", telephone: phoneNumber, areaServed: "全国" }, areaServed: "全国", description, serviceType: ["緊急配送", "スポット便", "チャーター便", "定期輸送"] };

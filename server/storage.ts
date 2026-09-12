@@ -39,6 +39,7 @@ export interface IStorage {
   getPageViews(days?: number): Promise<PageView[]>;
   createEvent(event: InsertEvent): Promise<SiteEvent>;
   getEvents(days?: number): Promise<SiteEvent[]>;
+  findQualifiedCall(callId: string): Promise<SiteEvent | undefined>;
 
   upsertSearchConsoleData(data: InsertSearchConsoleData): Promise<void>;
   getSearchConsoleData(): Promise<SearchConsoleData[]>;
@@ -172,6 +173,17 @@ export class DrizzleStorage implements IStorage {
     const since = new Date();
     since.setDate(since.getDate() - days);
     return db.select().from(events).where(gte(events.createdAt, since)).orderBy(desc(events.createdAt));
+  }
+
+  async findQualifiedCall(callId: string) {
+    const candidates = await db.select().from(events);
+    return candidates.find((event) => {
+      try {
+        return JSON.parse(event.properties || "{}").callId === callId;
+      } catch {
+        return false;
+      }
+    });
   }
 
   async upsertSearchConsoleData(data: InsertSearchConsoleData) {

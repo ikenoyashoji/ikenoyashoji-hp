@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AnimateIn } from "@/components/animate-in";
-import { trackPageView } from "@/lib/analytics";
+import { resetConsent, trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import { Shield, Lock, Eye, UserCheck, Trash2, Mail, FileText, Cookie, Server, AlertCircle } from "lucide-react";
 import heroImg from "@assets/スクリーンショット_2026-05-22_14.34.44_1779428095288.webp";
@@ -106,12 +106,13 @@ const sections = [
     title: "Cookieおよびアクセス解析について",
     content: (
       <div className="text-sm text-gray-600 space-y-4">
-        <p className="leading-relaxed">当社のウェブサイトでは、以下のツールを利用してアクセス状況を分析しています。これらはすべてお客様の同意に基づき利用されます。</p>
+        <p className="leading-relaxed">当社のウェブサイトでは、以下のツールを利用してアクセス状況を分析しています。Google広告・GA4・Clarityは同意をいただいた場合のみ利用し、社内のアクセスログはサービス運用・問い合わせ対応のために同意にかかわらず最小限記録します。</p>
         <div className="space-y-3">
           {[
             { name: "Google Analytics 4（GA4）", desc: "Google LLCが提供するアクセス解析ツール。ページビュー・滞在時間・流入元などを分析します。収集データはGoogleのプライバシーポリシーに基づき管理されます。" },
+            { name: "Google広告", desc: "広告効果の測定と改善のため、広告経由のアクセス情報、広告クリック識別子、電話ボタンの利用や折り返し依頼などの成果情報を利用します。Googleへの送信はCookie同意設定に基づいて制御します。" },
             { name: "Microsoft Clarity", desc: "Microsoftが提供するヒートマップ・セッション録画ツール。ウェブサイトの利便性向上のために利用します。" },
-            { name: "内部アナリティクス", desc: "当社独自のアクセスログ記録システム。ページビュー・問い合わせ動向の把握に利用します。" },
+            { name: "内部アナリティクス", desc: "当社独自のアクセスログ記録システム。ページビュー・問い合わせ動向・広告キャンペーン別の成果把握に利用します。" },
           ].map((tool) => (
             <div key={tool.name} className="border border-gray-100 p-4">
               <p className="font-semibold text-gray-800 text-xs mb-1">{tool.name}</p>
@@ -120,6 +121,7 @@ const sections = [
           ))}
         </div>
         <p className="text-xs text-gray-400 leading-relaxed">Cookieの受け入れ設定はブラウザ側で変更可能です。ただし、一部機能が制限される場合があります。</p>
+        <button type="button" onClick={() => { resetConsent(); window.location.reload(); }} className="border border-gray-300 px-3 py-2 text-xs text-gray-600 hover:border-[#1d4ed8] hover:text-[#1d4ed8]">同意設定を撤回して再設定する</button>
       </div>
     ),
   },

@@ -183,6 +183,7 @@ export default function AdminSettings() {
                 { icon: Mail,      label: "SMTP メール",        key: "smtp",    detail: st?.smtpHost ? `${st.smtpHost}:${st.smtpPort}` : "未設定" },
                 { icon: BarChart2, label: "Google Analytics 4", key: "ga4",     detail: st?.ga4Id ? `ID: ${st.ga4Id}` : "未設定" },
                 { icon: BarChart2, label: "Microsoft Clarity",  key: "clarity", detail: st?.clarityId ? `ID: ${st.clarityId}` : "未設定" },
+                { icon: BarChart2, label: "Google広告コンバージョン", key: "googleAds", detail: st?.googleAds ? "ID・ラベル設定済み" : "未設定" },
               ].map((s) => (
                 <div key={s.key} className="flex items-start gap-3 border border-gray-100 p-3 rounded">
                   <s.icon className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -302,6 +303,15 @@ export default function AdminSettings() {
                 </p>
               )}
             </div>
+            <div className="border-t border-gray-100 pt-4">
+              <p className="text-gray-700 text-xs font-medium mb-2">Google広告コンバージョン</p>
+              <div className="space-y-0.5">
+                <div className="flex items-center justify-between py-1.5"><span className="text-xs text-gray-500">共有コンバージョンID</span><StatusBadge ok={!!st?.googleAdsId} /></div>
+                <div className="flex items-center justify-between py-1.5"><span className="text-xs text-gray-500">電話クリックラベル</span><StatusBadge ok={!!st?.googleAdsPhoneLabel} /></div>
+                <div className="flex items-center justify-between py-1.5"><span className="text-xs text-gray-500">フォーム送信ラベル</span><StatusBadge ok={!!st?.googleAdsFormLabel} /></div>
+              </div>
+              <p className="text-gray-400 text-[11px] mt-2">未設定時はGoogle広告への送信を行いません。</p>
+            </div>
             <p className="text-gray-400 text-[11px] border-t border-gray-100 pt-3">
               ※ GA4・Clarityはユーザーがクッキーに同意した場合のみロードされます（GDPR・個人情報保護法対応）
             </p>
@@ -412,6 +422,7 @@ export default function AdminSettings() {
               </p>
               {[
                 { cat: "必須", items: [
+                   { name: "NEON_DATABASE_URL", desc: "Neon PostgreSQL接続URL（設定時はDATABASE_URLより優先）" },
                   { name: "DATABASE_URL",  desc: "PostgreSQL接続URL" },
                   { name: "SESSION_SECRET", desc: "セッション秘密鍵（ランダムな長い文字列）" },
                 ]},
@@ -432,6 +443,11 @@ export default function AdminSettings() {
                 { cat: "アナリティクス", items: [
                   { name: "VITE_GA4_ID",    desc: "Google Analytics 4 測定ID（G-XXXXXXXXXX）" },
                   { name: "VITE_CLARITY_ID", desc: "Microsoft Clarity プロジェクトID" },
+                  { name: "VITE_GOOGLE_ADS_CONVERSION_ID", desc: "Google広告の共有コンバージョンID（AW-XXXXXXXXX）" },
+                  { name: "VITE_GOOGLE_ADS_PHONE_CONVERSION_LABEL", desc: "電話クリック用コンバージョンラベル" },
+                  { name: "VITE_GOOGLE_ADS_FORM_CONVERSION_LABEL", desc: "折り返しフォーム用コンバージョンラベル" },
+                  { name: "QUALIFIED_CALL_MIN_DURATION_SECONDS", desc: "有効通話と判定する最短秒数（既定: 60）" },
+                  { name: "QUALIFIED_CALL_WEBHOOK_SECRET", desc: "電話サービスからの署名付きWebhook用シークレット（ブラウザには公開しない）" },
                 ]},
                 { cat: "SEO", items: [
                   { name: "SITE_URL", desc: "サイトのURL（例: https://example.com）— サイトマップ生成に使用" },

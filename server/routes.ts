@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 import multer from "multer";
 import express from "express";
 import { storage } from "./storage";
-import { insertArticleSchema, insertKeywordSchema, insertContactSchema, insertPageViewSchema, insertEventSchema, insertEmailLeadSchema, insertSearchConsoleSchema } from "@shared/schema";
+import { insertArticleSchema, insertKeywordSchema, insertContactSchema, insertPageViewSchema, insertEventSchema, insertEmailLeadSchema, insertSearchConsoleSchema, lpCallbackSchema } from "@shared/schema";
 
 const MemoryStore = createMemoryStore(session);
 
@@ -498,7 +498,11 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   app.post("/api/contacts",
     rateLimit({ windowMs: 10 * 60_000, max: 5, keyFn: (r) => `contact:${r.ip}` }),
     async (req, res) => {
-    const parsed = insertContactSchema.safeParse(req.body);
+    const body = { ...req.body };
+    for (const key of ["firstTouchAt", "currentTouchAt"]) {
+      if (typeof body[key] === "string") body[key] = new Date(body[key]);
+    }
+    const parsed = insertContactSchema.safeParse(body);
     if (!parsed.success) return res.status(400).json({ error: parsed.error });
     const contact = await storage.createContact(parsed.data);
     res.json(contact);
@@ -607,17 +611,97 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     res.json(cts);
   });
 
+  // LP callback requests use the same contacts persistence and notification
+  // path as the full contact form, while keeping the public payload small.
+  app.post("/api/lp/callback",
+    rateLimit({ windowMs: 10 * 60_000, max: 3, keyFn: (r) => `lp-callback:${r.ip}` }),
+    async (req, res) => {
+      const callback = lpCallbackSchema.safeParse(req.body);
+      if (!callback.success) return res.status(400).json({ error: callback.error.flatten() });
+      const { name, phone, pickup, destination, desiredTiming, attribution, honeypot } = callback.data;
+      if (honeypot) return res.status(400).json({ error: "Invalid request" });
+      const normalizedPhone = phone
+        .replace(/[０-９]/g, (char) => String.fromCharCode(char.charCodeAt(0) - 0xfee0))
+        .replace(/[ー−―]/g, "-")
+        .replace(/[\s().-]/g, "");
+      if (!/^(?:0\d{9,10}|\+81\d{9,10})$/.test(normalizedPhone)) {
+        return res.status(400).json({ error: "電話番号の形式が正しくありません" });
+      }
+      let attributionDates: { firstTouchAt?: Date; currentTouchAt?: Date } = {};
+      try {
+        const parsedAttribution = JSON.parse(attribution || "{}");
+        const first = parsedAttribution.firstTouchAt ? new Date(parsedAttribution.firstTouchAt) : undefined;
+        const current = parsedAttribution.currentTouchAt ? new Date(parsedAttribution.currentTouchAt) : undefined;
+        if (first && !Number.isNaN(first.getTime())) attributionDates.firstTouchAt = first;
+        if (current && !Number.isNaN(current.getTime())) attributionDates.currentTouchAt = current;
+      } catch { /* malformed optional attribution is ignored */ }
+      const parsed = insertContactSchema.safeParse({
+        type: "shipper",
+        name,
+        email: "",
+        phone: normalizedPhone,
+        company: "",
+        cargoType: "LP折り返し依頼",
+        route: `${pickup} → ${destination}`,
+        frequency: desiredTiming,
+        message: `希望内容: 折り返し電話\n集荷先: ${pickup}\nお届け先: ${destination}\n希望時間帯: ${desiredTiming}`,
+        attribution,
+        ...attributionDates,
+      });
+      if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });
+      try {
+        const contact = await storage.createContact(parsed.data);
+        res.status(201).json({ id: contact.id, ok: true });
+
+        const smtpHost = process.env.SMTP_HOST;
+        const smtpUser = process.env.SMTP_USER;
+        const smtpPass = process.env.SMTP_PASS;
+        if (smtpHost && smtpUser && smtpPass) {
+          const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+          }[char] || char));
+          const sentAt = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+          const smtpPort = Number(process.env.SMTP_PORT) || 587;
+          const smtpFrom = process.env.SMTP_FROM || smtpUser;
+          const text = [
+            "【LP折り返し電話依頼】", `お名前: ${name}`, `電話: ${phone}`,
+            `集荷先: ${pickup}`, `お届け先: ${destination}`, `希望時間帯: ${desiredTiming}`,
+            `送信日時: ${sentAt}`, "管理画面: https://ikenoyashoji.jp/admin/contacts",
+          ].join("\n");
+          const html = `<!doctype html><html lang="ja"><body><h2>LP折り返し電話依頼</h2><p>送信日時: ${escapeHtml(sentAt)}</p><dl><dt>お名前</dt><dd>${escapeHtml(name)}</dd><dt>電話</dt><dd>${escapeHtml(phone)}</dd><dt>集荷先</dt><dd>${escapeHtml(pickup)}</dd><dt>お届け先</dt><dd>${escapeHtml(destination)}</dd><dt>希望時間帯</dt><dd>${escapeHtml(desiredTiming)}</dd></dl></body></html>`;
+          import("nodemailer").then(({ createTransport }) => createTransport({
+            host: smtpHost, port: smtpPort, secure: smtpPort === 465,
+            auth: { user: smtpUser, pass: smtpPass },
+          }).sendMail({
+            from: `株式会社池ノ谷商事 <${smtpFrom}>`,
+            to: "info@ikenoyashoji.co.jp",
+            subject: `【LP折り返し】${name}様`,
+            text,
+            html,
+          })).catch((error: Error) => console.error("[LpCallback] メール送信失敗:", error.message));
+        }
+      } catch (error) {
+        console.error("[LpCallback] 保存失敗:", error);
+        if (!res.headersSent) res.status(500).json({ error: "保存に失敗しました。時間をおいて再度お試しください。" });
+      }
+    });
+
   // Analytics - pageview tracking
   app.post("/api/analytics/pageview",
     rateLimit({ windowMs: 60_000, max: 120, keyFn: (r) => `pv:${r.ip}` }),
     async (req, res) => {
     try {
-      const parsed = insertPageViewSchema.safeParse(req.body);
+      const body = { ...req.body };
+      for (const key of ["firstTouchAt", "currentTouchAt"]) {
+        if (typeof body[key] === "string") body[key] = new Date(body[key]);
+      }
+      const parsed = insertPageViewSchema.safeParse(body);
       if (!parsed.success) return res.status(400).json({ error: parsed.error });
       const pv = await storage.createPageView(parsed.data);
       res.json(pv);
-    } catch {
-      res.json({ ok: true });
+     } catch (error) {
+       console.error("[analytics] pageview write failed:", error);
+       res.status(500).json({ error: "Analytics write failed" });
     }
   });
 
@@ -626,18 +710,67 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     rateLimit({ windowMs: 60_000, max: 120, keyFn: (r) => `ev:${r.ip}` }),
     async (req, res) => {
     try {
-      const parsed = insertEventSchema.safeParse(req.body);
+      const body = { ...req.body };
+      for (const key of ["firstTouchAt", "currentTouchAt"]) {
+        if (typeof body[key] === "string") body[key] = new Date(body[key]);
+      }
+      const parsed = insertEventSchema.safeParse(body);
       if (!parsed.success) return res.status(400).json({ error: parsed.error });
       const ev = await storage.createEvent(parsed.data);
       res.json(ev);
-    } catch {
-      res.json({ ok: true });
+     } catch (error) {
+       console.error("[analytics] event write failed:", error);
+       res.status(500).json({ error: "Analytics write failed" });
+    }
+  });
+
+  /**
+   * Server-to-server seam for a telephony provider. Browser code must not
+   * infer call duration; a signed provider webhook can post the qualified
+   * call outcome here once that integration exists.
+   * POST /api/webhooks/qualified-call
+   * Authorization: Bearer $QUALIFIED_CALL_WEBHOOK_SECRET
+   * { callId, status, durationSeconds, attribution? }
+   * Allowed status values are completed, answered, qualified, missed, failed,
+   * busy, no_answer, and cancelled. Qualified conversions require the
+   * configured QUALIFIED_CALL_MIN_DURATION_SECONDS threshold.
+   */
+  app.post("/api/webhooks/qualified-call", async (req, res) => {
+    const configuredSecret = process.env.QUALIFIED_CALL_WEBHOOK_SECRET;
+    if (!configuredSecret) return res.status(503).json({ error: "Qualified-call webhook is not configured" });
+    const authorization = req.header("authorization") || "";
+    if (authorization !== `Bearer ${configuredSecret}`) return res.status(401).json({ error: "Unauthorized" });
+    const { callId, status, durationSeconds, attribution } = req.body || {};
+    const allowedStatuses = new Set(["completed", "answered", "qualified", "missed", "failed", "busy", "no_answer", "cancelled"]);
+    if (typeof callId !== "string" || !callId.trim() || callId.length > 200 ||
+        typeof status !== "string" || !allowedStatuses.has(status) ||
+        (durationSeconds !== undefined && (!Number.isFinite(durationSeconds) || durationSeconds < 0 || durationSeconds > 86400))) {
+      return res.status(400).json({ error: "Invalid qualified-call payload" });
+    }
+    try {
+      const duplicate = await storage.findQualifiedCall(callId.trim());
+      if (duplicate) return res.status(200).json({ ok: true, duplicate: true, id: duplicate.id });
+      const minimumDuration = Math.max(0, Number(process.env.QUALIFIED_CALL_MIN_DURATION_SECONDS) || 60);
+      const qualified = ["completed", "answered", "qualified"].includes(status) &&
+        Number(durationSeconds || 0) >= minimumDuration;
+      const event = await storage.createEvent({
+        eventName: qualified ? "qualified_call" : "call_outcome",
+        path: "/lp",
+        sessionId: "",
+        properties: JSON.stringify({ callId: callId.trim(), status, durationSeconds: durationSeconds ?? null, qualified, minimumDuration }),
+        attribution: typeof attribution === "string" ? attribution.slice(0, 5000) : "{}",
+      });
+      res.status(201).json({ ok: true, id: event.id });
+    } catch (error) {
+      console.error("[qualified-call] write failed:", error);
+      res.status(500).json({ error: "Conversion update failed" });
     }
   });
 
   // Admin analytics dashboard
   app.get("/api/admin/analytics", requireAdmin, async (req, res) => {
-    const days = Number(req.query.days) || 28;
+    const requestedDays = Number(req.query.days);
+    const days = Number.isFinite(requestedDays) ? Math.min(365, Math.max(1, Math.floor(requestedDays))) : 28;
     const pvs = await storage.getPageViews(days);
     const evts = await storage.getEvents(days);
 
@@ -663,6 +796,32 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       pvByPrefecture[pref] = (pvByPrefecture[pref] || 0) + 1;
     }
 
+    const attributionSessions: Record<string, Set<string>> = {};
+    for (const pv of pvs) {
+      try {
+        const touch = JSON.parse(pv.attribution || "{}").currentTouch || {};
+        const campaign = touch.utm_campaign || touch.utm_source || touch.gclid || touch.gbraid || touch.wbraid;
+        if (campaign) {
+          const key = String(campaign).slice(0, 120);
+          attributionSessions[key] ||= new Set<string>();
+          attributionSessions[key].add(pv.sessionId || `pv:${pv.id}`);
+        }
+      } catch { /* legacy/invalid attribution is ignored */ }
+    }
+    for (const event of evts) {
+      try {
+        const touch = JSON.parse(event.attribution || "{}").currentTouch || {};
+        const campaign = touch.utm_campaign || touch.utm_source || touch.gclid || touch.gbraid || touch.wbraid;
+        if (campaign) {
+          const key = String(campaign).slice(0, 120);
+          attributionSessions[key] ||= new Set<string>();
+          attributionSessions[key].add(event.sessionId || `event:${event.id}`);
+        }
+      } catch { /* legacy/invalid attribution is ignored */ }
+    }
+    const funnelNames = ["lp_callback_form_attempt", "lp_callback_form_submit", "cta_phone_click", "qualified_call"];
+    const lpFunnel = Object.fromEntries(funnelNames.map((name) => [name, evtByName[name] || 0]));
+
     const topPages = Object.entries(pvByPath)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 10)
@@ -677,6 +836,8 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       totalEvents: evts.length,
       pvByDay: pvByDayArr,
       eventsByName: Object.entries(evtByName).map(([name, count]) => ({ name, count })),
+      attributionBreakdown: Object.entries(attributionSessions).sort((a, b) => b[1].size - a[1].size).slice(0, 12).map(([name, sessions]) => ({ name, count: sessions.size })),
+      lpFunnel,
       topPages,
       pvByPrefecture: Object.entries(pvByPrefecture).map(([prefecture, count]) => ({ prefecture, count })).sort((a, b) => b.count - a.count).slice(0, 20),
     });
@@ -872,7 +1033,8 @@ CTR：${(ctr * 100).toFixed(1)}%
 
   // Visitor analytics - detailed session data
   app.get("/api/admin/visitors", requireAdmin, async (req, res) => {
-    const days = Number(req.query.days) || 30;
+    const requestedDays = Number(req.query.days);
+    const days = Number.isFinite(requestedDays) ? Math.min(365, Math.max(1, Math.floor(requestedDays))) : 30;
     const [pvs, evts] = await Promise.all([storage.getPageViews(days), storage.getEvents(days)]);
 
     function parseDevice(ua: string): string {
@@ -924,6 +1086,14 @@ CTR：${(ctr * 100).toFixed(1)}%
 
     // Group page views by sessionId
     const sessionMap = new Map<string, any>();
+    function parseAttribution(value: string | null | undefined) {
+      try {
+        const parsed = JSON.parse(value || "{}");
+        return parsed.currentTouch || {};
+      } catch {
+        return {};
+      }
+    }
     for (const pv of pvs) {
       const sid = pv.sessionId || "unknown";
       if (!sessionMap.has(sid)) {
@@ -935,6 +1105,7 @@ CTR：${(ctr * 100).toFixed(1)}%
           referrer: pv.referrer || "",
           userAgent: pv.userAgent || "",
           prefecture: pv.prefecture || "",
+          attribution: parseAttribution(pv.attribution),
           events: [],
         });
       }
@@ -945,6 +1116,7 @@ CTR：${(ctr * 100).toFixed(1)}%
       if (!s.referrer && pv.referrer) s.referrer = pv.referrer;
       if (!s.userAgent && pv.userAgent) s.userAgent = pv.userAgent;
       if (!s.prefecture && pv.prefecture) s.prefecture = pv.prefecture;
+      if (!Object.keys(s.attribution).length && pv.attribution) s.attribution = parseAttribution(pv.attribution);
     }
 
     // Attach events to sessions
@@ -1006,7 +1178,8 @@ CTR：${(ctr * 100).toFixed(1)}%
 
   // Admin logs - activity feed
   app.get("/api/admin/logs", requireAdmin, async (req, res) => {
-    const days = Number(req.query.days) || 30;
+    const requestedDays = Number(req.query.days);
+    const days = Number.isFinite(requestedDays) ? Math.min(365, Math.max(1, Math.floor(requestedDays))) : 30;
     const [evts, pvs, cts, arts] = await Promise.all([
       storage.getEvents(days),
       storage.getPageViews(days),
@@ -1064,6 +1237,12 @@ CTR：${(ctr * 100).toFixed(1)}%
       ga4Id: process.env.VITE_GA4_ID || "",
       clarity: !!(process.env.VITE_CLARITY_ID),
       clarityId: process.env.VITE_CLARITY_ID || "",
+      googleAdsId: !!process.env.VITE_GOOGLE_ADS_CONVERSION_ID,
+      googleAds: !!(process.env.VITE_GOOGLE_ADS_CONVERSION_ID && process.env.VITE_GOOGLE_ADS_PHONE_CONVERSION_LABEL && process.env.VITE_GOOGLE_ADS_FORM_CONVERSION_LABEL),
+      googleAdsPhoneLabel: !!process.env.VITE_GOOGLE_ADS_PHONE_CONVERSION_LABEL,
+      googleAdsFormLabel: !!process.env.VITE_GOOGLE_ADS_FORM_CONVERSION_LABEL,
+      qualifiedCallWebhook: !!process.env.QUALIFIED_CALL_WEBHOOK_SECRET,
+      qualifiedCallMinDuration: Number(process.env.QUALIFIED_CALL_MIN_DURATION_SECONDS) || 60,
       adminUser: process.env.ADMIN_USER || "admin",
       adminPassSet: !!(process.env.ADMIN_PASS),
       ...stats,
