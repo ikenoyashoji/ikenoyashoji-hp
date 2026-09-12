@@ -28,7 +28,7 @@ function Scene({ children, opacity, y = 0, scale = 1, className = "" }: { childr
 }
 
 function BackdropWord({ children, blue = false }: { children: React.ReactNode; blue?: boolean }) {
-  return <p aria-hidden="true" style={{ WebkitTextStroke: `1px ${blue ? "rgba(7, 88, 200, .7)" : "rgba(255, 255, 255, .7)"}`, color: "transparent" }} className="absolute left-[38vw] top-1/2 -translate-y-1/2 whitespace-nowrap font-serif text-[clamp(12rem,30vw,30rem)] leading-none tracking-[-.12em] opacity-20">
+  return <p aria-hidden="true" style={{ WebkitTextStroke: `1px ${blue ? "rgba(7, 88, 200, .7)" : "rgba(255, 255, 255, .7)"}`, color: "transparent" }} className="absolute right-[3vw] top-[27%] whitespace-nowrap text-right font-serif text-[clamp(4.5rem,18vw,18rem)] leading-none tracking-[-.1em] opacity-20">
     {children}
   </p>;
 }
