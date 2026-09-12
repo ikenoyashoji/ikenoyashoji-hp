@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, ChevronDown, Phone, X } from "lucide-react";
+import { ChevronDown, Phone, X } from "lucide-react";
 import { trackEvent, trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 
@@ -18,11 +18,10 @@ function call(location: string) {
 }
 
 function PhoneAction({ location }: { location: string }) {
-  return <a href={phoneHref} onClick={() => call(location)} data-testid={`link-lp-phone-${location}`} className="group pointer-events-auto inline-grid min-w-72 grid-cols-[2rem_1fr_auto] items-end gap-x-2 border-b border-current pb-2 text-current transition-transform hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
-    <span className="col-start-2 col-end-4 mb-1 font-mono text-[8px] tracking-[.18em] opacity-70">24H / 全国対応</span>
+  return <a href={phoneHref} onClick={() => call(location)} data-testid={`link-lp-phone-${location}`} className="group pointer-events-auto inline-grid min-w-72 grid-cols-[2rem_1fr] items-end gap-x-2 border-b border-current pb-2 text-current transition-transform hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
+    <span className="col-start-2 mb-1 font-mono text-[8px] tracking-[.18em] opacity-70">24H / 全国対応</span>
     <Phone className="mb-1 h-5 w-5" strokeWidth={1.25} />
     <strong className="font-mono text-[clamp(1.45rem,2.3vw,2rem)] leading-none tracking-[-.07em]">{phoneNumber}</strong>
-    <ArrowUpRight className="mb-1 h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" strokeWidth={1.25} />
   </a>;
 }
 
@@ -81,14 +80,14 @@ export default function Lp() {
         <div className="absolute inset-0 bg-[#0758c8]" />
         <motion.div style={{ color: hudColor }} className="pointer-events-none absolute inset-0 z-30">
           <header className="absolute left-0 right-0 top-0 flex justify-between px-5 py-6 sm:px-12 sm:py-8"><div className="border-l border-current pl-3"><p className="font-serif text-sm font-bold tracking-[-.02em] sm:text-base">株式会社池ノ谷商事</p></div><button onClick={() => setInfoOpen(true)} className="pointer-events-auto border-b border-current pb-1 font-mono text-[10px] tracking-[.2em] focus-visible:outline focus-visible:outline-2">INFO</button></header>
-          <div className="fixed bottom-6 left-5 right-5 [&>a]:flex [&>a]:w-full [&>a]:justify-between md:hidden"><PhoneAction location="mobile_fixed" /></div>
+          <div className="fixed bottom-6 right-5 md:hidden"><PhoneAction location="mobile_fixed" /></div>
           <div className="fixed bottom-8 right-8 hidden md:block"><PhoneAction location="desktop_fixed" /></div>
         </motion.div>
         <Scene opacity={s1} className="items-center px-5 pt-20 sm:px-[6vw]"><BackdropWord large>MOVE</BackdropWord><div className="relative z-10 w-full -translate-y-[4vh]"><p className="font-mono text-[9px] tracking-[.3em]">01 / MOVE</p><h1 className="-ml-8 mt-10 max-w-6xl font-serif text-[clamp(5rem,16vw,16rem)] leading-[.82] tracking-[-.12em] sm:-ml-[4vw]">運ぶ。</h1></div></Scene>
         <Scene opacity={s2} className="items-center px-5 pt-20 sm:px-[6vw]"><BackdropWord>MISSING</BackdropWord><div className="relative z-10 w-full -translate-y-[7vh]"><p className="font-mono text-[9px] tracking-[.3em]">02 / PROBLEM</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3rem,11vw,11rem)] leading-[.86] tracking-[-.11em] sm:-ml-[4vw]">今日の<span className="sm:hidden"><br /></span>トラックが、<br /><span className="ml-[4vw]">見つからない。</span></h2></div></Scene>
         <Scene opacity={s3} className="items-center px-5 sm:px-[6vw]"><BackdropWord>ARRANGE</BackdropWord><div className="relative z-10 w-full -translate-y-[8vh]"><p className="font-mono text-[9px] tracking-[.3em]">03 / SOLUTION</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3rem,10vw,10rem)] leading-[.86] tracking-[-.11em] sm:-ml-[4vw]">電話一本で、<br /><span className="ml-[4vw]">トラック<span className="sm:hidden"><br /></span>手配します。</span></h2></div></Scene>
         <Scene opacity={s4} className="items-center bg-white px-5 text-[#0758c8] sm:px-[6vw]"><BackdropWord blue>ALWAYS</BackdropWord><div className="relative z-10 grid w-full grid-cols-[auto_1fr] gap-8"><p className="font-mono text-[9px] tracking-[.25em] [writing-mode:vertical-rl]">04 / ALWAYS ON</p><div><p className="font-mono text-[10px] tracking-[.3em] text-[#0758c8]/65">24 HOURS / NATIONWIDE</p><p className="-ml-8 mt-8 font-serif text-[clamp(4rem,14vw,14rem)] leading-[.8] tracking-[-.12em] sm:-ml-[5vw]">24<br /><span className="ml-[4vw]">HOURS</span></p></div></div></Scene>
-        <Scene opacity={s5} className="items-center px-5 sm:px-[6vw]"><BackdropWord>CALL</BackdropWord><div className="relative z-10 w-full -translate-y-[6vh]"><p className="font-mono text-[9px] tracking-[.3em]">05 / CALL NOW</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3.4rem,12vw,12rem)] leading-[.82] tracking-[-.11em] sm:-ml-[4vw]">今、<br /><span className="ml-[4vw]">電話する。</span></h2><a href={phoneHref} onClick={() => call("final_scene")} data-testid="link-lp-phone-final_scene" className="group pointer-events-auto ml-[4vw] mt-10 inline-grid min-w-[min(34rem,88vw)] grid-cols-[2.5rem_1fr_auto] items-end gap-x-3 border-b border-white pb-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"><span className="col-start-2 col-end-4 mb-1 font-mono text-[9px] tracking-[.22em] opacity-70">24H / 全国対応</span><Phone className="mb-2 h-7 w-7" strokeWidth={1.2} /><strong className="font-mono text-[clamp(2.5rem,6vw,5.5rem)] leading-none tracking-[-.08em]">{phoneNumber}</strong><ArrowUpRight className="mb-2 h-6 w-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" strokeWidth={1.2} /></a></div></Scene>
+        <Scene opacity={s5} className="items-center px-5 sm:px-[6vw]"><BackdropWord>CALL</BackdropWord><div className="relative z-10 w-full -translate-y-[6vh]"><p className="font-mono text-[9px] tracking-[.3em]">05 / CALL NOW</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3.4rem,12vw,12rem)] leading-[.82] tracking-[-.11em] sm:-ml-[4vw]">今、<br /><span className="ml-[4vw]">電話する。</span></h2><a href={phoneHref} onClick={() => call("final_scene")} data-testid="link-lp-phone-final_scene" className="group pointer-events-auto ml-[4vw] mt-10 inline-grid min-w-[min(34rem,88vw)] grid-cols-[2.5rem_1fr] items-end gap-x-3 border-b border-white pb-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"><span className="col-start-2 mb-1 font-mono text-[9px] tracking-[.22em] opacity-70">24H / 全国対応</span><Phone className="mb-2 h-7 w-7" strokeWidth={1.2} /><strong className="font-mono text-[clamp(2.5rem,6vw,5.5rem)] leading-none tracking-[-.08em]">{phoneNumber}</strong></a></div></Scene>
       </div>
     </main>
     <InfoPanel open={infoOpen} close={() => setInfoOpen(false)} />
