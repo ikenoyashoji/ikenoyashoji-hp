@@ -148,8 +148,6 @@ function Router() {
 }
 
 function AppInner() {
-  const [location] = useLocation();
-  const bypassSplash = location === "/lp";
   const [splashDone, setSplashDone] = useState(false);
   const handleFinish = useCallback(() => setSplashDone(true), []);
 
@@ -162,8 +160,8 @@ function AppInner() {
   }, []);
 
   return (
-    <SplashContext.Provider value={splashDone || bypassSplash}>
-      {!bypassSplash && !splashDone && <SplashScreen onFinish={handleFinish} />}
+    <SplashContext.Provider value={splashDone}>
+      {!splashDone && <SplashScreen onFinish={handleFinish} />}
       <Router />
     </SplashContext.Provider>
   );
