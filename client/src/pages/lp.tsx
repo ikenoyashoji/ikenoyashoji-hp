@@ -82,7 +82,7 @@ export default function Lp() {
   const fixedCtaOpacity = useTransform(progress, [0, .75, .79, 1], [1, 1, 0, 0]);
   const fixedCtaPointerEvents = useTransform(progress, value => value >= .79 ? "none" : "auto");
   const op = (a: number, b: number) => useTransform(progress, [a, a + .035, b, b + .035], [0, 1, 1, 0]);
-  const s1 = op(-.035, .14); const s2 = op(.14, .39); const s3 = op(.39, .63); const s4 = op(.63, .79); const s5 = op(.79, 1.02);
+  const s1 = op(-.035, .20); const s2 = op(.20, .40); const s3 = op(.40, .60); const s4 = op(.60, .80); const s5 = op(.80, 1.02);
   useEffect(() => {
     trackPageView("/lp");
     const description = "緊急のトラック手配なら池ノ谷商事。条件をお伺いし、車両の空き状況を確認して折り返しご案内します。24時間・全国対応。";
