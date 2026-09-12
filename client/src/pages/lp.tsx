@@ -98,9 +98,9 @@ export default function Lp() {
   const op = (a: number, b: number) => useTransform(progress, [a, a + .035, b, b + .035], [0, 1, 1, 0]);
   const s1 = op(-.035, .20); const s2 = op(.20, .40); const s3 = op(.40, .60); const s4 = op(.60, .80); const s5 = op(.80, 1.02);
   const film = (a: number, b: number) => ({
-    y: useTransform(progress, [a, a + .035, b, b + .035], [120, 0, 0, -90]),
-    scale: useTransform(progress, [a, a + .035, b, b + .035], [.9, 1, 1, 1.08]),
-    filter: useTransform(progress, [a, a + .035, b, b + .035], ["blur(14px)", "blur(0px)", "blur(0px)", "blur(10px)"]),
+    y: useTransform(progress, [a, a + .07, b, b + .07], [120, 0, 0, -90]),
+    scale: useTransform(progress, [a, a + .07, b, b + .07], [.9, 1, 1, 1.08]),
+    filter: useTransform(progress, [a, a + .07, b, b + .07], ["blur(14px)", "blur(0px)", "blur(0px)", "blur(10px)"]),
     wordX: useTransform(progress, [a, a + .035, b, b + .035], [140, 0, 0, -180]),
     wordScale: useTransform(progress, [a, a + .035, b, b + .035], [.82, 1, 1, 1.18]),
   });
