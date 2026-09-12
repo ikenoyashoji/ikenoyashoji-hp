@@ -5,6 +5,7 @@ import { ChevronDown, Phone, X } from "lucide-react";
 import { trackEvent, trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
 import womanFigure from "@assets/imｓage_1789218848333.png";
+import truckFigure from "@assets/imｓｓage_1789219300934.png";
 
 const phoneNumber = "046-212-2766";
 const phoneHref = "tel:0462122766";
@@ -109,6 +110,9 @@ export default function Lp() {
   const womanX = useTransform(progress, [0, .20, .235], [0, 20, 110]);
   const womanY = useTransform(progress, [0, .20, .235], [0, -18, -70]);
   const womanScale = useTransform(progress, [0, .20, .235], [1, 1.025, 1.08]);
+  const truckX = useTransform(progress, [.78, .86, 1], [120, 0, -24]);
+  const truckY = useTransform(progress, [.78, .86, 1], [48, 0, -10]);
+  const truckScale = useTransform(progress, [.78, .86, 1], [.92, 1, 1.025]);
   const finalCtaOpacity = useTransform(progress, [.82, .87], [0, 1]);
   const finalCtaY = useTransform(progress, [.82, .87], [50, 0]);
   useEffect(() => {
@@ -132,7 +136,7 @@ export default function Lp() {
         <Scene opacity={s2} className="items-center px-5 pt-20 sm:px-[6vw]"><BackdropWord x={f2.wordX} scale={f2.wordScale}>MISSING</BackdropWord><CinematicCopy {...f2} className="-translate-y-[7vh]"><p className="font-mono text-[9px] tracking-[.3em]">02 / MISSING</p><h2 className="-ml-2 mt-10 font-serif text-[3.3rem] leading-[.96] tracking-[-.11em] sm:hidden">今日の<br />トラックが<br />見つからない。</h2><h2 className="mt-10 hidden font-serif leading-[.94] tracking-[-.11em] sm:-ml-[4vw] sm:block sm:text-[clamp(3rem,11vw,11rem)]">今日のトラックが<br />見つからない。</h2></CinematicCopy><ScrollCue /></Scene>
         <Scene opacity={s3} className="items-center px-5 sm:px-[6vw]"><BackdropWord x={f3.wordX} scale={f3.wordScale}>ARRANGE</BackdropWord><CinematicCopy {...f3} className="-translate-y-[2vh]"><p className="font-mono text-[9px] tracking-[.3em]">03 / ARRANGE</p><h2 className="-ml-2 mt-10 font-serif text-[4rem] leading-[1.02] tracking-[-.11em] sm:-ml-[4vw] sm:text-[clamp(3rem,10vw,10rem)]">電話一本で<br /><span className="-ml-[2vw] inline-block sm:-ml-[2.5vw]">トラック<span className="sm:hidden"><br /></span>手配します。</span></h2></CinematicCopy><ScrollCue /></Scene>
         <Scene opacity={s4} className="items-center bg-white px-5 text-[#0758c8] sm:px-[6vw]"><BackdropWord blue x={f4.wordX} scale={f4.wordScale}>ALWAYS</BackdropWord><CinematicCopy {...f4}><p className="font-mono text-[9px] tracking-[.3em]">04 / ALWAYS</p><p className="-ml-2 mt-8 font-serif text-[5.5rem] leading-[.95] tracking-[-.12em] sm:-ml-[5vw] sm:text-[clamp(4rem,14vw,14rem)]">24<br /><span className="ml-[4vw]">HOURS</span></p></CinematicCopy><ScrollCue blue /></Scene>
-        <Scene opacity={s5} className="items-center px-5 sm:px-[6vw]"><BackdropWord x={f5.wordX} scale={f5.wordScale}>CALL</BackdropWord><CinematicCopy {...f5} className="translate-y-[2vh]"><p className="font-mono text-[9px] tracking-[.3em]">05 / CALL NOW</p><h2 className="-ml-2 mt-10 font-serif text-[4rem] leading-[.95] tracking-[-.11em] sm:hidden">今すぐ<br />相談する。</h2><h2 className="mt-10 hidden whitespace-nowrap font-serif leading-none tracking-[-.11em] sm:-ml-[4vw] sm:block sm:text-[clamp(3.4rem,12vw,12rem)]">今すぐ相談する。</h2></CinematicCopy><div className="pointer-events-auto absolute bottom-7 left-1/2 z-10 -translate-x-1/2 sm:bottom-9"><motion.div style={{ opacity: finalCtaOpacity, y: finalCtaY }} className="scale-110"><PhoneAction location="final_scene" /></motion.div></div></Scene>
+        <Scene opacity={s5} className="items-center px-5 sm:px-[6vw]"><BackdropWord x={f5.wordX} scale={f5.wordScale}>CALL</BackdropWord><motion.img src={truckFigure} alt="" aria-hidden="true" style={{ x: truckX, y: truckY, scale: truckScale, transformOrigin: "bottom right" }} className="absolute bottom-[4vh] right-[2vw] z-[5] hidden h-[72svh] w-auto object-contain object-bottom md:block" /><CinematicCopy {...f5} className="translate-y-[2vh]"><p className="font-mono text-[9px] tracking-[.3em]">05 / CALL NOW</p><h2 className="-ml-2 mt-10 font-serif text-[4rem] leading-[.95] tracking-[-.11em] sm:hidden">今すぐ<br />相談する。</h2><h2 className="mt-10 hidden whitespace-nowrap font-serif leading-none tracking-[-.11em] sm:-ml-[4vw] sm:block sm:text-[clamp(3.4rem,12vw,12rem)]">今すぐ相談する。</h2></CinematicCopy><div className="pointer-events-auto absolute bottom-7 left-1/2 z-10 -translate-x-1/2 sm:bottom-9"><motion.div style={{ opacity: finalCtaOpacity, y: finalCtaY }} className="scale-110"><PhoneAction location="final_scene" /></motion.div></div></Scene>
       </div>
     </main>
     <InfoPanel open={infoOpen} close={() => setInfoOpen(false)} />
