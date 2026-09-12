@@ -104,7 +104,7 @@ export default function Lp() {
     wordX: useTransform(progress, [a, a + .035, b, b + .035], [140, 0, 0, -180]),
     wordScale: useTransform(progress, [a, a + .035, b, b + .035], [.82, 1, 1, 1.18]),
   });
-  const f1 = film(-.035, .20); const f2 = film(.20, .40); const f3 = film(.40, .60); const f4 = film(.60, .80); const f5 = film(.80, 1.02);
+  const f1 = film(-.07, .20); const f2 = film(.20, .40); const f3 = film(.40, .60); const f4 = film(.60, .80); const f5 = film(.80, 1.02);
   const finalCtaOpacity = useTransform(progress, [.82, .87], [0, 1]);
   const finalCtaY = useTransform(progress, [.82, .87], [50, 0]);
   useEffect(() => {
