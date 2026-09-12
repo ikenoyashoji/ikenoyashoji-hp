@@ -29,10 +29,14 @@ function Scene({ children, opacity, y = 0, scale = 1, className = "" }: { childr
   return <motion.div style={{ opacity, y, scale }} className={`pointer-events-none absolute inset-0 flex ${className}`}>{children}</motion.div>;
 }
 
-function BackdropWord({ children, blue = false, large = false }: { children: React.ReactNode; blue?: boolean; large?: boolean }) {
-  return <p aria-hidden="true" style={{ WebkitTextStroke: `1px ${blue ? "rgba(7, 88, 200, .7)" : "rgba(255, 255, 255, .7)"}`, color: "transparent" }} className={`absolute right-[3vw] whitespace-nowrap text-right font-serif leading-none tracking-[-.1em] opacity-20 ${large ? "top-[20%] text-[clamp(6rem,24vw,24rem)]" : "top-[27%] text-[clamp(4.5rem,18vw,18rem)]"}`}>
+function BackdropWord({ children, blue = false, large = false, x = 0, scale = 1 }: { children: React.ReactNode; blue?: boolean; large?: boolean; x?: any; scale?: any }) {
+  return <motion.p aria-hidden="true" style={{ x, scale, WebkitTextStroke: `1px ${blue ? "rgba(7, 88, 200, .7)" : "rgba(255, 255, 255, .7)"}`, color: "transparent" }} className={`absolute right-[3vw] whitespace-nowrap text-right font-serif leading-none tracking-[-.1em] opacity-20 ${large ? "top-[20%] text-[clamp(6rem,24vw,24rem)]" : "top-[27%] text-[clamp(4.5rem,18vw,18rem)]"}`}>
     {children}
-  </p>;
+  </motion.p>;
+}
+
+function CinematicCopy({ children, y, scale, filter, className = "" }: { children: React.ReactNode; y: any; scale: any; filter: any; className?: string }) {
+  return <div className={`relative z-10 w-full ${className}`}><motion.div style={{ y, scale, filter, transformOrigin: "left center" }}>{children}</motion.div></div>;
 }
 
 function ScrollCue({ blue = false }: { blue?: boolean }) {
@@ -83,6 +87,16 @@ export default function Lp() {
   const fixedCtaPointerEvents = useTransform(progress, value => value >= .79 ? "none" : "auto");
   const op = (a: number, b: number) => useTransform(progress, [a, a + .035, b, b + .035], [0, 1, 1, 0]);
   const s1 = op(-.035, .20); const s2 = op(.20, .40); const s3 = op(.40, .60); const s4 = op(.60, .80); const s5 = op(.80, 1.02);
+  const film = (a: number, b: number) => ({
+    y: useTransform(progress, [a, a + .035, b, b + .035], [120, 0, 0, -90]),
+    scale: useTransform(progress, [a, a + .035, b, b + .035], [.9, 1, 1, 1.08]),
+    filter: useTransform(progress, [a, a + .035, b, b + .035], ["blur(14px)", "blur(0px)", "blur(0px)", "blur(10px)"]),
+    wordX: useTransform(progress, [a, a + .035, b, b + .035], [140, 0, 0, -180]),
+    wordScale: useTransform(progress, [a, a + .035, b, b + .035], [.82, 1, 1, 1.18]),
+  });
+  const f1 = film(-.035, .20); const f2 = film(.20, .40); const f3 = film(.40, .60); const f4 = film(.60, .80); const f5 = film(.80, 1.02);
+  const finalCtaOpacity = useTransform(progress, [.82, .87], [0, 1]);
+  const finalCtaY = useTransform(progress, [.82, .87], [50, 0]);
   useEffect(() => {
     trackPageView("/lp");
     const description = "緊急のトラック手配なら池ノ谷商事。条件をお伺いし、車両の空き状況を確認して折り返しご案内します。24時間・全国対応。";
@@ -100,11 +114,11 @@ export default function Lp() {
           <motion.div style={{ opacity: fixedCtaOpacity, pointerEvents: fixedCtaPointerEvents }} className="fixed bottom-6 right-5 md:hidden"><PhoneAction location="mobile_fixed" /></motion.div>
           <motion.div style={{ opacity: fixedCtaOpacity, pointerEvents: fixedCtaPointerEvents }} className="fixed bottom-8 right-8 hidden md:block"><PhoneAction location="desktop_fixed" /></motion.div>
         </motion.div>
-        <Scene opacity={s1} className="items-center px-5 pt-20 sm:px-[6vw]"><BackdropWord large>MOVE</BackdropWord><div className="relative z-10 w-full -translate-y-[4vh]"><p className="font-mono text-[9px] tracking-[.3em]">01 / MOVE</p><h1 className="-ml-8 mt-10 max-w-6xl font-serif text-[clamp(5rem,16vw,16rem)] leading-[.82] tracking-[-.12em] sm:-ml-[4vw]">運ぶ。</h1></div><ScrollCue /></Scene>
-        <Scene opacity={s2} className="items-center px-5 pt-20 sm:px-[6vw]"><BackdropWord>MISSING</BackdropWord><div className="relative z-10 w-full -translate-y-[7vh]"><p className="font-mono text-[9px] tracking-[.3em]">02 / MISSING</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3rem,11vw,11rem)] leading-[.94] tracking-[-.11em] sm:-ml-[4vw]">今日の<span className="sm:hidden"><br /></span>トラックが<br />見つからない。</h2></div><ScrollCue /></Scene>
-        <Scene opacity={s3} className="items-center px-5 sm:px-[6vw]"><BackdropWord>ARRANGE</BackdropWord><div className="relative z-10 w-full -translate-y-[2vh]"><p className="font-mono text-[9px] tracking-[.3em]">03 / ARRANGE</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3rem,10vw,10rem)] leading-[1.02] tracking-[-.11em] sm:-ml-[4vw]">電話一本で<br /><span className="-ml-[6vw] inline-block sm:-ml-[2.5vw]">トラック<span className="sm:hidden"><br /></span>手配します。</span></h2></div><ScrollCue /></Scene>
-        <Scene opacity={s4} className="items-center bg-white px-5 text-[#0758c8] sm:px-[6vw]"><BackdropWord blue>ALWAYS</BackdropWord><div className="relative z-10 w-full"><p className="font-mono text-[9px] tracking-[.3em]">04 / ALWAYS</p><p className="-ml-8 mt-8 font-serif text-[clamp(4rem,14vw,14rem)] leading-[.95] tracking-[-.12em] sm:-ml-[5vw]">24<br /><span className="ml-[4vw]">HOURS</span></p></div><ScrollCue blue /></Scene>
-        <Scene opacity={s5} className="items-center px-5 sm:px-[6vw]"><BackdropWord>CALL</BackdropWord><div className="relative z-10 w-full translate-y-[2vh]"><p className="font-mono text-[9px] tracking-[.3em]">05 / CALL NOW</p><h2 className="-ml-8 mt-10 whitespace-nowrap font-serif text-[clamp(3.4rem,12vw,12rem)] leading-none tracking-[-.11em] sm:-ml-[4vw]">今すぐ相談する。</h2></div><div className="pointer-events-auto absolute bottom-7 left-1/2 z-10 -translate-x-1/2 scale-110 sm:bottom-9"><PhoneAction location="final_scene" /></div></Scene>
+        <Scene opacity={s1} className="items-center px-5 pt-20 sm:px-[6vw]"><BackdropWord large x={f1.wordX} scale={f1.wordScale}>MOVE</BackdropWord><CinematicCopy {...f1} className="-translate-y-[4vh]"><p className="font-mono text-[9px] tracking-[.3em]">01 / MOVE</p><h1 className="-ml-8 mt-10 max-w-6xl font-serif text-[clamp(5rem,16vw,16rem)] leading-[.82] tracking-[-.12em] sm:-ml-[4vw]">運ぶ。</h1></CinematicCopy><ScrollCue /></Scene>
+        <Scene opacity={s2} className="items-center px-5 pt-20 sm:px-[6vw]"><BackdropWord x={f2.wordX} scale={f2.wordScale}>MISSING</BackdropWord><CinematicCopy {...f2} className="-translate-y-[7vh]"><p className="font-mono text-[9px] tracking-[.3em]">02 / MISSING</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3rem,11vw,11rem)] leading-[.94] tracking-[-.11em] sm:-ml-[4vw]">今日の<span className="sm:hidden"><br /></span>トラックが<br />見つからない。</h2></CinematicCopy><ScrollCue /></Scene>
+        <Scene opacity={s3} className="items-center px-5 sm:px-[6vw]"><BackdropWord x={f3.wordX} scale={f3.wordScale}>ARRANGE</BackdropWord><CinematicCopy {...f3} className="-translate-y-[2vh]"><p className="font-mono text-[9px] tracking-[.3em]">03 / ARRANGE</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3rem,10vw,10rem)] leading-[1.02] tracking-[-.11em] sm:-ml-[4vw]">電話一本で<br /><span className="-ml-[6vw] inline-block sm:-ml-[2.5vw]">トラック<span className="sm:hidden"><br /></span>手配します。</span></h2></CinematicCopy><ScrollCue /></Scene>
+        <Scene opacity={s4} className="items-center bg-white px-5 text-[#0758c8] sm:px-[6vw]"><BackdropWord blue x={f4.wordX} scale={f4.wordScale}>ALWAYS</BackdropWord><CinematicCopy {...f4}><p className="font-mono text-[9px] tracking-[.3em]">04 / ALWAYS</p><p className="-ml-8 mt-8 font-serif text-[clamp(4rem,14vw,14rem)] leading-[.95] tracking-[-.12em] sm:-ml-[5vw]">24<br /><span className="ml-[4vw]">HOURS</span></p></CinematicCopy><ScrollCue blue /></Scene>
+        <Scene opacity={s5} className="items-center px-5 sm:px-[6vw]"><BackdropWord x={f5.wordX} scale={f5.wordScale}>CALL</BackdropWord><CinematicCopy {...f5} className="translate-y-[2vh]"><p className="font-mono text-[9px] tracking-[.3em]">05 / CALL NOW</p><h2 className="-ml-8 mt-10 whitespace-nowrap font-serif text-[clamp(3.4rem,12vw,12rem)] leading-none tracking-[-.11em] sm:-ml-[4vw]">今すぐ相談する。</h2></CinematicCopy><motion.div style={{ opacity: finalCtaOpacity, y: finalCtaY }} className="pointer-events-auto absolute bottom-7 left-1/2 z-10 -translate-x-1/2 scale-110 sm:bottom-9"><PhoneAction location="final_scene" /></motion.div></Scene>
       </div>
     </main>
     <InfoPanel open={infoOpen} close={() => setInfoOpen(false)} />
