@@ -30,7 +30,7 @@ function Scene({ children, opacity, y = 0, scale = 1, className = "" }: { childr
 }
 
 function BackdropWord({ children, blue = false, large = false, x = 0, scale = 1 }: { children: React.ReactNode; blue?: boolean; large?: boolean; x?: any; scale?: any }) {
-  return <motion.p aria-hidden="true" style={{ x, scale, WebkitTextStroke: `1px ${blue ? "rgba(7, 88, 200, .7)" : "rgba(255, 255, 255, .7)"}`, color: "transparent" }} className={`absolute right-[3vw] whitespace-nowrap text-right font-serif leading-none tracking-[-.1em] opacity-20 ${large ? "top-[20%] text-[clamp(6rem,24vw,24rem)]" : "top-[27%] text-[clamp(4.5rem,18vw,18rem)]"}`}>
+  return <motion.p aria-hidden="true" style={{ x, scale, WebkitTextStroke: `1px ${blue ? "rgba(7, 88, 200, .7)" : "rgba(255, 255, 255, .7)"}`, color: "transparent" }} className={`absolute right-[3vw] whitespace-nowrap text-right font-serif leading-none tracking-[-.1em] ${blue ? "opacity-25" : "opacity-20"} ${large ? "top-[20%] text-[clamp(6rem,24vw,24rem)]" : "top-[27%] text-[clamp(4.5rem,18vw,18rem)]"}`}>
     {children}
   </motion.p>;
 }
