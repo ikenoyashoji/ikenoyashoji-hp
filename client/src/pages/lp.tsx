@@ -17,8 +17,8 @@ function call(location: string) {
   trackEvent("cta_phone_click", { location, phone: phoneNumber });
 }
 
-function PhoneAction({ location, inverse = false }: { location: string; inverse?: boolean }) {
-  return <a href={phoneHref} onClick={() => call(location)} data-testid={`link-lp-phone-${location}`} className={`group inline-flex items-center gap-3 border-b-2 pb-2 transition-transform hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${inverse ? "border-white text-white" : "border-[#0758c8] text-[#0758c8]"}`}>
+function PhoneAction({ location }: { location: string }) {
+  return <a href={phoneHref} onClick={() => call(location)} data-testid={`link-lp-phone-${location}`} className="group pointer-events-auto inline-flex items-center gap-3 border-b-2 border-current pb-2 text-current transition-transform hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
     <Phone className="h-5 w-5" strokeWidth={1.5} /><span><small className="block font-mono text-[9px] tracking-[.18em] opacity-65">24H / NATIONWIDE</small><strong className="block font-mono text-xl tracking-[-.06em]">{phoneNumber}</strong></span><ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
   </a>;
 }
@@ -55,6 +55,7 @@ export default function Lp() {
   const { scrollYProgress } = useScroll();
   const staticProgress = useMotionValue(0);
   const progress = reduced ? staticProgress : scrollYProgress;
+  const hudColor = useTransform(progress, [.60, .64, .81, .85], ["#ffffff", "#0758c8", "#0758c8", "#ffffff"]);
   const op = (a: number, b: number) => useTransform(progress, [a - .035, a, b, b + .035], [0, 1, 1, 0]);
   const s1 = op(0, .2); const s2 = op(.18, .41); const s3 = op(.39, .65); const s4 = op(.63, .81); const s5 = op(.79, 1.02);
   useEffect(() => {
@@ -65,20 +66,22 @@ export default function Lp() {
     const script = document.createElement("script"); script.id = "lp-service-schema"; script.type = "application/ld+json"; script.textContent = JSON.stringify(data); document.head.appendChild(script);
     return () => document.getElementById("lp-service-schema")?.remove();
   }, []);
-  return <div className="bg-white text-[#0758c8]">
+  return <div className="bg-[#0758c8] text-white">
     <main className="relative" style={{ height: "800vh" }}>
       <div className="sticky top-0 h-[100svh] overflow-hidden">
-        <div className="absolute inset-0 bg-white" />
-        <header className="absolute left-0 right-0 top-0 z-30 flex justify-between px-5 py-6 sm:px-12 sm:py-8"><div className="border-l border-[#0758c8] pl-3"><p className="text-xs font-semibold tracking-[.12em]">株式会社池ノ谷商事</p><p className="mt-1 font-mono text-[8px] tracking-[.2em]">TRUCK ARRANGEMENT / 24H</p></div><button onClick={() => setInfoOpen(true)} className="flex items-center gap-2 font-mono text-[9px] tracking-[.2em] focus-visible:outline focus-visible:outline-2"><Info className="h-4 w-4" /> INFO</button></header>
-        <div className="absolute bottom-5 left-5 z-30 font-mono text-[9px] tracking-[.18em] sm:left-12">IKENOYASHOJI / 2025</div>
+        <div className="absolute inset-0 bg-[#0758c8]" />
+        <motion.div style={{ color: hudColor }} className="pointer-events-none absolute inset-0 z-30">
+          <header className="absolute left-0 right-0 top-0 flex justify-between px-5 py-6 sm:px-12 sm:py-8"><div className="border-l border-current pl-3"><p className="text-xs font-semibold tracking-[.12em]">株式会社池ノ谷商事</p><p className="mt-1 font-mono text-[8px] tracking-[.2em]">TRUCK ARRANGEMENT / 24H</p></div><button onClick={() => setInfoOpen(true)} className="pointer-events-auto flex items-center gap-2 font-mono text-[9px] tracking-[.2em] focus-visible:outline focus-visible:outline-2"><Info className="h-4 w-4" /> INFO</button></header>
+          <div className="absolute bottom-5 left-5 font-mono text-[9px] tracking-[.18em] sm:left-12">IKENOYASHOJI / 2025</div>
+          <div className="absolute bottom-5 right-5 font-mono text-[9px] tracking-[.16em] sm:right-12">SCROLL / TIMELINE</div>
+          <div className="fixed bottom-5 left-1/2 -translate-x-1/2 md:hidden"><PhoneAction location="mobile_fixed" /></div>
+          <div className="fixed bottom-8 right-8 hidden md:block"><PhoneAction location="desktop_fixed" /></div>
+        </motion.div>
         <Scene opacity={s1} className="items-center px-5 pt-20 sm:px-[6vw]"><div className="w-full"><p className="font-mono text-[9px] tracking-[.3em]">01 / MOVE</p><h1 className="-ml-8 mt-10 max-w-6xl font-serif text-[clamp(5rem,16vw,16rem)] leading-[.82] tracking-[-.12em] sm:-ml-[4vw]">運ぶ。</h1></div></Scene>
         <Scene opacity={s2} className="items-center px-5 pt-20 sm:px-[6vw]"><div className="w-full -translate-y-[7vh]"><p className="font-mono text-[9px] tracking-[.3em]">02 / PROBLEM</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3rem,11vw,11rem)] leading-[.86] tracking-[-.11em] sm:-ml-[4vw]">今日の<span className="sm:hidden"><br /></span>トラックが、<br /><span className="ml-[4vw]">見つからない。</span></h2></div></Scene>
         <Scene opacity={s3} className="items-center px-5 sm:px-[6vw]"><div className="w-full -translate-y-[8vh]"><p className="font-mono text-[9px] tracking-[.3em]">03 / SOLUTION</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3rem,10vw,10rem)] leading-[.86] tracking-[-.11em] sm:-ml-[4vw]">電話一本で、<br /><span className="ml-[4vw]">トラック<span className="sm:hidden"><br /></span>手配します。</span></h2></div></Scene>
-        <Scene opacity={s4} className="items-center bg-[#0758c8] px-5 text-white sm:px-[6vw]"><div className="grid w-full grid-cols-[auto_1fr] gap-8"><p className="font-mono text-[9px] tracking-[.25em] [writing-mode:vertical-rl]">04 / ALWAYS ON</p><div><p className="font-mono text-[10px] tracking-[.3em] text-white/65">24 HOURS / NATIONWIDE</p><p className="-ml-8 mt-8 font-serif text-[clamp(4rem,14vw,14rem)] leading-[.8] tracking-[-.12em] sm:-ml-[5vw]">24<br /><span className="ml-[4vw]">HOURS</span></p></div></div></Scene>
-        <Scene opacity={s5} className="items-center px-5 sm:px-[6vw]"><div className="w-full -translate-y-[6vh]"><p className="font-mono text-[9px] tracking-[.3em]">05 / CALL NOW</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3.4rem,12vw,12rem)] leading-[.82] tracking-[-.11em] sm:-ml-[4vw]">今、<br /><span className="ml-[4vw]">電話する。</span></h2><a href={phoneHref} onClick={() => call("final_scene")} data-testid="link-lp-phone-final_scene" className="pointer-events-auto ml-[4vw] mt-10 inline-flex items-end gap-3 border-b-2 border-[#0758c8] pb-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"><Phone className="mb-2 h-6 w-6" strokeWidth={1.4} /><span><small className="block font-mono text-[9px] tracking-[.22em]">24H / TAP TO CALL</small><strong className="block font-mono text-[clamp(2.2rem,6vw,5.5rem)] leading-none tracking-[-.08em]">{phoneNumber}</strong></span><ArrowUpRight className="mb-2 h-5 w-5" /></a></div></Scene>
-        <div className="pointer-events-none absolute bottom-5 right-5 z-30 font-mono text-[9px] tracking-[.16em] sm:right-12">SCROLL / TIMELINE</div>
-        <div className="fixed bottom-5 left-1/2 z-40 -translate-x-1/2 md:hidden"><PhoneAction location="mobile_fixed" inverse={false} /></div>
-        <div className="fixed bottom-8 right-8 z-40 hidden md:block"><PhoneAction location="desktop_fixed" /></div>
+        <Scene opacity={s4} className="items-center bg-white px-5 text-[#0758c8] sm:px-[6vw]"><div className="grid w-full grid-cols-[auto_1fr] gap-8"><p className="font-mono text-[9px] tracking-[.25em] [writing-mode:vertical-rl]">04 / ALWAYS ON</p><div><p className="font-mono text-[10px] tracking-[.3em] text-[#0758c8]/65">24 HOURS / NATIONWIDE</p><p className="-ml-8 mt-8 font-serif text-[clamp(4rem,14vw,14rem)] leading-[.8] tracking-[-.12em] sm:-ml-[5vw]">24<br /><span className="ml-[4vw]">HOURS</span></p></div></div></Scene>
+        <Scene opacity={s5} className="items-center px-5 sm:px-[6vw]"><div className="w-full -translate-y-[6vh]"><p className="font-mono text-[9px] tracking-[.3em]">05 / CALL NOW</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3.4rem,12vw,12rem)] leading-[.82] tracking-[-.11em] sm:-ml-[4vw]">今、<br /><span className="ml-[4vw]">電話する。</span></h2><a href={phoneHref} onClick={() => call("final_scene")} data-testid="link-lp-phone-final_scene" className="pointer-events-auto ml-[4vw] mt-10 inline-flex items-end gap-3 border-b-2 border-white pb-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"><Phone className="mb-2 h-6 w-6" strokeWidth={1.4} /><span><small className="block font-mono text-[9px] tracking-[.22em]">24H / TAP TO CALL</small><strong className="block font-mono text-[clamp(2.2rem,6vw,5.5rem)] leading-none tracking-[-.08em]">{phoneNumber}</strong></span><ArrowUpRight className="mb-2 h-5 w-5" /></a></div></Scene>
       </div>
     </main>
     <InfoPanel open={infoOpen} close={() => setInfoOpen(false)} />
