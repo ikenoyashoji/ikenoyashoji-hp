@@ -1,132 +1,93 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { AnimateIn } from "@/components/animate-in";
-import { Phone, ArrowRight, Clock3, MapPin, Truck, Warehouse, ChevronDown, Check, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ArrowDown, ArrowUpRight, ChevronDown, Phone } from "lucide-react";
+import "@fontsource/noto-sans-jp/400.css";
+import "@fontsource/noto-sans-jp/700.css";
+import "@fontsource/noto-sans-jp/900.css";
 import { trackEvent, trackPageView } from "@/lib/analytics";
 import { setSeo } from "@/lib/seo";
-import heroAerial from "@assets/hero_aerial_logistics.webp";
-import transportImg from "@assets/BE3582A6-2E5C-49C7-8922-B23D966DDB2B_1779581062877.webp";
-import warehouseImg from "@assets/3591D69C-9B93-4472-B7C0-24217B55FC36_1779427030587.webp";
-import heroWoman from "@assets/woman_hero_enhanced.png";
 
 const phoneNumber = "046-212-2766";
 const phoneHref = "tel:0462122766";
-
-const phoneCta = (location: string) => {
-  trackEvent("cta_phone_click", { location, phone: phoneNumber });
-};
-
-const concerns = [
-  { number: "01", title: "急な配送に\n対応できる車両がない", detail: "急な案件や納期変更で、車両の手配にお困りではありませんか？" },
-  { number: "02", title: "今日・明日の\nトラックを手配したい", detail: "スポット便やチャーター便など、まずは荷物と納期をお聞かせください。" },
-  { number: "03", title: "繁忙期だけ\n輸送力を増やしたい", detail: "定期便から一時的な増車まで、物量に合わせてご相談いただけます。" },
-];
-
-const services = [
-  { number: "01", title: "緊急配送", text: "急な配送や納期変更にも、まずはお電話ください。荷物・距離・納期を確認し、対応可能な車両を調整します。", icon: Clock3 },
-  { number: "02", title: "スポット・チャーター便", text: "一度限りの配送から、車両を貸し切るチャーター便まで、配送条件に合わせてご提案します。", icon: Truck },
-  { number: "03", title: "定期輸送", text: "毎週・毎月の定期便や、繁忙期の輸送力確保もご相談ください。継続的な物流を支えます。", icon: Warehouse },
-];
-
-const vehicles = [
-  { title: "2t車", text: "小口配送・市街地配送に" },
-  { title: "4t車", text: "定期便・中量の輸送に" },
-  { title: "大型車", text: "まとまった荷物・長距離に" },
-];
+const blue = "#0758c8";
 
 const faqs = [
-  { q: "急なトラック手配でも相談できますか？", a: "はい、まずはお電話ください。荷物の内容・納期・配送先・必要な車両などを確認し、対応可能な方法を調整します。" },
-  { q: "当日の配送にも対応できますか？", a: "車両の空き状況や距離、荷物の内容によって異なります。対応可否を確認しますので、急ぎの場合もお早めにお電話ください。" },
-  { q: "2t・4t・大型の車両を指定できますか？", a: "ご希望の車格をお聞きします。荷物の大きさや納品先の条件も確認し、適した車両をご案内します。" },
-  { q: "見積もりだけでも相談できますか？", a: "可能です。配送内容をお伺いしたうえで、条件に合わせてご案内します。お気軽にご相談ください。" },
+  ["急なトラック手配でも相談できますか？", "はい、まずはお電話ください。荷物の内容・納期・配送先・必要な車両などを確認し、対応可能な方法を調整します。"],
+  ["当日の配送にも対応できますか？", "車両の空き状況や距離、荷物の内容によって異なります。条件を確認し、対応可否を折り返しご案内します。"],
+  ["どんな車両を手配できますか？", "2t・4t・大型車両を中心に、ご希望の車格と荷物・納品先の条件を確認して適した輸送方法を検討します。"],
+  ["見積もりだけでも相談できますか？", "可能です。配送内容をお伺いしたうえで、条件に合わせてご案内します。内容が固まっていない段階でもご相談ください。"],
 ];
 
-function PhoneButton({ location, className = "", compact = false, label = "まずは電話で相談する" }: { location: string; className?: string; compact?: boolean; label?: string }) {
+function callPhone(location: string) {
+  trackEvent("cta_phone_click", { location, phone: phoneNumber });
+}
+
+function PhoneCta({ location, inverse = false, compact = false }: { location: string; inverse?: boolean; compact?: boolean }) {
   return (
     <a
       href={phoneHref}
-      onClick={() => phoneCta(location)}
-      className={`group inline-flex items-center justify-center gap-3 transition-all duration-300 ${className}`}
+      onClick={() => callPhone(location)}
       data-testid={`link-lp-phone-${location}`}
+      className={`group inline-flex items-center gap-3 border px-4 py-3 transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${
+        inverse ? "border-white bg-white text-[#0758c8]" : "border-[#0758c8] bg-[#0758c8] text-white"
+      } ${compact ? "text-sm" : "sm:px-6 sm:py-4"}`}
     >
-      <Phone className={compact ? "h-4 w-4" : "h-5 w-5"} strokeWidth={1.8} />
+      <Phone className={compact ? "h-4 w-4" : "h-5 w-5"} strokeWidth={1.7} />
       <span className="text-left">
-        {!compact && <span className="block text-[10px] font-medium tracking-[0.16em] opacity-75">{label}</span>}
-        <span className={`block font-semibold tracking-[0.06em] ${compact ? "text-base" : "text-2xl sm:text-3xl"}`}>{phoneNumber}</span>
+        <span className="block text-[9px] font-medium tracking-[.18em] opacity-70">24時間・全国対応</span>
+        <span className={`block font-mono font-bold tracking-[-.04em] ${compact ? "text-base" : "text-xl sm:text-2xl"}`}>{phoneNumber}</span>
       </span>
-      {!compact && <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />}
+      {!compact && <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />}
     </a>
   );
 }
 
-function HeroPhoneBar({ location }: { location: string }) {
-  const isDesktop = location === "hero_desktop";
+function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const reduced = useReducedMotion();
   return (
-    <div className={`absolute z-50 bg-white text-[#0758c8] shadow-[0_18px_45px_rgba(0,24,80,0.22)] ${isDesktop ? "bottom-10 left-[5%] w-[350px]" : "bottom-4 left-4 right-4"}`}>
-      <a
-        href={phoneHref}
-        onClick={() => phoneCta(location)}
-        className="group flex h-[88px] items-center justify-center gap-3 px-5"
-        data-testid={`link-lp-phone-${location}`}
-      >
-        <Phone className="h-8 w-8 flex-shrink-0 fill-[#0758c8] stroke-[#0758c8]" strokeWidth={1.5} />
-        <span className="h-11 w-px bg-[#0758c8]/25" />
-        <span className="text-left">
-          <span className="block whitespace-nowrap text-[clamp(1.7rem,7vw,2.35rem)] font-black leading-none tracking-[-0.04em]">{phoneNumber}</span>
-          <span className="mt-2 block text-center text-[10px] font-bold tracking-[0.13em]">今すぐ電話で相談する</span>
-        </span>
-        <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-      </a>
-    </div>
+    <motion.div
+      className={className}
+      initial={reduced ? false : { opacity: 0, y: 28 }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
   );
 }
 
-function MobileHero() {
+function Hero() {
+  const reduced = useReducedMotion();
+  const { scrollY } = useScroll();
+  const titleY = useTransform(scrollY, [0, 900], [0, reduced ? 0 : -130]);
+  const ghostX = useTransform(scrollY, [0, 900], ["0%", reduced ? "0%" : "-18%"]);
   return (
-    <section className="relative h-[100svh] min-h-[700px] w-full overflow-hidden bg-[radial-gradient(circle_at_72%_18%,#2b7eea_0%,#1265d4_34%,#0649ae_100%)] text-white md:hidden">
-      <div className="absolute left-5 top-6 z-20 border-l border-white/70 pl-3">
-        <p className="text-[13px] font-bold tracking-[0.15em]">緊急トラック手配</p>
-        <p className="mt-2 text-[10px] tracking-[0.14em] text-white/70">NATIONWIDE LOGISTICS</p>
-      </div>
-
-      <p className="absolute left-[53%] top-[226px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[42vw] font-black leading-none tracking-[-0.08em] text-white">
-        運ぶ。
-      </p>
-
-      <img
-        src={heroWoman}
-        alt="物流手配を担当するスタッフ"
-        loading="eager"
-        decoding="async"
-        className="absolute bottom-[72px] left-[-10%] z-30 w-[102%] max-w-none object-contain drop-shadow-[0_14px_18px_rgba(0,22,70,0.24)]"
-      />
-
-      <HeroPhoneBar location="hero_mobile" />
-    </section>
-  );
-}
-
-function DesktopHero() {
-  return (
-    <section className="relative hidden h-[100svh] min-h-[100svh] w-full overflow-hidden bg-[radial-gradient(circle_at_72%_18%,#2b7eea_0%,#1265d4_34%,#0649ae_100%)] text-white md:block">
-      <div className="absolute left-[4%] top-8 z-20 border-l border-white/70 pl-4">
-        <p className="text-base font-bold tracking-[0.15em]">緊急トラック手配・全国対応</p>
-        <p className="mt-3 text-xs tracking-[0.14em] text-white/70">IKENOYASHOJI LOGISTICS SERVICE</p>
-      </div>
-
-      <p className="absolute left-[55%] top-[190px] z-10 w-max -translate-x-1/2 whitespace-nowrap text-[clamp(14rem,28vw,26rem)] font-black leading-none tracking-[-0.08em] text-white">
-        運ぶ。
-      </p>
-
-      <img
-        src={heroWoman}
-        alt="物流手配を担当するスタッフ"
-        loading="eager"
-        decoding="async"
-        className="absolute bottom-0 left-[29%] z-30 w-[42%] max-w-[480px] object-contain drop-shadow-[0_16px_22px_rgba(0,22,70,0.24)]"
-      />
-
-      <HeroPhoneBar location="hero_desktop" />
+    <section className="relative min-h-[100svh] overflow-hidden bg-[#0758c8] text-white">
+      <div className="absolute inset-0 opacity-[.16]" aria-hidden="true" style={{ backgroundImage: "linear-gradient(90deg, transparent 49.8%, white 50%, transparent 50.2%), linear-gradient(0deg, transparent 49.8%, white 50%, transparent 50.2%)", backgroundSize: "clamp(110px, 16vw, 240px) clamp(110px, 16vw, 240px)" }} />
+      <header className="relative z-20 flex items-start justify-between px-5 py-5 sm:px-10 sm:py-7">
+        <div className="border-l border-white/70 pl-3">
+          <p className="text-sm font-bold tracking-[.14em]">株式会社池ノ谷商事</p>
+          <p className="mt-1 text-[9px] tracking-[.22em] text-white/65">TRUCK ARRANGEMENT / 24H</p>
+        </div>
+        <p className="hidden text-right text-[10px] leading-5 tracking-[.17em] text-white/70 sm:block">NATIONWIDE<br />KANAGAWA, JAPAN</p>
+      </header>
+      <motion.div style={{ x: ghostX }} className="absolute left-[-5vw] top-[22vh] whitespace-nowrap text-[30vw] font-black leading-none tracking-[-.12em] text-white/[.11]" aria-hidden="true">手配</motion.div>
+      <motion.div style={{ y: titleY }} className="relative z-10 flex min-h-[calc(100svh-90px)] flex-col justify-between px-5 pb-28 pt-[15vh] sm:px-10 sm:pb-20 sm:pt-[12vh]">
+        <div>
+          <p className="mb-8 font-mono text-[10px] tracking-[.3em] text-white/70">NEED A TRUCK / TODAY OR TOMORROW?</p>
+          <h1 className="max-w-5xl text-[clamp(3.2rem,10vw,10.5rem)] font-black leading-[.92] tracking-[-.09em]">
+            電話一本。<br /><span className="text-[#bcd8ff]">トラック手配。</span>
+          </h1>
+          <p className="mt-8 max-w-md text-sm leading-7 text-white/80 sm:text-base">今日、明日の輸送に困ったら。条件をお聞きして空き状況を確認、折り返しご連絡します。</p>
+        </div>
+        <div className="flex flex-col items-start gap-7 sm:flex-row sm:items-end sm:justify-between">
+          <PhoneCta location="hero" inverse />
+          <div className="flex items-center gap-3 text-[10px] tracking-[.16em] text-white/70"><ArrowDown className="h-4 w-4 animate-bounce" /> SCROLL TO ARRANGE</div>
+        </div>
+      </motion.div>
+      <div className="absolute bottom-0 left-0 right-0 border-t border-white/25 px-5 py-3 text-[10px] tracking-[.15em] text-white/65 sm:px-10">急な配送 / スポット便 / チャーター便 / 定期輸送</div>
     </section>
   );
 }
@@ -134,75 +95,46 @@ function DesktopHero() {
 export default function Lp() {
   useEffect(() => {
     trackPageView("/lp");
-    const description = "緊急のトラック手配なら池ノ谷商事。急な配送・当日配送・スポット便・チャーター便・定期輸送まで、2t・4t・大型車両で全国の輸送相談に対応します。";
-    setSeo({
-      title: "緊急のトラック手配｜急な配送・スポット便は池ノ谷商事",
-      description,
-      path: "/lp",
-    });
-
-    const structuredData = {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "緊急トラック手配・輸送サービス",
-      provider: {
-        "@type": "LocalBusiness",
-        name: "株式会社池ノ谷商事",
-        telephone: phoneNumber,
-        areaServed: "全国",
-      },
-      areaServed: "全国",
-      description,
-      serviceType: ["緊急配送", "スポット便", "チャーター便", "定期輸送"],
-    };
-    const script = document.createElement("script");
-    script.id = "lp-service-schema";
-    script.type = "application/ld+json";
-    script.textContent = JSON.stringify(structuredData);
-    document.head.appendChild(script);
+    const description = "緊急のトラック手配なら池ノ谷商事。条件をお伺いし、車両の空き状況を確認して折り返しご案内します。24時間・全国対応。";
+    setSeo({ title: "電話一本。トラック手配。｜緊急配送は池ノ谷商事", description, path: "/lp" });
+    const data = { "@context": "https://schema.org", "@type": "Service", name: "緊急トラック手配・輸送サービス", provider: { "@type": "LocalBusiness", name: "株式会社池ノ谷商事", telephone: phoneNumber, areaServed: "全国" }, areaServed: "全国", description, serviceType: ["緊急配送", "スポット便", "チャーター便", "定期輸送"] };
+    const script = document.createElement("script"); script.id = "lp-service-schema"; script.type = "application/ld+json"; script.textContent = JSON.stringify(data); document.head.appendChild(script);
     return () => document.getElementById("lp-service-schema")?.remove();
   }, []);
 
   return (
-    <div className="min-h-screen bg-white pb-16 text-[#0758c8] md:pb-0">
+    <div className="min-h-screen bg-[#f4f7fb] pb-20 font-['Noto_Sans_JP',sans-serif] text-[#0758c8] md:pb-0">
       <main>
-        <h1 className="sr-only">緊急のトラック手配なら池ノ谷商事｜全国対応</h1>
-        <MobileHero />
-        <DesktopHero />
-
-        <section className="bg-white px-5 py-24 sm:px-10 sm:py-40">
-          <div className="mx-auto max-w-6xl">
-            <AnimateIn><p className="text-[10px] font-medium tracking-[0.35em] text-[#0758c8]">ISSUE</p><h2 className="mt-10 max-w-4xl text-4xl font-medium leading-[1.25] tracking-normal text-[#0758c8] sm:text-6xl">その「困った」を、<br />今日の輸送に。</h2><p className="mt-10 max-w-xs text-sm leading-8 text-[#0758c8]/70">急な配送、納期変更、車両不足。状況が整理できていなくても、まずはご相談ください。</p></AnimateIn>
-            <div className="mt-24 ml-auto max-w-3xl border-t border-[#0758c8]/25">
-              {concerns.map((item, index) => <AnimateIn key={item.number} delay={index * 80}><article className="grid gap-5 border-b border-[#0758c8]/25 py-8 sm:grid-cols-[70px_1fr_1fr] sm:items-start"><span className="font-mono text-xs text-[#0758c8]">{item.number}</span><h3 className="whitespace-pre-line text-xl font-medium leading-[1.45] text-[#0758c8]">{item.title}</h3><p className="text-xs leading-7 text-[#0758c8]/65">{item.detail}</p></article></AnimateIn>)}
-            </div>
+        <Hero />
+        <section className="bg-[#f4f7fb] px-5 py-28 sm:px-10 sm:py-44">
+          <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[.8fr_1.2fr]">
+            <Reveal><p className="font-mono text-[10px] tracking-[.3em]">01 / START HERE</p><h2 className="mt-10 text-4xl font-bold leading-[1.05] tracking-[-.07em] sm:text-7xl">迷ったまま、<br />電話していい。</h2></Reveal>
+            <div className="pt-2 lg:pt-20"><Reveal><p className="max-w-xl text-lg leading-9 tracking-[-.02em]">荷物の大きさ、納品先、希望日。全部決まっていなくても大丈夫です。まず条件をお聞きし、空いている車両があるかを確認。対応可否と次の一手を、こちらから折り返します。</p></Reveal><Reveal delay={.12}><div className="mt-16 grid border-t border-[#0758c8]/25 sm:grid-cols-3"><div className="border-b border-[#0758c8]/25 py-6 sm:border-b-0 sm:border-r"><b className="font-mono text-3xl">24</b><p className="mt-2 text-xs">時間受付</p></div><div className="border-b border-[#0758c8]/25 py-6 sm:border-b-0 sm:border-r sm:pl-7"><b className="font-mono text-3xl">47</b><p className="mt-2 text-xs">都道府県対応</p></div><div className="py-6 sm:pl-7"><b className="font-mono text-3xl">1</b><p className="mt-2 text-xs">まずは一本の電話</p></div></div></Reveal></div>
           </div>
         </section>
 
-        <section className="bg-[#0758c8] px-5 py-24 text-white sm:px-10 sm:py-40">
-          <div className="mx-auto max-w-6xl">
-            <AnimateIn><p className="text-[10px] font-medium tracking-[0.35em] text-white/70">ABOUT</p><h2 className="mt-10 max-w-3xl text-4xl font-medium leading-[1.2] sm:text-6xl">必要な車両を、<br />必要なときに。</h2></AnimateIn>
-            <div className="mt-20 grid gap-14 sm:grid-cols-[.8fr_1.2fr] sm:items-end"><AnimateIn direction="left"><div><p className="max-w-sm text-sm leading-8 text-white/75">池ノ谷商事は、神奈川県愛川町を拠点に、一般貨物運送・貨物利用運送・倉庫管理を行う物流会社です。急なスポット配送から継続的な定期輸送まで、荷主様の状況に合わせて輸送方法をご提案します。</p><div className="mt-10 space-y-3 text-xs text-white">{["全国対応", "2t・4t・大型", "スポット・定期"].map((item) => <p key={item}>{item}</p>)}</div></div></AnimateIn><AnimateIn delay={120} direction="right"><div className="sm:translate-y-16"><img src={transportImg} alt="輸送車両と配送現場" className="aspect-[4/3] w-full object-cover" loading="lazy" /><p className="mt-4 text-[10px] tracking-[0.28em] text-white/70">ABOUT / 運ぶ信頼、届ける真心</p></div></AnimateIn></div>
+        <section className="relative bg-[#0758c8] text-white">
+          <div className="sticky top-0 flex min-h-[55svh] items-center overflow-hidden px-5 sm:min-h-[70svh] sm:px-10"><p className="absolute right-5 top-8 font-mono text-[10px] tracking-[.25em] text-white/55 sm:right-10">02 / THE ROUTE</p><Reveal><h2 className="max-w-4xl text-[clamp(3.5rem,10vw,10rem)] font-black leading-[.88] tracking-[-.1em]">条件を聞く。<br /><span className="text-[#bcd8ff]">空きを見る。</span></h2></Reveal></div>
+          <div className="relative z-10 grid min-h-[115vh] grid-rows-4 border-t border-white/25 bg-[#0758c8]">
+            {[["01", "電話を受ける", "急ぎの配送でも、まだ内容が整理できていなくても大丈夫です。"], ["02", "条件を確認", "荷物・配送先・納期・必要な車両などをお聞きします。"], ["03", "空き状況を確認", "条件に合う車両と輸送方法があるかを確認します。"], ["04", "折り返しご連絡", "対応可否やお見積もりなど、確認した内容をご案内します。"]].map(([n, title, text]) => <div key={n} className="flex items-center border-b border-white/25 px-5 sm:px-[12vw]"><div className="grid w-full gap-5 sm:grid-cols-[100px_1fr_1fr] sm:items-center"><span className="font-mono text-sm text-white/60">{n}</span><h3 className="text-2xl font-bold tracking-[-.04em] sm:text-4xl">{title}</h3><p className="max-w-sm text-sm leading-7 text-white/70">{text}</p></div></div>)}
           </div>
         </section>
 
-        <section className="bg-white px-5 py-24 sm:px-10 sm:py-40">
-          <div className="mx-auto max-w-6xl"><AnimateIn><p className="text-[10px] font-medium tracking-[0.35em] text-[#0758c8]">SERVICE</p><h2 className="mt-10 max-w-3xl text-4xl font-medium leading-[1.2] text-[#0758c8] sm:text-6xl">緊急配送から<br />定期輸送まで</h2></AnimateIn>
-            <div className="mt-20 ml-auto max-w-4xl space-y-0">{services.map((item, index) => <AnimateIn key={item.number} delay={index * 80}><article className="grid gap-5 border-b border-[#0758c8]/25 py-10 sm:grid-cols-[80px_.65fr_1fr] sm:items-start"><span className="font-mono text-xs text-[#0758c8]">{item.number}</span><h3 className="text-2xl font-medium text-[#0758c8]">{item.title}</h3><p className="text-sm leading-8 text-[#0758c8]/70">{item.text}</p></article></AnimateIn>)}</div>
+        <section className="overflow-hidden bg-[#f4f7fb] px-5 py-28 sm:px-10 sm:py-44">
+          <Reveal><p className="font-mono text-[10px] tracking-[.3em]">03 / WHAT WE ARRANGE</p><h2 className="mt-10 max-w-5xl text-5xl font-bold leading-[.98] tracking-[-.08em] sm:text-8xl">運ぶものに、<br />ちょうどいい車両を。</h2></Reveal>
+          <div className="mx-auto mt-24 max-w-6xl divide-y divide-[#0758c8]/25 border-y border-[#0758c8]/25">
+            {[["2t車", "小口配送・市街地配送に"], ["4t車", "定期便・中量の輸送に"], ["大型車", "まとまった荷物・長距離に"]].map(([title, text], i) => <Reveal key={title} delay={i * .08}><div className="grid gap-3 py-9 sm:grid-cols-[1fr_1fr_1fr] sm:items-center"><span className="font-mono text-xs">0{i + 1}</span><h3 className="text-3xl font-bold tracking-[-.06em]">{title}</h3><p className="text-sm text-[#0758c8]/70">{text}</p></div></Reveal>)}
           </div>
+          <p className="mx-auto mt-12 max-w-6xl text-sm leading-8 text-[#0758c8]/70">一般貨物運送・貨物利用運送・倉庫管理を行う池ノ谷商事。急なスポット配送から継続的な定期輸送まで、荷主様の状況に合わせて輸送方法を検討します。</p>
         </section>
 
-        <section className="bg-white px-5 pb-24 sm:px-10 sm:pb-40"><div className="mx-auto grid max-w-6xl gap-16 sm:grid-cols-[1fr_.8fr] sm:items-start"><AnimateIn><div><p className="text-[10px] font-medium tracking-[0.35em] text-[#0758c8]">VEHICLE</p><h2 className="mt-10 text-4xl font-medium leading-[1.2] text-[#0758c8] sm:text-6xl">車両の選定まで、<br />こちらで引き受けます</h2><p className="mt-10 max-w-sm text-sm leading-8 text-[#0758c8]/70">荷物の大きさ・納品先の条件・納期を確認して、2t・4t・大型車両を中心に適した輸送方法をご案内します。</p><div className="mt-12 space-y-6">{vehicles.map((vehicle) => <div key={vehicle.title}><p className="text-2xl font-medium text-[#0758c8]">{vehicle.title}</p><p className="mt-1 text-xs text-[#0758c8]/65">{vehicle.text}</p></div>)}</div></div></AnimateIn><AnimateIn delay={120} direction="right"><div className="sm:mt-32"><img src={warehouseImg} alt="池ノ谷商事の物流現場" className="aspect-[4/3] w-full object-cover" loading="lazy" /><p className="mt-4 text-[10px] tracking-[0.28em] text-[#0758c8]">VEHICLE / 全国の輸送相談に対応</p></div></AnimateIn></div></section>
+        <section className="bg-[#dceaff] px-5 py-28 sm:px-10 sm:py-40"><div className="mx-auto max-w-5xl"><Reveal><p className="font-mono text-[10px] tracking-[.3em]">04 / FAQ</p><h2 className="mt-10 text-5xl font-bold tracking-[-.08em] sm:text-8xl">よくある質問。</h2></Reveal><div className="mt-20 divide-y divide-[#0758c8]/30 border-y border-[#0758c8]/30">{faqs.map(([q, a]) => <details key={q} className="group py-7"><summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-base font-bold [&::-webkit-details-marker]:hidden"><span>{q}</span><ChevronDown className="h-5 w-5 shrink-0 transition-transform group-open:rotate-180" /></summary><p className="max-w-2xl pt-5 text-sm leading-8 text-[#0758c8]/75">{a}</p></details>)}</div></div></section>
 
-        <section className="bg-[#0758c8] px-5 py-24 text-white sm:px-10 sm:py-40"><div className="mx-auto max-w-6xl"><AnimateIn><p className="text-[10px] font-medium tracking-[0.35em] text-white/70">FLOW</p><h2 className="mt-10 text-4xl font-medium leading-[1.2] sm:text-6xl">電話相談の流れ</h2></AnimateIn><div className="mt-20 grid gap-10 sm:grid-cols-4">{[["01","お電話","配送内容や納期をお聞かせください。"],["02","内容確認","荷物・配送先・車両の希望を確認します。"],["03","車両調整","条件に合う輸送方法を検討します。"],["04","ご案内","対応可否とお見積もりをご案内します。"]].map(([number,title,text], index) => <AnimateIn key={number} delay={index * 80}><div className="border-t border-white/35 pt-6"><span className="font-mono text-xs text-white/70">{number}</span><h3 className="mt-8 text-lg font-medium">{title}</h3><p className="mt-3 text-xs leading-7 text-white/70">{text}</p></div></AnimateIn>)}</div></div></section>
-
-        <section className="bg-white px-5 py-24 sm:px-10 sm:py-40"><div className="mx-auto max-w-4xl"><AnimateIn><p className="text-[10px] font-medium tracking-[0.35em] text-[#0758c8]">FAQ</p><h2 className="mt-10 text-4xl font-medium leading-[1.2] text-[#0758c8] sm:text-6xl">よくあるご質問</h2></AnimateIn><div className="mt-20 divide-y divide-[#0758c8]/25 border-y border-[#0758c8]/25">{faqs.map((faq) => <details key={faq.q} className="group py-7"><summary className="flex cursor-pointer list-none items-center justify-between gap-5 text-sm font-medium text-[#0758c8] [&::-webkit-details-marker]:hidden"><span>{faq.q}</span><ChevronDown className="h-4 w-4 flex-none text-[#0758c8] transition-transform group-open:rotate-180" /></summary><p className="mt-5 max-w-2xl text-sm leading-8 text-[#0758c8]/70">{faq.a}</p></details>)}</div></div></section>
-
-        <section className="bg-[#0758c8] px-5 py-24 text-white sm:px-10 sm:py-40"><div className="mx-auto max-w-6xl"><AnimateIn><p className="text-[10px] font-medium tracking-[0.35em] text-white/70">CONTACT</p><h2 className="mt-10 max-w-4xl text-4xl font-medium leading-[1.2] sm:text-6xl">緊急のトラック手配は、<br />まずはお電話ください。</h2><p className="mt-10 max-w-sm text-sm leading-8 text-white/75">急な配送、スポット便、定期輸送。まだ内容が固まっていない段階でも、お気軽にご相談ください。</p><PhoneButton location="bottom" className="mt-10 bg-white px-6 py-5 text-[#0758c8] hover:bg-white/90 sm:px-10 sm:py-6" /><p className="mt-4 text-[11px] text-white/70">全国の輸送相談</p></AnimateIn></div></section>
-
-        <footer className="bg-[#0758c8] px-5 py-10 text-white sm:px-10"><div className="mx-auto flex max-w-6xl flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-sm font-medium">株式会社池ノ谷商事</p><p className="mt-2 text-[11px] text-white/65">緊急のトラック手配・全国の輸送相談</p></div><div className="flex gap-3 text-[11px] text-white/70"><Link href="/privacy" className="hover:text-white">個人情報保護方針</Link><span>/</span><Link href="/" className="hover:text-white">コーポレートサイト</Link></div></div></footer>
+        <section className="bg-[#0758c8] px-5 py-28 text-white sm:px-10 sm:py-44"><div className="mx-auto max-w-7xl"><Reveal><p className="font-mono text-[10px] tracking-[.3em] text-white/60">05 / CALL NOW</p><h2 className="mt-10 max-w-5xl text-[clamp(3.5rem,9vw,9rem)] font-black leading-[.9] tracking-[-.1em]">今日・明日の<br /><span className="text-[#bcd8ff]">輸送なら。</span></h2><p className="mt-10 max-w-md text-sm leading-8 text-white/75">空き状況は条件によって異なります。まずはお電話で、荷物と納期をお聞かせください。</p><PhoneCta location="bottom" inverse /></Reveal></div></section>
+        <footer className="bg-[#0758c8] px-5 pb-28 text-white sm:px-10 sm:pb-12"><div className="mx-auto flex max-w-7xl flex-col gap-6 border-t border-white/25 pt-6 text-xs sm:flex-row sm:items-end sm:justify-between"><div><p className="font-bold">株式会社池ノ谷商事</p><p className="mt-2 text-white/60">緊急のトラック手配・全国の輸送相談</p></div><nav className="flex gap-4 text-white/70"><Link href="/privacy" className="hover:text-white">個人情報保護方針</Link><Link href="/" className="hover:text-white">コーポレートサイト</Link></nav></div></footer>
       </main>
-      <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-white/25 bg-[#0758c8] px-3 py-2.5 md:hidden"><PhoneButton location="mobile_fixed" compact className="w-full text-white" /></div>
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/20 bg-[#0758c8] px-3 py-2 md:hidden"><PhoneCta location="mobile_fixed" compact inverse /></div>
+      <div className="fixed right-6 top-5 z-50 hidden md:block"><PhoneCta location="desktop_fixed" compact inverse /></div>
     </div>
   );
 }
