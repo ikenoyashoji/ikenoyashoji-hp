@@ -15,6 +15,8 @@ import Home from "@/pages/home";
 import heroTruck from "@assets/5029A6E0-F753-4C3C-9B97-E2826E325D91_1779426563754.webp";
 import heroCold from "@assets/hero_warehouse_cold.webp";
 import heroInterior from "@assets/hero_warehouse_interior.webp";
+import lpWoman from "@assets/imｓage_1789218848333.png";
+import lpTruck from "@assets/imｓｓage_1789219300934.png";
 
 import { SplashContext } from "@/lib/splash-context";
 
@@ -157,6 +159,8 @@ function AppInner() {
     preloadImage(heroTruck);
     preloadImage(heroCold);
     preloadImage(heroInterior);
+    preloadImage(lpWoman);
+    preloadImage(lpTruck);
   }, []);
 
   return (
