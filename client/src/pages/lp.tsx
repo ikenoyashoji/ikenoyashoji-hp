@@ -27,8 +27,8 @@ function Scene({ children, opacity, y = 0, scale = 1, className = "" }: { childr
   return <motion.div style={{ opacity, y, scale }} className={`pointer-events-none absolute inset-0 flex ${className}`}>{children}</motion.div>;
 }
 
-function BackdropWord({ children, blue = false }: { children: React.ReactNode; blue?: boolean }) {
-  return <p aria-hidden="true" style={{ WebkitTextStroke: `1px ${blue ? "rgba(7, 88, 200, .7)" : "rgba(255, 255, 255, .7)"}`, color: "transparent" }} className="absolute right-[3vw] top-[27%] whitespace-nowrap text-right font-serif text-[clamp(4.5rem,18vw,18rem)] leading-none tracking-[-.1em] opacity-20">
+function BackdropWord({ children, blue = false, large = false }: { children: React.ReactNode; blue?: boolean; large?: boolean }) {
+  return <p aria-hidden="true" style={{ WebkitTextStroke: `1px ${blue ? "rgba(7, 88, 200, .7)" : "rgba(255, 255, 255, .7)"}`, color: "transparent" }} className={`absolute right-[3vw] whitespace-nowrap text-right font-serif leading-none tracking-[-.1em] opacity-20 ${large ? "top-[20%] text-[clamp(6rem,24vw,24rem)]" : "top-[27%] text-[clamp(4.5rem,18vw,18rem)]"}`}>
     {children}
   </p>;
 }
@@ -81,7 +81,7 @@ export default function Lp() {
           <div className="fixed bottom-6 left-5 right-5 [&>a]:flex [&>a]:w-full [&>a]:justify-between md:hidden"><PhoneAction location="mobile_fixed" /></div>
           <div className="fixed bottom-8 right-8 hidden md:block"><PhoneAction location="desktop_fixed" /></div>
         </motion.div>
-        <Scene opacity={s1} className="items-center px-5 pt-20 sm:px-[6vw]"><BackdropWord>MOVE</BackdropWord><div className="relative z-10 w-full -translate-y-[4vh]"><p className="font-mono text-[9px] tracking-[.3em]">01 / MOVE</p><h1 className="-ml-8 mt-10 max-w-6xl font-serif text-[clamp(5rem,16vw,16rem)] leading-[.82] tracking-[-.12em] sm:-ml-[4vw]">運ぶ。</h1></div></Scene>
+        <Scene opacity={s1} className="items-center px-5 pt-20 sm:px-[6vw]"><BackdropWord large>MOVE</BackdropWord><div className="relative z-10 w-full -translate-y-[4vh]"><p className="font-mono text-[9px] tracking-[.3em]">01 / MOVE</p><h1 className="-ml-8 mt-10 max-w-6xl font-serif text-[clamp(5rem,16vw,16rem)] leading-[.82] tracking-[-.12em] sm:-ml-[4vw]">運ぶ。</h1></div></Scene>
         <Scene opacity={s2} className="items-center px-5 pt-20 sm:px-[6vw]"><BackdropWord>MISSING</BackdropWord><div className="relative z-10 w-full -translate-y-[7vh]"><p className="font-mono text-[9px] tracking-[.3em]">02 / PROBLEM</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3rem,11vw,11rem)] leading-[.86] tracking-[-.11em] sm:-ml-[4vw]">今日の<span className="sm:hidden"><br /></span>トラックが、<br /><span className="ml-[4vw]">見つからない。</span></h2></div></Scene>
         <Scene opacity={s3} className="items-center px-5 sm:px-[6vw]"><BackdropWord>ARRANGE</BackdropWord><div className="relative z-10 w-full -translate-y-[8vh]"><p className="font-mono text-[9px] tracking-[.3em]">03 / SOLUTION</p><h2 className="-ml-8 mt-10 font-serif text-[clamp(3rem,10vw,10rem)] leading-[.86] tracking-[-.11em] sm:-ml-[4vw]">電話一本で、<br /><span className="ml-[4vw]">トラック<span className="sm:hidden"><br /></span>手配します。</span></h2></div></Scene>
         <Scene opacity={s4} className="items-center bg-white px-5 text-[#0758c8] sm:px-[6vw]"><BackdropWord blue>ALWAYS</BackdropWord><div className="relative z-10 grid w-full grid-cols-[auto_1fr] gap-8"><p className="font-mono text-[9px] tracking-[.25em] [writing-mode:vertical-rl]">04 / ALWAYS ON</p><div><p className="font-mono text-[10px] tracking-[.3em] text-[#0758c8]/65">24 HOURS / NATIONWIDE</p><p className="-ml-8 mt-8 font-serif text-[clamp(4rem,14vw,14rem)] leading-[.8] tracking-[-.12em] sm:-ml-[5vw]">24<br /><span className="ml-[4vw]">HOURS</span></p></div></div></Scene>
